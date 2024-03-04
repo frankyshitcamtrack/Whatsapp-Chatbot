@@ -3,6 +3,7 @@ const { sendMessages } = require("../models/whatsapp.model")
 async function onSendMessages(req, res) {
   // Parse the request body from the POST
   let body = req.body;
+  console.log("test endpoint webhooks");
 
   // Check the Incoming webhook message
   console.log(JSON.stringify(req.body, null, 2));
