@@ -1,19 +1,10 @@
-
-"use strict";
-
-// Access token for your app
-// (copy token from DevX getting started page
-// and save it as environment variable into the .env file)
 const token = process.env.WHATSAPP_TOKEN;
 
 // Imports dependencies and set up http server
- 
-  express = require("express"),
-  body_parser = require("body-parser"),
-  axios = require("axios").default,
-  app = express().use(body_parser.json()); // creates express http server
-
-
+ const express = require("express");
+ const body_parser = require("body-parser");
+ const axios = require("axios").default;
+ const app = express().use(body_parser.json()); // creates express http server
 
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", (req, res) => {
