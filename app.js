@@ -12,6 +12,6 @@ app.use(express.json());
 
 
 // Accepts POST requests at /webhook endpoint
-app.post("/webhook", whatsappRouter);
+app.use("/webhook", whatsappRouter);
 
 

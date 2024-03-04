@@ -1,5 +1,8 @@
 const axios = require("axios");
-const token = process.env.WHATSAPP_TOKEN;
+const {developement}= require("../config/whatsappApi");
+
+
+const token = developement.whatsapp_token;
 
 async function sendMessages(phone_number_id,msg_body,from){
     axios({
