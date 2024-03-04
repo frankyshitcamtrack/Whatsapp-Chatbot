@@ -6,6 +6,8 @@ const token = process.env.WHATSAPP_TOKEN;
  const axios = require("axios").default;
  const app = express().use(body_parser.json()); // creates express http server
 
+ 
+
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", (req, res) => {
   // Parse the request body from the POST
