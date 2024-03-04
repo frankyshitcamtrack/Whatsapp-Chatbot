@@ -1,5 +1,5 @@
 {
-  "name": "whatsapp-cloudapi-quick-start",
+  "name": "whatsapp-cloudapi",
   "version": "1.0.0",
   "description": "An example webhook for WhatsApp Cloud API quick start tutorial.",
   "main": "app.js",
@@ -11,7 +11,11 @@
   "dependencies": {
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.18.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.0",
     "request": "^2.88.2"
   },
   "engines": {

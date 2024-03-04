@@ -1,9 +1,17 @@
-const express = require ("express");
+const http = require('http');
 
-const port = 8080;
+require('dotenv').config();
 
-express.listen(
-  port,()=>{
-      console.log("listening to port ${port}")
-  }
-)
+const app = require('./app');
+
+const PORT = process.env.PORT || 8000
+
+const server = http.createServer(app);
+
+async function startServer(){
+    server.listen(PORT,()=>(
+      console.log(`listen to port ${PORT}`)
+    )) 
+}
+
+startServer();
