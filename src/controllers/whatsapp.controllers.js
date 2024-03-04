@@ -1,7 +1,5 @@
 const {sendMessages} =require("../models/whatsapp.model")
 
-
-
 async function onSendMessages(req, res) {
     // Parse the request body from the POST
     let body = req.body;

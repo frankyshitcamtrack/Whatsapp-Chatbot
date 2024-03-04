@@ -1,17 +1,18 @@
-const token = process.env.WHATSAPP_TOKEN;
+const { onSendMessages, onVerification } = require("./src/controllers/whatsapp.controllers");
 
-// Imports dependencies and set up http server
- const express = require("express");
- const body_parser = require("body-parser");
- const { onSendMessages, onVerification } = require("./src/controllers/whatsapp.controllers");
- 
- const app = express().use(body_parser.json()); // creates express http server
 
- 
+const morgan = require('morgan')
 
-// Accepts POST requests at /webhook endpoint
-app.post("/webhook",onSendMessages);
+const express = require("express");
+const whatsappRouter = require("./src/routes/whatsapp.route");
 
-// Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
-// info on verification request payload: https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests 
-app.get("/webhook",onVerification);
+
+
+const app = express();
+
+app.use(morgan('combined'));
+
+app.use(express.json());
+
+
+app.use("/webhook",whatsappRouter);
