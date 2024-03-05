@@ -1,11 +1,11 @@
 const axios = require("axios");
 const { developement } = require("../config/whatsappApi");
 const phoneFormat = require("../utils/fortmat-phone")
-
+const {textMessage,messageList} = require("../data/template-massages")
 
 const token = developement.whatsapp_token;
 
-function sendMessages(phone_number_id, msg_body, from) {
+function sendMessages(phone_number_id, from) {
   const phone = phoneFormat(from);
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
@@ -16,7 +16,7 @@ function sendMessages(phone_number_id, msg_body, from) {
     recipient_type: "individual",      
     to: phone,    
     "type": "text",     
-    "text": { preview_url: false, body: msg_body }
+    "text": { preview_url: false, body:textMessage.message }
   },
     headers: { "Content-Type": "application/json"},
   }).then((response) => {

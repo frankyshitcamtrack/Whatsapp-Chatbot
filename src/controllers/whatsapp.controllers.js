@@ -1,4 +1,5 @@
 const { sendMessages } = require("../models/whatsapp.model")
+const {textMessage,messageList} = require("../data/template-massages")
 
 function onSendMessages(req, res) {
   // Parse the request body from the POST
@@ -19,9 +20,9 @@ function onSendMessages(req, res) {
       let phone_number_id =
         req.body.entry[0].changes[0].value.metadata.phone_number_id;
       let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
-      let msg_body = "welcome to camtrack please select your service"; // extract the message text from the webhook payload
+        // extract the message text from the webhook payload
 
-      sendMessages(phone_number_id, msg_body, from)
+      sendMessages(phone_number_id,from);
 
     }
     res.json(200);
