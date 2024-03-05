@@ -13,9 +13,7 @@ function sendMessages(phone_number_id, msg_body, from) {
     to: from,
     text: { body: "Ack: " + msg_body },
   })
-    .then((response) => {
-      console.log(response);
-    }).catch(error=>{
+    .catch(error=>{
       console.log(error)
     });
   
