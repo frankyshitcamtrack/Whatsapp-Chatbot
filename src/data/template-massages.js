@@ -53,7 +53,21 @@ const messageList ={
 
 const textMessage= {
     type:"text",
-    message:"welcome to camtrack please select your service"
+    message:{
+        "header": {
+            "type": "text",
+            "text": "Welcome to Camtrack to Camtrack ✨😃"
+          }, 
+          "body": {
+            "text": `let us know how we can help you today by choosing from the folowing options:
+             
+            -press 1 for vehicule🚗 Location
+
+            -press 2 to schedule a meeting
+            `
+          },
+
+    }
 
 }
 

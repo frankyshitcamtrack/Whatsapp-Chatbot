@@ -1,5 +1,5 @@
 const { sendMessages } = require("../models/whatsapp.model")
-const {textMessage,messageList} = require("../data/template-massages")
+
 
 function onSendMessages(req, res) {
   // Parse the request body from the POST
