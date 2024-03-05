@@ -1,5 +1,5 @@
 const morgan = require('morgan')
-// Imports dependencies and set up http server
+
 const express = require("express");
 
 const body_parser = require("body-parser");
@@ -17,7 +17,6 @@ app.use(express.json());
 
 
 
-// Accepts POST requests at /webhook endpoint
 app.use("/webhook", whatsappRouter);
 
 
