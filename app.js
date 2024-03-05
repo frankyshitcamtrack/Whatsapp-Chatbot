@@ -1,3 +1,9 @@
+"use strict";
+
+ 
+// Imports dependencies and set up http server
+const request = require("request");
+
 const morgan = require('morgan')
 // Imports dependencies and set up http server
 
@@ -14,7 +20,7 @@ app.use(express.json());
 
 
 // Accepts POST requests at /webhook endpoint
-app.use("/webhook", whatsappRouter);
+//app.use("/webhook", whatsappRouter);
 
 app.get("/webhook", (req, res) => {
     /**
