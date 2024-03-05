@@ -3,9 +3,10 @@ const { sendMessages } = require("../models/whatsapp.model")
 async function onSendMessages(req, res) {
   // Parse the request body from the POST
   let body = req.body;
+
   console.log("test post")
   // Check the Incoming webhook message
-  console.log(JSON.stringify(req.body, null, 2));
+  console.log(JSON.stringify(body, null, 2));
 
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
@@ -33,14 +34,12 @@ async function onSendMessages(req, res) {
 
 
 async function onVerification(req, res) {
-  console.log("test get")
+
   /**
    * UPDATE YOUR VERIFY TOKEN
    *This will be the Verify Token value when you set up webhook
   **/
   const verify_token = process.env.VERIFY_TOKEN;
-
-  console.log(verify_token);
 
   // Parse params from the webhook verification request
   let mode = req.query["hub.mode"];
