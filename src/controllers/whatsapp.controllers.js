@@ -3,7 +3,7 @@ const { sendMessages } = require("../models/whatsapp.model")
 async function onSendMessages(req, res) {
   // Parse the request body from the POST
   let body = req.body;
-
+  console.log("test");
   // Check the Incoming webhook message
   console.log(JSON.stringify(req.body, null, 2));
 
@@ -32,6 +32,7 @@ async function onSendMessages(req, res) {
 }
 
 async function onVerification(req, res) {
+  console.log("test");
   /**
    * UPDATE YOUR VERIFY TOKEN
    *This will be the Verify Token value when you set up webhook
