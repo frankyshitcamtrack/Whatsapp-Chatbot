@@ -9,7 +9,7 @@ whatsappRouter.post('/',onSendMessages);
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
 // info on verification request payload: https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests 
-//whatsappRouter.get('/',onVerification);
+whatsappRouter.get('/',onVerification);
  
 
 module.exports= whatsappRouter;
