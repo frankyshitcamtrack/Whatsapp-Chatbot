@@ -2,9 +2,9 @@
   "name": "whatsapp-cloudapi",
   "version": "1.0.0",
   "description": "An webhook for WhatsApp Cloud API",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "author": "WhatsApp",
   "license": "ISC",
