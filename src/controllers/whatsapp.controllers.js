@@ -1,6 +1,6 @@
 const { sendMessages } = require("../models/whatsapp.model")
 
-async function onSendMessages(req, res) {
+function onSendMessages(req, res) {
   // Parse the request body from the POST
   let body = req.body;
 
@@ -22,7 +22,7 @@ async function onSendMessages(req, res) {
       let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
       let msg_body = req.body.entry[0].changes[0].value.messages[0].text.body; // extract the message text from the webhook payload
 
-      await sendMessages(phone_number_id, msg_body, from)
+      sendMessages(phone_number_id, msg_body, from)
 
     }
     res.json(200);
@@ -33,7 +33,7 @@ async function onSendMessages(req, res) {
 }
 
 
-async function onVerification(req, res) {
+function onVerification(req, res) {
 
   /**
    * UPDATE YOUR VERIFY TOKEN
