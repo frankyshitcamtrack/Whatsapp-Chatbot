@@ -15,8 +15,8 @@ function sendMessages(phone_number_id, from) {
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
     to: phone,    
-    "type": "text",     
-    "text": { preview_url: false, body:textMessage.message }
+    "type": messageList.type,     
+    "interactive":messageList.interactive
   },
     headers: { "Content-Type": "application/json"},
   }).then((response) => {

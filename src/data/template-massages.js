@@ -52,6 +52,7 @@ const messageList ={
 
 
 const textMessage= {
+    type:"text",
     message:"welcome to camtrack please select your service"
 
 }
