@@ -57,4 +57,12 @@ const textMessage= {
     "-press 2 to schedule a meeting with a technical member"
     }         
 }
-module.exports ={messageList,textMessage}
+
+const textMessage2= {
+    type:"text",
+    text:{preview_url: false,body: "location is ....."
+    }         
+}
+
+
+module.exports ={messageList,textMessage,textMessage2}
