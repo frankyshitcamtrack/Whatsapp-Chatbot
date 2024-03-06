@@ -1,10 +1,8 @@
-const morgan = require('morgan')
+const morgan = require("morgan")
+const cors = require("cors")
 // Imports dependencies and set up http server
-
-const body_parser = require('body-parser')
-
 const express = require("express");
-
+const bodyParser = require("body-parser");
 
 const whatsappRouter = require("./src/routes/whatsapp.route");
 
@@ -16,7 +14,8 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 app.use(morgan('combined'));
 
-app.use(body_parser.json());
+app.use(cors());
+app.use(bodyParser.json());
 
 
 // Accepts POST requests at /webhook endpoint
