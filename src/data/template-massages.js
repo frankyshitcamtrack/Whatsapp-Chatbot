@@ -53,11 +53,8 @@ const messageList ={
 
 const textMessage= {
     type:"text",
-    text:{preview_url: false,body: " Welcome to Camtrack to Camtrack ✨😃 let us know how we can help you today by choosing from the folowing options:"+
-             
-    "-press 1 for vehicule🚗 Location " +
-
-    "-press 2 to schedule a meeting"
+    text:{preview_url: false,body: " Welcome to Camtrack ✨😃\n Let us know how we can help you today by choosing from the folowing options:\n"+"- press 1 for vehicule🚗 Location\n"+
+    "-press 2 to schedule a meeting with a technical member"
     }         
 }
 module.exports ={messageList,textMessage}

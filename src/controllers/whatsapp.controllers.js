@@ -1,4 +1,4 @@
-const { sendMessages } = require("../models/whatsapp.model")
+const { sendMessages,sendInteraction } = require("../models/whatsapp.model")
 const phoneFormat = require("../utils/fortmat-phone")
 const {textMessage,messageList} = require("../data/template-massages")
 
@@ -26,7 +26,7 @@ function onSendMessages(req, res) {
       
         //format phone number
       const phone = phoneFormat(from);
-      
+
       sendMessages(phone_number_id,phone,textMessage.text);
 
     }
