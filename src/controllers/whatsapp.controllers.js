@@ -27,12 +27,13 @@ function onSendMessages(req, res) {
         //format phone number
       const phone = phoneFormat(from);
 
+
+
       sendMessages(phone_number_id,phone,textMessage.text);
 
     }
     res.json(200);
-  } else {
-    // Return a '404 Not Found' if event is not from a WhatsApp API
+  }  else{
     res.sendStatus(404);
   }
 }
