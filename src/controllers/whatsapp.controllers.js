@@ -21,7 +21,7 @@ function onSendMessages(req, res) {
     req.body.entry[0].changes &&
     req.body.entry[0].changes[0] &&
     req.body.entry[0].changes[0].value.messages &&
-    req.body.entry[0].changes[0].value.messages[0].text.body=="1"){
+    req.body.entry[0].changes[0].value.messages[0].text.body===1){
     sendMessages(phone_number_id, phone, textMessage2.text);
     res.json(200);
   }
