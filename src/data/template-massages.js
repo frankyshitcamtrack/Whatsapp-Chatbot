@@ -1,4 +1,4 @@
-const getFakeData = require("../services/mock")
+const {getFakeData}  = require("../services/mock")
 
 const messageList ={
     type: "interactive",
