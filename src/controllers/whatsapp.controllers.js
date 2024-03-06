@@ -10,18 +10,14 @@ function onSendMessages(req, res) {
 
   //format phone number
   const phone = phoneFormat(from);
-  if(req.body && req.body.entry){
+  if(req.body.entry[0].changes[0].value.messages[0].text.body!==1){
    const text= req.body.entry[0].changes[0].value.messages[0].text.body
    console.log(text);
     // Check the Incoming webhook message
     console.log(JSON.stringify(req.body, null, 2));
     sendMessages(phone_number_id, phone, textMessage.text);
     res.json(200);
-  }else if(req.body && req.body.entry && req.body.entry &&
-    req.body.entry[0].changes &&
-    req.body.entry[0].changes[0] &&
-    req.body.entry[0].changes[0].value.messages &&
-    req.body.entry[0].changes[0].value.messages[0].text.body===1){
+  }else if(req.body.entry[0].changes[0].value.messages[0].text.body===1){
     sendMessages(phone_number_id, phone, textMessage2.text);
     res.json(200);
   }
