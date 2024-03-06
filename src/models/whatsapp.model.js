@@ -3,7 +3,7 @@ const { developement } = require("../config/whatsappApi");
 
 const token = developement.whatsapp_token;
 
-function sendMessages(phone_number_id, phone,type,message) {
+function sendMessages(phone_number_id, phone, message) {
 
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
@@ -13,8 +13,8 @@ function sendMessages(phone_number_id, phone,type,message) {
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
     to: phone,    
-    "type": type,     
-    type:message
+    "type": "text",     
+     type:message
   },
     headers: { "Content-Type": "application/json"},
   }).then((response) => {
