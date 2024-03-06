@@ -13,10 +13,10 @@ function onSendMessages(req, res) {
   const phone = phoneFormat(from);
   const text =req.body.entry[0].changes[0].value.messages[0].text.body;
   if(text){
-    sendMessages(phone_number_id, phone, textMessage.text);
-    res.json(200);
-  }else if(text && text===1){
     sendMessages(phone_number_id, phone, textMessage2.text);
+    res.json(200);
+  }else if(text===1){
+    sendMessages(phone_number_id, phone, textMessage.text);
     res.json(200);
   }
   else{
