@@ -24,7 +24,7 @@ function onSendMessages(req, res) {
       const phone = phoneFormat(from);
 
       if (req.body.entry[0].changes[0].value.messages[0].text.body === "1") {
-        sendMessages(phone_number_id, phone, serverMessage.text);
+        sendMessages(phone_number_id, phone,serverMessage.text);
       }
       else if (req.body.entry[0].changes[0].value.messages[0].text.body === "2") {
         sendMessages(phone_number_id, phone, textMessage3.text);

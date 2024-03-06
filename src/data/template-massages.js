@@ -72,9 +72,9 @@ const textMessage3= {
     }         
 }
 
-const serverMessage={
-    type:"text",
-    text:{preview_url: false,body: getFakeData} 
+const serverMessage =()=>{
+    const getData = getFakeData();
+    return {type:"text",text:{preview_url: false,body: getData}}         
 }
 
 
