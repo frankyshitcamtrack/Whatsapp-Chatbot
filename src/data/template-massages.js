@@ -76,8 +76,7 @@ const serverMessage =()=>{
     getFakeData().then(res=>text=res.data[0]).catch(err => this.error=err);
     if(text){
         return {preview_url: false,body: text}  
-    }
-          
+    }       
 }
 
 

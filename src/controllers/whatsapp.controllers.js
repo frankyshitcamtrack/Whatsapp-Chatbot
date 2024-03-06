@@ -26,7 +26,10 @@ function onSendMessages(req, res) {
 
       if (req.body.entry[0].changes[0].value.messages[0].text.body === "1") {
         const message = serverMessage();
-        sendMessages(phone_number_id, phone,message);
+        if(message){
+          sendMessages(phone_number_id, phone,message);
+        }
+        
       }
       else if (req.body.entry[0].changes[0].value.messages[0].text.body === "2") {
         sendMessages(phone_number_id, phone, textMessage3.text);
