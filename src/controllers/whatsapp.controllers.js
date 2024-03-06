@@ -4,19 +4,28 @@ const { textMessage, messageList, textMessage2 } = require("../data/template-mas
 
 
 function onSendMessages(req, res) {
+  let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
+  let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
+  // extract the message text from the webhook payload
+
+  //format phone number
+  const phone = phoneFormat(from);
   if(req.body && req.body.entry){
-    console.log("test");
+   const text= req.body.entry[0].changes[0].value.messages[0].text.body
+   console.log(text);
     // Check the Incoming webhook message
     console.log(JSON.stringify(req.body, null, 2));
-    let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
-    let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
-    // extract the message text from the webhook payload
-
-    //format phone number
-    const phone = phoneFormat(from);
     sendMessages(phone_number_id, phone, textMessage.text);
     res.json(200);
-  }else{
+  }else if(req.body && req.body.entry && req.body.entry &&
+    req.body.entry[0].changes &&
+    req.body.entry[0].changes[0] &&
+    req.body.entry[0].changes[0].value.messages &&
+    req.body.entry[0].changes[0].value.messages[0].text.body=="1"){
+    sendMessages(phone_number_id, phone, textMessage2.text);
+    res.json(200);
+  }
+  else{
     res.sendStatus(404);
   }
 }
