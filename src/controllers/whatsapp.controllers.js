@@ -1,6 +1,7 @@
 const { sendMessages, sendInteraction } = require("../models/whatsapp.model")
 const phoneFormat = require("../utils/fortmat-phone")
-const { textMessage, messageList, textMessage2,textMessage3,serverMessage } = require("../data/template-massages")
+const { textMessage, messageList, textMessage2,textMessage3, serverMessage} = require("../data/template-massages")
+const {getFakeData} = require("../services/mock")
 
 
 function onSendMessages(req, res) {
@@ -24,7 +25,8 @@ function onSendMessages(req, res) {
       const phone = phoneFormat(from);
 
       if (req.body.entry[0].changes[0].value.messages[0].text.body === "1") {
-        sendMessages(phone_number_id, phone,serverMessage.text);
+        const message = serverMessage();
+        sendMessages(phone_number_id, phone,message);
       }
       else if (req.body.entry[0].changes[0].value.messages[0].text.body === "2") {
         sendMessages(phone_number_id, phone, textMessage3.text);
