@@ -4,7 +4,6 @@ const {textMessage,messageList,textMessage2} = require("../data/template-massage
 
 
 function onSendMessages(req, res) {
-  let body = req.body;
   console.log("test");
   // Check the Incoming webhook message
   console.log(JSON.stringify(req.body, null, 2));
@@ -28,17 +27,16 @@ function onSendMessages(req, res) {
 
       sendMessages(phone_number_id,phone,textMessage.text);
 
+    }else if(req.body.entry &&
+      req.body.entry[0].changes &&
+      req.body.entry[0].changes[0] &&
+      req.body.entry[0].changes[0].value.messages &&
+      req.body.entry[0].changes[0].value.messages[0] && req.body.entry[0].changes[0].value.messages[0].text.body==="1"){
+       sendMessages(phone_number_id,phone,textMessage2.text);
+       
     }
     res.json(200);
-  } else if(  req.body.entry &&
-    req.body.entry[0].changes &&
-    req.body.entry[0].changes[0] &&
-    req.body.entry[0].changes[0].value.messages &&
-    req.body.entry[0].changes[0].value.messages[0] && req.body.entry[0].changes[0].value.messages[0].text.body==="1"){
-     sendMessages(phone_number_id,phone,textMessage2.text);
-     res.json(200);
-  }
-
+  } 
    else{
     res.sendStatus(404);
   }
