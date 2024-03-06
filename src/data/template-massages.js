@@ -58,13 +58,6 @@ const textMessage= {
     "-press 1 for vehicule🚗 Location " +
 
     "-press 2 to schedule a meeting"
-    }  
-
-        
-    
-  
-
+    }         
 }
-
-
 module.exports ={messageList,textMessage}

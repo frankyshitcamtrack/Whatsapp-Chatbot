@@ -1,10 +1,12 @@
 const { sendMessages } = require("../models/whatsapp.model")
+const phoneFormat = require("../utils/fortmat-phone")
+const {textMessage,messageList} = require("../data/template-massages")
 
 
 function onSendMessages(req, res) {
   // Parse the request body from the POST
   let body = req.body;
-
+  
   // Check the Incoming webhook message
   console.log(JSON.stringify(body, null, 2));
 
@@ -21,8 +23,11 @@ function onSendMessages(req, res) {
         req.body.entry[0].changes[0].value.metadata.phone_number_id;
       let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
         // extract the message text from the webhook payload
+      
+        //format phone number
+      let phone = phoneFormat(from);
 
-      sendMessages(phone_number_id,from);
+      sendMessages(phone_number_id,phone,textMessage.type,textMessage.text);
 
     }
     res.json(200);
