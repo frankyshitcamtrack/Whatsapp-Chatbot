@@ -10,12 +10,7 @@ function onSendMessages(req, res) {
 
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
-    let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
-    let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
-    // extract the message text from the webhook payload
 
-    //format phone number
-    const phone = phoneFormat(from);
     if (
       req.body.entry &&
       req.body.entry[0].changes &&
@@ -23,16 +18,27 @@ function onSendMessages(req, res) {
       req.body.entry[0].changes[0].value.messages &&
       req.body.entry[0].changes[0].value.messages[0]
     ) {
-    
+      let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
+      let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
+      // extract the message text from the webhook payload
+
+      //format phone number
+      const phone = phoneFormat(from);
       sendMessages(phone_number_id, phone, textMessage.text);
 
-    }else if(req.body.entry &&
+    } else if (req.body.entry &&
       req.body.entry[0].changes &&
       req.body.entry[0].changes[0] &&
       req.body.entry[0].changes[0].value.messages &&
-      req.body.entry[0].changes[0].value.messages[0] && req.body.entry[0].changes[0].value.messages[0].text.body==="1"){
-      sendMessages(phone_number_id,phone,textMessage2.text);
-       
+      req.body.entry[0].changes[0].value.messages[0] && req.body.entry[0].changes[0].value.messages[0].text.body === "1") {
+      let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
+      let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
+      // extract the message text from the webhook payload
+
+      //format phone number
+      const phone = phoneFormat(from);
+      sendMessages(phone_number_id, phone, textMessage2.text);
+
     }
     res.json(200);
   }
