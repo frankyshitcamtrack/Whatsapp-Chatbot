@@ -13,8 +13,8 @@ function sendMessages(phone_number_id, phone, message) {
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
     to: phone,    
-    "type": "TEXT",     
-     type:message
+    "type": "text",     
+    "text":message
   },
     headers: { "Content-Type": "application/json"},
   }).then((response) => {
