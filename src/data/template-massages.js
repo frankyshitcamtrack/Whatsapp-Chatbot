@@ -68,14 +68,16 @@ const textMessage2= {
 
 const textMessage3= {
     type:"text",
-    text:{preview_url: false,body: "A technical member will contact you soon"
-    }         
+    text:{preview_url: false,body: "A technical member will contact you soon"}         
 }
 
 const serverMessage =()=>{
     let text=''
     getFakeData().then(res=>text=res.data[0]).catch(err => this.error=err);
-    return {preview_url: false,body: text}         
+    if(text){
+        return {preview_url: false,body: text}  
+    }
+          
 }
 
 
