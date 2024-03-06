@@ -1,7 +1,7 @@
 const { sendMessages, sendInteraction } = require("../models/whatsapp.model")
 const phoneFormat = require("../utils/fortmat-phone")
 const { textMessage, messageList, textMessage2,textMessage3, serverMessage} = require("../data/template-massages")
-const {getFakeData} = require("../services/mock")
+
 
 
 function onSendMessages(req, res) {

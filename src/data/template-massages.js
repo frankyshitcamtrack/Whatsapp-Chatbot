@@ -71,7 +71,7 @@ const textMessage3= {
     text:{preview_url: false,body: "A technical member will contact you soon"}         
 }
 
-const serverMessage =()=>{
+function serverMessage(){
     let text=''
     getFakeData().then(res=>text=res.data[0]).catch(err => this.error=err);
     console.log(text);
