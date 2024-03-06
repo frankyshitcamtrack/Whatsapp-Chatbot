@@ -25,7 +25,7 @@ function onSendMessages(req, res) {
         // extract the message text from the webhook payload
       
         //format phone number
-      let phone = phoneFormat(from);
+      const phone = phoneFormat(from);
 
       sendMessages(phone_number_id,phone,textMessage.type,textMessage.text);
 

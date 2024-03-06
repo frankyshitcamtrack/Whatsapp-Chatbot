@@ -4,7 +4,7 @@ const { developement } = require("../config/whatsappApi");
 const token = developement.whatsapp_token;
 
 function sendMessages(phone_number_id, phone,type,message) {
-  const phone = phoneFormat(from);
+
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
