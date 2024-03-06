@@ -4,7 +4,7 @@ const { textMessage, messageList, textMessage2,textMessage3, serverMessage} = re
 
 
 
-function onSendMessages(req, res) {
+async function onSendMessages(req, res) {
   console.log("test");
   // Check the Incoming webhook message
   console.log(JSON.stringify(req.body, null, 2));
@@ -25,11 +25,11 @@ function onSendMessages(req, res) {
       const phone = phoneFormat(from);
 
       if (req.body.entry[0].changes[0].value.messages[0].text.body === "1") {
-        const message = serverMessage();
+        const message = await serverMessage();
         if(message){
           sendMessages(phone_number_id, phone,message);
         }
-        
+       
       }
       else if (req.body.entry[0].changes[0].value.messages[0].text.body === "2") {
         sendMessages(phone_number_id, phone, textMessage3.text);
