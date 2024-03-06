@@ -16,7 +16,7 @@ function sendMessages(phone_number_id, from) {
     recipient_type: "individual",      
     to: phone,    
     "type": textMessage.type,     
-    "text":textMessage.message
+    "text":textMessage.text
   },
     headers: { "Content-Type": "application/json"},
   }).then((response) => {
