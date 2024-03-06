@@ -1,3 +1,5 @@
+const getFakeData = require("../services/mock")
+
 const messageList ={
     type: "interactive",
     interactive: {
@@ -64,5 +66,16 @@ const textMessage2= {
     }         
 }
 
+const textMessage3= {
+    type:"text",
+    text:{preview_url: false,body: "A technical member will contact you soon"
+    }         
+}
 
-module.exports ={messageList,textMessage,textMessage2}
+const serverMessage={
+    type:"text",
+    text:{preview_url: false,body: getFakeData()} 
+}
+
+
+module.exports ={messageList,textMessage,textMessage2,textMessage3,serverMessage}
