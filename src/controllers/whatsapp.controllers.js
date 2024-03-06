@@ -4,25 +4,33 @@ const { textMessage, messageList, textMessage2 } = require("../data/template-mas
 
 
 function onSendMessages(req, res) {
-  console.log(req.body);
-  let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id; // extract the phone number from the webhook payload
-  let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the message text from the webhook payload
-  
+  console.log("test");
+  // Check the Incoming webhook message
+  console.log(JSON.stringify(req.body, null, 2));
 
-  //format phone number
-  const phone = phoneFormat(from);
-  const text =req.body.entry[0].changes[0].value.messages[0].text.body;
-  switch(text) {
-    case 1:
-      sendMessages(phone_number_id, phone, textMessage2.text);
-      break;
-    case 2:
-       
-      break;
-    default:
+  // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
+  if (req.body.object) {
+    if (
+      req.body.entry &&
+      req.body.entry[0].changes &&
+      req.body.entry[0].changes[0] &&
+      req.body.entry[0].changes[0].value.messages &&
+      req.body.entry[0].changes[0].value.messages[0]
+    ) {
+      let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
+      let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
+      // extract the message text from the webhook payload
+
+      //format phone number
+      const phone = phoneFormat(from);
       sendMessages(phone_number_id, phone, textMessage.text);
+
+    } 
+    res.json(200);
   }
-  
+  else {
+    res.sendStatus(404);
+  }
 }
 
 
