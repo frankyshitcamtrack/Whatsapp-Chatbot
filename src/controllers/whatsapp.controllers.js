@@ -1,9 +1,10 @@
 const { sendMessages, sendLocation } = require("../models/whatsapp.model")
 const phoneFormat = require("../utils/fortmat-phone")
-const { textMessage, Location ,textMessage3, serverMessage,askImmatriculation,validMatricul,getLocation} = require("../data/template-massages")
+const { scheduleMeeting,textMessage, Location ,textMessage3, serverMessage,askImmatriculation,validMatricul,getLocation} = require("../data/template-massages")
 
 
 let previewMessage='';
+let scheduleMessageSent = false
 
 async function onSendMessages(req, res) {
 
@@ -21,14 +22,15 @@ async function onSendMessages(req, res) {
     ) {
       let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone number from the webhook payload
       let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the message text from the webhook payload
-
+      let body =req.body.entry[0].changes[0].value.messages[0].text.body;
+      let name =req.body.entry[0].changes[0].value.contacts[0].profile.name;
       //format phone number
       const phone = phoneFormat(from);
-      if (req.body.entry[0].changes[0].value.messages[0].text.body === "1" && previewMessage==="") {
+      if (body === "1" && previewMessage==="") {
           previewMessage = req.body.entry[0].changes[0].value.messages[0].text.body;
           sendMessages(phone_number_id, phone,askImmatriculation.text);
       }
-      else if(req.body.entry[0].changes[0].value.messages[0].text.body === "LT3307" && previewMessage==="1"){
+      else if(body === "LT3307" && previewMessage==="1"){
         const matricul =req.body.entry[0].changes[0].value.messages[0].text.body
         const location = getLocation(matricul);
         if(location){
@@ -36,13 +38,23 @@ async function onSendMessages(req, res) {
           previewMessage="";
         }
       } 
-      else if(req.body.entry[0].changes[0].value.messages[0].text.body !== "LT3307" && previewMessage==="1"){
+      else if(body !== "LT3307" && previewMessage==="1"){
         sendMessages(phone_number_id, phone, validMatricul.text);
       } 
-      else if (req.body.entry[0].changes[0].value.messages[0].text.body === "2") {
+      else if (body === "2" && previewMessage==="") {
+        previewMessage=body;
         sendMessages(phone_number_id, phone, textMessage3.text);
-      } 
-      else if (req.body.entry[0].changes[0].value.messages[0].text.body === "0" && previewMessage==="1" ) {
+        scheduleMessageSent=true;
+        
+      } else if (previewMessage==="2" && scheduleMessageSent===true){
+        const visit = scheduleMeeting(body,name);
+        if(visit){
+          sendMessages(phone_number_id, phone,visit);
+        }
+        previewMessage="";
+        scheduleMessageSent=false;
+      }
+      else if (body === "0" && previewMessage==="1" ) {
         sendMessages(phone_number_id, phone, textMessage.text);
         previewMessage=""
       }
@@ -50,7 +62,6 @@ async function onSendMessages(req, res) {
         sendMessages(phone_number_id, phone, textMessage.text);
       }
     }
-
     res.json(200);
   }
   else {

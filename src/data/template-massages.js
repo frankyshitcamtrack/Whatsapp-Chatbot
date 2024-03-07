@@ -56,8 +56,8 @@ const messageList = {
 const textMessage = {
     type: "text",
     text: {
-        preview_url: false, body: " Welcome to Camtrack ✨😃\n \n Let us know how we can help you today by choosing from the folowing options:\n" + "- press 1 for vehicule🚗 Location \n" +
-            "-press 2 to schedule a meeting with a technical member"
+        preview_url: false, body: " Welcome to Camtrack ✨😃\n \n Let us know how we can help you today by choosing from the folowing options:\n" + "- Press 1 for vehicule🚗 Location \n" +
+            "- Press 2 Request a visit with a member"
     }
 }
 
@@ -70,7 +70,7 @@ const textMessage2 = {
 
 const textMessage3 = {
     type: "text",
-    text: { preview_url: false, body: "A technical member will contact you soon" }
+    text: { preview_url: false, body: "Please enter the specifique Date and time you would like the visite to take place" }
 }
 
 const askImmatriculation = {
@@ -107,5 +107,9 @@ function getLocation(matricul){
     }
 }
 
+function scheduleMeeting(time,name){
+    return {type: "text",text: { preview_url: false, body:`Thanks M. ${name} for scheduling the visit at ${time} a Technical member will contact you soon for confirmation`}}
+}
 
-module.exports = { messageList, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation }
+
+module.exports = { scheduleMeeting,messageList, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation }
