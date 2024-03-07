@@ -100,10 +100,10 @@ async function serverMessage() {
 
 function getLocation(matricul){
     return {
-        "longitude": -122.425332,
-        "latitude": 37.758056,
+        "longitude": 9.786072,
+        "latitude": 4.061536,
         "name": `Camtrack Location for Matricule ${matricul} `,
-        "address": "1 Hacker Way, Menlo Park, CA 94025"
+        "address": "Douala"
     }
 }
 

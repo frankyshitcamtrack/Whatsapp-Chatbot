@@ -29,7 +29,8 @@ async function onSendMessages(req, res) {
           sendMessages(phone_number_id, phone,askImmatriculation.text);
          
       } else if(req.body.entry[0].changes[0].value.messages[0].text.body === "LT3307" && previewMessage==="1"){
-        const location = getLocation();
+        const matricul =req.body.entry[0].changes[0].value.messages[0].text.body
+        const location = getLocation(matricul);
         if(location){
           sendLocation(phone_number_id, phone,location);
           previewMessage="";
