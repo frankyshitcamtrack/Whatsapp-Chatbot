@@ -25,14 +25,6 @@ async function onSendMessages(req, res) {
       const phone = phoneFormat(from);
       if (req.body.entry[0].changes[0].value.messages[0].text.body === "1") {
         sendMessages(phone_number_id, phone,askImmatriculation);
-        
-        if(req.body.entry[0].changes[0].value.messages[0].text.body === "3307"){
-           const message = await serverMessage();
-           if(message){
-            sendMessages(phone_number_id, phone,message);
-           }   
-        } 
-       
       }
       else if (req.body.entry[0].changes[0].value.messages[0].text.body === "2") {
         sendMessages(phone_number_id, phone, textMessage3.text);
