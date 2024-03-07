@@ -24,7 +24,7 @@ async function onSendMessages(req, res) {
       //format phone number
       const phone = phoneFormat(from);
       if (req.body.entry[0].changes[0].value.messages[0].text.body === "1") {
-          if(req.body.entry[0].changes[0].value.messages[0].text.body === "1" && req.body.entry[0].changes[0].value.messages[0].text.body === "3307" ){
+          if(req.body.entry[0].changes[0].value.messages[0].text.body === "3307" ){
             const message = await serverMessage();
             if(message){
              sendMessages(phone_number_id, phone,message);
