@@ -1,6 +1,6 @@
 const { sendMessages, sendInteraction } = require("../models/whatsapp.model")
 const phoneFormat = require("../utils/fortmat-phone")
-const { textMessage, messageList, textMessage2,textMessage3, serverMessage,askImmatriculation} = require("../data/template-massages")
+const { textMessage, textMessage2,textMessage3, serverMessage,askImmatriculation,validMatricul} = require("../data/template-massages")
 
 
 
@@ -24,15 +24,16 @@ async function onSendMessages(req, res) {
       //format phone number
       const phone = phoneFormat(from);
       if (req.body.entry[0].changes[0].value.messages[0].text.body === "1") {
+        onSendMessages 
         sendMessages(phone_number_id, phone,askImmatriculation.text);
-        
-        if(req.body.entry[0].changes[0].value.messages[0].text.body === "3307"){
-           const message = await serverMessage();
-           if(message){
-            sendMessages(phone_number_id, phone,message);
-           }   
-        } 
-       
+          if(req.body.entry[0].changes[0].value.messages[0].text.body === "3307"){
+            const message = await serverMessage();
+            if(message){
+             sendMessages(phone_number_id, phone,message);
+            }   
+         }else{
+          sendMessages(phone_number_id, phone,validMatricul.text);
+         }
       }
       else if (req.body.entry[0].changes[0].value.messages[0].text.body === "2") {
         sendMessages(phone_number_id, phone, textMessage3.text);

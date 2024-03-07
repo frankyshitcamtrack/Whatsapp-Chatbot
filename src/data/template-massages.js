@@ -78,6 +78,11 @@ const askImmatriculation = {
     text: { preview_url: false, body: "Veuillez saisir votre immatriculation s'il vous plait" }
 }
 
+const validMatricul = {
+    type: "text",
+    text: { preview_url: false, body: "Veuillez saisir un numero de matricule correct" }
+}
+
 
 
 
@@ -89,4 +94,4 @@ async function serverMessage() {
 }
 
 
-module.exports = { messageList, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation }
+module.exports = { messageList, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul }
