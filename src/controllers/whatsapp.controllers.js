@@ -49,7 +49,7 @@ async function onSendMessages(req, res) {
       } else if (previewMessage==="2" && scheduleMessageSent===true){
         const visit = scheduleMeeting(body,name);
         if(visit){
-          sendMessages(phone_number_id, phone,visit);
+          sendMessages(phone_number_id, phone,visit.text);
         }
         previewMessage="";
         scheduleMessageSent=false;
