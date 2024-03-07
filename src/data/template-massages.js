@@ -100,10 +100,10 @@ async function serverMessage() {
 
 function getLocation(matricul){
     return {
-        "longitude": 9.786072,
-        "latitude": 4.061536,
+        "longitude": 9.7428,
+        "latitude": 4.0892,
         "name": `Camtrack Location for Matricule ${matricul} `,
-        "address": "Douala"
+        "address": "Douala,Bonamoussadi"
     }
 }
 
