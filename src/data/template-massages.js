@@ -75,12 +75,12 @@ const textMessage3 = {
 
 const askImmatriculation = {
     type: "text",
-    text: { preview_url: false, body: "Veuillez saisir votre immatriculation s'il vous plait" }
+    text: { preview_url: false, body: "Please enter your car registration number" }
 }
 
 const validMatricul = {
     type: "text",
-    text: { preview_url: false, body: "Veuillez saisir un numero de matricule correct" }
+    text: { preview_url: false, body: "Please enter a correct car registration number" }
 }
 
 const Location ={
