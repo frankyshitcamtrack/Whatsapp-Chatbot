@@ -38,7 +38,7 @@ async function onSendMessages(req, res) {
           previewMessage="";
         }
       } 
-      else if(body !== "LT3307" && previewMessage==="1"){
+      else if( body!=="0" && body !== "LT3307" && previewMessage==="1"){
         sendMessages(phone_number_id, phone, validMatricul.text);
       } 
       else if (body === "2" && previewMessage==="") {
@@ -54,7 +54,7 @@ async function onSendMessages(req, res) {
         previewMessage="";
         scheduleMessageSent=false;
       }
-      else if (body === "0" && previewMessage==="1" ) {
+      else if (body === "0" && previewMessage==="1") {
         sendMessages(phone_number_id, phone, textMessage.text);
         previewMessage=""
       }
