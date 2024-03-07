@@ -59,7 +59,7 @@ async function onSendMessages(req, res) {
         previewMessage=""
       }
       else if(body === "3" && previewMessage===""){
-        const message = await serverMessage();
+        let message = await serverMessage();
         if(message){
           sendMessages(phone_number_id, phone, message.text);
         }
