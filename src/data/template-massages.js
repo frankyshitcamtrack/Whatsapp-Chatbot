@@ -73,6 +73,14 @@ const textMessage3 = {
     text: { preview_url: false, body: "A technical member will contact you soon" }
 }
 
+const askImmatriculation = {
+    type: "text",
+    text: { preview_url: false, body: "Veuillez saisir votre immatriculation s'il vous plait" }
+}
+
+
+
+
 async function serverMessage() {
    const text= await getFakeData()
     .then(res => res.data[0])
@@ -81,4 +89,4 @@ async function serverMessage() {
 }
 
 
-module.exports = { messageList, textMessage, textMessage2, textMessage3, serverMessage }
+module.exports = { messageList, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation }

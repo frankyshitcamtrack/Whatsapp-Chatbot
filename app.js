@@ -15,9 +15,7 @@ const app = express();
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 app.use(morgan('combined'));
-serverMessage();
 
-console.log("test");
 
 app.use(cors());
 app.use(bodyParser.json());
