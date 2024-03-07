@@ -28,14 +28,18 @@ async function onSendMessages(req, res) {
           previewMessage = req.body.entry[0].changes[0].value.messages[0].text.body;
           sendMessages(phone_number_id, phone,askImmatriculation.text);
          
-      } else if(req.body.entry[0].changes[0].value.messages[0].text.body === "LT3307" && previewMessage==="1"){
+      }
+      else if(req.body.entry[0].changes[0].value.messages[0].text.body === "LT3307" && previewMessage==="1"){
         const matricul =req.body.entry[0].changes[0].value.messages[0].text.body
         const location = getLocation(matricul);
         if(location){
           sendLocation(phone_number_id, phone,location);
           previewMessage="";
         }
-      }  
+      } 
+      else if(req.body.entry[0].changes[0].value.messages[0].text.body !== "LT3307" && previewMessage==="1"){
+        sendMessages(phone_number_id, phone, validMatricul.text);
+      } 
       else if (req.body.entry[0].changes[0].value.messages[0].text.body === "2") {
         sendMessages(phone_number_id, phone, textMessage3.text);
       } 
