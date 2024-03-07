@@ -3,8 +3,10 @@ const phoneFormat = require("../utils/fortmat-phone")
 const { textMessage, textMessage2,textMessage3, serverMessage,askImmatriculation,validMatricul} = require("../data/template-massages")
 
 
+let previewMessage='';
 
 async function onSendMessages(req, res) {
+
   console.log("test");
   // Check the Incoming webhook message
   console.log(JSON.stringify(req.body, null, 2));
@@ -23,16 +25,18 @@ async function onSendMessages(req, res) {
 
       //format phone number
       const phone = phoneFormat(from);
-      if (req.body.entry[0].changes[0].value.messages[0].text.body === "1") {
-          if(req.body.entry[0].changes[0].value.messages[0].text.body === "3307" ){
-            const message = await serverMessage();
-            if(message){
-             sendMessages(phone_number_id, phone,message);
-            }   
-         }
-         else{
+      if (req.body.entry[0].changes[0].value.messages[0].text.body === "1" && previewMessage==="") {
+          previewMessage = req.body.entry[0].changes[0].value.messages[0].text.body;
+      
           sendMessages(phone_number_id, phone,askImmatriculation.text);
-         }
+         
+      } else if(req.body.entry[0].changes[0].value.messages[0].text.body === "3307" && previewMessage==="1"){
+        const message = await serverMessage();
+        if(message){
+         sendMessages(phone_number_id, phone,message);
+        }  
+      } else if(req.body.entry[0].changes[0].value.messages[0].text.body !== "3307" && previewMessage==="1"){
+        sendMessages(phone_number_id, phone,validMatricul.text);
       }
       else if (req.body.entry[0].changes[0].value.messages[0].text.body === "2") {
         sendMessages(phone_number_id, phone, textMessage3.text);
