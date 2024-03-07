@@ -101,7 +101,7 @@ function getLocation(matricul){
     return {
         "longitude": 9.7428,
         "latitude": 4.0892,
-        "name": `Camtrack Location for Matricule ${matricul} `,
+        "name": `Location for Matricule ${matricul} you can click on the image to view the full map `,
         "address": "Douala,Bonamoussadi"
     }
 }
