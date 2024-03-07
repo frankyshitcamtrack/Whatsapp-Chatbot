@@ -27,7 +27,6 @@ async function onSendMessages(req, res) {
       if (req.body.entry[0].changes[0].value.messages[0].text.body === "1" && previewMessage==="") {
           previewMessage = req.body.entry[0].changes[0].value.messages[0].text.body;
           sendMessages(phone_number_id, phone,askImmatriculation.text);
-         
       }
       else if(req.body.entry[0].changes[0].value.messages[0].text.body === "LT3307" && previewMessage==="1"){
         const matricul =req.body.entry[0].changes[0].value.messages[0].text.body
@@ -45,6 +44,7 @@ async function onSendMessages(req, res) {
       } 
       else if (req.body.entry[0].changes[0].value.messages[0].text.body === "0") {
         sendMessages(phone_number_id, phone, textMessage.text);
+        previewMessage=""
       }
       else{
         sendMessages(phone_number_id, phone, textMessage.text);

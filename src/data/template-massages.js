@@ -80,7 +80,7 @@ const askImmatriculation = {
 
 const validMatricul = {
     type: "text",
-    text: { preview_url: false, body: "Please enter a correct car registration number" }
+    text: { preview_url: false, body: "Please enter a correct car registration number or enter 0 for the Main menu" }
 }
 
 const Location ={
