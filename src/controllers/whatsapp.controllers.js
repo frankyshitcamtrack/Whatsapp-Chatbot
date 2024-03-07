@@ -1,15 +1,14 @@
-const { sendMessages, sendInteraction } = require("../models/whatsapp.model")
+const { sendMessages, sendLocation } = require("../models/whatsapp.model")
 const phoneFormat = require("../utils/fortmat-phone")
-const { textMessage, textMessage2,textMessage3, serverMessage,askImmatriculation,validMatricul} = require("../data/template-massages")
+const { textMessage, Location ,textMessage3, serverMessage,askImmatriculation,validMatricul,getLocation} = require("../data/template-massages")
 
 
 let previewMessage='';
 
 async function onSendMessages(req, res) {
 
-  console.log("test");
   // Check the Incoming webhook message
-  console.log(JSON.stringify(req.body, null, 2));
+  //console.log(JSON.stringify(req.body, null, 2));
 
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
@@ -27,20 +26,22 @@ async function onSendMessages(req, res) {
       const phone = phoneFormat(from);
       if (req.body.entry[0].changes[0].value.messages[0].text.body === "1" && previewMessage==="") {
           previewMessage = req.body.entry[0].changes[0].value.messages[0].text.body;
-      
           sendMessages(phone_number_id, phone,askImmatriculation.text);
          
-      } else if(req.body.entry[0].changes[0].value.messages[0].text.body === "3307" && previewMessage==="1"){
-        const message = await serverMessage();
-        if(message){
-         sendMessages(phone_number_id, phone,message);
-        }  
-      } else if(req.body.entry[0].changes[0].value.messages[0].text.body !== "3307" && previewMessage==="1"){
-        sendMessages(phone_number_id, phone,validMatricul.text);
-      }
+      } else if(req.body.entry[0].changes[0].value.messages[0].text.body === "LT3307" && previewMessage==="1"){
+        const location = getLocation();
+        if(location){
+          sendLocation(phone_number_id, phone,location);
+          previewMessage="";
+        }
+      }  
       else if (req.body.entry[0].changes[0].value.messages[0].text.body === "2") {
         sendMessages(phone_number_id, phone, textMessage3.text);
-      }else{
+      } 
+      else if (req.body.entry[0].changes[0].value.messages[0].text.body === "0") {
+        sendMessages(phone_number_id, phone, textMessage.text);
+      }
+      else{
         sendMessages(phone_number_id, phone, textMessage.text);
       }
     }

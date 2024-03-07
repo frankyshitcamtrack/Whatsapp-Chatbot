@@ -83,7 +83,12 @@ const validMatricul = {
     text: { preview_url: false, body: "Veuillez saisir un numero de matricule correct" }
 }
 
-
+const Location ={
+        "longitude": -122.425332,
+        "latitude": 37.758056,
+        "name": "Camtrack Location for",
+        "address": "1 Hacker Way, Menlo Park, CA 94025"
+}
 
 
 async function serverMessage() {
@@ -93,5 +98,14 @@ async function serverMessage() {
     return { preview_url: false, body: text }
 }
 
+function getLocation(matricul){
+    return {
+        "longitude": -122.425332,
+        "latitude": 37.758056,
+        "name": `Camtrack Location for Matricule ${matricul} `,
+        "address": "1 Hacker Way, Menlo Park, CA 94025"
+    }
+}
 
-module.exports = { messageList, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul }
+
+module.exports = { messageList, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation }
