@@ -31,8 +31,9 @@ async function onSendMessages(req, res) {
           sendMessages(phone_number_id, phone,askImmatriculation.text);
       }
       else if(body.replace(/\s+/g, "").toLowerCase()==="lt3307" && previewMessage==="1"){
-        const matricul =req.body.entry[0].changes[0].value.messages[0].text.body
-        const location = getLocation(matricul);
+        const matricul =req.body.entry[0].changes[0].value.messages[0].text.body;
+        const formatMatricul=matricul.replace(/\s+/g, "").toLowerCase();
+        const location = getLocation(formatMatricul);
         if(location){
           sendLocation(phone_number_id, phone,location);
           previewMessage="";
