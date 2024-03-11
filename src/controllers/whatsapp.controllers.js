@@ -7,20 +7,9 @@ const { scheduleMeeting,textMessage, Location ,textMessage3, serverMessage,askIm
 let previewMessage='';
 let scheduleMessageSent = false;
 
-class ExampleA {
-  constructor() {
-      this.text = 'Hello World!'
-  }
-  method(y) {
-      console.log(this.text +y);
-  }
-}
-
 async function onSendMessages(req, res) {
-   new ExampleA("yaya");
   // Check the Incoming webhook message
-  //console.log(JSON.stringify(req.body, null, 2));
-
+  console.log(JSON.stringify(req.body, null, 2));
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
     
