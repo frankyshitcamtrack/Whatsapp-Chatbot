@@ -4,10 +4,11 @@ const { scheduleMeeting,textMessage, Location ,textMessage3, serverMessage,askIm
 
 
 
+let previewMessage='';
+let scheduleMessageSent = false;
 
 async function onSendMessages(req, res) {
-  let previewMessage='';
-  let scheduleMessageSent = false;
+
   // Check the Incoming webhook message
   //console.log(JSON.stringify(req.body, null, 2));
 
