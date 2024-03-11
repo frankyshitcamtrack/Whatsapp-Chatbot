@@ -12,7 +12,8 @@ async function onSendMessages(req, res) {
 
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
-   
+    let previewMessage='';
+    let scheduleMessageSent = false;
     if (
       req.body.entry &&
       req.body.entry[0].changes &&
@@ -24,8 +25,7 @@ async function onSendMessages(req, res) {
       let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the message text from the webhook payload
       let body =req.body.entry[0].changes[0].value.messages[0].text.body;
       let name =req.body.entry[0].changes[0].value.contacts[0].profile.name;
-      let previewMessage='';
-      let scheduleMessageSent = false;
+     
       //format phone number
       const phone = phoneFormat(from);
       if (body === "1" && previewMessage==="") {
