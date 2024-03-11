@@ -3,8 +3,7 @@ const phoneFormat = require("../utils/fortmat-phone")
 const { scheduleMeeting,textMessage, Location ,textMessage3, serverMessage,askImmatriculation,validMatricul,getLocation} = require("../data/template-massages")
 
 
-let previewMessage='';
-let scheduleMessageSent = false
+
 
 async function onSendMessages(req, res) {
 
@@ -13,6 +12,7 @@ async function onSendMessages(req, res) {
 
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
+   
     if (
       req.body.entry &&
       req.body.entry[0].changes &&
@@ -24,6 +24,8 @@ async function onSendMessages(req, res) {
       let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the message text from the webhook payload
       let body =req.body.entry[0].changes[0].value.messages[0].text.body;
       let name =req.body.entry[0].changes[0].value.contacts[0].profile.name;
+      let previewMessage='';
+      let scheduleMessageSent = false;
       //format phone number
       const phone = phoneFormat(from);
       if (body === "1" && previewMessage==="") {
@@ -39,7 +41,7 @@ async function onSendMessages(req, res) {
           previewMessage="";
         }
       } 
-      else if( body!=="0" && body !== "LT3307" && previewMessage==="1"){
+      else if( body!=="0" && body !== "LT3307" && previewMessage==="1" ){
         sendMessages(phone_number_id, phone, validMatricul.text);
       } 
       else if (body === "2" && previewMessage==="") {
