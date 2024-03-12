@@ -41,13 +41,14 @@ async function onSendMessages(req, res) {
         }
         users.push(newUser);
         sendMessages(phone_number_id, phone, textMessage.text);
+        console.log
       } 
       
       if(findIndex>=0) {
         const user = users[findIndex];
-        console.log(user)
+        user.body=body;
         if (user.body === "1" && user.previewMessage === "") {
-          user.previewMessage === user.body;
+          user.previewMessage =user.body;
           sendMessages(user.phoneId, user.phone, askImmatriculation.text);
         }
         else if (user.body.replace(/\s+/g, "").toLowerCase() === "lt3307" && user.previewMessage === "1") {
