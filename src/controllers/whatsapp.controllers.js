@@ -26,7 +26,7 @@ async function onSendMessages(req, res) {
       let name = req.body.entry[0].changes[0].value.contacts[0].profile.name;
       const phone = phoneFormat(from);
 
-      const findIndex = users.findIndex(item => item.phone === from);
+      const findIndex = users.findIndex(item => item.phoneId === phone_number_id);
       console.log(findIndex);
 
       if (findIndex < 0) {
