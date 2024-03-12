@@ -31,6 +31,7 @@ async function onSendMessages(req, res) {
         }
         users.push(newUser);
         sendMessages(phone_number_id, phone, textMessage.text);
+        res.json(200);
       } 
       
       if(findIndex>=0) {
@@ -75,8 +76,9 @@ async function onSendMessages(req, res) {
         }else {
             sendMessages(user.phoneId, user.phone, textMessage.text);
         }
+        res.json(200);
       }
-    res.json(200);
+     
   }
   else {
     res.sendStatus(404);
