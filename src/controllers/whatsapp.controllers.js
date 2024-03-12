@@ -57,6 +57,7 @@ async function onSendMessages(req, res) {
           sendMessages(user.phoneId, user.phone, textMessage3.text);
           user.scheduleMessageSent = true;
         } else if (user.previewMessage === "2" && user.scheduleMessageSent === true) {
+          user.body=body
           const visit = scheduleMeeting(user.body, user.name);
           if (visit) {
             sendMessages(user.phoneId, user.phone, visit.text);
