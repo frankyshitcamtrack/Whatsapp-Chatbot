@@ -48,6 +48,7 @@ async function onSendMessages(req, res) {
       
       if(findIndex>=0) {
         const user = users[findIndex];
+        user.body=body;
         if (user.body === "1" && user.previewMessage === "") {
           user.previewMessage =user.body;
           sendMessages(user.phoneId, user.phone, askImmatriculation.text);
