@@ -6,32 +6,19 @@ const { scheduleMeeting, textMessage, Location, textMessage3, serverMessage, ask
 let users = []
 
 async function onSendMessages(req, res) {
-  // Check the Incoming webhook message
+  let entryID = req.body.entry[0].id;
+  let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone number from the webhook payload
+  let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the message text from the webhook payload
+  let body = req.body.entry[0].changes[0].value.messages[0].text.body;
+  let name = req.body.entry[0].changes[0].value.contacts[0].profile.name;
+  
+  const findIndex = users.findIndex(item => item.name === name);
+  const phone = phoneFormat(from);
+    // Check the Incoming webhook message
     console.log(users);
     //console.log(JSON.stringify(req.body, null, 2));
-  // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
+ 
   if (req.body.object) {
-    if (
-      req.body.entry &&
-      req.body.entry[0].changes &&
-      req.body.entry[0].changes[0] &&
-      req.body.entry[0].changes[0].value.messages &&
-      req.body.entry[0].changes[0].value.messages[0]
-    ) {
-      let entryID = req.body.entry[0].id;
-      let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone number from the webhook payload
-      let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the message text from the webhook payload
-      let body = req.body.entry[0].changes[0].value.messages[0].text.body;
-      let name = req.body.entry[0].changes[0].value.contacts[0].profile.name;
-      const phone = phoneFormat(from);
-
-      const findIndex = users.findIndex(item => item.phoneId === phone_number_id);
-
-      console.log(findIndex);
-
-      console.log(users);
-
-      console.log(users[findIndex])
       if (findIndex < 0) {
         const newUser = {
           'id': entryID,
@@ -89,7 +76,6 @@ async function onSendMessages(req, res) {
             sendMessages(phone_number_id, body, textMessage.text);
         }
       }
-    }
     res.json(200);
   }
   else {
