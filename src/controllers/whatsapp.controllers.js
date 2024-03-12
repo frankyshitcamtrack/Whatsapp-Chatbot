@@ -35,7 +35,7 @@ async function onSendMessages(req, res) {
           'name': name,
           'phone': phone,
           'phoneId': phone_number_id,
-          'message': body,
+          'body': body,
           'previewMessage': "",
           'scheduleMessageSent': false
         }
@@ -45,6 +45,7 @@ async function onSendMessages(req, res) {
       
       if(findIndex>=0) {
         const user = users[findIndex];
+        console.log(user)
         if (user.body === "1" && user.previewMessage === "") {
           user.previewMessage === user.body;
           sendMessages(user.phone_number_id, user.phone, askImmatriculation.text);
