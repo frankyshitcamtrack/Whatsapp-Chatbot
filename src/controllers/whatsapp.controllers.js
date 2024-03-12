@@ -73,7 +73,7 @@ async function onSendMessages(req, res) {
             sendMessages(user.phoneId, user.phone, message);
           }
         }else {
-            sendMessages(phone_number_id, body, textMessage.text);
+            sendMessages(user.phoneId, user.phone, textMessage.text);
         }
       }
     res.json(200);
