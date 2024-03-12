@@ -10,8 +10,6 @@ async function onSendMessages(req, res) {
     console.log(JSON.stringify(req.body, null, 2));
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
-
-
     if (
       req.body.entry &&
       req.body.entry[0].changes &&
@@ -27,8 +25,12 @@ async function onSendMessages(req, res) {
       const phone = phoneFormat(from);
 
       const findIndex = users.findIndex(item => item.phoneId === phone_number_id);
+      
       console.log(findIndex);
 
+      console.log(users);
+
+      console.log(users[findIndex])
       if (findIndex < 0) {
         const newUser = {
           'id': entryID,
@@ -45,7 +47,7 @@ async function onSendMessages(req, res) {
       
       if(findIndex>=0) {
         const user = users[findIndex];
-        user.body=body;
+        user.phoneId
         if (user.body === "1" && user.previewMessage === "") {
           user.previewMessage =user.body;
           sendMessages(user.phoneId, user.phone, askImmatriculation.text);
