@@ -48,42 +48,42 @@ async function onSendMessages(req, res) {
         console.log(user)
         if (user.body === "1" && user.previewMessage === "") {
           user.previewMessage === user.body;
-          sendMessages(user.phone_number_id, user.phone, askImmatriculation.text);
+          sendMessages(user.phoneId, user.phone, askImmatriculation.text);
         }
         else if (user.body.replace(/\s+/g, "").toLowerCase() === "lt3307" && user.previewMessage === "1") {
           const formatMatricul = user.body.replace(/\s+/g, "").toLowerCase();
           const location = getLocation(formatMatricul);
           if (location) {
-            sendLocation(user.phone_number_id, user.phone, location);
+            sendLocation(user.phoneId, user.phone, location);
             user.previewMessage =""
           }
         }
         else if (user.body !== "0" && user.body !== "lt3307" && user.previewMessage === "1") {
-          sendMessages(user.phone_number_id, user.phone, validMatricul.text);
+          sendMessages(user.phoneId, user.phone, validMatricul.text);
         }
         else if (user.body === "2" && user.previewMessage === "") {
           previewMessage = user.body;
-          sendMessages(user.phone_number_id, user.phone, textMessage3.text);
+          sendMessages(user.phoneId, user.phone, textMessage3.text);
           user.scheduleMessageSent = true;
         } else if (user.previewMessage === "2" && user.scheduleMessageSent === true) {
           const visit = scheduleMeeting(user.body, user.name);
           if (visit) {
-            sendMessages(user.phone_number_id, user.phone, visit.text);
+            sendMessages(user.phoneId, user.phone, visit.text);
           }
           user.previewMessage = "";
           scheduleMessageSent = false;
         }
         else if (user.body === "0" && user.previewMessage === "1") {
-          sendMessages(user.phone_number_id, user.phone, textMessage.text);
+          sendMessages(user.phoneId, user.phone, textMessage.text);
           user.previewMessage = ""
         }
         else if (user.body === "3" && user.previewMessage === "") {
           let message = await serverMessage();
           if (message) {
-            sendMessages(user.phone_number_id, user.phone, message);
+            sendMessages(user.phoneId, user.phone, message);
           }
         }else {
-            sendMessages(user.phone_number_id, user.phone, textMessage.text);
+            sendMessages(user.phoneId, user.phone, textMessage.text);
         }
       }
     }
