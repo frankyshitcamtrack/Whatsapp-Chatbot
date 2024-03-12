@@ -7,7 +7,8 @@ let users = []
 
 async function onSendMessages(req, res) {
   // Check the Incoming webhook message
-    console.log(JSON.stringify(req.body, null, 2));
+    console.log(users);
+    //console.log(JSON.stringify(req.body, null, 2));
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
     if (
@@ -25,7 +26,7 @@ async function onSendMessages(req, res) {
       const phone = phoneFormat(from);
 
       const findIndex = users.findIndex(item => item.phoneId === phone_number_id);
-      
+
       console.log(findIndex);
 
       console.log(users);
