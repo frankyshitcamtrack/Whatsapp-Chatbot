@@ -1,5 +1,6 @@
-const { sendMessages, sendLocation } = require("../models/whatsapp.model")
-const phoneFormat = require("../utils/fortmat-phone")
+const { sendMessages, sendLocation } = require("../models/whatsapp.model");
+const phoneFormat = require("../utils/fortmat-phone");
+const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const { scheduleMeeting, textMessage, Location, textMessage3, serverMessage, askImmatriculation, validMatricul, getLocation } = require("../data/template-massages")
 
 
@@ -25,7 +26,8 @@ async function getPositionVehicule(immat,phoneId,phone,user){
        "name":`${location.lats},${location.longs}`
      }
      if(vehiculLocation.latitude && vehiculLocation.longitude){
-        let date = new Date();
+        let newDate = new Date();
+        let date = dateInYyyyMmDdHhMmSs(newDate);
         let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
         let body =`Vehicle: ${immat}\n\nLast known position:  ${vehiculLocation.address}\n\nReport time : ${date}\n\nLink: ${link}`;
         let message = {preview_url: false, body:body}
