@@ -20,8 +20,8 @@ async function getPositionVehicule(immat,phoneId,phone,user){
    else if(location && location.code>0){
        let vehiculLocation = {
       "address": location.lastposition,
-       "latitude":  location.lats,
-       "longitude": location.longs,
+       "latitude": location.longs,
+       "longitude":location.lats ,
        "name":`${location.lats},${location.longs}`
      }
      console.log(vehiculLocation);
