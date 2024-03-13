@@ -84,9 +84,8 @@ async function onSendMessages(req, res) {
         } else {
           sendMessages(user.phoneId, user.phone, textMessage.text);
         }
-        res.json(200);
+       
       }
-
     }
     res.json(200);
   }
