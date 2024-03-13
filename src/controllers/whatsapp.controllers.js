@@ -6,14 +6,16 @@ const { scheduleMeeting, textMessage, Location, textMessage3, serverMessage, ask
 let users = []
 
 // Send vehicule location function
-async function getPositionVehicule(immat,phoneId,phone){
+async function getPositionVehicule(immat,phoneId,phone,user){
+
    const location= await getLocation(immat)
    .then(res =>res.data )
    .catch(err => console.log(err));
    console.log(location);
    if(location && location.code<0){
       const message ={preview_url: false, body:`${location.status} \n Please enter a valid matricul number`};
-      sendMessages(phoneId,phone,message)
+      sendMessages(phoneId,phone,message);  
+      user.previewMessage = "1"
    }
 
    else if(location && location.code>0){
@@ -23,7 +25,10 @@ async function getPositionVehicule(immat,phoneId,phone){
        "name":`${location.longs},${location.lats}`,
        "address": location.lastposition
      }
-     sendLocation(phoneId,phone,vehiculLocation)
+     if(vehiculLocation.latitude && vehiculLocation.longitude){
+        sendLocation(phoneId,phone,vehiculLocation)
+        user.previewMessage = ""
+     } 
    }
   else{
      const message ={preview_url: false, body:"une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer"}
@@ -76,8 +81,7 @@ async function onSendMessages(req, res) {
         }
         else if (user.previewMessage === "1") {
           const formatMatricul = user.body.replace(/\s+/g,"");
-          await getPositionVehicule(formatMatricul,user.phoneId,user.phone);
-          user.previewMessage = ""
+          await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
         }
         else if (user.body === "2" && user.previewMessage === "") {
           user.previewMessage = user.body;
