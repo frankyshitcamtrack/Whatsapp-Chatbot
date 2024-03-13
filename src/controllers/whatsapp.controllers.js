@@ -5,6 +5,32 @@ const { scheduleMeeting, textMessage, Location, textMessage3, serverMessage, ask
 
 let users = []
 
+// Send vehicule location function
+async function getPositionVehicule(immat,phoneId,phone){
+   const location= await getLocation(immat)
+   .then(res =>res.data )
+   .catch(err => console.log(err));
+
+   if(location && location.code<0){
+      const message ={preview_url: false, body:location.status};
+      sendMessages(phoneId, phone, message)
+   }
+
+   else if(location && location.code>0){
+     const vehiculLocation = {
+       "longitude": location.longs,
+       "latitude":  location.lats,
+       "name":`${location.lats},${location.longs}`,
+       "address": location.lastposition
+     }
+     sendLocation(phone_number_id,phone,vehiculLocation)
+   }
+   else{
+     const message ={preview_url: false, body:"une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer"}
+     sendMessages(phoneId, phone, message)
+   }
+}
+
 async function onSendMessages(req, res) {
   let entryID = req.body.entry[0].id;
   let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone number from the webhook payload
@@ -48,13 +74,10 @@ async function onSendMessages(req, res) {
           user.previewMessage = user.body;
           sendMessages(user.phoneId, user.phone, askImmatriculation.text);
         }
-        else if (user.body.replace(/\s+/g, "").toLowerCase() === "lt3307" && user.previewMessage === "1") {
-          const formatMatricul = user.body.replace(/\s+/g, "").toLowerCase();
-          const location = getLocation(formatMatricul);
-          if (location) {
-            sendLocation(user.phoneId, user.phone, location);
-            user.previewMessage = ""
-          }
+        else if (user.previewMessage === "1") {
+          const formatMatricul = user.body.replace(/\s+/g,"");
+          await getPositionVehicule(formatMatricul,user.phoneId,user.phone);
+          user.previewMessage = ""
         }
         else if (user.body !== "0" && user.body !== "lt3307" && user.previewMessage === "1") {
           sendMessages(user.phoneId, user.phone, validMatricul.text);
@@ -122,4 +145,4 @@ function onVerification(req, res) {
   }
 }
 
-module.exports = { onSendMessages, onVerification }
+module.exports = { onSendMessages, onVerification,getPositionVehicule }

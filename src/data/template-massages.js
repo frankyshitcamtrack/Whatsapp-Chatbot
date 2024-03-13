@@ -1,4 +1,5 @@
-const { getFakeData } = require("../services/mock")
+const { getFakeData } = require("../services/mock");
+const {getPositionVehicul} = require("../services/wialon");
 
 const messageList = {
     type: "interactive",
@@ -97,13 +98,9 @@ async function serverMessage() {
     return { preview_url: false, body: text }
 }
 
-function getLocation(matricul){
-    return {
-        "longitude": 9.7428,
-        "latitude": 4.0892,
-        "name": `Location for Matricule ${matricul} you can click on the image to view the full map `,
-        "address": "Douala,Bonamoussadi"
-    }
+async function getLocation(matricul){
+ const positionVehicul = await getPositionVehicul(matricul)
+ return positionVehicul
 }
 
 function scheduleMeeting(time,name){
