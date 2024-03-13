@@ -104,7 +104,7 @@ async function getLocation(matricul){
 }
 
 function scheduleMeeting(time,name){
-    return {type: "text",text: { preview_url: false, body:`Thanks M. ${name} for scheduling the visit at ${time} a Technical member will contact you soon for confirmation`}}
+    return {type: "text",text: { preview_url: false, body:`Thanks M. *${name}* for scheduling the visit at *${time}* a Technical member will contact you soon for confirmation`}}
 }
 
 
