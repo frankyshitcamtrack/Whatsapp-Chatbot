@@ -19,14 +19,21 @@ async function getPositionVehicule(immat,phoneId,phone,user){
 
    else if(location && location.code>0){
     let vehiculLocation = {
-      "address": location.lastposition,
+       "address": location.lastposition,
        "latitude": location.lats,
        "longitude":location.longs ,
        "name":`${location.lats},${location.longs}`
      }
-     console.log(vehiculLocation);
      if(vehiculLocation.latitude && vehiculLocation.longitude){
-        sendLocation(phoneId,phone,vehiculLocation)
+        let date = new Date();
+        let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
+        let body =`Vehicle: ${immat} \n
+        last known position:  ${vehiculLocation.address} \n
+        Report time : ${date} \n
+        link: ${link} `;
+        let message = {preview_url: false, body:body}
+        //sendLocation(phoneId,phone,vehiculLocation)
+        sendMessages(phoneId, phone, message)
         user.previewMessage = ""
      } 
    }
