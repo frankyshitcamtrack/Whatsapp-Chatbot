@@ -27,10 +27,7 @@ async function getPositionVehicule(immat,phoneId,phone,user){
      if(vehiculLocation.latitude && vehiculLocation.longitude){
         let date = new Date();
         let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
-        let body =`Vehicle: ${immat}
-        last known position:  ${vehiculLocation.address} 
-        Report time : ${date}
-        link: ${link} `;
+        let body =`Vehicle: ${immat}\nlast known position:  ${vehiculLocation.address}\nReport time : ${date}\nlink: ${link}`;
         let message = {preview_url: false, body:body}
         //sendLocation(phoneId,phone,vehiculLocation)
         sendMessages(phoneId, phone, message)
