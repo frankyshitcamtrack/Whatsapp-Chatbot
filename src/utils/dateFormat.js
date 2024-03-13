@@ -1,3 +1,8 @@
+function padTwoDigits(num) {
+    return num.toString().padStart(2, "0");
+}
+
+
 function dateInYyyyMmDdHhMmSs(date) {
     return (
       [
@@ -12,6 +17,6 @@ function dateInYyyyMmDdHhMmSs(date) {
         padTwoDigits(date.getSeconds()),
       ].join(":")
     );
-  }
+}
 
   module.exports = dateInYyyyMmDdHhMmSs;
