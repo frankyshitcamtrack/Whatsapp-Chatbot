@@ -18,7 +18,7 @@ async function getPositionVehicule(immat,phoneId,phone,user){
    }
 
    else if(location && location.code>0){
-       let vehiculLocation = {
+    let vehiculLocation = {
       "address": location.lastposition,
        "latitude": location.lats,
        "longitude":location.longs ,
@@ -100,12 +100,7 @@ async function onSendMessages(req, res) {
           sendMessages(user.phoneId, user.phone, textMessage.text);
           user.previewMessage = ""
         }
-        else if (user.body === "3" && user.previewMessage === "") {
-          let message = await serverMessage();
-          if (message) {
-            sendMessages(user.phoneId, user.phone, message);
-          }
-        } else {
+        else {
           sendMessages(user.phoneId, user.phone, textMessage.text);
         }
        
