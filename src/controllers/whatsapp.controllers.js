@@ -12,7 +12,7 @@ async function getPositionVehicule(immat,phoneId,phone){
    .catch(err => console.log(err));
 
    if(location && location.code<0){
-      const message ={preview_url: false, body:location.status};
+      const message ={preview_url: false, body:`${location.status} \n Please enter a valid matricul number`};
       sendMessages(phoneId, phone, message)
    }
 
@@ -78,9 +78,6 @@ async function onSendMessages(req, res) {
           const formatMatricul = user.body.replace(/\s+/g,"");
           await getPositionVehicule(formatMatricul,user.phoneId,user.phone);
           user.previewMessage = ""
-        }
-        else if (user.body !== "0" && user.body !== "lt3307" && user.previewMessage === "1") {
-          sendMessages(user.phoneId, user.phone, validMatricul.text);
         }
         else if (user.body === "2" && user.previewMessage === "") {
           user.previewMessage = user.body;
