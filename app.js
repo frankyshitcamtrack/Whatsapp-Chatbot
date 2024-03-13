@@ -16,7 +16,7 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 app.use(morgan('combined'));
 
-getPositionVehicule("CH057025");
+//getPositionVehicule("CH057025");
 
 app.use(cors());
 app.use(bodyParser.json());
