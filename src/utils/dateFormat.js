@@ -9,7 +9,7 @@ function dateInYyyyMmDdHhMmSs(date) {
         date.getFullYear(),
         padTwoDigits(date.getMonth() + 1),
         padTwoDigits(date.getDate()),
-      ].join("/") +
+      ].join("-") +
       " " +
       [
         padTwoDigits(date.getHours()),
