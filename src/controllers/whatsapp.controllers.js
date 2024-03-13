@@ -7,7 +7,6 @@ let users = []
 
 // Send vehicule location function
 async function getPositionVehicule(immat,phoneId,phone,user){
-
    const location= await getLocation(immat)
    .then(res =>res.data )
    .catch(err => console.log(err));
@@ -20,11 +19,12 @@ async function getPositionVehicule(immat,phoneId,phone,user){
 
    else if(location && location.code>0){
      const vehiculLocation = {
-       "longitude": location.longs,
+      "address": location.lastposition,
        "latitude":  location.lats,
-       "name":`${location.longs},${location.lats}`,
-       "address": location.lastposition
+       "longitude": location.longs,
+       "name":`${location.longs} ${location.lats}`
      }
+     console.log(vehiculLocation);
      if(vehiculLocation.latitude && vehiculLocation.longitude){
         sendLocation(phoneId,phone,vehiculLocation)
         user.previewMessage = ""
