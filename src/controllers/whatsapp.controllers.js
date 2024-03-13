@@ -23,20 +23,20 @@ async function getPositionVehicule(immat,phoneId,phone){
        "name":`${location.lats},${location.longs}`,
        "address": location.lastposition
      }
-     sendLocation(phone_number_id,phone,vehiculLocation)
+     sendLocation(phoneId,phone,vehiculLocation)
    }
-   else{
+  /*  else{
      const message ={preview_url: false, body:"une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer"}
      sendMessages(phoneId, phone, message)
-   }
+   } */
 }
 
 async function onSendMessages(req, res) {
   let entryID = req.body.entry[0].id;
-  let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone number from the webhook payload
-  let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the message text from the webhook payload
-  let body = req.body.entry[0].changes[0].value.messages[0].text.body;
-  let name = req.body.entry[0].changes[0].value.contacts[0].profile.name;
+  let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone numberId from the webhook payload
+  let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the phone number text from the webhook payload
+  let body = req.body.entry[0].changes[0].value.messages[0].text.body; // extract the message text from the webhook payloa
+  let name = req.body.entry[0].changes[0].value.contacts[0].profile.name; // extract the name from the webhook payloa
 
   const findIndex = users.findIndex(item => item.name === name);
   const phone = phoneFormat(from);
