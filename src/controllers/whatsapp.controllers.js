@@ -10,10 +10,10 @@ async function getPositionVehicule(immat,phoneId,phone){
    const location= await getLocation(immat)
    .then(res =>res.data )
    .catch(err => console.log(err));
-
+   console.log(location);
    if(location && location.code<0){
       const message ={preview_url: false, body:`${location.status} \n Please enter a valid matricul number`};
-      sendMessages(phoneId, phone, message)
+      sendMessages(phoneId,phone,message)
    }
 
    else if(location && location.code>0){
@@ -25,10 +25,10 @@ async function getPositionVehicule(immat,phoneId,phone){
      }
      sendLocation(phoneId,phone,vehiculLocation)
    }
-  /*  else{
+  else{
      const message ={preview_url: false, body:"une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer"}
      sendMessages(phoneId, phone, message)
-   } */
+   } 
 }
 
 async function onSendMessages(req, res) {
