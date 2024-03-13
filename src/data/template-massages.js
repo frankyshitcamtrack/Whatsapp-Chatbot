@@ -57,7 +57,7 @@ const messageList = {
 const textMessage = {
     type: "text",
     text: {
-        preview_url: false, body: " Welcome to Camtrack ✨😃\n \n Let us know how we can help you today by choosing from the folowing options:\n\n " + "- Press 1 For vehicule🚗 Location\n- Press 2 Request a visit with a member\n"
+        preview_url: false, body: " Welcome to Camtrack ✨😃\n \n Let us know how we can help you today by choosing from the folowing options:\n\n"+"- Press 1 For vehicule🚗 Location\n- Press 2 Request a visit with a member"
     }
 }
 
