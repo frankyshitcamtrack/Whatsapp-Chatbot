@@ -93,7 +93,7 @@ const Location ={
 async function serverMessage() {
    const text= await getFakeData()
     .then(res => res.data[0])
-    .catch(err => this.error = err);
+    .catch(err => console.log(err));
     return { preview_url: false, body: text }
 }
 

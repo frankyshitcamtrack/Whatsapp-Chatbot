@@ -11,14 +11,21 @@ async function onSendMessages(req, res) {
   let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the message text from the webhook payload
   let body = req.body.entry[0].changes[0].value.messages[0].text.body;
   let name = req.body.entry[0].changes[0].value.contacts[0].profile.name;
-  
+
   const findIndex = users.findIndex(item => item.name === name);
   const phone = phoneFormat(from);
-    // Check the Incoming webhook message
-    console.log(users);
-    //console.log(JSON.stringify(req.body, null, 2));
- 
+  // Check the Incoming webhook message
+  console.log(users);
+  //console.log(JSON.stringify(req.body, null, 2));
+
   if (req.body.object) {
+    if (
+      req.body.entry &&
+      req.body.entry[0].changes &&
+      req.body.entry[0].changes[0] &&
+      req.body.entry[0].changes[0].value.messages &&
+      req.body.entry[0].changes[0].value.messages[0]
+    ) {
       if (findIndex < 0) {
         const newUser = {
           'id': entryID,
@@ -32,13 +39,13 @@ async function onSendMessages(req, res) {
         users.push(newUser);
         sendMessages(phone_number_id, phone, textMessage.text);
         res.json(200);
-      } 
-      
-      if(findIndex>=0) {
+      }
+
+      if (findIndex >= 0) {
         const user = users[findIndex];
-        user.body=body;
+        user.body = body;
         if (user.body === "1" && user.previewMessage === "") {
-          user.previewMessage =user.body;
+          user.previewMessage = user.body;
           sendMessages(user.phoneId, user.phone, askImmatriculation.text);
         }
         else if (user.body.replace(/\s+/g, "").toLowerCase() === "lt3307" && user.previewMessage === "1") {
@@ -46,18 +53,18 @@ async function onSendMessages(req, res) {
           const location = getLocation(formatMatricul);
           if (location) {
             sendLocation(user.phoneId, user.phone, location);
-            user.previewMessage =""
+            user.previewMessage = ""
           }
         }
         else if (user.body !== "0" && user.body !== "lt3307" && user.previewMessage === "1") {
           sendMessages(user.phoneId, user.phone, validMatricul.text);
         }
         else if (user.body === "2" && user.previewMessage === "") {
-          previewMessage = user.body;
+          user.previewMessage = user.body;
           sendMessages(user.phoneId, user.phone, textMessage3.text);
           user.scheduleMessageSent = true;
         } else if (user.previewMessage === "2" && user.scheduleMessageSent === true) {
-          user.body=body
+          user.body = body
           const visit = scheduleMeeting(user.body, user.name);
           if (visit) {
             sendMessages(user.phoneId, user.phone, visit.text);
@@ -74,12 +81,14 @@ async function onSendMessages(req, res) {
           if (message) {
             sendMessages(user.phoneId, user.phone, message);
           }
-        }else {
-            sendMessages(user.phoneId, user.phone, textMessage.text);
+        } else {
+          sendMessages(user.phoneId, user.phone, textMessage.text);
         }
         res.json(200);
       }
-     
+
+    }
+    res.json(200);
   }
   else {
     res.sendStatus(404);
