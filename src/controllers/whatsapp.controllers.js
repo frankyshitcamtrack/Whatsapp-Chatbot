@@ -20,7 +20,7 @@ async function getPositionVehicule(immat,phoneId,phone){
      const vehiculLocation = {
        "longitude": location.longs,
        "latitude":  location.lats,
-       "name":`${location.lats},${location.longs}`,
+       "name":`${location.longs},${location.lats}`,
        "address": location.lastposition
      }
      sendLocation(phoneId,phone,vehiculLocation)
