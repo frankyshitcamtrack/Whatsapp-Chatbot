@@ -44,6 +44,45 @@ async function getPositionVehicule(immat,phoneId,phone,user){
    } 
 }
 
+
+//Send vehicle location by specific date
+async function getPositionVehicleByDate(date,immat,phoneId,phone,user){
+  const location= await getLocation(immat)
+  .then(res =>res.data )
+  .catch(err => console.log(err));
+  console.log(location);
+  if(location && location.code<0){
+     const message ={preview_url: false, body:`${location.status} \n Please enter a valid matricul number`};
+     sendMessages(phoneId,phone,message);  
+     user.previewMessage = "1"
+     user.flow="1"
+  }
+
+  else if(location && location.code>0){
+   let vehiculLocation = {
+      "address": location.lastposition,
+      "latitude": location.lats,
+      "longitude":location.longs ,
+      "name":`${location.lats},${location.longs}`
+    }
+    if(vehiculLocation.latitude && vehiculLocation.longitude){
+       let newDate = new Date();
+       let date = dateInYyyyMmDdHhMmSs(newDate);
+       let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
+       let body =`*Vehicle* : ${immat}\n\n*Last known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
+       let message = {preview_url: false, body:body}
+       //sendLocation(phoneId,phone,vehiculLocation)
+       sendMessages(phoneId, phone, message)
+       user.previewMessage = ""
+       user.flow=""
+    } 
+  }
+ else{
+    const message ={preview_url: false, body:"une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer"}
+    sendMessages(phoneId, phone, message)
+  } 
+}
+
 //Send whatsapp message
 async function onSendMessages(req, res) {
   let entryID = req.body.entry[0].id;
@@ -123,13 +162,18 @@ async function onSendMessages(req, res) {
 
         else if (user.flow==="1" && user.previewMessage === "1" && user.body==="2") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-          user.dateMessage===true;
           user.previewMessage==="2";
+          user.matriculeQuestionSent=true
         }
-
-        else if (user.flow==="1" && user.previewMessage === "2" && user.askDateMessage===true) {
+        else if (user.flow==="1" && user.previewMessage === "2" && user.askImmatriculation===true) {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
+          sendMessages(user.phoneId,user.phone,askDateMessage.text);
+          user.previewMessage==="2";
+          user.dateMessage===true
+        }
+        
+        else if (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true) {
           const formatMatricul = user.body.replace(/\s+/g,"");
-          await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
+          //await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
         }
 
         else if (user.body === "2" && user.previewMessage === "") {
