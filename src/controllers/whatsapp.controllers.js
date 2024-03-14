@@ -197,7 +197,7 @@ async function onSendMessages(req, res) {
           user.scheduleMessageSent = true;
         } 
         
-        else if (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false) {
+        else if (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false) {
           user.body = body
           const visit = scheduleMeeting(user.body, user.name);
           if (visit) {
