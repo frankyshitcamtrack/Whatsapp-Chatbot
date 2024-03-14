@@ -64,9 +64,14 @@ async function getLocation(matricul){
  return positionVehicul
 }
 
+async function getLocationByDate(date,matricul){
+    const positionVehicul = await getPositionVehicul(date,matricul)
+    return positionVehicul
+}
+
 function scheduleMeeting(time,name){
     return {type: "text",text: { preview_url: false, body:`Thanks M. *${name}* for scheduling the visit at *${time}* a Technical member will contact you soon for confirmation`}}
 }
 
 
-module.exports = { textMessageMenu1,scheduleMeeting, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation,askDateMessage }
+module.exports = { textMessageMenu1,scheduleMeeting, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation,getLocationByDate,askDateMessage }

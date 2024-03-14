@@ -1,7 +1,7 @@
 const { sendMessages, sendLocation } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
-const { textMessageMenu1,scheduleMeeting, textMessage, Location, textMessage3, serverMessage, askImmatriculation, validMatricul, getLocation, askDateMessage } = require("../data/template-massages")
+const { textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages")
 
 
 let users = []
@@ -47,7 +47,7 @@ async function getPositionVehicule(immat,phoneId,phone,user){
 
 //Send vehicle location by specific date
 async function getPositionVehicleByDate(date,immat,phoneId,phone,user){
-  const location= await getLocation(immat)
+  const location= await getLocationByDate(date,immat)
   .then(res =>res.data )
   .catch(err => console.log(err));
   console.log(location);
@@ -68,8 +68,9 @@ async function getPositionVehicleByDate(date,immat,phoneId,phone,user){
     if(vehiculLocation.latitude && vehiculLocation.longitude){
        let newDate = new Date();
        let date = dateInYyyyMmDdHhMmSs(newDate);
+       let datePositon =dateInYyyyMmDdHhMmSs(vehiculLocation.dates)
        let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
-       let body =`*Vehicle* : ${immat}\n\n*Last known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
+       let body =`*Vehicle* : ${immat}\n\n*Date Position* : ${datePositon}\n\nLast known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
        let message = {preview_url: false, body:body}
        //sendLocation(phoneId,phone,vehiculLocation)
        sendMessages(phoneId, phone, message)
@@ -166,16 +167,19 @@ async function onSendMessages(req, res) {
           user.previewMessage="2";
           user.matriculeQuestionSent=true
         }
-        else if (user.flow==="1" && user.previewMessage === "2" && user.askImmatriculation===true) {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
+        else if (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true) {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId,user.phone,askDateMessage.text);
-          user.previewMessage="2";
-          user.dateMessage=true
+          user.vehicleNumber=user.body;
+          user.dateMessage=true;
         }
-        
+
+
         else if (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true) {
           const formatMatricul = user.body.replace(/\s+/g,"");
           //await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
         }
+
+
 
         else if (user.body === "2" && user.previewMessage === "") {
           user.previewMessage = user.body;
