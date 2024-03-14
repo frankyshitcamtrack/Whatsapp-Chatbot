@@ -46,14 +46,14 @@ async function getPositionVehicule(immat,phoneId,phone,user){
 
 
 //Send vehicle location by specific date
-async function getPositionVehicleByDate(date,phoneId,phone,user){
-  const location= await getLocationByDate(date,user.vehicleNumber)
+async function getPositionVehicleByDate(user){
+  const location= await getLocationByDate(user.date,user.vehicleNumber)
   .then(res =>res.data )
   .catch(err => console.log(err));
 
   if(location && location.code<0){
      const message ={preview_url: false, body:`${location.status} \n Please enter a valid matricul number`};
-     sendMessages(phoneId,phone,message);  
+     sendMessages(user.phoneId,user.phone,message);  
      user.previewMessage = "1"
      user.flow="1"
   }
@@ -86,7 +86,7 @@ async function getPositionVehicleByDate(date,phoneId,phone,user){
   }
  else{
     const message ={preview_url: false, body:"une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer"}
-    sendMessages(phoneId, phone, message)
+    sendMessages(user.phoneId,user.phone, message)
   } 
 }
 
@@ -181,7 +181,7 @@ async function onSendMessages(req, res) {
 
         else if (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true) {
           user.date=user.body;
-          await getPositionVehicleByDate(date,user.phoneId,user.phone,user.vehicleNumber);
+          await getPositionVehicleByDate(user);
         }
 
         else if (user.body === "2" && user.previewMessage === "") {
