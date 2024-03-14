@@ -72,7 +72,7 @@ async function getPositionVehicleByDate(user){
       "dates":location.dates
     }
     if(vehiculLocation.latitude && vehiculLocation.longitude){
-       let newDate = newDate(vehiculLocation.dates)
+       let newDate = new Date(vehiculLocation.dates);
        let date = dateInYyyyMmDdHhMmSs(newDate);
        let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
        let body =`*Vehicle* : ${immat}\n\nLast known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
