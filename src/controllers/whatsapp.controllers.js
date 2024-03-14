@@ -142,7 +142,7 @@ async function onSendMessages(req, res) {
         const user = users[findIndex]; // find the user by his index
         user.body = body;
        
-        if (user.body === "1" && user.previewMessage === "") {//check if the user client message is 1 and the preview message empty to send the flow onn or the menu for location tracking
+        if (user.body === "1" && user.previewMessage === "" && user.flow==="") {//check if the user client message is 1 and the preview message empty to send the flow onn or the menu for location tracking
           user.previewMessage = user.body;
           user.flow="1"
           sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
