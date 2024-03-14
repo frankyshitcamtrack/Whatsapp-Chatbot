@@ -56,7 +56,6 @@ async function getPositionVehicleByDate(user){
   const location= await getLocationByDate(user.date,user.vehicleNumber)
   .then(res =>res.data )
   .catch(err => console.log(err));
-
   if(location && location.code<0){
      const message ={preview_url: false, body:`${location.status}`};
      sendMessages(user.phoneId,user.phone,message);  

@@ -1,5 +1,6 @@
 const { getFakeData } = require("../services/mock");
 const {getPositionVehicul} = require("../services/wialon");
+const {getPositionVehiculByDate} = require('../services/wialon')
 
 
 const textMessage = {
@@ -65,7 +66,7 @@ async function getLocation(matricul){
 }
 
 async function getLocationByDate(date,matricul){
-    const positionVehicul = await getPositionVehicul(date,matricul)
+    const positionVehicul = await getPositionVehiculByDate(date,matricul)
     return positionVehicul
 }
 
