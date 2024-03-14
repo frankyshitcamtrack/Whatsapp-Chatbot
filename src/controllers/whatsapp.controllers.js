@@ -78,7 +78,7 @@ async function getPositionVehicleByDate(user){
        let body =`*Vehicle* : ${user.vehicleNumber}\n\nLast known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
        let message = {preview_url: false, body:body}
        //sendLocation(phoneId,phone,vehiculLocation)
-       sendMessages(phoneId, phone, message)
+       sendMessages(user.phoneId, user.phone, message)
        user.previewMessage = "";
        user.flow="";
        user.vehicleNumber = "";
