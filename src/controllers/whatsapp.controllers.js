@@ -77,6 +77,9 @@ async function onSendMessages(req, res) {
           'scheduleMessageSent': false,
           'matriculeQuestionSent':false,
           'dateMessage':false,
+          'matriculflow2':'',
+          'dateFlow2':'',
+          'timeFlow2':''
         }
         users.push(newUser);
         sendMessages(phone_number_id, phone, textMessage.text);
@@ -92,32 +95,42 @@ async function onSendMessages(req, res) {
           user.flow="1"
           sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
         }
+
         else if (user.flow==="1" && user.previewMessage === "1" && user.body==="2") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId,user.phone,askImmatriculation.text);
           user.dateMessage===true;
           user.previewMessage==="2";
         }
-        else if (user.flow==="1" && user.previewMessage === "1" && (user.body!=="1" || user.body!=="2" )) {//check if the user client message is 1 or 2 and the preview message and flow are 1 to send the message to ask the immatriculation
+
+        else if (user.flow==="1" && user.previewMessage === "1" && user.body!=="1") {//check if the user client message is 1 or 2 and the preview message and flow are 1 to send the message to ask the immatriculation
+          sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+        }
+        else if (user.flow==="1" && user.previewMessage === "1" && user.body!=="2") {//check if the user client message is 1 or 2 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
         }
         else if (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true) {
           const formatMatricul = user.body.replace(/\s+/g,"");
           await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
         }
+
         else if (user.flow==="1" && user.previewMessage === "1" && user.body==="2") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId,user.phone,askImmatriculation.text);
           user.dateMessage===true;
           user.previewMessage==="2";
         }
+
         else if (user.flow==="1" && user.previewMessage === "2" && user.askDateMessage===true) {
           const formatMatricul = user.body.replace(/\s+/g,"");
           await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
         }
+
         else if (user.body === "2" && user.previewMessage === "") {
           user.previewMessage = user.body;
           sendMessages(user.phoneId, user.phone, textMessage3.text);
           user.scheduleMessageSent = true;
-        } else if (user.previewMessage === "2" && user.scheduleMessageSent === true) {
+        } 
+        
+        else if (user.previewMessage === "2" && user.scheduleMessageSent === true) {
           user.body = body
           const visit = scheduleMeeting(user.body, user.name);
           if (visit) {
@@ -126,10 +139,12 @@ async function onSendMessages(req, res) {
           user.previewMessage = "";
           scheduleMessageSent = false;
         }
+
         else if (user.body === "0" && user.previewMessage === "1") {
           sendMessages(user.phoneId, user.phone, textMessage.text);
           user.previewMessage = ""
         }
+
         else {
           sendMessages(user.phoneId, user.phone, textMessage.text);
         }
