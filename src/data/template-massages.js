@@ -69,4 +69,4 @@ function scheduleMeeting(time,name){
 }
 
 
-module.exports = { textMessageMenu1,scheduleMeeting,messageList, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation,askDateMessage }
+module.exports = { textMessageMenu1,scheduleMeeting, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation,askDateMessage }
