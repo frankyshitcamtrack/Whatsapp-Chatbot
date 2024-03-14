@@ -53,6 +53,7 @@ async function getPositionVehicule(immat,phoneId,phone,user){
 
 //Send vehicle location by specific date
 async function getPositionVehicleByDate(user){
+  console.log(user);
   const location= await getLocationByDate(user.date,user.vehicleNumber)
   .then(res =>res.data )
   .catch(err => console.log(err));

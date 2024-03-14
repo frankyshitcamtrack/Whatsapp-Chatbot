@@ -13,7 +13,7 @@ const textMessage = {
 const textMessageMenu1 = {
     type: "text",
     text: {
-        preview_url: false, body:"Vehicle Location🚗\n \n- Press 1 For last vehicle location f\n- Press 2 for vehicle location in a specific date and time"
+        preview_url: false, body:"Vehicle Location🚗\n \n- Press 1 For last vehicle location\n- Press 2 for vehicle location in a specific date and time"
     }
 }
 
