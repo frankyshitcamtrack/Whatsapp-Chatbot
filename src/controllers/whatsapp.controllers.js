@@ -92,18 +92,22 @@ async function onSendMessages(req, res) {
           user.flow="1"
           sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
         }
-        else if (user.flow==="1" && user.previewMessage === "1" && user.body==="1") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
-          user.matriculeQuestionSent=true;
-          sendMessages(user.phoneId, user.phone,askImmatriculation.text);
-        }
         else if (user.flow==="1" && user.previewMessage === "1" && user.body==="2") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId,user.phone,askImmatriculation.text);
           user.dateMessage===true;
           user.previewMessage==="2";
         }
+        else if (user.flow==="1" && user.previewMessage === "1" && (user.body!=="1" || user.body!=="2" )) {//check if the user client message is 1 or 2 and the preview message and flow are 1 to send the message to ask the immatriculation
+          sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+        }
         else if (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true) {
           const formatMatricul = user.body.replace(/\s+/g,"");
           await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
+        }
+        else if (user.flow==="1" && user.previewMessage === "1" && user.body==="2") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
+          sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+          user.dateMessage===true;
+          user.previewMessage==="2";
         }
         else if (user.flow==="1" && user.previewMessage === "2" && user.askDateMessage===true) {
           const formatMatricul = user.body.replace(/\s+/g,"");
