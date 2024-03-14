@@ -145,7 +145,6 @@ async function onSendMessages(req, res) {
         }
         else if (user.flow==="1" && user.previewMessage === "1" && user.body==="2") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-          user.dateMessage=true;
           user.previewMessage="2";
           user.matriculeQuestionSent=true;
         }
