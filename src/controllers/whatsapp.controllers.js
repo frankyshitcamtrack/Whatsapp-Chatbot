@@ -191,13 +191,13 @@ async function onSendMessages(req, res) {
           await getPositionVehicleByDate(user);
         }
 
-        else if (user.body === "2" && user.previewMessage === "") {
+        else if (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false) {
           user.previewMessage = user.body;
           sendMessages(user.phoneId, user.phone, textMessage3.text);
           user.scheduleMessageSent = true;
         } 
         
-        else if (user.previewMessage === "2" && user.scheduleMessageSent === true) {
+        else if (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false) {
           user.body = body
           const visit = scheduleMeeting(user.body, user.name);
           if (visit) {
@@ -205,15 +205,6 @@ async function onSendMessages(req, res) {
           }
           user.previewMessage = "";
           scheduleMessageSent = false;
-        }
-
-        else if (user.body === "0" && user.previewMessage === "1") {
-          sendMessages(user.phoneId, user.phone, textMessage.text);
-          user.previewMessage = ""
-        }
-        else if (user.body === "0" && user.previewMessage === "2") {
-          sendMessages(user.phoneId, user.phone, textMessage.text);
-          user.previewMessage = ""
         }
         else {
           sendMessages(user.phoneId, user.phone, textMessage.text);
