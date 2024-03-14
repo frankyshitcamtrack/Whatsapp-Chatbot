@@ -35,8 +35,13 @@ async function getPositionVehicule(immat,phoneId,phone,user){
         let message = {preview_url: false, body:body}
         //sendLocation(phoneId,phone,vehiculLocation)
         sendMessages(phoneId, phone, message)
-        user.previewMessage = ""
-        user.flow=""
+        user.previewMessage = "";
+        user.flow="";
+        user.vehicleNumber = "";
+        user.dates="";
+        user.scheduleMessageSent= false;
+        user.matriculeQuestionSent=false;
+        user.dateMessage=false;
      } 
    }
   else{
@@ -53,7 +58,7 @@ async function getPositionVehicleByDate(user){
   .catch(err => console.log(err));
 
   if(location && location.code<0){
-     const message ={preview_url: false, body:`${location.status} \n Please enter a valid matricul number`};
+     const message ={preview_url: false, body:`${location.status}`};
      sendMessages(user.phoneId,user.phone,message);  
      user.previewMessage = "1"
      user.flow="1"
@@ -161,7 +166,7 @@ async function onSendMessages(req, res) {
           sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
         }
 
-        else if (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true) {
+        else if (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true && user.dateMessage===false) {
           const formatMatricul = user.body.replace(/\s+/g,"");
           await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
         }
