@@ -1,8 +1,13 @@
 const axios = require ("axios");
 
+const API_URl ="https://bi.camtrack.mg:4589/whattsapp"
+
 function getPositionVehicul(immat){
-   const API_URl ="https://bi.camtrack.mg:4589/whattsapp"
    return axios.get(`${API_URl}/lstposi?immat=${immat}`);
 }
 
-module.exports={getPositionVehicul}
+function getPositionVehiculByDate(date,immat){
+   return axios.get(`${API_URl}/lstposi?date=${date}&immat=${immat}`);
+}
+
+module.exports={getPositionVehicul,getPositionVehiculByDate}

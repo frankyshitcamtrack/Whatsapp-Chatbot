@@ -57,7 +57,14 @@ const messageList = {
 const textMessage = {
     type: "text",
     text: {
-        preview_url: false, body: " Welcome to Camtrack ✨😃\n \n Let us know how we can help you today by choosing from the folowing options:\n\n"+"- Press 1 For vehicule🚗 Location\n- Press 2 Request a visit with a member"
+        preview_url: false, body: "Welcome to Camtrack ✨😃\n \n Let us know how we can help you today by choosing from the folowing options:\n\n"+"- Press 1 For vehicle🚗 Location\n- Press 2 Request a visit with a member"
+    }
+}
+
+const textMessageMenu1 = {
+    type: "text",
+    text: {
+        preview_url: false, body:"- Press 1 For last vehicle location f\n- Press 2 for vehicle location in a specific date and time"
     }
 }
 
@@ -73,9 +80,15 @@ const textMessage3 = {
     text: { preview_url: false, body: "Please enter the specifique Date and time you would like the visite to take place" }
 }
 
+
 const askImmatriculation = {
     type: "text",
     text: { preview_url: false, body: "Please enter your car registration number" }
+}
+
+const askDateMessage = {
+    type: "text",
+    text: { preview_url: false, body: "Please enter the specifique Date and time in this format *yyyy-MM-dd HH:mm:ss*" }
 }
 
 const validMatricul = {
@@ -108,4 +121,4 @@ function scheduleMeeting(time,name){
 }
 
 
-module.exports = { scheduleMeeting,messageList, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation }
+module.exports = { textMessageMenu1,scheduleMeeting,messageList, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation,askDateMessage }
