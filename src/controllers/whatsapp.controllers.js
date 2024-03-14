@@ -112,14 +112,15 @@ async function onSendMessages(req, res) {
           'phone': phone,
           'phoneId': phone_number_id,
           'body': body,
-          'previewMessage': "",
+          'vehicleNumber':'',
+          'date':'',
+          'time':'',
           'flow':"",
+          'previewMessage': "",
           'scheduleMessageSent': false,
           'matriculeQuestionSent':false,
           'dateMessage':false,
-          'matriculflow2':'',
-          'dateFlow2':'',
-          'timeFlow2':''
+
         }
         users.push(newUser);
         sendMessages(phone_number_id, phone, textMessage.text);
@@ -141,7 +142,7 @@ async function onSendMessages(req, res) {
           user.previewMessage==="2";
           user.matriculeQuestionSent===true;
         }
-        else if (user.flow==="1" && user.previewMessage === "1" && user.body==="1") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
+        else if (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false) {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId,user.phone,askImmatriculation.text);
           user.matriculeQuestionSent===true;
           user.previewMessage==="1"
