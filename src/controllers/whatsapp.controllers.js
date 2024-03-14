@@ -27,7 +27,7 @@ async function getPositionVehicule(immat,phoneId,phone,user){
        "name":`${location.lats},${location.longs}`
      }
      if(vehiculLocation.latitude && vehiculLocation.longitude){
-        let repportDate =vehiculLocation.dates;
+        let repportDate =new Date(vehiculLocation.dates);
         let date = dateInYyyyMmDdHhMmSs(repportDate);
         let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
         let body =`*Vehicle* : ${immat}\n\n*Last known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
@@ -66,8 +66,8 @@ async function getPositionVehicleByDate(user){
       "name":`${location.lats},${location.longs}`
     }
     if(vehiculLocation.latitude && vehiculLocation.longitude){
-       let newDate = new Date();
-       let date = dateInYyyyMmDdHhMmSs(vehiculLocation.dates);
+       let newDate = new Date(vehiculLocation.dates);
+       let date = dateInYyyyMmDdHhMmSs(newDate);
        let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
        let body =`*Vehicle* : ${immat}\n\nLast known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
        let message = {preview_url: false, body:body}
