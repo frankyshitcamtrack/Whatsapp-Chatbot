@@ -208,7 +208,10 @@ async function onSendMessages(req, res) {
           sendMessages(user.phoneId, user.phone, textMessage.text);
           user.previewMessage = ""
         }
-
+        else if (user.body === "0" && user.previewMessage === "2") {
+          sendMessages(user.phoneId, user.phone, textMessage.text);
+          user.previewMessage = ""
+        }
         else {
           sendMessages(user.phoneId, user.phone, textMessage.text);
         }
