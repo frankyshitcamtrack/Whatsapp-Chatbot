@@ -138,14 +138,14 @@ async function onSendMessages(req, res) {
         }
         else if (user.flow==="1" && user.previewMessage === "1" && user.body==="2") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-          user.dateMessage===true;
-          user.previewMessage==="2";
-          user.matriculeQuestionSent===true;
+          user.dateMessage=true;
+          user.previewMessage="2";
+          user.matriculeQuestionSent=true;
         }
         else if (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false) {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-          user.matriculeQuestionSent===true;
-          user.previewMessage==="1"
+          user.matriculeQuestionSent=true;
+          user.previewMessage="1"
         }
 
         else if (user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false) {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
@@ -163,13 +163,13 @@ async function onSendMessages(req, res) {
 
         else if (user.flow==="1" && user.previewMessage === "1" && user.body==="2") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-          user.previewMessage==="2";
+          user.previewMessage="2";
           user.matriculeQuestionSent=true
         }
         else if (user.flow==="1" && user.previewMessage === "2" && user.askImmatriculation===true) {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
           sendMessages(user.phoneId,user.phone,askDateMessage.text);
-          user.previewMessage==="2";
-          user.dateMessage===true
+          user.previewMessage="2";
+          user.dateMessage=true
         }
         
         else if (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true) {
