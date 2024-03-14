@@ -7,7 +7,7 @@ function getPositionVehicul(immat){
 }
 
 function getPositionVehiculByDate(date,immat){
-   return axios.get(`${API_URl}/lstposi?date=${date}&immat=${immat}`);
+   return axios.get(`${API_URl}/lstposibydat?date=${date}&immat=${immat}`);
 }
 
 module.exports={getPositionVehicul,getPositionVehiculByDate}

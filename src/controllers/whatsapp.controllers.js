@@ -77,9 +77,11 @@ async function getPositionVehicleByDate(user){
        let date = dateInYyyyMmDdHhMmSs(newDate);
        let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
        let body =`*Vehicle* : ${user.vehicleNumber}\n\nLast known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
-       let message = {preview_url: false, body:body}
-       //sendLocation(phoneId,phone,vehiculLocation)
-       sendMessages(user.phoneId, user.phone, message)
+       
+       let message = {preview_url: false, body:body};
+
+       sendMessages(user.phoneId, user.phone, message);
+
        user.previewMessage = "";
        user.flow="";
        user.vehicleNumber = "";
