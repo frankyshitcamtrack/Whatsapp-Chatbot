@@ -149,46 +149,56 @@ async function onSendMessages(req, res) {
             user.previewMessage = user.body;
             user.flow="1";
             sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+            break;
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
             sendMessages(user.phoneId,user.phone,askImmatriculation.text);
             user.previewMessage="2";
             user.matriculeQuestionSent=true;
+            break;
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false):
             sendMessages(user.phoneId,user.phone,askImmatriculation.text);
             user.matriculeQuestionSent=true;
             user.previewMessage="1";
+            break;
 
           case(user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false):
             sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+            break;
 
           case(user.flow==="1" && user.previewMessage === "1" && user.body!=="2" &&  user.matriculeQuestionSent===false ):
             sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+            break;
 
           case (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true && user.dateMessage===false):
             const formatMatricul = user.body.replace(/\s+/g,"");
             await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
+            break;
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
             sendMessages(user.phoneId,user.phone,askImmatriculation.text);
             user.previewMessage="2";
             user.matriculeQuestionSent=true;
+            break;
 
           case (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true && user.dateMessage===false):
             let vehicleImmat = user.body
             user.vehicleNumber=vehicleImmat.replace(/\s+/g,"");
             sendMessages(user.phoneId,user.phone,askDateMessage.text);
             user.dateMessage=true;
+            break;
 
           case (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true):
             user.date=user.body;
             await getPositionVehicleByDate(user);
+            break;
 
           case (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):
             user.previewMessage = user.body;
             sendMessages(user.phoneId, user.phone, textMessage3.text);
             user.scheduleMessageSent = true;
+            break;
 
           case (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false):
             user.body = body
@@ -198,6 +208,7 @@ async function onSendMessages(req, res) {
             }
             user.previewMessage = "";
             scheduleMessageSent = false;
+            break;
             
           default:
             sendMessages(user.phoneId, user.phone, textMessage.text);
