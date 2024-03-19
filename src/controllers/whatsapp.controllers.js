@@ -1,9 +1,9 @@
 const { sendMessages, sendMedia } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
-const aud = require("../assets/aud.mp3");
-const vid = require("../assets/vid.mp4");
-const org= require("../assets/organigramme.pdf");
+const aud = require("../../public/assets/aud.mp3");
+const vid = require("../../public/assets/vid.mp4");
+const org= require("../../public/assets/organigramme.pdf");
 const { textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
 
 
