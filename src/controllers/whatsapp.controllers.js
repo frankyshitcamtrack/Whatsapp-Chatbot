@@ -1,4 +1,4 @@
-const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaVideo } = require("../models/whatsapp.model");
+const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const { textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
@@ -146,19 +146,22 @@ async function onSendMessages(req, res) {
             break;
 
           case(user.body==="3" && user.previewMessage === "" && user.flow===""):
-            const aud ="https://www.dropbox.com/scl/fi/c2txav3yi8unfqh5slj4w/aud.mp3?rlkey=o36w9yvsapxxhpfy3rphztabu&dl=0";
-            sendMediaAudio(user.phoneId,user.phone,aud);
-            break
+            //const aud ="https://www.dropbox.com/scl/fi/c2txav3yi8unfqh5slj4w/aud.mp3?rlkey=o36w9yvsapxxhpfy3rphztabu&dl=0";
+            //sendMediaAudio(user.phoneId,user.phone,aud);
+            sendAudiobyId(user.phoneId,user.phone,"857694462782371");
+            break;
 
           case(user.body==="4" && user.previewMessage === "" && user.flow===""):
-            const vid = "https://www.dropbox.com/scl/fi/plz0u4ki1w1dehgdkjqso/vid.mp4?rlkey=wnm1c397uvs60w9q7dkwdb6i1&dl=0";
-            sendMediaVideo(user.phoneId,user.phone,vid);
-            break
+            //const vid = "https://www.dropbox.com/scl/fi/plz0u4ki1w1dehgdkjqso/vid.mp4?rlkey=wnm1c397uvs60w9q7dkwdb6i1&dl=0";
+            //sendMediaVideo(user.phoneId,user.phone,vid);
+            sendVidbyId(user.phoneId,user.phone,"716903793964115");
+            break;
 
           case(user.body==="5" && user.previewMessage === "" && user.flow===""):
-            const doc ="https://drive.google.com/file/d/1ld9R0PaGom3ikwGdyCT3p1DVLhe-8lWF/view?usp=sharing";
-            sendMediaDocument(user.phoneId,user.phone,doc);
-            break 
+            //const doc ="https://drive.google.com/file/d/1ld9R0PaGom3ikwGdyCT3p1DVLhe-8lWF/view?usp=sharing";
+            //sendMediaDocument(user.phoneId,user.phone,doc);
+            sendDocbyId(user.phoneId,user.phone,"385059230949332");
+            break; 
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
             sendMessages(user.phoneId,user.phone,askImmatriculation.text);

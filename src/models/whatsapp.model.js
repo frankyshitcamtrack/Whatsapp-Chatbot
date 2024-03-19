@@ -136,5 +136,75 @@ function sendMediaDocument(phone_number_id,phone,link){
     });
 }
 
+function sendDocbyId(phone_number_id,phone,id){
+  axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
+    data:{     
+    messaging_product: "whatsapp", 
+    recipient_type: "individual",      
+    to: phone,    
+    "type":"document",     
+     "document":{
+       "id":id
+     }
+  },
+    headers: { "Content-Type": "application/json"},
+  }).then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
-module.exports = { sendMessages,sendInteraction,sendLocation,sendMediaAudio,sendMediaDocument,sendMediaVideo }
+function sendVidbyId(phone_number_id,phone,id){
+  axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
+    data:{     
+    messaging_product: "whatsapp", 
+    recipient_type: "individual",      
+    to: phone,    
+    "type":"video",     
+     "video":{
+       "id":id
+     }
+  },
+    headers: { "Content-Type": "application/json"},
+  }).then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+
+function sendAudiobyId(phone_number_id,phone,id){
+  axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
+    data:{     
+    messaging_product: "whatsapp", 
+    recipient_type: "individual",      
+    to: phone,    
+    "type":"audio",     
+     "audio":{
+       "id":id
+     }
+  },
+    headers: { "Content-Type": "application/json"},
+  }).then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+
+module.exports = { sendMessages,sendInteraction,sendLocation,sendMediaAudio,sendMediaDocument,sendMediaVideo,sendDocbyId,sendAudiobyId,sendVidbyId }
