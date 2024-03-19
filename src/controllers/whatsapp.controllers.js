@@ -98,140 +98,140 @@ async function getPositionVehicleByDate(user){
 
 //Send whatsapp message
 async function onSendMessages(req, res) {
-
+  
   if (req.body.object) {
-    if(
+    if (
       req.body.entry &&
       req.body.entry[0].changes &&
       req.body.entry[0].changes[0] &&
       req.body.entry[0].changes[0].value.messages &&
       req.body.entry[0].changes[0].value.messages[0]
-    ){
-     
-      if (
-        req.body.entry &&
-        req.body.entry[0].changes &&
-        req.body.entry[0].changes[0] &&
-        req.body.entry[0].changes[0].value.messages &&
-        req.body.entry[0].changes[0].value.messages[0]
-      ) {
-        // check if the user client index is not exist in the table user table and finally add the new user
-        if (findIndex < 0) {
-          const newUser = {
-            'id': entryID,
-            'name': name,
-            'phone': phone,
-            'phoneId': phone_number_id,
-            'body': body,
-            'vehicleNumber':'',
-            'date':'',
-            'time':'',
-            'flow':"",
-            'previewMessage': "",
-            'scheduleMessageSent': false,
-            'matriculeQuestionSent':false,
-            'dateMessage':false,
-          }
-          users.push(newUser);
-          sendMessages(phone_number_id, phone, textMessage.text);
-        
+    ) {
+      let entryID = req.body.entry[0].id;
+      let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone numberId from the webhook payload
+      let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the phone number text from the webhook payload
+      let body = req.body.entry[0].changes[0].value.messages[0].text.body; // extract the message text from the webhook payloa
+      let name = req.body.entry[0].changes[0].value.contacts[0].profile.name; // extract the name from the webhook payloa
+    
+      const findIndex = users.findIndex(item => item.name === name);
+      const phone = phoneFormat(from);
+      // Check the Incoming webhook message
+      console.log(users);
+      //console.log(JSON.stringify(req.body, null, 2));
+    
+      // check if the user client index is not exist in the table user table and finally add the new user
+      if (findIndex < 0) {
+        const newUser = {
+          'id': entryID,
+          'name': name,
+          'phone': phone,
+          'phoneId': phone_number_id,
+          'body': body,
+          'vehicleNumber':'',
+          'date':'',
+          'time':'',
+          'flow':"",
+          'previewMessage': "",
+          'scheduleMessageSent': false,
+          'matriculeQuestionSent':false,
+          'dateMessage':false,
         }
-  
-        if (findIndex >= 0) { // check if the user client index exist in the table user table
-          const user = users[findIndex]; // find the user by his index
-          user.body = body;
-          switch(true){
-  
-            case (user.body === "1" && user.previewMessage === "" && user.flow===""):
-              user.previewMessage = user.body;
-              user.flow="1";
-              sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
-              break;
-  
-            case(user.body==="3" && user.previewMessage === "" && user.flow===""):
-              const aud ="https://www.dropbox.com/scl/fi/c2txav3yi8unfqh5slj4w/aud.mp3?rlkey=o36w9yvsapxxhpfy3rphztabu&dl=0";
-              sendMediaAudio(user.phoneId,user.phone,aud);
-              break
-  
-            case(user.body==="4" && user.previewMessage === "" && user.flow===""):
-              const vid = "https://www.dropbox.com/scl/fi/plz0u4ki1w1dehgdkjqso/vid.mp4?rlkey=wnm1c397uvs60w9q7dkwdb6i1&dl=0";
-              sendMediaVideo(user.phoneId,user.phone,vid);
-              break
-  
-            case(user.body==="5" && user.previewMessage === "" && user.flow===""):
-              const doc ="https://www.dropbox.com/scl/fi/csn7xn38zugvf9t1iimzc/organigramme.pdf?rlkey=nwkdnqmwd89265aupmvmdaqsf&dl=0";
-              sendMediaDocument(user.phoneId,user.phone,doc);
-              break 
-  
-            case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
-              sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-              user.previewMessage="2";
-              user.matriculeQuestionSent=true;
-              break;
-  
-            case (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false):
-              sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-              user.matriculeQuestionSent=true;
-              user.previewMessage="1";
-              break;
-  
-            case(user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false):
-              sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
-              break;
-  
-            case(user.flow==="1" && user.previewMessage === "1" && user.body!=="2" &&  user.matriculeQuestionSent===false ):
-              sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
-              break;
-  
-            case (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true && user.dateMessage===false):
-              user.vehicleNumber = user.body.replace(/\s+/g,"");
-              await getPositionVehicule(user);
-              break;
-  
-            case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
-              sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-              user.previewMessage="2";
-              user.matriculeQuestionSent=true;
-              break;
-  
-            case (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true && user.dateMessage===false):
-              let vehicleImmat = user.body
-              user.vehicleNumber=vehicleImmat.replace(/\s+/g,"");
-              sendMessages(user.phoneId,user.phone,askDateMessage.text);
-              user.dateMessage=true;
-              break;
-  
-            case (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true):
-              user.date=user.body;
-              await getPositionVehicleByDate(user);
-              break;
-  
-            case (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):
-              user.previewMessage = user.body;
-              sendMessages(user.phoneId, user.phone, textMessage3.text);
-              user.scheduleMessageSent = true;
-              break;
-  
-            case (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false):
-              user.body = body
-              const visit = scheduleMeeting(user.body, user.name);
-              sendMessages(user.phoneId, user.phone, visit.text);
-              user.previewMessage = "";
-              scheduleMessageSent = false;
-              break;
-             
-  
-            default:
-              sendMessages(user.phoneId, user.phone, textMessage.text);
-          }
-         
-        }
-     
+        users.push(newUser);
+        sendMessages(phone_number_id, phone, textMessage.text);
+        res.json(200);
       }
-   
+
+      if (findIndex >= 0) { // check if the user client index exist in the table user table
+        const user = users[findIndex]; // find the user by his index
+        user.body = body;
+        switch(true){
+
+          case (user.body === "1" && user.previewMessage === "" && user.flow===""):
+            user.previewMessage = user.body;
+            user.flow="1";
+            sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+            break;
+
+          case(user.body==="3" && user.previewMessage === "" && user.flow===""):
+            const aud ="https://www.dropbox.com/scl/fi/c2txav3yi8unfqh5slj4w/aud.mp3?rlkey=o36w9yvsapxxhpfy3rphztabu&dl=0";
+            sendMediaAudio(user.phoneId,user.phone,aud);
+            break
+
+          case(user.body==="4" && user.previewMessage === "" && user.flow===""):
+            const vid = "https://www.dropbox.com/scl/fi/plz0u4ki1w1dehgdkjqso/vid.mp4?rlkey=wnm1c397uvs60w9q7dkwdb6i1&dl=0";
+            sendMediaVideo(user.phoneId,user.phone,vid);
+            break
+
+          case(user.body==="5" && user.previewMessage === "" && user.flow===""):
+            const doc ="https://www.dropbox.com/scl/fi/csn7xn38zugvf9t1iimzc/organigramme.pdf?rlkey=nwkdnqmwd89265aupmvmdaqsf&dl=0";
+            sendMediaDocument(user.phoneId,user.phone,doc);
+            break 
+
+          case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
+            sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+            user.previewMessage="2";
+            user.matriculeQuestionSent=true;
+            break;
+
+          case (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false):
+            sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+            user.matriculeQuestionSent=true;
+            user.previewMessage="1";
+            break;
+
+          case(user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false):
+            sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+            break;
+
+          case(user.flow==="1" && user.previewMessage === "1" && user.body!=="2" &&  user.matriculeQuestionSent===false ):
+            sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+            break;
+
+          case (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true && user.dateMessage===false):
+            user.vehicleNumber = user.body.replace(/\s+/g,"");
+            await getPositionVehicule(user);
+            break;
+
+          case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
+            sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+            user.previewMessage="2";
+            user.matriculeQuestionSent=true;
+            break;
+
+          case (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true && user.dateMessage===false):
+            let vehicleImmat = user.body
+            user.vehicleNumber=vehicleImmat.replace(/\s+/g,"");
+            sendMessages(user.phoneId,user.phone,askDateMessage.text);
+            user.dateMessage=true;
+            break;
+
+          case (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true):
+            user.date=user.body;
+            await getPositionVehicleByDate(user);
+            break;
+
+          case (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):
+            user.previewMessage = user.body;
+            sendMessages(user.phoneId, user.phone, textMessage3.text);
+            user.scheduleMessageSent = true;
+            break;
+
+          case (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false):
+            user.body = body
+            const visit = scheduleMeeting(user.body, user.name);
+            sendMessages(user.phoneId, user.phone, visit.text);
+            user.previewMessage = "";
+            scheduleMessageSent = false;
+            break;
+           
+
+          default:
+            sendMessages(user.phoneId, user.phone, textMessage.text);
+        }
+        res.json(200);
+      }
     }
-  
-    res.json(200);
+    
   }
   else {
     res.sendStatus(404);
