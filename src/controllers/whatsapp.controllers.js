@@ -1,9 +1,7 @@
+const path = require('path');
 const { sendMessages, sendMedia } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
-const aud = require("../../public/assets/aud.mp3");
-const vid = require("../../public/assets/vid.mp4");
-const org= require("../../public/assets/organigramme.pdf");
 const { textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
 
 
@@ -155,15 +153,18 @@ async function onSendMessages(req, res) {
             break;
 
           case(user.body==="3" && user.previewMessage === "" && user.flow===""):
+            const aud = path.join(__dirname,"./assets/aud.mp3");
             sendMedia(user.phoneId,user.phone,"audio",aud);
             break
 
           case(user.body==="4" && user.previewMessage === "" && user.flow===""):
+            const vid = path.join(__dirname,"./assets/vid.mp4");
             sendMedia(user.phoneId,user.phone,"video",vid);
             break
 
           case(user.body==="5" && user.previewMessage === "" && user.flow===""):
-            sendMedia(user.phoneId,user.phone,"document",org);
+            const doc = path.join(__dirname,"./assets/organigramme.pdf");
+            sendMedia(user.phoneId,user.phone,"document",doc);
             break
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):

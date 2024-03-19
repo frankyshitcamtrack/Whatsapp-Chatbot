@@ -20,7 +20,7 @@ app.use(morgan('combined'));
 
 app.use(cors());
 app.use(bodyParser.json());
-
+app.use(express.static('public'))
 
 // Accepts POST requests at /webhook endpoint
 app.use("/webhook", whatsappRouter);
