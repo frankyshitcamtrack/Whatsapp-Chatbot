@@ -165,7 +165,7 @@ async function onSendMessages(req, res) {
             break
 
           case(user.body==="5" && user.previewMessage === "" && user.flow===""):
-            const doc ="https://www.dropbox.com/scl/fi/csn7xn38zugvf9t1iimzc/organigramme.pdf?rlkey=nwkdnqmwd89265aupmvmdaqsf&dl=0";
+            const doc ="https://drive.google.com/file/d/1ld9R0PaGom3ikwGdyCT3p1DVLhe-8lWF/view?usp=sharing";
             sendMediaDocument(user.phoneId,user.phone,doc);
             break 
 
