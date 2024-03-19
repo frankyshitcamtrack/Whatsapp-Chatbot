@@ -1,4 +1,4 @@
-const { sendMessages, sendMedia } = require("../models/whatsapp.model");
+const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaVideo } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const { textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
@@ -153,17 +153,17 @@ async function onSendMessages(req, res) {
 
           case(user.body==="3" && user.previewMessage === "" && user.flow===""):
             const aud ="https://www.dropbox.com/scl/fi/c2txav3yi8unfqh5slj4w/aud.mp3?rlkey=o36w9yvsapxxhpfy3rphztabu&dl=0";
-            sendMedia(user.phoneId,user.phone,aud);
+            sendMediaAudio(user.phoneId,user.phone,aud);
             break
 
           case(user.body==="4" && user.previewMessage === "" && user.flow===""):
             const vid = "https://www.dropbox.com/scl/fi/plz0u4ki1w1dehgdkjqso/vid.mp4?rlkey=wnm1c397uvs60w9q7dkwdb6i1&dl=0";
-            sendMedia(user.phoneId,user.phone,vid);
+            sendMediaVideo(user.phoneId,user.phone,vid);
             break
 
           case(user.body==="5" && user.previewMessage === "" && user.flow===""):
             const doc ="https://www.dropbox.com/scl/fi/csn7xn38zugvf9t1iimzc/organigramme.pdf?rlkey=nwkdnqmwd89265aupmvmdaqsf&dl=0";
-            sendMedia(user.phoneId,user.phone,doc);
+            sendMediaDocument(user.phoneId,user.phone,doc);
             break 
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
