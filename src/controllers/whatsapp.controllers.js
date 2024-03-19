@@ -7,14 +7,14 @@ const { textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatric
 let users = []
 
 // Send vehicule location function
-async function getPositionVehicule(immat,phoneId,phone,user){
-   const location= await getLocation(immat)
+async function getPositionVehicule(user){
+   const location= await getLocation(user.vehicleNumber)
    .then(res =>res.data )
    .catch(err => console.log(err));
    console.log(location);
    if(location && location.code<0){
       const message ={preview_url: false, body:`${location.status} \n Please enter a valid matricul number`};
-      sendMessages(phoneId,phone,message);  
+      sendMessages(user.phoneId,user.phone,message);  
       user.previewMessage = "1"
       user.flow="1"
    }
@@ -34,7 +34,7 @@ async function getPositionVehicule(immat,phoneId,phone,user){
         let body =`*Vehicle* : ${immat}\n\n*Last known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
         let message = {preview_url: false, body:body}
         //sendLocation(phoneId,phone,vehiculLocation)
-        sendMessages(phoneId, phone, message)
+        sendMessages(user.phoneId,user.phone,message); 
         user.previewMessage = "";
         user.flow="";
         user.vehicleNumber = "";
@@ -46,15 +46,14 @@ async function getPositionVehicule(immat,phoneId,phone,user){
    }
   else{
      const message ={preview_url: false, body:"une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer"}
-     sendMessages(phoneId, phone, message)
+     sendMessages(user.phoneId,user.phone,message); 
    } 
 }
 
 
 //Send vehicle location by specific date
 async function getPositionVehicleByDate(user){
-  console.log(user);
-  const location= await getLocationByDate(user.date,user.vehicleNumber)
+   const location= await getLocationByDate(user.date,user.vehicleNumber)
   .then(res =>res.data )
   .catch(err => console.log(err));
   if(location && location.code<0){
@@ -76,7 +75,7 @@ async function getPositionVehicleByDate(user){
        let newDate = new Date(vehiculLocation.dates);
        let date = dateInYyyyMmDdHhMmSs(newDate);
        let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
-       let body =`*Vehicle* : ${user.vehicleNumber}\n\nLast known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
+       let body =`*Vehicle* : ${user.vehicleNumber}\n\n*Last known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
        
        let message = {preview_url: false, body:body};
 
@@ -209,7 +208,7 @@ async function onSendMessages(req, res) {
             user.previewMessage = "";
             scheduleMessageSent = false;
             break;
-            
+
           default:
             sendMessages(user.phoneId, user.phone, textMessage.text);
         }
