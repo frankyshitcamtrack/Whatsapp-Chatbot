@@ -67,7 +67,7 @@ function sendLocation(phone_number_id,phone,message){
 }
 
 
-function sendMedia(phone_number_id,phone,link){
+function sendMediaAudio(phone_number_id,phone,link){
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -90,5 +90,51 @@ function sendMedia(phone_number_id,phone,link){
     });
 }
 
+function sendMediaVideo(phone_number_id,phone,link){
+  axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
+    data:{     
+    messaging_product: "whatsapp", 
+    recipient_type: "individual",      
+    to: phone,    
+    "type":"video",     
+     "video":{
+       "link":link
+     }
+  },
+    headers: { "Content-Type": "application/json"},
+  }).then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
-module.exports = { sendMessages,sendInteraction,sendLocation,sendMedia }
+function sendMediaDocument(phone_number_id,phone,link){
+  axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
+    data:{     
+    messaging_product: "whatsapp", 
+    recipient_type: "individual",      
+    to: phone,    
+    "type":"document",     
+     "document":{
+       "link":link
+     }
+  },
+    headers: { "Content-Type": "application/json"},
+  }).then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+
+module.exports = { sendMessages,sendInteraction,sendLocation,sendMediaAudio,sendMediaDocument,sendMediaVideo }

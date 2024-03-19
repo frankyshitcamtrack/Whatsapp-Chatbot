@@ -1,4 +1,3 @@
-const path = require('path');
 const { sendMessages, sendMedia } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
@@ -153,20 +152,19 @@ async function onSendMessages(req, res) {
             break;
 
           case(user.body==="3" && user.previewMessage === "" && user.flow===""):
-            const aud = path.join(__dirname,'..','public','assets','aud.mp3');
-            console.log(aud);
+            const aud ="https://www.dropbox.com/scl/fi/c2txav3yi8unfqh5slj4w/aud.mp3?rlkey=o36w9yvsapxxhpfy3rphztabu&dl=0";
             sendMedia(user.phoneId,user.phone,aud);
             break
 
-      /*    case(user.body==="4" && user.previewMessage === "" && user.flow===""):
-            const vid = path.join(__dirname,"./assets/vid.mp4");
-            sendMedia(user.phoneId,user.phone,"video",vid);
+          case(user.body==="4" && user.previewMessage === "" && user.flow===""):
+            const vid = "https://www.dropbox.com/scl/fi/plz0u4ki1w1dehgdkjqso/vid.mp4?rlkey=wnm1c397uvs60w9q7dkwdb6i1&dl=0";
+            sendMedia(user.phoneId,user.phone,vid);
             break
 
           case(user.body==="5" && user.previewMessage === "" && user.flow===""):
-            const doc = path.join(__dirname,"./assets/organigramme.pdf");
-            sendMedia(user.phoneId,user.phone,"document",doc);
-            break */
+            const doc ="https://www.dropbox.com/scl/fi/csn7xn38zugvf9t1iimzc/organigramme.pdf?rlkey=nwkdnqmwd89265aupmvmdaqsf&dl=0";
+            sendMedia(user.phoneId,user.phone,doc);
+            break 
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
             sendMessages(user.phoneId,user.phone,askImmatriculation.text);
