@@ -67,4 +67,26 @@ function sendLocation(phone_number_id,phone,message){
 }
 
 
-module.exports = { sendMessages,sendInteraction,sendLocation }
+function sendMedia(phone_number_id,phone,type,link){
+  axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
+    data:{     
+    messaging_product: "whatsapp", 
+    recipient_type: "individual",      
+    to: phone,    
+    "type":type,     
+     type:link
+  },
+    headers: { "Content-Type": "application/json"},
+  }).then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+
+module.exports = { sendMessages,sendInteraction,sendLocation,sendMedia }

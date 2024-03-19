@@ -119,6 +119,7 @@ async function onSendMessages(req, res) {
       req.body.entry[0].changes[0].value.messages &&
       req.body.entry[0].changes[0].value.messages[0]
     ) {
+      // check if the user client index is not exist in the table user table and finally add the new user
       if (findIndex < 0) {
         const newUser = {
           'id': entryID,
@@ -134,7 +135,6 @@ async function onSendMessages(req, res) {
           'scheduleMessageSent': false,
           'matriculeQuestionSent':false,
           'dateMessage':false,
-
         }
         users.push(newUser);
         sendMessages(phone_number_id, phone, textMessage.text);
@@ -144,75 +144,71 @@ async function onSendMessages(req, res) {
       if (findIndex >= 0) { // check if the user client index exist in the table user table
         const user = users[findIndex]; // find the user by his index
         user.body = body;
-       
-        if (user.body === "1" && user.previewMessage === "" && user.flow==="") {//check if the user client message is 1 and the preview message empty to send the flow onn or the menu for location tracking
-          user.previewMessage = user.body;
-          user.flow="1"
-          sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
-        }
-        else if (user.flow==="1" && user.previewMessage === "1" && user.body==="2") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
-          sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-          user.previewMessage="2";
-          user.matriculeQuestionSent=true;
-        }
-        else if (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false) {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
-          sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-          user.matriculeQuestionSent=true;
-          user.previewMessage="1"
+        switch(true){
+          case (user.body === "1" && user.previewMessage === "" && user.flow===""):
+            user.previewMessage = user.body;
+            user.flow="1";
+            sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+
+          case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
+            sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+            user.previewMessage="2";
+            user.matriculeQuestionSent=true;
+
+          case (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false):
+            sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+            user.matriculeQuestionSent=true;
+            user.previewMessage="1";
+
+          case(user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false):
+            sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+
+          case(user.flow==="1" && user.previewMessage === "1" && user.body!=="2" &&  user.matriculeQuestionSent===false ):
+            sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+
+          case (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true && user.dateMessage===false):
+            const formatMatricul = user.body.replace(/\s+/g,"");
+            await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
+
+          case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
+            sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+            user.previewMessage="2";
+            user.matriculeQuestionSent=true;
+
+          case (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true && user.dateMessage===false):
+            let vehicleImmat = user.body
+            user.vehicleNumber=vehicleImmat.replace(/\s+/g,"");
+            sendMessages(user.phoneId,user.phone,askDateMessage.text);
+            user.dateMessage=true;
+
+          case (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true):
+            user.date=user.body;
+            await getPositionVehicleByDate(user);
+
+          case (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):
+            user.previewMessage = user.body;
+            sendMessages(user.phoneId, user.phone, textMessage3.text);
+            user.scheduleMessageSent = true;
+
+          case (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false):
+            user.body = body
+            const visit = scheduleMeeting(user.body, user.name);
+            if (visit) {
+              sendMessages(user.phoneId, user.phone, visit.text);
+            }
+            user.previewMessage = "";
+            scheduleMessageSent = false;
+            
+          default:
+            sendMessages(user.phoneId, user.phone, textMessage.text);
         }
 
-        else if (user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false) {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
-          sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
-        }
-
-        else if (user.flow==="1" && user.previewMessage === "1" && user.body!=="2" &&  user.matriculeQuestionSent===false ) {//check if the user client message is 2 and the preview message and flow are 1 to send the message to ask the immatriculation
-          sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
-        }
-
-        else if (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true && user.dateMessage===false) {
-          const formatMatricul = user.body.replace(/\s+/g,"");
-          await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
-        }
-
-        else if (user.flow==="1" && user.previewMessage === "1" && user.body==="2") {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
-          sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-          user.previewMessage="2";
-          user.matriculeQuestionSent=true
-        }
-        else if (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true && user.dateMessage===false) {//check if the user client message is 1 and the preview message and flow are 1 to send the message to ask the immatriculation
-          let vehicleImmat = user.body
-          user.vehicleNumber=vehicleImmat.replace(/\s+/g,"");
-          sendMessages(user.phoneId,user.phone,askDateMessage.text);
-          user.dateMessage=true;
-        }
-
-        else if (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true) {
-          user.date=user.body;
-          await getPositionVehicleByDate(user);
-        }
-
-        else if (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false) {
-          user.previewMessage = user.body;
-          sendMessages(user.phoneId, user.phone, textMessage3.text);
-          user.scheduleMessageSent = true;
-        } 
-        
-        else if (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false) {
-          user.body = body
-          const visit = scheduleMeeting(user.body, user.name);
-          if (visit) {
-            sendMessages(user.phoneId, user.phone, visit.text);
-          }
-          user.previewMessage = "";
-          scheduleMessageSent = false;
-        }
-        else {
-          sendMessages(user.phoneId, user.phone, textMessage.text);
-        }
+     
+        res.json(200);
        
       }
     }
-    res.json(200);
+    
   }
   else {
     res.sendStatus(404);
