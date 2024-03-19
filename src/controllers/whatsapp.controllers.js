@@ -227,10 +227,7 @@ async function onSendMessages(req, res) {
           default:
             sendMessages(user.phoneId, user.phone, textMessage.text);
         }
-
-     
         res.json(200);
-       
       }
     }
     
