@@ -138,7 +138,7 @@ async function onSendMessages(req, res) {
         }
         users.push(newUser);
         sendMessages(phone_number_id, phone, textMessage.text);
-        res.json(200);
+    
       }
 
       if (findIndex >= 0) { // check if the user client index exist in the table user table
@@ -228,10 +228,12 @@ async function onSendMessages(req, res) {
           default:
             sendMessages(user.phoneId, user.phone, textMessage.text);
         }
-        res.json(200);
+       
       }
+      
     }
     
+    res.json(200);
   }
   else {
     res.sendStatus(404);
