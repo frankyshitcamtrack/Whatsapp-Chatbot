@@ -153,7 +153,7 @@ async function onSendMessages(req, res) {
             break;
 
           case(user.body==="3" && user.previewMessage === "" && user.flow===""):
-            const aud = path.join(__dirname,"./assets/aud.mp3");
+            const aud = path.join(__dirname,'..','public','assets','aud.mp3');
             console.log(aud);
             sendMedia(user.phoneId,user.phone,aud);
             break

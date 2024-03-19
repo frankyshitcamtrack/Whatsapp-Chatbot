@@ -1,10 +1,10 @@
 const morgan = require("morgan")
 const cors = require("cors")
-const {serverMessage} = require("./src/data/template-massages")
-// Imports dependencies and set up http server
+const path = require('path')
+
 const express = require("express");
 const bodyParser = require("body-parser");
-const {getPositionVehicule}= require("./src/controllers/whatsapp.controllers");
+
 
 const whatsappRouter = require("./src/routes/whatsapp.route");
 
@@ -20,7 +20,8 @@ app.use(morgan('combined'));
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static('public'))
+
+app.use(express.static(path.join(__dirname,'..','public')))
 
 // Accepts POST requests at /webhook endpoint
 app.use("/webhook", whatsappRouter);
