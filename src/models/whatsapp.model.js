@@ -67,7 +67,7 @@ function sendLocation(phone_number_id,phone,message){
 }
 
 
-function sendMedia(phone_number_id,phone,type,link){
+function sendMedia(phone_number_id,phone,link){
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -76,8 +76,8 @@ function sendMedia(phone_number_id,phone,type,link){
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
     to: phone,    
-    "type":type,     
-     type:{
+    "type":"audio",     
+     "audio":{
        "link":link
      }
   },

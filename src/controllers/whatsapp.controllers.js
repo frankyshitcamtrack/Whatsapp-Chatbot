@@ -154,10 +154,10 @@ async function onSendMessages(req, res) {
 
           case(user.body==="3" && user.previewMessage === "" && user.flow===""):
             const aud = path.join(__dirname,"./assets/aud.mp3");
-            sendMedia(user.phoneId,user.phone,"audio",aud);
+            sendMedia(user.phoneId,user.phone,aud);
             break
 
-          case(user.body==="4" && user.previewMessage === "" && user.flow===""):
+      /*     case(user.body==="4" && user.previewMessage === "" && user.flow===""):
             const vid = path.join(__dirname,"./assets/vid.mp4");
             sendMedia(user.phoneId,user.phone,"video",vid);
             break
@@ -165,7 +165,7 @@ async function onSendMessages(req, res) {
           case(user.body==="5" && user.previewMessage === "" && user.flow===""):
             const doc = path.join(__dirname,"./assets/organigramme.pdf");
             sendMedia(user.phoneId,user.phone,"document",doc);
-            break
+            break */
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
             sendMessages(user.phoneId,user.phone,askImmatriculation.text);
