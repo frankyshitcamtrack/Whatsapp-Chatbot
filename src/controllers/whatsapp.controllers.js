@@ -144,6 +144,7 @@ async function onSendMessages(req, res) {
         const user = users[findIndex]; // find the user by his index
         user.body = body;
         switch(true){
+
           case (user.body === "1" && user.previewMessage === "" && user.flow===""):
             user.previewMessage = user.body;
             user.flow="1";
@@ -202,9 +203,7 @@ async function onSendMessages(req, res) {
           case (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false):
             user.body = body
             const visit = scheduleMeeting(user.body, user.name);
-            if (visit) {
-              sendMessages(user.phoneId, user.phone, visit.text);
-            }
+            sendMessages(user.phoneId, user.phone, visit.text);
             user.previewMessage = "";
             scheduleMessageSent = false;
             break;
