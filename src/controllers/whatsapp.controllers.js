@@ -171,8 +171,8 @@ async function onSendMessages(req, res) {
             break;
 
           case (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true && user.dateMessage===false):
-            const formatMatricul = user.body.replace(/\s+/g,"");
-            await getPositionVehicule(formatMatricul,user.phoneId,user.phone,user);
+            user.vehicleNumber = user.body.replace(/\s+/g,"");
+            await getPositionVehicule(user);
             break;
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
