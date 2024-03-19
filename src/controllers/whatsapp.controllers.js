@@ -1,7 +1,10 @@
-const { sendMessages, sendLocation } = require("../models/whatsapp.model");
+const { sendMessages, sendMedia } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
-const { textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages")
+const aud = require("../assets/aud.mp3");
+const vid = require("../assets/vid.mp4");
+const org= require("../assets/organigramme.mp4");
+const { textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
 
 
 let users = []
@@ -151,6 +154,18 @@ async function onSendMessages(req, res) {
             sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
             break;
 
+          case(user.body==="3" && user.previewMessage === "" && user.flow===""):
+            sendMedia(user.phoneId,user.phone,"audio",aud);
+            break
+
+          case(user.body==="4" && user.previewMessage === "" && user.flow===""):
+            sendMedia(user.phoneId,user.phone,"video",vid);
+            break
+
+          case(user.body==="5" && user.previewMessage === "" && user.flow===""):
+            sendMedia(user.phoneId,user.phone,"document",org);
+            break
+
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
             sendMessages(user.phoneId,user.phone,askImmatriculation.text);
             user.previewMessage="2";
@@ -207,6 +222,7 @@ async function onSendMessages(req, res) {
             user.previewMessage = "";
             scheduleMessageSent = false;
             break;
+           
 
           default:
             sendMessages(user.phoneId, user.phone, textMessage.text);
