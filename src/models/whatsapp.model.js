@@ -77,7 +77,9 @@ function sendMedia(phone_number_id,phone,type,link){
     recipient_type: "individual",      
     to: phone,    
     "type":type,     
-     type:link
+     type:{
+       "link":link
+     }
   },
     headers: { "Content-Type": "application/json"},
   }).then((response) => {
