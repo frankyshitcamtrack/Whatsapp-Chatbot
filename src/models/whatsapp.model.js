@@ -206,5 +206,74 @@ function sendAudiobyId(phone_number_id,phone,id){
     });
 }
 
+function sendMessageList(phone_number_id,phone){
+  axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
+    data:{     
+    messaging_product: "whatsapp", 
+    recipient_type: "individual",      
+    to: phone,    
+    "type": "interactive",
+    "interactive": {
+      "type": "list",
+      "header": {
+        "type": "text",
+        "text": "HEADER_TEXT"
+      },
+      "body": {
+        "text": "BODY_TEXT"
+      },
+      "footer": {
+        "text": "FOOTER_TEXT"
+      },
+      "action": {
+        "button": "BUTTON_TEXT",
+        "sections": [
+          {
+            "title": "SECTION_1_TITLE",
+            "rows": [
+              {
+                "id": "SECTION_1_ROW_1_ID",
+                "title": "SECTION_1_ROW_1_TITLE",
+                "description": "SECTION_1_ROW_1_DESCRIPTION"
+              },
+              {
+                "id": "SECTION_1_ROW_2_ID",
+                "title": "SECTION_1_ROW_2_TITLE",
+                "description": "SECTION_1_ROW_2_DESCRIPTION"
+              }
+            ]
+          },
+          {
+            "title": "SECTION_2_TITLE",
+            "rows": [
+              {
+                "id": "SECTION_2_ROW_1_ID",
+                "title": "SECTION_2_ROW_1_TITLE",
+                "description": "SECTION_2_ROW_1_DESCRIPTION"
+              },
+              {
+                "id": "SECTION_2_ROW_2_ID",
+                "title": "SECTION_2_ROW_2_TITLE",
+                "description": "SECTION_2_ROW_2_DESCRIPTION"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+    headers: { "Content-Type": "application/json"},
+  }).then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
-module.exports = { sendMessages,sendInteraction,sendLocation,sendMediaAudio,sendMediaDocument,sendMediaVideo,sendDocbyId,sendAudiobyId,sendVidbyId }
+
+
+module.exports = { sendMessages,sendInteraction,sendLocation,sendMediaAudio,sendMediaDocument,sendMediaVideo,sendDocbyId,sendAudiobyId,sendVidbyId,sendMessageList }

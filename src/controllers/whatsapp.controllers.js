@@ -1,4 +1,4 @@
-const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId } = require("../models/whatsapp.model");
+const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const { textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
@@ -161,6 +161,10 @@ async function onSendMessages(req, res) {
             //const doc ="https://drive.google.com/file/d/1ld9R0PaGom3ikwGdyCT3p1DVLhe-8lWF/view?usp=sharing";
             //sendMediaDocument(user.phoneId,user.phone,doc);
             sendDocbyId(user.phoneId,user.phone,"385059230949332");
+            break; 
+
+          case(user.body==="6" && user.previewMessage === "" && user.flow===""):
+            sendMessageList(user.phoneId,user.phone);
             break; 
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
