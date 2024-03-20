@@ -220,19 +220,17 @@ function sendMessageList(phone_number_id,phone){
       "type": "list",
       "header": {
         "type": "text",
-        "text": "HEADER_TEXT"
+        "text": "Camtrack Survey 2024"
       },
       "body": {
-        "text": "BODY_TEXT"
+        "text": "A test survey for our customer"
       },
-      "footer": {
-        "text": "FOOTER_TEXT"
-      },
+
       "action": {
-        "button": "BUTTON_TEXT",
+        "button": "Take the survey",
         "sections": [
           {
-            "title": "SECTION_1_TITLE",
+            "title": "",
             "rows": [
               {
                 "id": "SECTION_1_ROW_1_ID",
