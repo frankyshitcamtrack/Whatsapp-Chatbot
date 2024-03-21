@@ -98,7 +98,7 @@ async function getPositionVehicleByDate(user){
 
 //Send whatsapp message
 async function onSendMessages(req, res) {
-  
+   
   if (req.body.object) {
       let entryID = req.body.entry[0].id;
       let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone numberId from the webhook payload
@@ -109,8 +109,9 @@ async function onSendMessages(req, res) {
       const findIndex = users.findIndex(item => item.name === name);
       const phone = phoneFormat(from);
       // Check the Incoming webhook message
+      console.log(JSON.stringify(req.body, null, 2));
       console.log(users);
-      //console.log(JSON.stringify(req.body, null, 2));
+      
     
       // check if the user client index is not exist in the table user table and finally add the new user
       if (findIndex < 0) {
@@ -139,91 +140,92 @@ async function onSendMessages(req, res) {
         user.body = body;
         switch(true){
 
-          case (user.body === "1" && user.previewMessage === "" && user.flow===""):
+          case (user.body === "1" && user.previewMessage === "" && user.flow===""):{
             user.previewMessage = user.body;
             user.flow="1";
             sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
             break;
+          }
 
-          case(user.body==="3" && user.previewMessage === "" && user.flow===""):
-            //const aud ="https://www.dropbox.com/scl/fi/c2txav3yi8unfqh5slj4w/aud.mp3?rlkey=o36w9yvsapxxhpfy3rphztabu&dl=0";
-            //sendMediaAudio(user.phoneId,user.phone,aud);
+          case(user.body==="3" && user.previewMessage === "" && user.flow===""):{
             sendAudiobyId(user.phoneId,user.phone,"857694462782371");
             break;
+          }
 
-          case(user.body==="4" && user.previewMessage === "" && user.flow===""):
-            //const vid = "https://www.dropbox.com/scl/fi/plz0u4ki1w1dehgdkjqso/vid.mp4?rlkey=wnm1c397uvs60w9q7dkwdb6i1&dl=0";
-            //sendMediaVideo(user.phoneId,user.phone,vid);
+          case(user.body==="4" && user.previewMessage === "" && user.flow===""):{
             sendVidbyId(user.phoneId,user.phone,"716903793964115");
             break;
+          }
 
-          case(user.body==="5" && user.previewMessage === "" && user.flow===""):
-            //const doc ="https://drive.google.com/file/d/1ld9R0PaGom3ikwGdyCT3p1DVLhe-8lWF/view?usp=sharing";
-            //sendMediaDocument(user.phoneId,user.phone,doc);
+          case(user.body==="5" && user.previewMessage === "" && user.flow===""):{
             sendDocbyId(user.phoneId,user.phone,"385059230949332");
             break; 
+          }
 
-          case(user.body==="6" && user.previewMessage === "" && user.flow===""):
+          case(user.body==="6" && user.previewMessage === "" && user.flow===""):{
             sendMessageList(user.phoneId,user.phone);
             break; 
+          }
 
-          case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
+          case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):{
             sendMessages(user.phoneId,user.phone,askImmatriculation.text);
             user.previewMessage="2";
             user.matriculeQuestionSent=true;
             break;
+          }
 
-          case (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false):
+          case (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false):{
             sendMessages(user.phoneId,user.phone,askImmatriculation.text);
             user.matriculeQuestionSent=true;
             user.previewMessage="1";
             break;
+          }
 
-          case(user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false):
+          case(user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false):{
             sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
             break;
+          }
 
-          case(user.flow==="1" && user.previewMessage === "1" && user.body!=="2" &&  user.matriculeQuestionSent===false ):
+          case(user.flow==="1" && user.previewMessage === "1" && user.body!=="2" &&  user.matriculeQuestionSent===false ):{
             sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
             break;
+          }
 
-          case (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true && user.dateMessage===false):
+          case (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true && user.dateMessage===false):{
             user.vehicleNumber = user.body.replace(/\s+/g,"");
             await getPositionVehicule(user);
             break;
+          }
 
-          case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):
-            sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-            user.previewMessage="2";
-            user.matriculeQuestionSent=true;
-            break;
-
-          case (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true && user.dateMessage===false):
+          case (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true && user.dateMessage===false):{
             let vehicleImmat = user.body
             user.vehicleNumber=vehicleImmat.replace(/\s+/g,"");
             sendMessages(user.phoneId,user.phone,askDateMessage.text);
             user.dateMessage=true;
             break;
+          }
 
-          case (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true):
+          case (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true):{
             user.date=user.body;
             await getPositionVehicleByDate(user);
             break;
+          }
 
-          case (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):
+          case (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):{
             user.previewMessage = user.body;
             sendMessages(user.phoneId, user.phone, textMessage3.text);
             user.scheduleMessageSent = true;
             break;
+          }
 
-          case (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false):
+          case (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false):{
             user.body = body
             const visit = scheduleMeeting(user.body, user.name);
             sendMessages(user.phoneId, user.phone, visit.text);
             user.previewMessage = "";
-            scheduleMessageSent = false;
+            user.scheduleMessageSent = false;
             break;
-           
+          }
 
           default:
             sendMessages(user.phoneId, user.phone, textMessage.text);
