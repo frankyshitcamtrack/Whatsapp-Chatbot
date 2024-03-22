@@ -222,13 +222,10 @@ function sendMessageList(phone_number_id,phone){
         "text": "HEADER_TEXT"
       },
       "body": {
-        "text": "BODY_TEXT"
-      },
-      "footer": {
-        "text": "FOOTER_TEXT"
+        "text": "A simple survey test to take"
       },
       "action": {
-        "button": "BUTTON_TEXT",
+        "button": "Take the survey",
         "sections": [
           {
             "title": "first question",
@@ -241,7 +238,7 @@ function sendMessageList(phone_number_id,phone){
             ]
           },
           {
-            "title": "SECTION_2_TITLE",
+            "title": "second question",
             "rows": [
               {
                 "id": "SECTION_1_ROW_1_ID",
