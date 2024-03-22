@@ -247,12 +247,12 @@ function sendMessageList(phone_number_id,phone){
               {
                 "id": "Answer 1",
                 "title": "yes",
-                "description": "SECTION_2_ROW_1_DESCRIPTION"
+                "description": "yes if it's true"
               },
               {
                 "id": "Answer 2",
                 "title": "No",
-                
+                "description": "no if it's false"
               },
             ]
           }
