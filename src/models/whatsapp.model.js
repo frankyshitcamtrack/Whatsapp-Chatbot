@@ -214,70 +214,50 @@ function sendMessageList(phone_number_id,phone){
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
     to: phone,    
-    "type": "template",
-    "template": {
-      "name": "TEMPLATE_NAME",
-      "language": {
-        "code": "LANGUAGE_AND_LOCALE_CODE"
+    "type": "interactive",
+    "interactive": {
+      "type": "list",
+      "header": {
+        "type": "text",
+        "text": "HEADER_TEXT"
       },
-      "components": [
-        {
-          "type": "header",
-          "parameters": [
-            {
-              "type": "image",
-              "image": {
-                "link": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxw3x5pcC5XYGf9665SUOKqz3TgGBQjsekv6y0tp8QBw&s"
-              }
-            }
-          ]
-        },
-        {
-          "type": "body",
-          "parameters": [
-            {
-              "type": "text",
-              "text": "TEXT_STRING"
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "fallback_value": "VALUE",
-                "code": "USD",
-                "amount_1000": 2000
-              }
-            },
-            {
-              "type": "date_time",
-              "date_time": {
-                "fallback_value": "MONTH DAY, YEAR"
-              }
-            }
-          ]
-        },
-        {
-          "type": "button",
-          "sub_type": "quick_reply",
-          "index": "0",
-          "parameters": [
-            {
-              "type": "payload",
-              "payload": "PAYLOAD"
-            }
-          ]
-        },
-        {
-          "type": "button",
-          "sub_type": "quick_reply",
-          "index": "1",
-          "parameters": [
-            {
-              "type": "payload",
-              "payload": "PAYLOAD"
-            }
-          ]
-        }
-      ]
+      "body": {
+        "text": "A simple survey test to take"
+      },
+      "action": {
+        "button": "Take the survey",
+        "sections": [
+          {
+            "title": "first question",
+            "rows": [
+              {
+                "id": "answer1",
+                "title": "NO",
+                
+              },
+              {
+                "id": "answer1",
+                "title": "Yes",
+              },
+            ]
+          },
+          {
+            "title": "Question 2",
+            "rows": [
+              {
+                "id": "Answer 1",
+                "title": "yes",
+                "description": "SECTION_2_ROW_1_DESCRIPTION"
+              },
+              {
+                "id": "Answer 2",
+                "title": "No",
+                
+              },
+            ]
+          }
+        ]
+      }
     }
   },
     headers: { "Content-Type": "application/json"},
