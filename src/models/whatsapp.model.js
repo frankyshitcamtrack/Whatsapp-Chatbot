@@ -231,33 +231,23 @@ function sendMessageList(phone_number_id,phone){
         "button": "BUTTON_TEXT",
         "sections": [
           {
-            "title": "SECTION_1_TITLE",
+            "title": "first question",
             "rows": [
               {
                 "id": "SECTION_1_ROW_1_ID",
                 "title": "SECTION_1_ROW_1_TITLE",
                 "description": "SECTION_1_ROW_1_DESCRIPTION"
               },
-              {
-                "id": "SECTION_1_ROW_2_ID",
-                "title": "SECTION_1_ROW_2_TITLE",
-                "description": "SECTION_1_ROW_2_DESCRIPTION"
-              }
             ]
           },
           {
             "title": "SECTION_2_TITLE",
             "rows": [
               {
-                "id": "SECTION_2_ROW_1_ID",
+                "id": "SECTION_1_ROW_1_ID",
                 "title": "SECTION_2_ROW_1_TITLE",
                 "description": "SECTION_2_ROW_1_DESCRIPTION"
               },
-              {
-                "id": "SECTION_2_ROW_2_ID",
-                "title": "SECTION_2_ROW_2_TITLE",
-                "description": "SECTION_2_ROW_2_DESCRIPTION"
-              }
             ]
           }
         ]
