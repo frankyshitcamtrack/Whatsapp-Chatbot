@@ -228,35 +228,31 @@ function sendMessageList(phone_number_id,phone){
         "button": "Take the survey",
         "sections": [
           {
-            "title": "SECTION_1_TITLE",
+            "title": "List of item",
             "rows": [
               {
-                "id": "SECTION_1_ROW_1_ID",
-                "title": "SECTION_1_ROW_1_TITLE",
-                "description": "SECTION_1_ROW_1_DESCRIPTION"
+                "id": "1",
+                "title": "item 1",
+                "description": "description item 1"
               },
               {
-                "id": "SECTION_1_ROW_2_ID",
-                "title": "SECTION_1_ROW_2_TITLE",
-                "description": "SECTION_1_ROW_2_DESCRIPTION"
+                "id": "2",
+                "title": "item 2",
+                "description": "description item 2"
+              },
+              {
+                "id": "3",
+                "title": "item 3",
+                "description": "description item 3"
+              },
+              {
+                "id": "4",
+                "title": "item 4",
+                "description": "description item 4"
               }
             ]
           },
-          {
-            "title": "SECTION_2_TITLE",
-            "rows": [
-              {
-                "id": "SECTION_2_ROW_1_ID",
-                "title": "SECTION_2_ROW_1_TITLE",
-                "description": "SECTION_2_ROW_1_DESCRIPTION"
-              },
-              {
-                "id": "SECTION_2_ROW_2_ID",
-                "title": "SECTION_2_ROW_2_TITLE",
-                "description": "SECTION_2_ROW_2_DESCRIPTION"
-              }
-            ]
-          }
+         
         ]
       }
     } 
