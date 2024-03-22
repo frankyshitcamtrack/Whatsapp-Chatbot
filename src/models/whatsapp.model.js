@@ -216,25 +216,49 @@ function sendMessageList(phone_number_id,phone){
     to: phone,    
     "type": "interactive",
     "interactive": {
-      "type": "button",
+      "type": "list",
+      "header": {
+        "type": "text",
+        "text": "HEADER_TEXT"
+      },
       "body": {
-        "text": "BUTTON_TEXT"
+        "text": "BODY_TEXT"
+      },
+      "footer": {
+        "text": "FOOTER_TEXT"
       },
       "action": {
-        "buttons": [
+        "button": "BUTTON_TEXT",
+        "sections": [
           {
-            "type": "reply",
-            "reply": {
-              "id": "UNIQUE_BUTTON_ID_1",
-              "title": "BUTTON_TITLE_1"
-            }
+            "title": "SECTION_1_TITLE",
+            "rows": [
+              {
+                "id": "SECTION_1_ROW_1_ID",
+                "title": "SECTION_1_ROW_1_TITLE",
+                "description": "SECTION_1_ROW_1_DESCRIPTION"
+              },
+              {
+                "id": "SECTION_1_ROW_2_ID",
+                "title": "SECTION_1_ROW_2_TITLE",
+                "description": "SECTION_1_ROW_2_DESCRIPTION"
+              }
+            ]
           },
           {
-            "type": "reply",
-            "reply": {
-              "id": "UNIQUE_BUTTON_ID_2",
-              "title": "BUTTON_TITLE_2"
-            }
+            "title": "SECTION_2_TITLE",
+            "rows": [
+              {
+                "id": "SECTION_2_ROW_1_ID",
+                "title": "SECTION_2_ROW_1_TITLE",
+                "description": "SECTION_2_ROW_1_DESCRIPTION"
+              },
+              {
+                "id": "SECTION_2_ROW_2_ID",
+                "title": "SECTION_2_ROW_2_TITLE",
+                "description": "SECTION_2_ROW_2_DESCRIPTION"
+              }
+            ]
           }
         ]
       }
@@ -249,6 +273,86 @@ function sendMessageList(phone_number_id,phone){
     });
 }
 
+/* {
+  "messaging_product": "whatsapp",
+  "recipient_type": "individual",
+  "to": "PHONE_NUMBER",
+  "type": "interactive",
+  "interactive": {
+    "type": "button",
+    "body": {
+      "text": "BUTTON_TEXT"
+    },
+    "action": {
+      "buttons": [
+        {
+          "type": "reply",
+          "reply": {
+            "id": "UNIQUE_BUTTON_ID_1",
+            "title": "BUTTON_TITLE_1"
+          }
+        },
+        {
+          "type": "reply",
+          "reply": {
+            "id": "UNIQUE_BUTTON_ID_2",
+            "title": "BUTTON_TITLE_2"
+          }
+        }
+      ]
+    }
+  }
+} */
+
+/* 
+"interactive": {
+  "type": "list",
+  "header": {
+    "type": "text",
+    "text": "HEADER_TEXT"
+  },
+  "body": {
+    "text": "BODY_TEXT"
+  },
+  "footer": {
+    "text": "FOOTER_TEXT"
+  },
+  "action": {
+    "button": "BUTTON_TEXT",
+    "sections": [
+      {
+        "title": "SECTION_1_TITLE",
+        "rows": [
+          {
+            "id": "SECTION_1_ROW_1_ID",
+            "title": "SECTION_1_ROW_1_TITLE",
+            "description": "SECTION_1_ROW_1_DESCRIPTION"
+          },
+          {
+            "id": "SECTION_1_ROW_2_ID",
+            "title": "SECTION_1_ROW_2_TITLE",
+            "description": "SECTION_1_ROW_2_DESCRIPTION"
+          }
+        ]
+      },
+      {
+        "title": "SECTION_2_TITLE",
+        "rows": [
+          {
+            "id": "SECTION_2_ROW_1_ID",
+            "title": "SECTION_2_ROW_1_TITLE",
+            "description": "SECTION_2_ROW_1_DESCRIPTION"
+          },
+          {
+            "id": "SECTION_2_ROW_2_ID",
+            "title": "SECTION_2_ROW_2_TITLE",
+            "description": "SECTION_2_ROW_2_DESCRIPTION"
+          }
+        ]
+      }
+    ]
+  }
+} */
 
 
 
