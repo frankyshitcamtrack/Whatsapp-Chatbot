@@ -209,55 +209,32 @@ function sendAudiobyId(phone_number_id,phone,id){
 function sendMessageList(phone_number_id,phone){
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-    url:
-      "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
+    url:"https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
     data:{     
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
     to: phone,    
     "type": "interactive",
     "interactive": {
-      "type": "list",
-      "header": {
-        "type": "text",
-        "text": "Camtrack Survey 2024"
-      },
+      "type": "button",
       "body": {
-        "text": "A test survey for our customer"
+        "text": "BUTTON_TEXT"
       },
-
       "action": {
-        "button": "Take the survey",
-        "sections": [
+        "buttons": [
           {
-            "title": "",
-            "rows": [
-              {
-                "id": "SECTION_1_ROW_1_ID",
-                "title": "SECTION_1_ROW_1_TITLE",
-                "description": "SECTION_1_ROW_1_DESCRIPTION"
-              },
-              {
-                "id": "SECTION_1_ROW_2_ID",
-                "title": "SECTION_1_ROW_2_TITLE",
-                "description": "SECTION_1_ROW_2_DESCRIPTION"
-              }
-            ]
+            "type": "reply",
+            "reply": {
+              "id": "UNIQUE_BUTTON_ID_1",
+              "title": "BUTTON_TITLE_1"
+            }
           },
           {
-            "title": "SECTION_2_TITLE",
-            "rows": [
-              {
-                "id": "SECTION_2_ROW_1_ID",
-                "title": "SECTION_2_ROW_1_TITLE",
-                "description": "SECTION_2_ROW_1_DESCRIPTION"
-              },
-              {
-                "id": "SECTION_2_ROW_2_ID",
-                "title": "SECTION_2_ROW_2_TITLE",
-                "description": "SECTION_2_ROW_2_DESCRIPTION"
-              }
-            ]
+            "type": "reply",
+            "reply": {
+              "id": "UNIQUE_BUTTON_ID_2",
+              "title": "BUTTON_TITLE_2"
+            }
           }
         ]
       }
@@ -271,6 +248,7 @@ function sendMessageList(phone_number_id,phone){
       console.log(error);
     });
 }
+
 
 
 
