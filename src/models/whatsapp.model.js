@@ -242,11 +242,7 @@ function sendMessageList(phone_number_id,phone){
             ]
           },
           {
-            "type": "button",
-            "body": {
-              "text": "BUTTON_TEXT"
-            },
-            "action": {
+            
               "buttons": [
                 {
                   "type": "reply",
@@ -263,7 +259,7 @@ function sendMessageList(phone_number_id,phone){
                   }
                 }
               ]
-            }
+            
           }
          
         ]
