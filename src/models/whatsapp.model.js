@@ -214,41 +214,70 @@ function sendMessageList(phone_number_id,phone){
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
     to: phone,    
-    "type": "interactive",
-    "interactive": {
-      "type": "list",
-      "header": {
-        "type": "text",
-        "text": "HEADER_TEXT"
+    "type": "template",
+    "template": {
+      "name": "TEMPLATE_NAME",
+      "language": {
+        "code": "LANGUAGE_AND_LOCALE_CODE"
       },
-      "body": {
-        "text": "A simple survey test to take"
-      },
-      "action": {
-        "button": "Take the survey",
-        "sections": [
-          {
-            "title": "first question",
-            "rows": [
-              {
-                "id": "SECTION_1_ROW_1_ID",
-                "title": "SECTION_1_ROW_1_TITLE",
-                "description": "SECTION_1_ROW_1_DESCRIPTION"
-              },
-            ]
-          },
-          {
-            "title": "second question",
-            "rows": [
-              {
-                "id": "SECTION_1_ROW_1_ID",
-                "title": "SECTION_2_ROW_1_TITLE",
-                "description": "SECTION_2_ROW_1_DESCRIPTION"
-              },
-            ]
-          }
-        ]
-      }
+      "components": [
+        {
+          "type": "header",
+          "parameters": [
+            {
+              "type": "image",
+              "image": {
+                "link": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxw3x5pcC5XYGf9665SUOKqz3TgGBQjsekv6y0tp8QBw&s"
+              }
+            }
+          ]
+        },
+        {
+          "type": "body",
+          "parameters": [
+            {
+              "type": "text",
+              "text": "TEXT_STRING"
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "fallback_value": "VALUE",
+                "code": "USD",
+                "amount_1000": 2000
+              }
+            },
+            {
+              "type": "date_time",
+              "date_time": {
+                "fallback_value": "MONTH DAY, YEAR"
+              }
+            }
+          ]
+        },
+        {
+          "type": "button",
+          "sub_type": "quick_reply",
+          "index": "0",
+          "parameters": [
+            {
+              "type": "payload",
+              "payload": "PAYLOAD"
+            }
+          ]
+        },
+        {
+          "type": "button",
+          "sub_type": "quick_reply",
+          "index": "1",
+          "parameters": [
+            {
+              "type": "payload",
+              "payload": "PAYLOAD"
+            }
+          ]
+        }
+      ]
     }
   },
     headers: { "Content-Type": "application/json"},
@@ -341,6 +370,78 @@ function sendMessageList(phone_number_id,phone){
   }
 } */
 
+
+/*  {
+  "messaging_product": "whatsapp",
+  "recipient_type": "individual",
+  "to": "PHONE_NUMBER",
+  "type": "template",
+  "template": {
+    "name": "TEMPLATE_NAME",
+    "language": {
+      "code": "LANGUAGE_AND_LOCALE_CODE"
+    },
+    "components": [
+      {
+        "type": "header",
+        "parameters": [
+          {
+            "type": "image",
+            "image": {
+              "link": "http(s)://URL"
+            }
+          }
+        ]
+      },
+      {
+        "type": "body",
+        "parameters": [
+          {
+            "type": "text",
+            "text": "TEXT_STRING"
+          },
+          {
+            "type": "currency",
+            "currency": {
+              "fallback_value": "VALUE",
+              "code": "USD",
+              "amount_1000": NUMBER
+            }
+          },
+          {
+            "type": "date_time",
+            "date_time": {
+              "fallback_value": "MONTH DAY, YEAR"
+            }
+          }
+        ]
+      },
+      {
+        "type": "button",
+        "sub_type": "quick_reply",
+        "index": "0",
+        "parameters": [
+          {
+            "type": "payload",
+            "payload": "PAYLOAD"
+          }
+        ]
+      },
+      {
+        "type": "button",
+        "sub_type": "quick_reply",
+        "index": "1",
+        "parameters": [
+          {
+            "type": "payload",
+            "payload": "PAYLOAD"
+          }
+        ]
+      }
+    ]
+  }
+} */
+ 
 
 
 module.exports = { sendMessages,sendInteraction,sendLocation,sendMediaAudio,sendMediaDocument,sendMediaVideo,sendDocbyId,sendAudiobyId,sendVidbyId,sendMessageList }
