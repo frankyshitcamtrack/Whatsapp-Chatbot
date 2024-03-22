@@ -219,47 +219,47 @@ function sendMessageList(phone_number_id,phone){
       "type": "list",
       "header": {
         "type": "text",
-        "text": "HEADER_TEXT"
+        "text": "test survey"
       },
       "body": {
-        "text": "A simple survey test to take"
+        "text": "a simple survey for test purpose"
       },
       "action": {
         "button": "Take the survey",
         "sections": [
           {
-            "title": "first question",
+            "title": "SECTION_1_TITLE",
             "rows": [
               {
-                "id": "answer1",
-                "title": "NO",
-                
+                "id": "SECTION_1_ROW_1_ID",
+                "title": "SECTION_1_ROW_1_TITLE",
+                "description": "SECTION_1_ROW_1_DESCRIPTION"
               },
               {
-                "id": "answer1",
-                "title": "Yes",
-              },
+                "id": "SECTION_1_ROW_2_ID",
+                "title": "SECTION_1_ROW_2_TITLE",
+                "description": "SECTION_1_ROW_2_DESCRIPTION"
+              }
             ]
           },
           {
-            "title": "Question 2",
+            "title": "SECTION_2_TITLE",
             "rows": [
-              
               {
-                "id": "Answer 1",
-                "title": "yes",
-                "description": "yes if it's true"
+                "id": "SECTION_2_ROW_1_ID",
+                "title": "SECTION_2_ROW_1_TITLE",
+                "description": "SECTION_2_ROW_1_DESCRIPTION"
               },
               {
-                "id": "Answer 2",
-                "title": "No",
-                "description": "no if it's false"
-              },
+                "id": "SECTION_2_ROW_2_ID",
+                "title": "SECTION_2_ROW_2_TITLE",
+                "description": "SECTION_2_ROW_2_DESCRIPTION"
+              }
             ]
           }
         ]
       }
-    }
+    } 
   },
     headers: { "Content-Type": "application/json"},
   }).then((response) => {
