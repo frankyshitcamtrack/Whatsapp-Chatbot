@@ -18,6 +18,7 @@ app.use(morgan('combined'));
 
 //getPositionVehicule("CH057025");
 
+
 app.use(cors());
 app.use(bodyParser.json());
 
