@@ -59,8 +59,13 @@ async function getPositionVehicleByDate(user){
   if(location && location.code<0){
      const message ={preview_url: false, body:`${location.status}`};
      sendMessages(user.phoneId,user.phone,message);  
-     user.previewMessage = "1"
-     user.flow="1"
+     user.previewMessage = "";
+       user.flow="";
+       user.vehicleNumber = "";
+       user.dates="";
+       user.scheduleMessageSent= false;
+       user.matriculeQuestionSent=false;
+       user.dateMessage=false;
   }
 
   else if(location && location.code>0){
@@ -208,6 +213,7 @@ async function onSendMessages(req, res) {
           case (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true):{
             user.date=user.body;
             await getPositionVehicleByDate(user);
+
             break;
           }
 
