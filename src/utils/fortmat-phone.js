@@ -3,19 +3,25 @@ function phoneFormat(number){
    const arrNumber= number.toString();
    const index = 3;
    const numberArr=[...arrNumber]
-   const findIndex = numberArr[index];
- 
-   if(findIndex!=="6"){
-       console.log(numberArr);
-       const newArrNumber = [...arrNumber.slice(0,index),6,...arrNumber.slice(index)];
-       newArrNumber.map(item=>{
-          return newNumber+=item;
-       })
-       return +newNumber;
+   if(numberArr[0]==="2" &&numberArr[1]==="3" && numberArr[2]==="7"){
+      const findIndex = numberArr[index];
+
+     if(findIndex!=="6"){
+         const newArrNumber = [...arrNumber.slice(0,index),6,...arrNumber.slice(index)];
+         newArrNumber.map(item=>{
+            return newNumber+=item;
+         })
+         return +newNumber;
+     }else{
+
+      return number
+     }
    }else{
+     
+     return number
    
-    return number
    }
+
 }
 
 
