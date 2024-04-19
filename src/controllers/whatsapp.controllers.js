@@ -277,7 +277,7 @@ function onVerification(req, res) {
 
 
 function onSendNotification(req,res){
-     if(req.body){
+     if(req){
       const phoneID=developement.phone_number_id
       const phone=req.body.phone;
       const message=req.body.notification;
@@ -294,5 +294,8 @@ function onSendNotification(req,res){
       }   
   
 }
+
+
+
 
 module.exports = { onSendMessages, onVerification,getPositionVehicule,onSendNotification }
