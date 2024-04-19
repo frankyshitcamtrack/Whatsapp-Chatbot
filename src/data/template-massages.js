@@ -75,4 +75,13 @@ function scheduleMeeting(time,name){
 }
 
 
-module.exports = { textMessageMenu1,scheduleMeeting, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation,getLocationByDate,askDateMessage }
+function notification(text){
+    const notification = {
+        type: "text",
+        text: { preview_url: false, body:text }
+    }
+    return notification
+}
+
+
+module.exports = {notification ,textMessageMenu1,scheduleMeeting, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation,getLocationByDate,askDateMessage }

@@ -1,8 +1,8 @@
 const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
-const { textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
-
+const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
+const { developement } = require("../config/whatsappApi");
 
 let users = []
 
@@ -59,7 +59,7 @@ async function getPositionVehicleByDate(user){
   if(location && location.code<0){
      const message ={preview_url: false, body:`${location.status}`};
      sendMessages(user.phoneId,user.phone,message);  
-     user.previewMessage = "";
+       user.previewMessage = "";
        user.flow="";
        user.vehicleNumber = "";
        user.dates="";
@@ -137,7 +137,6 @@ async function onSendMessages(req, res) {
         }
         users.push(newUser);
         sendMessages(phone_number_id, phone, textMessage.text);
-    
       }
 
       if (findIndex >= 0) { // check if the user client index exist in the table user table
@@ -276,4 +275,24 @@ function onVerification(req, res) {
   }
 }
 
-module.exports = { onSendMessages, onVerification,getPositionVehicule }
+
+function onSendNotification(req,res){
+     if(req.body){
+      const phoneID=developement.phone_number_id
+      const phone=req.body.phone;
+      const message=req.body.notification;
+  
+      const alert= notification(message);
+
+       if(alert){
+        sendMessages(phoneID,phone, alert.text);
+        res.json(200);
+       }
+      
+     }else {
+        res.sendStatus(404);
+      }   
+  
+}
+
+module.exports = { onSendMessages, onVerification,getPositionVehicule,onSendNotification }
