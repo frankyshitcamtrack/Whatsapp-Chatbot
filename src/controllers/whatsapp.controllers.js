@@ -277,18 +277,16 @@ function onVerification(req, res) {
 
 
 function onSendNotification(req,res){
-     if(req){
-      const phoneID=developement.phone_number_id
-      const phone=req.body.phone;
-      const message=req.body.notification;
-  
+  console.log(req);
+  const phoneID=developement.phone_number_id
+  const phone=req.body.phone;
+  const message=req.body.notification;
+     if(phoneID && phone && message){
       const alert= notification(message);
-
        if(alert){
         sendMessages(phoneID,phone, alert.text);
         res.json(200);
        }
-      
      }else {
         res.sendStatus(404);
       }   
