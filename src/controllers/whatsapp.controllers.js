@@ -1,4 +1,4 @@
-const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList } = require("../models/whatsapp.model");
+const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
@@ -293,7 +293,6 @@ function onSendNotification(req,res){
 }
 
 
-
 function onSendEvidence(req,res){
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
@@ -308,8 +307,21 @@ function onSendEvidence(req,res){
 }
 
 
+function onSendImage(req,res){
+  const phoneID=developement.phone_number_id
+  const phone=phoneFormat(req.body.phone);
+  const media=req.body.link;
+     if(phoneID && phone && media){
+      sendMediaImage(phoneID,phone,media);
+      res.json(200);
+     }else {
+        res.sendStatus(404);
+      }   
+}
 
 
 
 
-module.exports = { onSendMessages, onVerification,getPositionVehicule,onSendNotification,onSendEvidence }
+
+
+module.exports = { onSendMessages, onVerification,getPositionVehicule,onSendNotification,onSendEvidence,onSendImage }

@@ -90,24 +90,42 @@ function sendMediaAudio(phone_number_id,phone,link){
     });
 }
 
-function sendMediaVideo(phone_number_id,phone,link){
+function sendMediaVideo(phone_number_id, phone, link) {
   axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    method: "POST",
     url:
-      "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
-    data:{     
-    messaging_product: "whatsapp", 
-    recipient_type: "individual",      
-    to: phone,    
-    "type":"video", 
-     "video":{
-       "link":link
-     }
-  },
-    headers: { "Content-Type": "video/mp4"},
+      "https://graph.facebook.com/v12.0/" + phone_number_id + "/messages?access_token=" + token,
+    data: {
+      messaging_product: "whatsapp",
+      recipient_type: "individual",
+      to: phone,
+      "type": "video",
+      "video": {"link": link}
+    },
+    headers: { "Content-Type": "video/mp4" },
   }).then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
+    console.log(JSON.stringify(response.data));
+  })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+function sendMediaImage(phone_number_id, phone, link) {
+  axios({
+    method: "POST",
+    url:
+      "https://graph.facebook.com/v12.0/" + phone_number_id + "/messages?access_token=" + token,
+    data: {
+      messaging_product: "whatsapp",
+      recipient_type: "individual",
+      to: phone,
+      "type": "image",
+      "image": {"link": link}
+    },
+  }).then((response) => {
+    console.log(JSON.stringify(response.data));
+  })
     .catch((error) => {
       console.log(error);
     });
@@ -270,4 +288,4 @@ function sendMessageList(phone_number_id,phone){
  
 
 
-module.exports = { sendMessages,sendInteraction,sendLocation,sendMediaAudio,sendMediaDocument,sendMediaVideo,sendDocbyId,sendAudiobyId,sendVidbyId,sendMessageList }
+module.exports = { sendMessages,sendInteraction,sendMediaImage,sendLocation,sendMediaAudio,sendMediaDocument,sendMediaVideo,sendDocbyId,sendAudiobyId,sendVidbyId,sendMessageList }
