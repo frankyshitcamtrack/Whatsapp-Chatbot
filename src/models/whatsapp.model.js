@@ -102,7 +102,6 @@ function sendMediaVideo(phone_number_id, phone, link) {
       "type": "video",
       "video": {"link": link}
     },
-    headers: { "Content-Type": "video/mp4" },
   }).then((response) => {
     console.log(JSON.stringify(response.data));
   })
