@@ -4,7 +4,7 @@ const { developement } = require("../config/whatsappApi");
 const token = developement.whatsapp_token;
 
 function sendMessages(phone_number_id,phone,message) {
-  axios({
+  return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
       "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
@@ -91,7 +91,7 @@ function sendMediaAudio(phone_number_id,phone,link){
 }
 
 function sendMediaVideo(phone_number_id,phone,link){
-  axios({
+ return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
       "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
@@ -99,7 +99,6 @@ function sendMediaVideo(phone_number_id,phone,link){
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
     to: phone,    
-    "type":"video", 
     "Content-Type": "video/mp4", 
      "video":{
        "link":link
@@ -115,7 +114,7 @@ function sendMediaVideo(phone_number_id,phone,link){
 }
 
 function sendMediaDocument(phone_number_id,phone,link){
-  axios({
+  return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
       "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
@@ -138,7 +137,7 @@ function sendMediaDocument(phone_number_id,phone,link){
 }
 
 function sendDocbyId(phone_number_id,phone,id){
-  axios({
+ return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
       "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
@@ -161,7 +160,7 @@ function sendDocbyId(phone_number_id,phone,id){
 }
 
 function sendVidbyId(phone_number_id,phone,id){
-  axios({
+ return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
       "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
@@ -185,7 +184,7 @@ function sendVidbyId(phone_number_id,phone,id){
 
 
 function sendAudiobyId(phone_number_id,phone,id){
-  axios({
+ return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
       "https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
@@ -208,7 +207,7 @@ function sendAudiobyId(phone_number_id,phone,id){
 }
 
 function sendMessageList(phone_number_id,phone){
-  axios({
+ return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:"https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
     data:{     
