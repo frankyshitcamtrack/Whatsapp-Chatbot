@@ -99,7 +99,8 @@ function sendMediaVideo(phone_number_id,phone,link){
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
     to: phone,    
-    "type":"video",     
+    "type":"video", 
+    "Content-Type": "video/mp4", 
      "video":{
        "link":link
      }
