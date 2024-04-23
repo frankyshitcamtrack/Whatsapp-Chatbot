@@ -283,8 +283,8 @@ function onSendNotification(req,res){
      if(phoneID && phone && message){
       const alert= notification(message);
        if(alert){
-        sendMessages(phoneID,phone, alert.text);
-        res.json(200);
+       const ms= sendMessages(phoneID,phone, alert.text);
+        res.json(ms);
        }
      }else {
         res.sendStatus(404);
@@ -299,8 +299,8 @@ function onSendEvidence(req,res){
   const phone=phoneFormat(req.body.phone);
   const media=req.body.link;
      if(phoneID && phone && media){
-      sendMediaVideo(phoneID,phone,media);
-      res.json(200);
+      const ms=sendMediaVideo(phoneID,phone,media);
+      res.json(ms);
      }else {
         res.sendStatus(404);
       }   
