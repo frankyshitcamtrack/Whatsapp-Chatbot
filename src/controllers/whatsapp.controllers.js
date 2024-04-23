@@ -277,7 +277,6 @@ function onVerification(req, res) {
 
 
 function onSendNotification(req,res){
-  console.log(req);
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
   const message=req.body.notification;
@@ -293,8 +292,9 @@ function onSendNotification(req,res){
   
 }
 
+
+
 function onSendEvidence(req,res){
-  console.log(req);
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
   const media=req.body.link;
