@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "e9ef1f86-96fd-4a2c-ab7b-6f0ac51dbeb4",
+		"name": "Whatsapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4356146"
+	},
+	"item": [
+		{
+			"name": "https://whatsapp-chatbot-cl1n.onrender.com/webhook/notifications",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phone\":\"237655604155\",\r\n    \"notification\":\"Bonjour shiti ceci est une notification test I am a software engineer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://whatsapp-chatbot-cl1n.onrender.com/webhook/notifications",
+					"protocol": "https",
+					"host": [
+						"whatsapp-chatbot-cl1n",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"webhook",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

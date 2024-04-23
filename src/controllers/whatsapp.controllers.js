@@ -279,7 +279,7 @@ function onVerification(req, res) {
 function onSendNotification(req,res){
   console.log(req);
   const phoneID=developement.phone_number_id
-  const phone=req.body.phone;
+  const phone=phoneFormat(req.body.phone);
   const message=req.body.notification;
      if(phoneID && phone && message){
       const alert= notification(message);
@@ -293,7 +293,23 @@ function onSendNotification(req,res){
   
 }
 
+function onSendEvidence(req,res){
+  console.log(req);
+  const phoneID=developement.phone_number_id
+  const phone=phoneFormat(req.body.phone);
+  const media=req.body.link;
+     if(phoneID && phone && media){
+      sendMediaVideo(phoneID,phone,media);
+      res.json(200);
+     }else {
+        res.sendStatus(404);
+      }   
+  
+}
 
 
 
-module.exports = { onSendMessages, onVerification,getPositionVehicule,onSendNotification }
+
+
+
+module.exports = { onSendMessages, onVerification,getPositionVehicule,onSendNotification,onSendEvidence }
