@@ -99,12 +99,11 @@ function sendMediaVideo(phone_number_id,phone,link){
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
     to: phone,    
-    "Content-Type": "video/mp4", 
      "video":{
        "link":link
      }
   },
-    headers: { "Content-Type": "application/json"},
+    headers: { "Content-Type": "video/mp4"},
   }).then((response) => {
       console.log(JSON.stringify(response.data));
     })
