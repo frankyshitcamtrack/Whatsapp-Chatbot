@@ -276,7 +276,7 @@ function onVerification(req, res) {
 }
 
 
-function onSendNotification(req,res){
+async function onSendNotification(req,res){
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
   const message=req.body.notification;
@@ -293,7 +293,7 @@ function onSendNotification(req,res){
 }
 
 
-function onSendEvidence(req,res){
+async function onSendEvidence(req,res){
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
   const media=req.body.link;
@@ -307,7 +307,7 @@ function onSendEvidence(req,res){
 }
 
 
-function onSendImage(req,res){
+async function onSendImage(req,res){
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
   const media=req.body.link;
