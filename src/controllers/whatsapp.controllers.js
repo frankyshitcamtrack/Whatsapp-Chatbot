@@ -14,7 +14,7 @@ async function getPositionVehicule(user){
    console.log(location);
    if(location && location.code<0){
       const message ={preview_url: false, body:`${location.status} \n Please enter a valid matricul number`};
-      sendMessages(user.phoneId,user.phone,message);  
+      await sendMessages(user.phoneId,user.phone,message);  
       user.previewMessage = "1"
       user.flow="1"
    }
@@ -34,7 +34,7 @@ async function getPositionVehicule(user){
         let body =`*Vehicle* : ${user.vehicleNumber}\n\n*Last known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
         let message = {preview_url: false, body:body}
         //sendLocation(phoneId,phone,vehiculLocation)
-        sendMessages(user.phoneId,user.phone,message); 
+      await sendMessages(user.phoneId,user.phone,message); 
         user.previewMessage = "";
         user.flow="";
         user.vehicleNumber = "";
@@ -46,7 +46,7 @@ async function getPositionVehicule(user){
    }
   else{
      const message ={preview_url: false, body:"une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer"}
-     sendMessages(user.phoneId,user.phone,message); 
+     await sendMessages(user.phoneId,user.phone,message); 
    } 
 }
 
@@ -58,7 +58,7 @@ async function getPositionVehicleByDate(user){
   .catch(err => console.log(err));
   if(location && location.code<0){
      const message ={preview_url: false, body:`${location.status}`};
-     sendMessages(user.phoneId,user.phone,message);  
+    await sendMessages(user.phoneId,user.phone,message);  
        user.previewMessage = "";
        user.flow="";
        user.vehicleNumber = "";
@@ -84,7 +84,7 @@ async function getPositionVehicleByDate(user){
        
        let message = {preview_url: false, body:body};
 
-       sendMessages(user.phoneId, user.phone, message);
+      await sendMessages(user.phoneId, user.phone, message);
 
        user.previewMessage = "";
        user.flow="";
@@ -97,7 +97,7 @@ async function getPositionVehicleByDate(user){
   }
  else{
     const message ={preview_url: false, body:"une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer"}
-    sendMessages(user.phoneId,user.phone, message)
+    await sendMessages(user.phoneId,user.phone, message)
   } 
 }
 
@@ -136,7 +136,7 @@ async function onSendMessages(req, res) {
           'dateMessage':false,
         }
         users.push(newUser);
-        sendMessages(phone_number_id, phone, textMessage.text);
+        await sendMessages(phone_number_id, phone, textMessage.text);
       }
 
       if (findIndex >= 0) { // check if the user client index exist in the table user table
@@ -147,51 +147,51 @@ async function onSendMessages(req, res) {
           case (user.body === "1" && user.previewMessage === "" && user.flow===""):{
             user.previewMessage = user.body;
             user.flow="1";
-            sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+            await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
             break;
           }
 
           case(user.body==="3" && user.previewMessage === "" && user.flow===""):{
-            sendAudiobyId(user.phoneId,user.phone,"857694462782371");
+           await sendAudiobyId(user.phoneId,user.phone,"857694462782371");
             break;
           }
 
           case(user.body==="4" && user.previewMessage === "" && user.flow===""):{
-            sendVidbyId(user.phoneId,user.phone,"716903793964115");
+           await sendVidbyId(user.phoneId,user.phone,"716903793964115");
             break;
           }
 
           case(user.body==="5" && user.previewMessage === "" && user.flow===""):{
-            sendDocbyId(user.phoneId,user.phone,"385059230949332");
+            await sendDocbyId(user.phoneId,user.phone,"385059230949332");
             break; 
           }
 
           case(user.body==="6" && user.previewMessage === "" && user.flow===""):{
-            sendMessageList(user.phoneId,user.phone);
+            await sendMessageList(user.phoneId,user.phone);
             break; 
           }
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):{
-            sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+          await  sendMessages(user.phoneId,user.phone,askImmatriculation.text);
             user.previewMessage="2";
             user.matriculeQuestionSent=true;
             break;
           }
 
           case (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false):{
-            sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+           await sendMessages(user.phoneId,user.phone,askImmatriculation.text);
             user.matriculeQuestionSent=true;
             user.previewMessage="1";
             break;
           }
 
           case(user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false):{
-            sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+           await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
             break;
           }
 
           case(user.flow==="1" && user.previewMessage === "1" && user.body!=="2" &&  user.matriculeQuestionSent===false ):{
-            sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+           await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
             break;
           }
 
@@ -204,7 +204,7 @@ async function onSendMessages(req, res) {
           case (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true && user.dateMessage===false):{
             let vehicleImmat = user.body
             user.vehicleNumber=vehicleImmat.replace(/\s+/g,"");
-            sendMessages(user.phoneId,user.phone,askDateMessage.text);
+           await sendMessages(user.phoneId,user.phone,askDateMessage.text);
             user.dateMessage=true;
             break;
           }
@@ -218,7 +218,7 @@ async function onSendMessages(req, res) {
 
           case (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):{
             user.previewMessage = user.body;
-            sendMessages(user.phoneId, user.phone, textMessage3.text);
+           await sendMessages(user.phoneId, user.phone, textMessage3.text);
             user.scheduleMessageSent = true;
             break;
           }
@@ -226,14 +226,14 @@ async function onSendMessages(req, res) {
           case (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false):{
             user.body = body
             const visit = scheduleMeeting(user.body, user.name);
-            sendMessages(user.phoneId, user.phone, visit.text);
+           await sendMessages(user.phoneId, user.phone, visit.text);
             user.previewMessage = "";
             user.scheduleMessageSent = false;
             break;
           }
 
           default:
-            sendMessages(user.phoneId, user.phone, textMessage.text);
+           await sendMessages(user.phoneId, user.phone, textMessage.text);
         }
        
       }
@@ -248,7 +248,7 @@ async function onSendMessages(req, res) {
 }
 
 
-function onVerification(req, res) {
+async function onVerification(req, res) {
 
   /**
    * UPDATE YOUR VERIFY TOKEN
@@ -283,7 +283,7 @@ async function onSendNotification(req,res){
      if(phoneID && phone && message){
       const alert= notification(message);
        if(alert){
-       sendMessages(phoneID,phone, alert.text);
+       await sendMessages(phoneID,phone, alert.text);
         res.json(200);
        }
      }else {
@@ -298,7 +298,7 @@ async function onSendEvidence(req,res){
   const phone=phoneFormat(req.body.phone);
   const media=req.body.link;
      if(phoneID && phone && media){
-      sendMediaVideo(phoneID,phone,media);
+      await sendMediaVideo(phoneID,phone,media);
       res.json(200);
      }else {
         res.sendStatus(404);
@@ -312,7 +312,7 @@ async function onSendImage(req,res){
   const phone=phoneFormat(req.body.phone);
   const media=req.body.link;
      if(phoneID && phone && media){
-      sendMediaImage(phoneID,phone,media);
+      await sendMediaImage(phoneID,phone,media);
       res.json(200);
      }else {
         res.sendStatus(404);

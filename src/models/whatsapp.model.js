@@ -3,7 +3,7 @@ const { developement } = require("../config/whatsappApi");
 
 const token = developement.whatsapp_token;
 
-function sendMessages(phone_number_id,phone,message) {
+async function sendMessages(phone_number_id,phone,message) {
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -24,7 +24,7 @@ function sendMessages(phone_number_id,phone,message) {
     });
 }
 
-function sendInteraction(phone_number_id,phone,message){
+async function sendInteraction(phone_number_id,phone,message){
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -45,7 +45,7 @@ function sendInteraction(phone_number_id,phone,message){
     });
 }
 
-function sendLocation(phone_number_id,phone,message){
+async function sendLocation(phone_number_id,phone,message){
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -67,7 +67,7 @@ function sendLocation(phone_number_id,phone,message){
 }
 
 
-function sendMediaAudio(phone_number_id,phone,link){
+async function sendMediaAudio(phone_number_id,phone,link){
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -90,7 +90,7 @@ function sendMediaAudio(phone_number_id,phone,link){
     });
 }
 
-function sendMediaVideo(phone_number_id, phone, link) {
+async function sendMediaVideo(phone_number_id, phone, link) {
   axios({
     method: "POST",
     url:
@@ -111,7 +111,7 @@ function sendMediaVideo(phone_number_id, phone, link) {
     });
 }
 
-function sendMediaImage(phone_number_id, phone, link) {
+async function sendMediaImage(phone_number_id, phone, link) {
   axios({
     method: "POST",
     url:
@@ -131,7 +131,7 @@ function sendMediaImage(phone_number_id, phone, link) {
     });
 }
 
-function sendMediaDocument(phone_number_id,phone,link){
+async function sendMediaDocument(phone_number_id,phone,link){
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -154,7 +154,7 @@ function sendMediaDocument(phone_number_id,phone,link){
     });
 }
 
-function sendDocbyId(phone_number_id,phone,id){
+async function sendDocbyId(phone_number_id,phone,id){
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -177,7 +177,7 @@ function sendDocbyId(phone_number_id,phone,id){
     });
 }
 
-function sendVidbyId(phone_number_id,phone,id){
+async function sendVidbyId(phone_number_id,phone,id){
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -201,7 +201,7 @@ function sendVidbyId(phone_number_id,phone,id){
 }
 
 
-function sendAudiobyId(phone_number_id,phone,id){
+async function sendAudiobyId(phone_number_id,phone,id){
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -224,7 +224,7 @@ function sendAudiobyId(phone_number_id,phone,id){
     });
 }
 
-function sendMessageList(phone_number_id,phone){
+async function sendMessageList(phone_number_id,phone){
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:"https://graph.facebook.com/v12.0/" +phone_number_id +"/messages?access_token="+token,
