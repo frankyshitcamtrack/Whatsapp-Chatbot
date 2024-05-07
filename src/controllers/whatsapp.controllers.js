@@ -296,22 +296,27 @@ async function onSendNotification(req,res){
 async function onSendEvidence(req,res){
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
+  const message=req.body.message;
   const media=req.body.link;
      if(phoneID && phone && media){
+      const alert= notification(message);
+      await sendMessages(phoneID,phone, alert.text);
       await sendMediaVideo(phoneID,phone,media);
       res.json(200);
      }else {
         res.sendStatus(404);
       }   
-  
 }
 
 
 async function onSendImage(req,res){
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
+  const message=req.body.message;
   const media=req.body.link;
      if(phoneID && phone && media){
+      const alert= notification(message);
+      await sendMessages(phoneID,phone, alert.text);
       await sendMediaImage(phoneID,phone,media);
       res.json(200);
      }else {
