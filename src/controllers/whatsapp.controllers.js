@@ -331,9 +331,8 @@ async function onSendTemplateImage(req,res){
   const media=req.body.link;
      if(phoneID && phone && media){
       await sendUtilityTemplateImage(phoneID,phone,message,media)
-      .then(res=>console.log(res.json()))
-      .catch(err => console.log(err))
-    
+      res.json(200);
+      
      }else {
         res.sendStatus(404);
       }   
@@ -346,8 +345,7 @@ async function onSendTemplateVideo(req,res){
   const media=req.body.link;
      if(phoneID && phone && media){
       await sendTemplateVideo(phoneID,phone,message,media)
-      .then(res=>console.log(res.json()))
-      .catch(err => console.log(err))
+      res.json(200);
      }else {
         res.sendStatus(404);
       }   
@@ -360,8 +358,6 @@ async function onSendTemplateNotification(req,res){
   const message=req.body.message;
      if(phoneID && phone){
       await sendTemplateNotification(phoneID,phone,message)
-      .then(res=>console.log(res.json()))
-      .catch(err => console.log(err))
       res.json(200);
      }else {
         res.sendStatus(404);
