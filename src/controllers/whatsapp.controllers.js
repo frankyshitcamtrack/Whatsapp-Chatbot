@@ -1,4 +1,4 @@
-const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList } = require("../models/whatsapp.model");
+const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
@@ -324,9 +324,45 @@ async function onSendImage(req,res){
       }   
 }
 
+async function onSendTemplateImage(req,res){
+  const phoneID=developement.phone_number_id
+  const phone=phoneFormat(req.body.phone);
+  const message=req.body.message;
+  const media=req.body.link;
+     if(phoneID && phone && media){
+      const alert= notification(message);
+      await sendUtilityTemplateImage(phoneID,phone,alert.text,media)
+      res.json(200);
+     }else {
+        res.sendStatus(404);
+      }   
+}
+
+async function onSendTemplateVideo(req,res){
+  const phoneID=developement.phone_number_id
+  const phone=phoneFormat(req.body.phone);
+  const message=req.body.message;
+  const media=req.body.link;
+     if(phoneID && phone && media){
+      const alert= notification(message);
+      await sendTemplateVideo(phoneID,phone,alert.text,media)
+      res.json(200);
+     }else {
+        res.sendStatus(404);
+      }   
+}
 
 
 
 
 
-module.exports = { onSendMessages, onVerification,getPositionVehicule,onSendNotification,onSendEvidence,onSendImage }
+module.exports = { 
+  onSendMessages, 
+  onVerification,
+  getPositionVehicule,
+  onSendNotification,
+  onSendEvidence,
+  onSendImage,
+  onSendTemplateImage,
+  onSendTemplateVideo 
+}

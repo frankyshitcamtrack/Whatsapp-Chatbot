@@ -285,7 +285,156 @@ async function sendMessageList(phone_number_id,phone){
 }
 
 
- 
+async function sendTemplateVideo(phone_number_id,phone,message,link) {
+  axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v12.0/" +phone_number_id+"/messages?access_token="+token,
+    data:{
+      messaging_product: "whatsapp", 
+      recipient_type: "individual",      
+      to: phone,  
+      "type": "template",
+      "template": {
+        "name": "evidencesvideo",
+        "language": {
+          "code": "French"
+        },
+        "components": [
+          {
+            "type": "header",
+            "parameters": [
+              {
+                "type": "video",
+                "video": {
+                  "link": link,
+                }
+              },
+            ]
+          },
+          {
+            "type": "body",
+            "parameters": [
+              {
+                "type": "text",
+                "text": message
+              },
+            ]
+          }
+        ]
+      }
+    },
+    headers: { "Content-Type": "application/json"},
+  }).then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
+  axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v12.0/" +phone_number_id+"/messages?access_token="+token,
+    data:{
+      messaging_product: "whatsapp", 
+      recipient_type: "individual",      
+      to: phone,  
+      "type": "template",
+      "template": {
+        "name": "evidencesimage",
+        "language": {
+          "code": "French"
+        },
+        "components": [
+          {
+            "type": "header",
+            "parameters": [
+              {
+                "type": "image",
+                "image": {
+                  "link": link
+                }
+              }
+            ]
+          },
+          {
+            "type": "body",
+            "parameters": [
+              {
+                "type": "text",
+                "text": message
+              },
+     
+            ]
+          }
+        ]
+      }
+    },
+    headers: { "Content-Type": "application/json"},
+  }).then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+async function sendTemplateNotification(phone_number_id,phone,message) {
+  axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v12.0/" +phone_number_id+"/messages?access_token="+token,
+    data:{
+      messaging_product: "whatsapp", 
+      recipient_type: "individual",      
+      to: phone,  
+      "type": "template",
+      "template": {
+        "name": "evidencemessage",
+        "language": {
+          "code": "French"
+        },
+        "components": [
+          {
+            "type": "body",
+            "parameters": [
+              {
+                "type": "text",
+                "text": message
+              },
+            ]
+          }
+        ]
+      }
+    },
+    headers: { "Content-Type": "application/json"},
+  }).then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 
-module.exports = { sendMessages,sendInteraction,sendMediaImage,sendLocation,sendMediaAudio,sendMediaDocument,sendMediaVideo,sendDocbyId,sendAudiobyId,sendVidbyId,sendMessageList }
+
+
+module.exports = { 
+  sendMessages,
+  sendInteraction,
+  sendMediaImage,
+  sendLocation,
+  sendMediaAudio,
+  sendMediaDocument,
+  sendMediaVideo,
+  sendDocbyId,
+  sendAudiobyId,
+  sendVidbyId,
+  sendMessageList ,
+  sendTemplateVideo,
+  sendUtilityTemplateImage,
+  sendTemplateNotification
+}
