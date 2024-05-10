@@ -337,7 +337,7 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +phone_number_id+"/messages?access_token="+token,
+      "https://graph.facebook.com/v12.0/" + phone_number_id +"/messages?access_token="+token,
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      

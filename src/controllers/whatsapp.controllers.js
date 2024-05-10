@@ -355,7 +355,7 @@ async function onSendTemplateNotification(req,res){
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
   const message=req.body.message;
-     if(phoneID && phone && media){
+     if(phoneID && phone){
       await sendTemplateNotification(phoneID,phone,message)
       res.json(200);
      }else {
