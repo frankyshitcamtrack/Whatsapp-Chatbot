@@ -289,7 +289,7 @@ async function sendTemplateVideo(phone_number_id,phone,message,link) {
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +phone_number_id+"/messages?access_token="+token,
+      "https://graph.facebook.com/v18.0/" +phone_number_id+"/messages?access_token="+token,
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      
@@ -298,7 +298,7 @@ async function sendTemplateVideo(phone_number_id,phone,message,link) {
       "template": {
         "name": "evidencevideo",
         "language": {
-          "code": "French"
+          "code": "fr"
         },
         "components": [
           {
@@ -337,7 +337,7 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" + phone_number_id +"/messages?access_token="+token,
+      "https://graph.facebook.com/v18.0/" + phone_number_id +"/messages?access_token="+token,
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      
@@ -346,7 +346,7 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
       "template": {
         "name": "evidencesimage",
         "language": {
-          "code": "French"
+          "code": "fr"
         },
         "components": [
           {
@@ -386,7 +386,7 @@ async function sendTemplateNotification(phone_number_id,phone,message) {
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +phone_number_id+"/messages?access_token="+token,
+      "https://graph.facebook.com/v18.0/" +phone_number_id+"/messages?access_token="+token,
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      
@@ -395,7 +395,7 @@ async function sendTemplateNotification(phone_number_id,phone,message) {
       "template": {
         "name": "evidencemessage",
         "language": {
-          "code": "French"
+          "code": "fr"
         },
         "components": [
           {
