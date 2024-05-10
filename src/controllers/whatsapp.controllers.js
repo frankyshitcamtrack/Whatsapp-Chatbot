@@ -332,7 +332,6 @@ async function onSendTemplateImage(req,res){
      if(phoneID && phone && media){
       await sendUtilityTemplateImage(phoneID,phone,message,media)
       res.json(200);
-      
      }else {
         res.sendStatus(404);
       }   
