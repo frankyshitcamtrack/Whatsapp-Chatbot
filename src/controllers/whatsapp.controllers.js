@@ -353,6 +353,19 @@ async function onSendTemplateVideo(req,res){
 }
 
 
+async function onSendTemplateNotification(req,res){
+  const phoneID=developement.phone_number_id
+  const phone=phoneFormat(req.body.phone);
+  const message=req.body.message;
+     if(phoneID && phone && media){
+      const alert= notification(message);
+      await sendTemplateNotification(phoneID,phone,alert.text)
+      res.json(200);
+     }else {
+        res.sendStatus(404);
+      }   
+}
+
 
 
 
@@ -364,5 +377,6 @@ module.exports = {
   onSendEvidence,
   onSendImage,
   onSendTemplateImage,
-  onSendTemplateVideo 
+  onSendTemplateVideo,
+  onSendTemplateNotification
 }

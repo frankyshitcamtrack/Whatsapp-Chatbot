@@ -296,7 +296,7 @@ async function sendTemplateVideo(phone_number_id,phone,message,link) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "evidencesvideo",
+        "name": "evidencevideo",
         "language": {
           "code": "French"
         },
