@@ -279,7 +279,7 @@ async function onVerification(req, res) {
 async function onSendNotification(req,res){
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
-  const message=req.body.notification;
+  const message=req.body.message;
      if(phoneID && phone && message){
       const alert= notification(message);
        if(alert){
@@ -330,8 +330,7 @@ async function onSendTemplateImage(req,res){
   const message=req.body.message;
   const media=req.body.link;
      if(phoneID && phone && media){
-      const alert= notification(message);
-      await sendUtilityTemplateImage(phoneID,phone,alert.text,media)
+      await sendUtilityTemplateImage(phoneID,phone,message,media)
       res.json(200);
      }else {
         res.sendStatus(404);
@@ -344,8 +343,7 @@ async function onSendTemplateVideo(req,res){
   const message=req.body.message;
   const media=req.body.link;
      if(phoneID && phone && media){
-      const alert= notification(message);
-      await sendTemplateVideo(phoneID,phone,alert.text,media)
+      await sendTemplateVideo(phoneID,phone,message,media)
       res.json(200);
      }else {
         res.sendStatus(404);
@@ -358,8 +356,7 @@ async function onSendTemplateNotification(req,res){
   const phone=phoneFormat(req.body.phone);
   const message=req.body.message;
      if(phoneID && phone && media){
-      const alert= notification(message);
-      await sendTemplateNotification(phoneID,phone,alert.text)
+      await sendTemplateNotification(phoneID,phone,message)
       res.json(200);
      }else {
         res.sendStatus(404);

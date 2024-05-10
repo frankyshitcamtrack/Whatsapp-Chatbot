@@ -9,25 +9,26 @@ whatsappRouter.post('/',onSendMessages);
 
 
 // Accepts POST requests for notification or alert
-whatsappRouter.post('/notifications',onSendNotification);
+whatsappRouter.post('/utility_notification',onSendNotification);
 
 
 // Accepts POST requests for evidences or alert
-whatsappRouter.post('/evidences',onSendEvidence);
+whatsappRouter.post('/utility_video',onSendEvidence);
 
 // Accepts POST requests for evidences or alert
-whatsappRouter.post('/image',onSendImage);
+whatsappRouter.post('/utility_image',onSendImage);
+
 
 
 // Accepts POST requests for evidencesVideo template or alert
-whatsappRouter.post('/evidencevid', onSendTemplateVideo);
+whatsappRouter.post('/marketing_video', onSendTemplateVideo);
 
 
 // Accepts POST requests for evidencesImage template or alert
-whatsappRouter.post('/evidenceimg',onSendTemplateImage);
+whatsappRouter.post('/marketing_image',onSendTemplateImage);
 
 // Accepts POST requests for evidencesImage template or alert
-whatsappRouter.post('/evidencenote',onSendTemplateNotification);
+whatsappRouter.post('/marketing_notification',onSendTemplateNotification);
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
 // info on verification request payload: https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests 
