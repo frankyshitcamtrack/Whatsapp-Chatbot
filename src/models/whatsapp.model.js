@@ -289,35 +289,30 @@ async function sendTemplateVideo(phone_number_id,phone,message,link) {
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v18.0/" +phone_number_id+"/messages?access_token="+token,
+      "https://graph.facebook.com/v19.0/" +phone_number_id+"/messages?access_token="+token,
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      
       to: phone,  
       "type": "template",
       "template": {
-        "name": "evidencevideo",
+        "name": "evidence_video",
         "language": {
           "code": "fr"
         },
         "components": [
-          {
-            "type": "header",
-            "parameters": [
-              {
-                "type": "video",
-                "video": {
-                  "link": link,
-                }
-              },
-            ]
-          },
           {
             "type": "body",
             "parameters": [
               {
                 "type": "text",
                 "text": message
+              },
+              {
+                "type": "video",
+                "video": {
+                  "link": link,
+                }
               },
             ]
           }
@@ -337,29 +332,18 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v18.0/" + phone_number_id +"/messages?access_token="+token,
+      "https://graph.facebook.com/v19.0/" + phone_number_id +"/messages?access_token="+token,
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      
       to: phone,  
       "type": "template",
       "template": {
-        "name": "evidencesimage",
+        "name": "evidence_image",
         "language": {
           "code": "fr"
         },
         "components": [
-          {
-            "type": "header",
-            "parameters": [
-              {
-                "type": "image",
-                "image": {
-                  "link": link
-                }
-              }
-            ]
-          },
           {
             "type": "body",
             "parameters": [
@@ -367,9 +351,14 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
                 "type": "text",
                 "text": message
               },
-     
             ]
-          }
+          },
+          {
+            "type": "image",
+            "image": {
+              "link": link
+            }
+          },
         ]
       }
     },
@@ -382,11 +371,14 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
     });
 }
 
+
+
+
 async function sendTemplateNotification(phone_number_id,phone,message) {
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v18.0/" +phone_number_id+"/messages?access_token="+token,
+      "https://graph.facebook.com/v19.0/" +phone_number_id+"/messages?access_token="+token,
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      
@@ -418,7 +410,6 @@ async function sendTemplateNotification(phone_number_id,phone,message) {
       console.log(error);
     });
 }
-
 
 
 
