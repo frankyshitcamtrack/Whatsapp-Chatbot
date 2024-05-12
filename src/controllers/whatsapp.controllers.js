@@ -104,7 +104,7 @@ async function getPositionVehicleByDate(user){
 //Send whatsapp message
 async function onSendMessages(req, res) {
    
-  if (req.body.object) {
+  if (req.body.object && req.body.entry[0].id && req.body.entry[0].changes[0].value.metadata.phone_number_id && req.body.entry[0].changes[0].value.messages[0].from && req.body.entry[0].changes[0].value.messages[0].text.body && req.body.entry[0].changes[0].value.contacts[0].profile.name) {
       let entryID = req.body.entry[0].id;
       let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone numberId from the webhook payload
       let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the phone number text from the webhook payload
