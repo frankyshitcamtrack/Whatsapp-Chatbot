@@ -105,13 +105,13 @@ async function getPositionVehicleByDate(user){
 async function onSendMessages(req, res) {
    
 
-  if (req.body.object && req.body.entry && req.body.entry[0].changes && req.body.entry[0].changes[0].value && req.body.entry?.[0].changes[0].value.messages && req.body.entry?.[0].changes[0].value.contacts) {
+  if (req.body.object && req.body.entry && req.body.entry[0].changes && req.body.entry[0].changes[0].value && req.body.entry[0].changes[0].value.messages && req.body.entry[0].changes[0].value.contacts) {
       let entryID = req.body.entry[0].id;
       let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone numberId from the webhook payload
-      let from = req.body.entry?.[0].changes[0].value.messages[0].from;  // extract the phone number text from the webhook payload
+      let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the phone number text from the webhook payload
       let body = req.body.entry[0].changes[0].value.messages[0].text.body; // extract the message text from the webhook payloa
       let name = req.body.entry[0].changes[0].value.contacts[0].profile.name; // extract the name from the webhook payloa
-      
+
       const findIndex = users.findIndex(item => item.name === name);
       const phone = phoneFormat(from);
       // Check the Incoming webhook message
