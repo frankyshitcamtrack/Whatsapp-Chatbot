@@ -103,8 +103,7 @@ async function getPositionVehicleByDate(user){
 
 //Send whatsapp message
 async function onSendMessages(req, res) {
-   
-
+  
   if (req.body.object && req.body.entry && req.body.entry[0].changes && req.body.entry[0].changes[0].value && req.body.entry[0].changes[0].value.messages && req.body.entry[0].changes[0].value.contacts) {
       let entryID = req.body.entry[0].id;
       let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone numberId from the webhook payload
@@ -297,11 +296,8 @@ async function onSendNotification(req,res){
 async function onSendEvidence(req,res){
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
-  const message=req.body.message;
   const media=req.body.link;
      if(phoneID && phone && media){
-      const alert= notification(message);
-      await sendMessages(phoneID,phone, alert.text);
       await sendMediaVideo(phoneID,phone,media);
       res.json(200);
      }else {
@@ -313,11 +309,8 @@ async function onSendEvidence(req,res){
 async function onSendImage(req,res){
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
-  const message=req.body.message;
   const media=req.body.link;
      if(phoneID && phone && media){
-      const alert= notification(message);
-      await sendMessages(phoneID,phone, alert.text);
       await sendMediaImage(phoneID,phone,media);
       res.json(200);
      }else {
