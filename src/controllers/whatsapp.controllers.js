@@ -280,6 +280,7 @@ async function onSendNotification(req,res){
   const phoneID=developement.phone_number_id
   const phone=phoneFormat(req.body.phone);
   const message=req.body.message;
+  
      if(phoneID && phone && message){
       const alert= notification(message);
        if(alert){
