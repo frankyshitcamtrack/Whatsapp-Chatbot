@@ -103,148 +103,153 @@ async function getPositionVehicleByDate(user){
 
 //Send whatsapp message
 async function onSendMessages(req, res) {
+  try{
+    if (req.body.object && req.body.entry && req.body.entry[0].changes && req.body.entry[0].changes[0].value && req.body.entry[0].changes[0].value.messages && req.body.entry[0].changes[0].value.contacts) {
+        let entryID = req.body.entry[0].id;
+        let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone numberId from the webhook payload
+        let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the phone number text from the webhook payload
+        let body = req.body.entry[0].changes[0].value.messages[0].text.body; // extract the message text from the webhook payloa
+        let name = req.body.entry[0].changes[0].value.contacts[0].profile.name; // extract the name from the webhook payloa
   
-  if (req.body.object && req.body.entry && req.body.entry[0].changes && req.body.entry[0].changes[0].value && req.body.entry[0].changes[0].value.messages && req.body.entry[0].changes[0].value.contacts) {
-      let entryID = req.body.entry[0].id;
-      let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;// extract the phone numberId from the webhook payload
-      let from = req.body.entry[0].changes[0].value.messages[0].from;  // extract the phone number text from the webhook payload
-      let body = req.body.entry[0].changes[0].value.messages[0].text.body; // extract the message text from the webhook payloa
-      let name = req.body.entry[0].changes[0].value.contacts[0].profile.name; // extract the name from the webhook payloa
-
-      const findIndex = users.findIndex(item => item.name === name);
-      const phone = phoneFormat(from);
-      // Check the Incoming webhook message
-      console.log(JSON.stringify(req.body, null, 2));
-      console.log(users);
+        const findIndex = users.findIndex(item => item.name === name);
+        const phone = phoneFormat(from);
+        // Check the Incoming webhook message
+        console.log(JSON.stringify(req.body, null, 2));
+        console.log(users);
+        
       
-    
-      // check if the user client index is not exist in the table user table and finally add the new user
-      if (findIndex < 0) {
-        const newUser = {
-          'id': entryID,
-          'name': name,
-          'phone': phone,
-          'phoneId': phone_number_id,
-          'body': body,
-          'vehicleNumber':'',
-          'date':'',
-          'time':'',
-          'flow':"",
-          'previewMessage': "",
-          'scheduleMessageSent': false,
-          'matriculeQuestionSent':false,
-          'dateMessage':false,
+        // check if the user client index is not exist in the table user table and finally add the new user
+        if (findIndex < 0) {
+          const newUser = {
+            'id': entryID,
+            'name': name,
+            'phone': phone,
+            'phoneId': phone_number_id,
+            'body': body,
+            'vehicleNumber':'',
+            'date':'',
+            'time':'',
+            'flow':"",
+            'previewMessage': "",
+            'scheduleMessageSent': false,
+            'matriculeQuestionSent':false,
+            'dateMessage':false,
+          }
+          users.push(newUser);
+          await sendMessages(phone_number_id, phone, textMessage.text);
         }
-        users.push(newUser);
-        await sendMessages(phone_number_id, phone, textMessage.text);
-      }
-
-      if (findIndex >= 0) { // check if the user client index exist in the table user table
-        const user = users[findIndex]; // find the user by his index
-        user.body = body;
-        switch(true){
-
-          case (user.body === "1" && user.previewMessage === "" && user.flow===""):{
-            user.previewMessage = user.body;
-            user.flow="1";
-            await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
-            break;
+  
+        if (findIndex >= 0) { // check if the user client index exist in the table user table
+          const user = users[findIndex]; // find the user by his index
+          user.body = body;
+          switch(true){
+  
+            case (user.body === "1" && user.previewMessage === "" && user.flow===""):{
+              user.previewMessage = user.body;
+              user.flow="1";
+              await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+              break;
+            }
+  
+            case(user.body==="3" && user.previewMessage === "" && user.flow===""):{
+             await sendAudiobyId(user.phoneId,user.phone,"857694462782371");
+              break;
+            }
+  
+            case(user.body==="4" && user.previewMessage === "" && user.flow===""):{
+             await sendVidbyId(user.phoneId,user.phone,"716903793964115");
+              break;
+            }
+  
+            case(user.body==="5" && user.previewMessage === "" && user.flow===""):{
+              await sendDocbyId(user.phoneId,user.phone,"385059230949332");
+              break; 
+            }
+  
+            case(user.body==="6" && user.previewMessage === "" && user.flow===""):{
+              await sendMessageList(user.phoneId,user.phone);
+              break; 
+            }
+  
+            case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):{
+            await  sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+              user.previewMessage="2";
+              user.matriculeQuestionSent=true;
+              break;
+            }
+  
+            case (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false):{
+             await sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+              user.matriculeQuestionSent=true;
+              user.previewMessage="1";
+              break;
+            }
+  
+            case(user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false):{
+             await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+              break;
+            }
+  
+            case(user.flow==="1" && user.previewMessage === "1" && user.body!=="2" &&  user.matriculeQuestionSent===false ):{
+             await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+              break;
+            }
+  
+            case (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true && user.dateMessage===false):{
+              user.vehicleNumber = user.body.replace(/\s+/g,"");
+              await getPositionVehicule(user);
+              break;
+            }
+  
+            case (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true && user.dateMessage===false):{
+              let vehicleImmat = user.body
+              user.vehicleNumber=vehicleImmat.replace(/\s+/g,"");
+             await sendMessages(user.phoneId,user.phone,askDateMessage.text);
+              user.dateMessage=true;
+              break;
+            }
+  
+            case (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true):{
+              user.date=user.body;
+              await getPositionVehicleByDate(user);
+  
+              break;
+            }
+  
+            case (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):{
+              user.previewMessage = user.body;
+             await sendMessages(user.phoneId, user.phone, textMessage3.text);
+              user.scheduleMessageSent = true;
+              break;
+            }
+  
+            case (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false):{
+              user.body = body
+              const visit = scheduleMeeting(user.body, user.name);
+             await sendMessages(user.phoneId, user.phone, visit.text);
+              user.previewMessage = "";
+              user.scheduleMessageSent = false;
+              break;
+            }
+  
+            default:
+             await sendMessages(user.phoneId, user.phone, textMessage.text);
           }
-
-          case(user.body==="3" && user.previewMessage === "" && user.flow===""):{
-           await sendAudiobyId(user.phoneId,user.phone,"857694462782371");
-            break;
-          }
-
-          case(user.body==="4" && user.previewMessage === "" && user.flow===""):{
-           await sendVidbyId(user.phoneId,user.phone,"716903793964115");
-            break;
-          }
-
-          case(user.body==="5" && user.previewMessage === "" && user.flow===""):{
-            await sendDocbyId(user.phoneId,user.phone,"385059230949332");
-            break; 
-          }
-
-          case(user.body==="6" && user.previewMessage === "" && user.flow===""):{
-            await sendMessageList(user.phoneId,user.phone);
-            break; 
-          }
-
-          case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):{
-          await  sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-            user.previewMessage="2";
-            user.matriculeQuestionSent=true;
-            break;
-          }
-
-          case (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false):{
-           await sendMessages(user.phoneId,user.phone,askImmatriculation.text);
-            user.matriculeQuestionSent=true;
-            user.previewMessage="1";
-            break;
-          }
-
-          case(user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false):{
-           await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
-            break;
-          }
-
-          case(user.flow==="1" && user.previewMessage === "1" && user.body!=="2" &&  user.matriculeQuestionSent===false ):{
-           await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
-            break;
-          }
-
-          case (user.flow==="1" && user.previewMessage === "1" && user.matriculeQuestionSent===true && user.dateMessage===false):{
-            user.vehicleNumber = user.body.replace(/\s+/g,"");
-            await getPositionVehicule(user);
-            break;
-          }
-
-          case (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true && user.dateMessage===false):{
-            let vehicleImmat = user.body
-            user.vehicleNumber=vehicleImmat.replace(/\s+/g,"");
-           await sendMessages(user.phoneId,user.phone,askDateMessage.text);
-            user.dateMessage=true;
-            break;
-          }
-
-          case (user.flow==="1" && user.previewMessage === "2" && user.dateMessage===true && user.matriculeQuestionSent===true):{
-            user.date=user.body;
-            await getPositionVehicleByDate(user);
-
-            break;
-          }
-
-          case (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):{
-            user.previewMessage = user.body;
-           await sendMessages(user.phoneId, user.phone, textMessage3.text);
-            user.scheduleMessageSent = true;
-            break;
-          }
-
-          case (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false):{
-            user.body = body
-            const visit = scheduleMeeting(user.body, user.name);
-           await sendMessages(user.phoneId, user.phone, visit.text);
-            user.previewMessage = "";
-            user.scheduleMessageSent = false;
-            break;
-          }
-
-          default:
-           await sendMessages(user.phoneId, user.phone, textMessage.text);
+         
         }
-       
-      }
+        
       
-    
-    
-    res.json(200);
+      
+      res.json(200);
+    }
+    else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('error of: ', error);                                                         // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
   }
-  else {
-    res.sendStatus(404);
-  }
+
 }
 
 
@@ -276,86 +281,123 @@ async function onVerification(req, res) {
 }
 
 
-async function onSendNotification(req,res){
-  const phoneID=developement.phone_number_id
-  const phone=phoneFormat(req.body.phone);
-  const message=req.body.message;
-  
-     if(phoneID && phone && message){
-      const alert= notification(message);
-       if(alert){
-        await sendMessages(phoneID,phone,alert.text);
+async function onSendNotification(req, res) {
+  try {
+    const phoneID = developement.phone_number_id
+    const phone = phoneFormat(req.body.phone);
+    const message = req.body.message;
+
+    if (phoneID && phone && message) {
+      const alert = notification(message);
+      if (alert) {
+        await sendMessages(phoneID, phone, alert.text);
         res.json(200);
-       }
-     }else {
-        res.sendStatus(404);
-      }   
-  
+      }
+    } else {
+      res.sendStatus(404);
+    }
+
+  }
+  catch (error) {
+    console.error('error of: ', error);                                                         // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
+  }
+
+
 }
 
 
-async function onSendEvidence(req,res){
-  const phoneID=developement.phone_number_id
-  const phone=phoneFormat(req.body.phone);
-  const media=req.body.link;
-     if(phoneID && phone && media){
-      await sendMediaVideo(phoneID,phone,media);
+async function onSendEvidence(req, res) {
+  try {
+    const phoneID = developement.phone_number_id
+    const phone = phoneFormat(req.body.phone);
+    const media = req.body.link;
+    if (phoneID && phone && media) {
+      await sendMediaVideo(phoneID, phone, media);
       res.json(200);
-     }else {
-        res.sendStatus(404);
-      }   
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('error of: ', error);                                                         // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
+  }
+
 }
 
 
-async function onSendImage(req,res){
-  const phoneID=developement.phone_number_id
-  const phone=phoneFormat(req.body.phone);
-  const media=req.body.link;
-     if(phoneID && phone && media){
-      await sendMediaImage(phoneID,phone,media);
+async function onSendImage(req, res) {
+  try {
+    const phoneID = developement.phone_number_id
+    const phone = phoneFormat(req.body.phone);
+    const media = req.body.link;
+    if (phoneID && phone && media) {
+      await sendMediaImage(phoneID, phone, media);
       res.json(200);
-     }else {
-        res.sendStatus(404);
-      }   
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('error of: ', error);                                                         // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
+  }
+
+
 }
 
-async function onSendTemplateImage(req,res){
-  const phoneID=developement.phone_number_id
-  const phone=phoneFormat(req.body.phone);
-  const message=req.body.message;
-  const media=req.body.link;
-     if(phoneID && phone && media){
-      await sendUtilityTemplateImage(phoneID,phone,message,media)
+async function onSendTemplateImage(req, res) {
+  try {
+    const phoneID = developement.phone_number_id
+    const phone = phoneFormat(req.body.phone);
+    const message = req.body.message;
+    const media = req.body.link;
+    if (phoneID && phone && media) {
+      await sendUtilityTemplateImage(phoneID, phone, message, media)
       res.json(200);
-     }else {
-        res.sendStatus(404);
-      }   
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('error of: ', error);                                                         // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
+  }
 }
 
-async function onSendTemplateVideo(req,res){
-  const phoneID=developement.phone_number_id
-  const phone=phoneFormat(req.body.phone);
-  const message=req.body.message;
-  const media=req.body.link;
-     if(phoneID && phone && media){
-      await sendTemplateVideo(phoneID,phone,message,media)
+async function onSendTemplateVideo(req, res) {
+  try {
+    const phoneID = developement.phone_number_id
+    const phone = phoneFormat(req.body.phone);
+    const message = req.body.message;
+    const media = req.body.link;
+    if (phoneID && phone && media) {
+      await sendTemplateVideo(phoneID, phone, message, media)
       res.json(200);
-     }else {
-        res.sendStatus(404);
-      }   
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('error of: ', error);                                                         // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
+  }
+
 }
 
 
-async function onSendTemplateNotification(req,res){
-  const phoneID=developement.phone_number_id
-  const phone=phoneFormat(req.body.phone);
-  const message=req.body.message;
-     if(phoneID && phone){
-      await sendTemplateNotification(phoneID,phone,message)
+async function onSendTemplateNotification(req, res) {
+  try {
+    const phoneID = developement.phone_number_id
+    const phone = phoneFormat(req.body.phone);
+    const message = req.body.message;
+    if (phoneID && phone) {
+      await sendTemplateNotification(phoneID, phone, message)
       res.json(200);
-     }else {
-        res.sendStatus(404);
-      }   
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('error of: ', error);                                                         // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
+  }
 }
 
 
