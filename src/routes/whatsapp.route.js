@@ -1,5 +1,6 @@
 const express = require('express');
-const { onSendMessages, onVerification,onSendNotification,onSendEvidence,onSendImage,onSendTemplateImage,onSendTemplateVideo,onSendTemplateNotification} = require('../controllers/whatsapp.controllers');
+
+const {onSendMessages,onVerification,onSendNotification,onSendEvidence,onSendImage,onSendTemplateImage,onSendTemplateVideo,onSendTemplateNotification} = require('../controllers/whatsapp.controllers');
 
 const whatsappRouter = express.Router();
 
