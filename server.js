@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8000;
     ca: fs.readFileSync('./ssl/file.ca'),
 };  */
 
-const server = http.createServer(app);
+const server =  http.createServer(app);
 
 
 async function startServer(){
