@@ -329,10 +329,13 @@ async function sendTemplateVideo(phone_number_id,phone,message,link) {
       'Content-Type': 'application/json'
    }
   }).then((response) => {
-      console.log(JSON.stringify(response.data));
+      const data = response.data
+      console.log(JSON.stringify(data));
+      return data;
     })
     .catch((error) => {
       console.log(error);
+      return error;
     });
 }
 
@@ -381,10 +384,13 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
       'Content-Type': 'application/json'
    }
   }).then((response) => {
-      console.log(JSON.stringify(response.data));
+      const data = response.data
+      console.log(JSON.stringify(data));
+      return data;
     })
     .catch((error) => {
       console.log(error);
+      return error;
     });
 }
 
@@ -425,6 +431,7 @@ async function sendTemplateNotification(phone_number_id,phone,message) {
    }
   }).then((response) => {
       console.log(JSON.stringify(response.data));
+       
     })
     .catch((error) => {
       console.log(error);

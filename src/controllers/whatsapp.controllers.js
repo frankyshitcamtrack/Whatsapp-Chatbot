@@ -3,6 +3,9 @@ const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
 const { developement } = require("../config/whatsappApi");
+const {downloadVideo}=require("../utils/download");
+const {v4 : uuidv4} = require('uuid');
+
 
 let users = []
 
@@ -364,22 +367,40 @@ async function onSendTemplateImage(req, res) {
 }
 
 async function onSendTemplateVideo(req, res) {
+  
   try {
     const phoneID = developement.phone_number_id
     const phone = phoneFormat(req.body.phone);
     const message = req.body.message;
-    const media = req.body.link;
-    if (phoneID && phone && media) {
-      await sendTemplateVideo(phoneID, phone, message, media)
-      res.json(200);
+    const url = req.body.link;
+    const protocol=req.protocol;
+    const hostname = req.get('host')
+    const fullUrl =`${protocol} + '://' + ${hostname}`; 
+    console.log(fullUrl);
+    const downloadVidId= uuidv4();
+    const downloadPath = path.resolve(`./public/assets/video/${downloadVidId}.mp4`);
+    const video = await downloadVideo(url, downloadPath, fullUrl)
+
+    if (phoneID && phone && video) {
+         setTimeout(async()=>{
+          await sendTemplateVideo(phoneID, phone, message, video)
+          .then((response) => {
+            const data = response.data
+            console.log(JSON.stringify(data));
+            return res.send(data);
+          })
+          .catch((error) => {
+            console.log(error);
+            return res.send(error);
+          });
+         },15000)
     } else {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error('error of: ', error);                                                         // print the error to console
+    console.error('error of: ', error);
     return res.status(500).send('Post received, but we have an error!');
   }
-
 }
 
 
@@ -388,14 +409,20 @@ async function onSendTemplateNotification(req, res) {
     const phoneID = developement.phone_number_id
     const phone = phoneFormat(req.body.phone);
     const message = req.body.message;
-    if (phoneID && phone) {
-      await sendTemplateNotification(phoneID, phone, message)
-      res.json(200);
+    if (phoneID && phone && message ) {
+     await sendTemplateNotification(phoneID, phone, message)
+     .then((response) => {
+      const data =response.data;
+      console.log(JSON.stringify(data));
+    })
+    .catch((error) => {
+      console.log(error);
+    })
     } else {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error('error of: ', error);                                                         // print the error to console
+    console.error('error of: ', error);                                                    
     return res.status(500).send('Post received, but we have an error!');
   }
 }
