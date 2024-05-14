@@ -1,6 +1,6 @@
 const fs= require('fs');
 const hbjs = require('handbrake-js');
-const { path } = require('../../app');
+const {deleteMedia} = require('./deleteMedia')
 
 async function convertVideo(link,output) {
     const options = {
@@ -11,6 +11,10 @@ async function convertVideo(link,output) {
    await hbjs.spawn(options)
     .on('error', console.error)
     .on('output', console.log)
+
+    setTimeout(()=>{
+      deleteMedia(output);
+    },180000);
 
     return output;
 }

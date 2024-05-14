@@ -5,6 +5,7 @@ const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
 const { developement } = require("../config/whatsappApi");
 const {downloadVideo}=require("../utils/download");
+const {downloadImage}=require('../utils/downloadImg')
 const {v4 : uuidv4} = require('uuid');
 
 
@@ -354,10 +355,19 @@ async function onSendTemplateImage(req, res) {
     const phoneID = developement.phone_number_id
     const phone = phoneFormat(req.body.phone);
     const message = req.body.message;
-    const media = req.body.link;
+    const img = req.body.link;
+    const protocol = req.protocol;
+    const hostname = req.get('host')
+    const fullUrl = `${protocol}://${hostname}`;
+    const downloadImId = uuidv4();
+    const downloadPath = path.resolve(`public/assets/evidence/${downloadImId}.jpg`);
+    const media = await downloadImage(img,downloadPath,fullUrl);
+
     if (phoneID && phone && media) {
-      await sendUtilityTemplateImage(phoneID, phone, message, media)
-      res.json(200);
+      setTimeout(async()=>{
+        await sendUtilityTemplateImage(phoneID, phone, message, media)
+        res.json(200);
+      },10000)
     } else {
       res.sendStatus(404);
     }
@@ -380,7 +390,6 @@ async function onSendTemplateVideo(req, res) {
     const downloadPath = path.resolve(`public/assets/video/${downloadVidId}.mp4`);
     const video = await downloadVideo(url, downloadPath, fullUrl);
     if (phoneID && phone && video) {
-      console.log(video);
       setTimeout(async () => {
         await sendTemplateVideo(phoneID, phone, message, video);
         res.send(200)

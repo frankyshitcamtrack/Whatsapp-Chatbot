@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const {getEvidenceName}= require('./getFileName');
 const {convertVideo}= require('./convertVideo');
-
+const {deleteMedia} = require('./deleteMedia')
  
 async function downloadVideo(url,outputDownloadPath,fullUrl) {
     const evidencName = getEvidenceName()
@@ -33,6 +33,11 @@ async function downloadVideo(url,outputDownloadPath,fullUrl) {
            })
                .then(async () => {
                    await convertVideo(outputDownloadPath, output)
+               })
+               .then(()=>{
+                setTimeout(async()=>{
+                    await deleteMedia(outputDownloadPath);
+                  },180000);
                });
        })
   
