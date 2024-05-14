@@ -1,3 +1,4 @@
+const path = require('path');
 const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification } = require("../models/whatsapp.model");
 const phoneFormat = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
@@ -378,8 +379,8 @@ async function onSendTemplateVideo(req, res) {
     const fullUrl =`${protocol} + '://' + ${hostname}`; 
     console.log(`fulUrl : ${fullUrl}`);
     const downloadVidId= uuidv4();
-    const downloadPath = `/assets/video/${downloadVidId}.mp4`;
-    console.log(downloadPath);
+    const downloadPath = path.resolve(`/assets/video/${downloadVidId}.mp4`);
+    console.log(downloadPath)
     const video = await downloadVideo(url, downloadPath, fullUrl)
 
     if (phoneID && phone && video) {
