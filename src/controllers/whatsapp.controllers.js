@@ -360,10 +360,10 @@ async function onSendTemplateImage(req, res) {
     const hostname = req.get('host')
     const fullUrl = `${protocol}://${hostname}`;
     const downloadImId = uuidv4();
-    const downloadPath = path.resolve(`public/assets/evidence/${downloadImId}.jpg`);
+    const downloadPath = `public/assets/evidence/${downloadImId}.jpg`;
     const media = await downloadImage(img,downloadPath,fullUrl);
-
     if (phoneID && phone && media) {
+      console.log(media)
       setTimeout(async()=>{
         await sendUtilityTemplateImage(phoneID, phone, message, media)
         res.json(200);
@@ -372,7 +372,7 @@ async function onSendTemplateImage(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error('error of: ', error);                                                         // print the error to console
+    console.error('error of: ', error);                                                  
     return res.status(500).send('Post received, but we have an error!');
   }
 }

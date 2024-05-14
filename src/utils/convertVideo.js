@@ -14,7 +14,7 @@ async function convertVideo(link,output) {
 
     setTimeout(()=>{
       deleteMedia(output);
-    },180000);
+    },300000);
 
     return output;
 }

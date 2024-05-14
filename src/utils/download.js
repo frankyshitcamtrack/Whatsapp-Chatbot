@@ -37,7 +37,7 @@ async function downloadVideo(url,outputDownloadPath,fullUrl) {
                .then(()=>{
                 setTimeout(async()=>{
                     await deleteMedia(outputDownloadPath);
-                  },180000);
+                  },300000);
                });
        })
   

@@ -31,7 +31,7 @@ async function downloadImage(url,outputDownloadPath,fullUrl) {
        .then(()=>{
         setTimeout(async ()=>{
            await deleteMedia(outputDownloadPath);
-          },180000);
+          },300000);
        })
   
     return newPath
