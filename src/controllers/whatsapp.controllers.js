@@ -378,7 +378,8 @@ async function onSendTemplateVideo(req, res) {
     const fullUrl =`${protocol} + '://' + ${hostname}`; 
     console.log(`fulUrl : ${fullUrl}`);
     const downloadVidId= uuidv4();
-    const downloadPath = path.resolve(`./public/assets/video/${downloadVidId}.mp4`);
+    const downloadPath = path.resolve(`/assets/video/${downloadVidId}.mp4`);
+    console.log(downloadPath);
     const video = await downloadVideo(url, downloadPath, fullUrl)
 
     if (phoneID && phone && video) {
@@ -411,13 +412,7 @@ async function onSendTemplateNotification(req, res) {
     const message = req.body.message;
     if (phoneID && phone && message ) {
      await sendTemplateNotification(phoneID, phone, message)
-     .then((response) => {
-      const data =response.data;
-      console.log(JSON.stringify(data));
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      res.status(200).send(data);
     } else {
       res.sendStatus(404);
     }
