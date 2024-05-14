@@ -25,4 +25,11 @@ function phoneFormat(number){
 }
 
 
-module.exports= phoneFormat
+function formatArrPhones(arr){
+ console.log(arr);
+ return arr.map(item=>phoneFormat(item))
+
+}
+
+
+module.exports={phoneFormat,formatArrPhones} 

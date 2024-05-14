@@ -1,6 +1,6 @@
 const path = require('path');
-const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification } = require("../models/whatsapp.model");
-const phoneFormat = require("../utils/fortmat-phone");
+const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification,sendTemplateImageMultiple,sendTemplateNotificationMultiple,sendTemplateVideoMultiple } = require("../models/whatsapp.model");
+const {phoneFormat,formatArrPhones} = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
 const { developement } = require("../config/whatsappApi");
@@ -377,6 +377,25 @@ async function onSendTemplateImage(req, res) {
   }
 }
 
+
+async function onSendTemplateNotification(req, res) {
+  try {
+    const phoneID = developement.phone_number_id
+    const phone = phoneFormat(req.body.phone);
+    const message = req.body.message;
+    if (phoneID && phone && message ) {
+     await sendTemplateNotification(phoneID, phone, message)
+     res.send(200);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('error of: ', error);                                                    
+    return res.status(500).send('Post received, but we have an error!');
+  }
+}
+
+
 async function onSendTemplateVideo(req, res) {
   try {
     const phoneID = developement.phone_number_id
@@ -404,13 +423,48 @@ async function onSendTemplateVideo(req, res) {
 }
 
 
-async function onSendTemplateNotification(req, res) {
+
+async function onSendTemplateVideoMultiple(req,res){
   try {
     const phoneID = developement.phone_number_id
-    const phone = phoneFormat(req.body.phone);
+    const phoneArr= JSON.parse(req.body.phones.replace(/'/g, '"'));
+    const phones = formatArrPhones(phoneArr);
+
     const message = req.body.message;
-    if (phoneID && phone && message ) {
-     await sendTemplateNotification(phoneID, phone, message)
+
+    const url = req.body.link;
+    const protocol = req.protocol;
+    const hostname = req.get('host')
+    const fullUrl = `${protocol}://${hostname}`;
+
+    const downloadVidId = uuidv4();
+    const downloadPath = path.resolve(`public/assets/video/${downloadVidId}.mp4`);
+
+    const video = await downloadVideo(url, downloadPath, fullUrl);
+
+    if (phoneID && phones && video) {
+      setTimeout(async () => {
+        await sendTemplateVideoMultiple(phoneID, phones, message, video);
+        res.send(200)
+      }, 15000)
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('error of: ', error);
+    return res.status(500).send('Post received, but we have an error!');
+  }
+}
+
+
+async function onSendTemplateNotificationMultiple(req,res){
+  try {
+    const phoneID = developement.phone_number_id
+    const phoneArr= JSON.parse(req.body.phones.replace(/'/g, '"'));
+    const phones = formatArrPhones(phoneArr);
+    const message = req.body.message;
+    if (phoneID && phones && message ) {
+     await sendTemplateNotificationMultiple(phoneID,phones,message)
      res.send(200);
     } else {
       res.sendStatus(404);
@@ -422,6 +476,39 @@ async function onSendTemplateNotification(req, res) {
 }
 
 
+async function onSendTemplateImageMultiple(req,res){
+  try {
+    const phoneID = developement.phone_number_id
+
+    const phoneArr= JSON.parse(req.body.phones.replace(/'/g, '"'));
+    const phones = formatArrPhones(phoneArr);
+
+    const message = req.body.message;
+
+    const img = req.body.link;
+    const protocol = req.protocol;
+    const hostname = req.get('host')
+    const fullUrl = `${protocol}://${hostname}`;
+
+    const downloadImId = uuidv4();
+    const downloadPath = `public/assets/evidence/${downloadImId}.jpg`;
+
+    const media = await downloadImage(img,downloadPath,fullUrl);
+
+    if (phoneID && phones && media) {
+      console.log(media)
+      setTimeout(async()=>{
+        await sendTemplateImageMultiple(phoneID, phones, message, media)
+        res.json(200);
+      },10000)
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('error of: ', error);                                                  
+    return res.status(500).send('Post received, but we have an error!');
+  }
+}
 
 
 module.exports = { 
@@ -433,5 +520,8 @@ module.exports = {
   onSendImage,
   onSendTemplateImage,
   onSendTemplateVideo,
-  onSendTemplateNotification
+  onSendTemplateNotification,
+  onSendTemplateVideoMultiple,
+  onSendTemplateNotificationMultiple,
+  onSendTemplateImageMultiple
 }

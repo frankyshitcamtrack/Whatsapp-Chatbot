@@ -432,6 +432,26 @@ async function sendTemplateNotification(phone_number_id,phone,message) {
 }
 
 
+async function sendTemplateVideoMultiple(phone_number_id,arr,message,link){
+  return arr.map( async item=>{
+     console.log(item);
+     await sendTemplateVideo(phone_number_id,item,message,link)
+  })
+}
+
+async function sendTemplateImageMultiple(phone_number_id,arr,message,link){
+  return arr.map( async item=>{
+     console.log(item);
+     await sendUtilityTemplateImage(phone_number_id,item,message,link)
+  })
+}
+
+async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
+  return arr.map( async item=>{
+     console.log(item);
+     await sendTemplateNotification(phone_number_id,item,message)
+  })
+}
 
 module.exports = { 
   sendMessages,
@@ -447,5 +467,8 @@ module.exports = {
   sendMessageList ,
   sendTemplateVideo,
   sendUtilityTemplateImage,
-  sendTemplateNotification
+  sendTemplateNotification,
+  sendTemplateVideoMultiple,
+  sendTemplateImageMultiple,
+  sendTemplateNotificationMultiple
 }
