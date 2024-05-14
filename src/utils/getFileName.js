@@ -5,7 +5,7 @@ function getEvidenceName(){
    const date = new Date();
    const ms = date.getMilliseconds()
 
-   return `evidence ${ms} ${newId}`
+   return `evidence-${ms}-${newId}`
 }
 
 module.exports={getEvidenceName}

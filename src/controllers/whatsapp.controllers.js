@@ -368,25 +368,23 @@ async function onSendTemplateImage(req, res) {
 }
 
 async function onSendTemplateVideo(req, res) {
-
   try {
     const phoneID = developement.phone_number_id
     const phone = phoneFormat(req.body.phone);
     const message = req.body.message;
     const url = req.body.link;
-    const protocol=req.protocol;
+    const protocol = req.protocol;
     const hostname = req.get('host')
-    const fullUrl =`${protocol} + '://' + ${hostname}`; 
-    console.log(`fulUrl : ${fullUrl}`);
-    const downloadVidId= uuidv4();
+    const fullUrl = `${protocol}://${hostname}`;
+    const downloadVidId = uuidv4();
     const downloadPath = path.resolve(`public/assets/video/${downloadVidId}.mp4`);
-    console.log(downloadPath)
     const video = await downloadVideo(url, downloadPath, fullUrl);
     if (phoneID && phone && video) {
       console.log(video);
-         setTimeout(async()=>{
-          await sendTemplateVideo(phoneID, phone, message, video);
-          res.send(200)},10000)
+      setTimeout(async () => {
+        await sendTemplateVideo(phoneID, phone, message, video);
+        res.send(200)
+      }, 15000)
     } else {
       res.sendStatus(404);
     }
