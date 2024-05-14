@@ -1,5 +1,5 @@
 const https = require('https');
-const fs = require('node:fs');
+const fs = require('fs');
 
 require('dotenv').config();
 
