@@ -381,9 +381,10 @@ async function onSendTemplateVideo(req, res) {
     const downloadVidId= uuidv4();
     const downloadPath = path.resolve(`/assets/video/${downloadVidId}.mp4`);
     console.log(downloadPath)
-    const video = await downloadVideo(url, downloadPath, fullUrl)
+    const video = await downloadVideo(url, downloadPath, fullUrl);
 
     if (phoneID && phone && video) {
+      console.log(video);
          setTimeout(async()=>{
           await sendTemplateVideo(phoneID, phone, message, video);
           res.send(200)},10000)
@@ -404,7 +405,7 @@ async function onSendTemplateNotification(req, res) {
     const message = req.body.message;
     if (phoneID && phone && message ) {
      await sendTemplateNotification(phoneID, phone, message)
-     res.status(200);
+     res.send(200);
     } else {
       res.sendStatus(404);
     }

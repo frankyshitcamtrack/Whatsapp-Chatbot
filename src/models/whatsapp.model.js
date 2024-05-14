@@ -7,7 +7,7 @@ async function sendMessages(phone_number_id,phone,message) {
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +phone_number_id+"/messages?access_token="+token,
+      "https://graph.facebook.com/v19.0/" +phone_number_id+"/messages?access_token="+token,
     data:{     
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
@@ -329,13 +329,10 @@ async function sendTemplateVideo(phone_number_id,phone,message,link) {
       'Content-Type': 'application/json'
    }
   }).then((response) => {
-      const data = response.data
-      console.log(JSON.stringify(data));
-      return data;
+      console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
       console.log(error);
-      return error;
     });
 }
 
@@ -384,13 +381,10 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
       'Content-Type': 'application/json'
    }
   }).then((response) => {
-      const data = response.data
-      console.log(JSON.stringify(data));
-      return data;
+      console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
       console.log(error);
-      return error;
     });
 }
 
@@ -431,7 +425,6 @@ async function sendTemplateNotification(phone_number_id,phone,message) {
    }
   }).then((response) => {
       console.log(JSON.stringify(response.data));
-       
     })
     .catch((error) => {
       console.log(error);
