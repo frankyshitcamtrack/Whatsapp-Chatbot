@@ -9,7 +9,6 @@ async function downloadVideo(url,outputDownloadPath,fullUrl) {
     const evidencName = getEvidenceName()
     const output = `public/assets/evidence/${evidencName}.mp4`
     const writer = fs.createWriteStream(outputDownloadPath);
-
     axios({
         method: 'get',
         url: url,
