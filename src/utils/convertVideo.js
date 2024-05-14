@@ -1,10 +1,12 @@
 const fs= require('fs');
 const path = require('path')
 const hbjs = require('handbrake-js');
+const { path } = require('../../app');
 
 async function convertVideo(link,output) {
+   const input = path.resolve(link) 
     const options = {
-        input: link,
+        input: input,
         output:output
     }
 
