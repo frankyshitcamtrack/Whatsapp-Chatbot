@@ -378,7 +378,7 @@ async function onSendTemplateVideo(req, res) {
     const fullUrl =`${protocol} + '://' + ${hostname}`; 
     console.log(`fulUrl : ${fullUrl}`);
     const downloadVidId= uuidv4();
-    const downloadPath = path.resolve(`/assets/video/${downloadVidId}.mp4`);
+    const downloadPath = `/assets/video/${downloadVidId}.mp4`;
     console.log(downloadPath);
     const video = await downloadVideo(url, downloadPath, fullUrl)
 
