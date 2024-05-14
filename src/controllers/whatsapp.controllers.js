@@ -385,17 +385,8 @@ async function onSendTemplateVideo(req, res) {
 
     if (phoneID && phone && video) {
          setTimeout(async()=>{
-          await sendTemplateVideo(phoneID, phone, message, video)
-          .then((response) => {
-            const data = response.data
-            console.log(JSON.stringify(data));
-            return res.send(data);
-          })
-          .catch((error) => {
-            console.log(error);
-            return res.send(error);
-          });
-         },15000)
+          await sendTemplateVideo(phoneID, phone, message, video);
+          res.send(200)},10000)
     } else {
       res.sendStatus(404);
     }
