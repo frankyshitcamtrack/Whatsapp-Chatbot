@@ -413,7 +413,7 @@ async function onSendTemplateNotification(req, res) {
     const message = req.body.message;
     if (phoneID && phone && message ) {
      await sendTemplateNotification(phoneID, phone, message)
-      res.status(200).send(data);
+     res.status(200);
     } else {
       res.sendStatus(404);
     }
