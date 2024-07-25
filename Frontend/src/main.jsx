@@ -16,7 +16,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <MainContext>
           <App />
         </MainContext>
-
       </BrowserRouter>
     </PrimeReactProvider>
   </React.StrictMode>,

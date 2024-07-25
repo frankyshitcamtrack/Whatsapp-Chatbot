@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
+import React, { useState, useEffect } from 'react';
 
-export default function PieChart({labels,values,colors}) {
+
+export default function PieChart({label,values,colors}) {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
 
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);
         const data = {
-            labels: labels,
+            labels: label,
             datasets: [
                 {
                     data: values,
@@ -23,8 +24,7 @@ export default function PieChart({labels,values,colors}) {
             plugins: {
                 legend: {
                     labels: {
-                        usePointStyle: true
-                        
+                        usePointStyle: true  
                     }
                 }
             }
@@ -36,7 +36,7 @@ export default function PieChart({labels,values,colors}) {
 
     return (
         <div className="card flex justify-content-center">
-            <Chart type="pie" data={chartData} options={chartOptions} className="w-full md:w-30rem" />
+            <Chart type="pie" data={chartData} options={chartOptions} className="w-full md:w-40rem" />
         </div>
     )
 }
