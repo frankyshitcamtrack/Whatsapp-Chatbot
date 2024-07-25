@@ -1,0 +1,21 @@
+.content{
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    padding: 2rem 2rem;
+    position: relative;
+    margin-top: 5rem;
+}
+
+.title{ 
+    background-color: #00042C;
+    color: #FFFFFF;
+    border-radius: 15px  15px 5px 5px;
+    position: relative;
+    top: -3rem;
+    padding: 5px 10px;
+    width: 97%;
+}
+
+.title p{
+    margin: 0px;
+}

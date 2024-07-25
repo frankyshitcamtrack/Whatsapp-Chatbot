@@ -27,6 +27,11 @@ app.use(express.static(path.join(__dirname,'..','public')));
 
 app.use(express.static('public'))
 
+app.get('/*',(req,res)=>{
+    res.sendFile(path.join(__dirname,'..','public','index.html'))
+})
+
+
 //const url ='https://vss.camtrack.net:36301/fileSrv/fileDown.php?filePath=QzovUHJvZ3JhbSBGaWxlcyAoeDg2KS9Wc3NTZXJ2aWNlL3N0b3JhZ2UvYmluL3g2NC8uLi8uLi8uLi9odGRvY3MvdnNzRmlsZXMvYWxhcm1SZWNvcmQvMjAyNF8wNV8xMi9WT0tTMDAxMy9jaDAzXzIwMjQwNTEyXzA4MzkyOF8wODM5NDNfMTIyLmh3&token=40a7fbeb380a435c6e7f2053f070af16'
 
 
@@ -37,15 +42,6 @@ app.use("/webhook", whatsappRouter);
 
 
 //downloadVideo(url,downloadPath,'https://whattsapi.camtrack.net/');
-
-
-
-app.get("/",(req,res)=>{
-    res.setHeader('Content-Type','text/html')
-    res.end('<h1>Webhook connection is secured</h1>');
-    console.log('test');
-})
-
 
 module.exports = app
 

@@ -1,35 +1,32 @@
 {
-  "name": "whatsapp-cloudapi",
-  "version": "1.0.0",
-  "description": "An webhook for WhatsApp Cloud API",
-  "main": "app.js",
-  "scripts": {
-    "start": "node server.js",
-    "watch": "nodemon server.js"
-  },
-  "author": "WhatsApp",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.27.2",
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.18.3",
-    "ffmpeg": "^0.0.4",
-    "ffmpeg-static": "^5.2.0",
-    "fluent-ffmpeg": "^2.1.2",
-    "handbrake-js": "^7.0.0",
-    "morgan": "^1.10.0",
-    "node-cmd": "^5.0.0",
-    "node-id3": "^0.2.6",
-    "nodemon": "^3.1.0",
-    "pm2": "^5.3.1",
-    "request": "^2.88.2",
-    "uuid": "^9.0.1",
-    "video-converter": "^1.0.0",
-    "web-videos": "^1.0.5"
-  },
-  "engines": {
-    "node": "12.x"
-  }
+    "name": "nasa-project",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "install-server": "npm install --prefix backend",
+        "install-client": "npm install --prefix frontend",
+        "install": "npm run install-client & npm run install-server ",
+        "server": "npm run watch --prefix backend",
+        "client": "npm run dev --prefix frontend",
+        "watch": "npm run server & npm run client",
+        "test-server": "npm run test --prefix backend",
+        "test-client": "npm run test --prefix frontend",
+        "test": "npm run test-server & npm run test-client",
+        "deploy": "npm run build --prefix frontend && npm run server"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://frankyshitcamtrack@github.com/frankyshitcamtrack/Whatsapp-Chatbot.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/frankyshitcamtrack/Whatsapp-Chatbot.git/issues"
+    },
+    "homepage": "https://github.com/frankyshitcamtrack/Whatsapp-Chatbot.git#readme",
+    "dependencies": {
+       
+    }
 }
