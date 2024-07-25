@@ -1,8 +1,7 @@
 {
-    "name": "nasa-project",
+    "name": "whatsap bulk messages plateform",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
     "scripts": {
         "install-server": "npm install --prefix backend",
         "install-client": "npm install --prefix frontend",
