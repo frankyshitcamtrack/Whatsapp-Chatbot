@@ -11,9 +11,9 @@
         "client": "npm run dev --prefix frontend",
         "watch": "npm run server & npm run client",
         "test-server": "npm run test --prefix backend",
-        "test-client": "npm run test --prefix frontend",
+        "test-client": "npm run test --prefix Frontend",
         "test": "npm run test-server & npm run test-client",
-        "deploy": "npm run build --prefix frontend && npm run server"
+        "deploy": "npm run build --prefix Frontend && npm run server"
     },
     "repository": {
         "type": "git",
