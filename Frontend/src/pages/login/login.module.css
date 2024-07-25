@@ -37,7 +37,7 @@
     height: 200px;
     margin-left: auto;
     margin-right: auto;
-    background-image: url('assets/login-illustration.png');
+    background-image: url('../../../public/assets/login-illustration.png');
     background-repeat: no-repeat;
     background-size: cover;
     margin-bottom: 2rem;
