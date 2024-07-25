@@ -32,7 +32,7 @@ export default function PieChart({label,values,colors}) {
 
         setChartData(data);
         setChartOptions(options);
-      },500)
+      },2000)
     }, []);
 
     return (
