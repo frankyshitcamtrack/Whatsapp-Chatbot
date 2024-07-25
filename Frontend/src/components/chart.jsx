@@ -1,12 +1,12 @@
 import { Chart } from 'primereact/chart';
 import React, { useState, useEffect } from 'react';
 
-
 export default function PieChart({label,values,colors}) {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
 
     useEffect(() => {
+      setTimeout(()=>{
         const documentStyle = getComputedStyle(document.documentElement);
         const data = {
             labels: label,
@@ -32,6 +32,7 @@ export default function PieChart({label,values,colors}) {
 
         setChartData(data);
         setChartOptions(options);
+      },500)
     }, []);
 
     return (

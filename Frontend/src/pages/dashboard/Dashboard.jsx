@@ -18,7 +18,6 @@ function Dashboard() {
           <Suspense fallback={<Loading />}>
             <PieChart colors={['--blue-100', '--gray-500']} values={[120, 7]} label={['reçu', 'Non reçu']} />
           </Suspense>
-
         </ChartContainer>
       </div>
       <div className={classes.container_items}>
@@ -27,7 +26,6 @@ function Dashboard() {
           <Suspense fallback={<Loading />}>
             <PieChart colors={['--pink-100', '--gray-500']} values={[50, 12]} label={['reçu', 'Non reçu']} />
           </Suspense>
-
         </ChartContainer>
       </div>
       <div className={classes.container_items}>
