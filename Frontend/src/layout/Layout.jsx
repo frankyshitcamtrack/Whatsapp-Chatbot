@@ -8,7 +8,8 @@ import classes from './layout.module.css'
 import MobileSidebar from "./sidebarmobile/MobileSideBar.jsx";
 
 function Layout({children}) {
-   const {displaySidebar,displaySider} = useContext(Context)
+   const {displaySidebar,displaySider,title } = useContext(Context);
+  
     return (
         <div className={classes.container}>
           {
@@ -20,7 +21,7 @@ function Layout({children}) {
          
          <div className={classes.content}>
          <Header />
-         <Container title='Dashboard'>
+         <Container title={title}>
            {children}
          </Container>
          </div>

@@ -1,17 +1,24 @@
-import { useState } from "react";
-import Layout from "./layout/Layout";
-import Login from "./pages/login/Login";
-import Router from "./Router";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "./context/Context";
+import Router from "./routes/Router";
+
+
 
 function App() {
-const [isLoged,setIsLoged] =useState(false);
+  const navigate = useNavigate();
+  const { isLoged } = useContext(Context);
 
-function login(){
-  setIsLoged((prevState)=>!prevState)
-}
+  function navigation() {
+    isLoged ? navigate('/dashboard') : navigate('/login')
+  }
 
-return isLoged?<Layout><Router/></Layout>:<Login isLogin={login}/>
-
+  useEffect(() => {
+     navigation()
+  },[isLoged])
+  
+  return <Router />
 }
 
 export default App

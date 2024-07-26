@@ -8,21 +8,25 @@ const MENU =[
     {
         id: nanoid(),
         title: 'Dashboard',
+        path:'dashboard',
         icon: dashbordIcon
     },
     {
         id: nanoid(),
         title: 'Créer une campagne',
+        path:'campaign',
         icon: campaignIcon
     },
     {
         id: nanoid(),
         title: 'Historique report',
+        path:'report',
         icon: reportIcon
     },
     {
         id: nanoid(),
         title: 'Configuration',
+        path:'setting',
         icon: settingIcon
     },
 ];

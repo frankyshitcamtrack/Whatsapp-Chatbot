@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link,NavLink } from 'react-router-dom';
 import classes from './sidebarMobile.module.css'
 import profil from '/assets/login-illustration.png'
 import MENU from '../../Contants/menu';
@@ -18,9 +18,12 @@ export default function MobileSidebar({display}) {
                 <ul className={classes.menu_list}>
                     {
                         MENU.map(item => (
-                            <li key={item.id} className={classes.menu_item}>
-                                <Link><img alt={item.title} src={item.icon}/><p>{item.title}</p></Link>
-                            </li>
+                           
+                                <li key={item.id} className={classes.menu_item}>
+                                <Link to={item.path} ><img alt={item.title} src={item.icon}/><p>{item.title}</p></Link>
+                                </li>
+                           
+                           
                         )
                         )
                     }

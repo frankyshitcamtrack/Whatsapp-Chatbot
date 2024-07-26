@@ -2,7 +2,7 @@ import { useState } from 'react';
 import viteLogo from '/assets/vite.svg';
 import reactLogo from '/react-CHdo91hT.svg';
 
-function Test() {
+function Campaign() {
     const [count, setCount] = useState(0);
     return (  
         <>
@@ -30,4 +30,4 @@ function Test() {
     );
 }
 
-export default Test;
+export default Campaign;

@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState,useContext } from 'react'
+import { Context } from '../../context/Context';
 import classes from './login.module.css'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -7,12 +8,11 @@ import logo from '/assets/logo.png'
 
 
 
-function Login({isLogin}) {
+function Login() {
     const [passwordType,setInputType]=useState('password');
-    const [login,setLogin]=useState('');
+    const [Login,setLogin]=useState('');
     const [passWord,setPassword]=useState('');
-
-
+    const {login}= useContext(Context)
     return (
         <main className={classes.main_login}>
          <div className={classes.cover_div}>
@@ -29,7 +29,7 @@ function Login({isLogin}) {
             <form className={classes.form}>
               <Input type="text"  name="login" className={classes.input} handleChange={(e)=>setLogin(e.target.value)} placeholder="Login"/>
               <Input type={passwordType}  name="login" className={classes.input} handleChange={(e)=>setPassword(e.target.value)} placeholder="Mot de passe"/>
-              <Button type="button" className={classes.login_button} handleClick={isLogin}>connexion!</Button>
+              <Button type="button" className={classes.login_button} handleClick={login}>connexion!</Button>
             </form>
             <p className={classes.copyright}>copyright © CAMTRACK SAS 2024 Version 1.0</p>
           </div>

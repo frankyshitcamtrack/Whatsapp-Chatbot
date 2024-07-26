@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Context } from '../../context/Context'
 import classes from './header.module.css'
 import phone from '/assets/phone-toggle.svg'
@@ -8,12 +8,16 @@ import profil from '/assets/profil.png'
 
 
 function Header({page,role,name}) {
-   const {displaySider} = useContext(Context)
+   const {displaySider,title,updatePathName,} = useContext(Context);
+   const url = window.location.href;
+   const pathName = url.split('/')[3];
+   updatePathName(pathName);
+   
     return (
         <div className={classes.container}>
            <div className={classes.toggle_container}>
               <img  src={phone} onClick={displaySider}/>
-              <p>Dashboard</p>
+              <p>{title}</p>
            </div>
            <div className={classes.user}>
               <img alt='profil' src={profil} className={classes.user_image}/>
