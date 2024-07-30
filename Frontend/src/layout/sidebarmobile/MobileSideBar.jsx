@@ -1,15 +1,15 @@
-import { Link,NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import classes from './sidebarMobile.module.css'
 import profil from '/assets/login-illustration.png'
 import MENU from '../../Contants/menu';
 
-export default function MobileSidebar({display}) { 
-        return (
-            <>
-             <div className={classes.sidebar_cover_container} onClick={display}></div>
-                <div className={classes.sidebar_container} >
+export default function MobileSidebar({ display }) {
+    return (
+        <>
+            <div className={classes.sidebar_cover_container} onClick={display}></div>
+            <div className={classes.sidebar_container} >
                 <div className={classes.profil_container} >
-                    <img alt='toggle' src={profil}/>
+                    <img alt='toggle' src={profil} />
                 </div>
                 <div>
                     <p className={classes.title}>Ym@ne Boot Messenger</p>
@@ -18,19 +18,18 @@ export default function MobileSidebar({display}) {
                 <ul className={classes.menu_list}>
                     {
                         MENU.map(item => (
-                           
-                                <li key={item.id} className={classes.menu_item}>
-                                <Link to={item.path} ><img alt={item.title} src={item.icon}/><p>{item.title}</p></Link>
-                                </li>
-                           
-                           
+                            <li key={item.id} className={classes.menu_item}>
+                                <NavLink to={item.path} className={({ isActive, isPending }) =>
+                                    isPending ? "pending" : isActive ? "active" : ""
+                                }><img alt={item.title} src={item.icon} /><p>{item.title}</p></NavLink>
+                            </li>
                         )
                         )
                     }
                 </ul>
                 <p className={classes.copyright}>Copyright © CAMTRACK SAS 2024 Version 1.0</p>
             </div>
-            </>
-        );
+        </>
+    );
 }
 

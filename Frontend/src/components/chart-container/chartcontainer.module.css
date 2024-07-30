@@ -1,23 +1,41 @@
 .container{
+    background-color: #FFFFFF;
     display: flex;
+    opacity: 1;
     align-items: center;
     justify-content: center;
-    border: 1px solid #1C2545;
-    padding: 1rem 2rem;
+    border: 0.50px solid #1C2545;
+    padding: 3rem 3rem;
     border-radius: 15px;
+    color: #707070;
     position: relative;
     flex-direction: column;
+    z-index: 20;
+    box-shadow: rgba(28, 37, 69, 0.1) 0px 6px 24px 0px, rgba(28, 37, 69, 0.1) 0px 0px 0px 1px;
 }
 
 .title{ 
+    display: flex;
     background-color: #00042C;
     color: #FFFFFF;
     border-radius: 10px;
     position:relative ;
-    text-align: center;
-    top: -2rem;
+    top: -4rem;
     width: 100%;
     padding: 3px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+}
+
+.title .closeTag{
+  position: absolute;
+  right: 2rem;
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 2rem 0;
 }
 
 .title p{ 

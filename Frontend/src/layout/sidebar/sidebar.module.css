@@ -63,8 +63,10 @@ hr{
     }
 }
 
-a .active{
+.menu_item a.active{
+    width: 100%;
     background-color: #039BE5;
+    color: white;
 }
 
 a{

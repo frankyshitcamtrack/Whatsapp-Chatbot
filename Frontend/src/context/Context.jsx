@@ -9,6 +9,7 @@ export default function MainContext({children}){
     const [isLoged,setIsLoged] =useState(false);
     const [pathName,setPathName] =useState('');
     const [title,setiTle] =useState('');
+    const [previewCampaign,setPreviewCampaign]=useState(false)
 
     function displaySider(){
        setDisplaySidebar(prevDisplay=>!prevDisplay)
@@ -20,6 +21,10 @@ export default function MainContext({children}){
 
     function updatePathName(path){
         setPathName(path);
+    }
+
+    function displayPreviewCampaign(){
+        setPreviewCampaign(prevCampaign=>!prevCampaign)
     }
 
     function getTitle(path){
@@ -50,7 +55,9 @@ export default function MainContext({children}){
                     isLoged,
                     login,
                     updatePathName,
-                    title
+                    title,
+                    previewCampaign,
+                    displayPreviewCampaign
                   }
               }>
               {children}

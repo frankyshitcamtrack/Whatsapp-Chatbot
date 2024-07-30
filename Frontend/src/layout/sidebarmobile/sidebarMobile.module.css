@@ -3,7 +3,7 @@
     height: 100vh;
     background-color: rgba(40, 31, 70, 0.247);
     position: fixed;
-    z-index: 10;
+    z-index: 2;
 }
 
 .sidebar_container {
@@ -20,7 +20,7 @@
     background-size: cover;
     padding: 0 1rem;
     position: fixed;
-    z-index: 2;
+    z-index: 3;
 }
 
 .profil_container {
@@ -70,6 +70,13 @@ hr {
         transition: 0.2s;
     }
 }
+
+.menu_item a.active{
+    width: 100%;
+    background-color: #039BE5;
+    color: white;
+}
+
 
 
 
