@@ -1,0 +1,107 @@
+.form_group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 1rem;
+    gap: 1rem;
+    width: 45%;
+}
+
+.action_icons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.action_icons .icon_container{
+        border-radius: 50%;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+        background-color: #0AC555;
+        .search_icon{
+           position: relative;
+           left: 9px;
+           top: 9px;
+           width: 20px; 
+           height: 20px;
+        }
+}
+
+.refresh_icon{
+    background-color: #707070;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.refresh_icon:hover{
+    opacity: 0.8;
+}
+
+.search_icon:hover{
+    opacity: 0.8;
+}
+
+.input_group{
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 50px;
+    background-color: #E6E6E6;
+}
+
+.input_filter{
+    width: 65%;
+    border-bottom: none;
+    border-top: none;
+    border-right: none;
+    border-left: 0.2px solid #E6E6E6;
+    padding: 0.5rem 2rem;
+    font-size: 9px;
+    background-color: #ffff;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+.select_input{
+    appearance: none;
+    background-position: 99% 50%;
+    background-repeat: no-repeat;
+    background-image: url('../../../public/assets/arrow.png');
+    background-size: 10px;
+    background-origin: content-box;
+    color: #707070;
+}
+
+.input_label{
+    font-size: 9px;
+    width: 35%;
+    padding: 0.5rem 0.5rem;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.card{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    margin-top: 4rem;
+    width: 97%;
+    border-radius: 10px;
+}
+
+@media screen and (max-width:750px){
+    .action_icons{
+        flex-direction: row;  
+    }
+
+    .form_group {
+        width: 70%;
+    }
+}

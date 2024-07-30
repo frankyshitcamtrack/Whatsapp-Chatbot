@@ -5,8 +5,8 @@ import classes from "./shadowcontainer.module.css";
 function ShadowContainer({title,children,display}) {
  
     return (
-        <div className={classes.preview_container} onClick={()=>display()}>
-            <ChartContainer title={title} handleCloseTag={()=>display} closeTag>
+        <div className={classes.preview_container}>
+            <ChartContainer title={title} handleCloseTag={display} closeTag>
                {children}
             </ChartContainer>
         </div>

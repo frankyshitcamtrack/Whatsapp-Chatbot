@@ -1,17 +1,17 @@
 .container{
+    width: 90%;
     background-color: #FFFFFF;
     display: flex;
     opacity: 1;
     align-items: center;
     justify-content: center;
-    border: 0.50px solid #1C2545;
     padding: 3rem 3rem;
     border-radius: 15px;
     color: #707070;
     position: relative;
     flex-direction: column;
     z-index: 20;
-    box-shadow: rgba(28, 37, 69, 0.1) 0px 6px 24px 0px, rgba(28, 37, 69, 0.1) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .title{ 
@@ -22,7 +22,7 @@
     position:relative ;
     top: -4rem;
     width: 100%;
-    padding: 3px;
+    padding: 3px 2rem;
     justify-content: center;
     align-items: center;
     font-weight: 400;

@@ -54,7 +54,7 @@
     flex-wrap: wrap;
 }
 
-label{
+.input_filelabel{
     border:  1px solid #707070;
     border-radius: 30px;
     background-color: #E8EAEB;
@@ -65,12 +65,11 @@ label{
     font-size: 18px;
 }
 
-label:hover{
+.input_filelabel:hover{
     background-color: #039BE5;
     transition: 0.5s;
     color: #ffff;
 }
- 
  
 .btn_submit{
   cursor: pointer;

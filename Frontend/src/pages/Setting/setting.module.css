@@ -1,0 +1,76 @@
+.card{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    margin-top: 4rem;
+    width: 97%;
+    border-radius: 10px;
+}
+
+.add_form{
+    width: 100%;
+    display: flex;
+    padding: 2rem;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.btn_display{
+    cursor: pointer;
+    border: none;
+    background-color: #039BE5;
+    padding: 1rem 4rem;
+    border-radius: 30px;
+    font-size: 15px;
+    color: white;
+    float: right;
+    margin-right: 5rem;
+    &:hover{
+        opacity: 0.8;
+    }
+}
+
+.btn_submit{
+    cursor: pointer;
+    border: none;
+    background-color: #039BE5;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-size: 15px;
+    width: 15%;
+    color: white;
+    margin-left: auto;
+    &:hover{
+        opacity: 0.8;
+    }
+    
+}
+
+.input_field{
+    border-radius: 30px; 
+    padding: 1rem;
+    border: 1px solid #707070;
+    width: 100%;
+}
+
+.select_input{
+    appearance: none;
+    background-position: 99% 50%;
+    background-repeat: no-repeat;
+    background-image: url('../../../public/assets/arrow.png');
+    background-size: 10px;
+    background-origin: content-box;
+    color: #707070;
+}
+
+@media screen and (max-width: 750px) {
+    .add_form{
+        width: 100%;
+        padding: 1rem; 
+    }
+    .btn_submit{
+        width: 100%;
+       
+    }
+   
+ }
+
+ 

@@ -3,7 +3,7 @@
     height: 100vh;
     background-color: rgba(40, 31, 70, 0.247);
     position: fixed;
-    z-index: 2;
+    z-index: 49;
 }
 
 .sidebar_container {
@@ -20,7 +20,7 @@
     background-size: cover;
     padding: 0 1rem;
     position: fixed;
-    z-index: 3;
+    z-index: 50;
 }
 
 .profil_container {

@@ -24,7 +24,7 @@ function Campaign() {
                 <div className={classes.btn}>
                     <span className={classes.btn_holder}>
                         <input type="file" id="file_submit" hidden />
-                        <label for="file_submit">Ajouter un media</label>
+                        <label className={classes.input_filelabel} htmlFor="file_submit">Ajouter un media</label>
                     </span>
                     <Button type='button' className={classes.btn_submit} handleClick={displayPreviewCampaign}>Prévisualiser</Button>
                 </div>
