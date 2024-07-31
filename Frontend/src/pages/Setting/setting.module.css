@@ -32,10 +32,9 @@
     cursor: pointer;
     border: none;
     background-color: #039BE5;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 2rem;
     border-radius: 30px;
     font-size: 15px;
-    width: 15%;
     color: white;
     margin-left: auto;
     &:hover{

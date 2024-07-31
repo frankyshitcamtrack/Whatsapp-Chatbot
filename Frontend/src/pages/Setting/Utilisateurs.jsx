@@ -6,6 +6,8 @@ import Button from '../../components/Button';
 import ShadowContainer from '../../components/shadow-container/ShadoContainer';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
+import Success from '../../components/success/Sucess';
+import Preloader from '../../components/preloader/Preloader';
 
 const DUMMY_DATA = [
     {
@@ -46,14 +48,25 @@ const DUMMY_DATA = [
 function Utilisateur() {
     const [usersData, setUserData] = useState(DUMMY_DATA)
     const [displayForm,setDisplayForm]=useState(false);
+    const [loading,setLoading] = useState(false);
+    const [success,setDisplaySuccess]= useState(false)
 
     function displayAddForm(){
         setDisplayForm(prevDisplayForm=>!prevDisplayForm);
-        console.log('hi')
+        setDisplaySuccess(false);
     }
     function handleChange(e){
         console.log(e.target.value)
     }
+
+    function handleSubmit(){
+        setLoading(prevLoading=>!prevLoading)
+        setTimeout(()=>{
+         setLoading(prevLoading=>!prevLoading)
+         setDisplaySuccess(prevSuccess=>!prevSuccess)
+        },4000)
+     }
+ 
     return (
         <>
             <Button type="button" className={classes.btn_display} handleClick={displayAddForm}>Créer un utilisateur</Button>
@@ -70,14 +83,20 @@ function Utilisateur() {
             {
             displayForm &&
                <ShadowContainer title="Creation d'un utilisateur" display={displayAddForm} >
+                {loading && <Preloader/>}
+                {success && <Success title="Utilisateur cree avec succès."/>}
+
+                {
+                  (!loading && !success) &&
                   <form className={classes.add_form}>
                     <Input type="text" id="submit" name="submit" className={classes.input_field} handleChange={handleChange} placeholder='Nom et Prenom' />
                     <Select name="departement" className={`${classes.input_field} ${classes.select_input}`} options={['Communication','SAV','Commercial','Innovation']} defaultOption="Communication" handleChange={handleChange}/>
                     <Input type="email" id="submit" name="submit" className={classes.input_field}  handleChange={handleChange} placeholder='Adresse mail' />
                     <Input type="tel" id="submit" name="submit" className={classes.input_field} handleChange={handleChange} placeholder='Numero de telephone' />
                     <Select name="role" className={`${classes.input_field} ${classes.select_input}`} options={['admin','super_admin','user']} defaultOption="user" handleChange={handleChange}/>
-                    <Button type="button" className={classes.btn_submit} handleClick={displayAddForm}>Créer</Button>
+                    <Button type="button" className={classes.btn_submit} handleClick={handleSubmit}>Créer</Button>
                   </form>
+                }
                </ShadowContainer>
             }
         </>

@@ -5,6 +5,9 @@ import classes from './setting.module.css';
 import Button from '../../components/Button';
 import ShadowContainer from '../../components/shadow-container/ShadoContainer';
 import Input from '../../components/Input';
+import Success from '../../components/success/Sucess';
+import Preloader from '../../components/preloader/Preloader';
+
 
 
 const DUMMY_DATA = [
@@ -29,14 +32,27 @@ const DUMMY_DATA = [
 function TypeCampagne() {
     const [typeCampagnes, setTypeCampagnes] = useState(DUMMY_DATA);
     const [displayForm,setDisplayForm]=useState(false);
+    const [loading,setLoading] = useState(false);
+    const [success,setDisplaySuccess]= useState(false)
+
 
     function displayAddForm(){
         setDisplayForm(prevDisplayForm=>!prevDisplayForm);
-        console.log('hi')
+        setDisplaySuccess(false);
     }
+
     function handleChange(e){
         console.log(e.target.value)
     }
+
+    function handleSubmit(){
+       setLoading(prevLoading=>!prevLoading)
+       setTimeout(()=>{
+        setLoading(prevLoading=>!prevLoading)
+        setDisplaySuccess(prevSuccess=>!prevSuccess)
+       },3000)
+    }
+
     return (
         <>
             <Button type="button" className={classes.btn_display} handleClick={displayAddForm}>Ajouter un type de campgne</Button>
@@ -49,12 +65,18 @@ function TypeCampagne() {
             </div>
 
             {
-                displayForm &&
+               displayForm &&
                <ShadowContainer title="Ajouter un nouveau type de campagne" display={displayAddForm} >
-                  <form className={classes.add_form}>
-                    <Input type="text" id="submit" name="submit" className={classes.input_field} onChange={handleChange} placeholder='Entrée le type de campgne' />
-                    <Button type="button" className={classes.btn_submit} handleClick={displayAddForm}>Créer</Button>
-                  </form>
+                 {loading && <Preloader/>}
+                 {success && <Success title="Type de Campagne ajouté avec succès."/>}
+                 {
+                    (!loading && !success) &&
+                    <form className={classes.add_form}>
+                    <Input type="text" id="submit" name="submit" className={classes.input_field} handleChange={handleChange} placeholder='Entrée le type de campgne' />
+                    <Button type="button" className={classes.btn_submit} handleClick={handleSubmit}>Créer</Button>
+                    </form>
+                 }
+
                </ShadowContainer>
             }
         </>

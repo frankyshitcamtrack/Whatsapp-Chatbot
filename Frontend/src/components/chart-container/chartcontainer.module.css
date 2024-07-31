@@ -22,7 +22,7 @@
     position:relative ;
     top: -4rem;
     width: 100%;
-    padding: 3px 2rem;
+    padding: 5px 2rem;
     justify-content: center;
     align-items: center;
     font-weight: 400;
@@ -40,4 +40,5 @@
 
 .title p{ 
   margin: 0;
+font-size: 12px;
 }
