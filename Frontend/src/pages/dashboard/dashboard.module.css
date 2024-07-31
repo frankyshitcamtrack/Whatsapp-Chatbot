@@ -14,6 +14,11 @@
     gap: 4rem;
 }
 
+.header_dashboard{ 
+    margin: 0;
+    font-size: 12px;
+}
+
 @media screen and (max-width: 1500px) {
     .container{
         display: flex;

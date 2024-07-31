@@ -1,3 +1,9 @@
+.card{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    margin-top: 4rem;
+    border-radius: 10px;
+}
+
 .form_group {
     display: flex;
     flex-direction: column;
@@ -52,7 +58,7 @@
     display: flex;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
     border-radius: 50px;
-    background-color: #E6E6E6;
+    background-color: #707070;;
 }
 
 .input_filter{
@@ -87,14 +93,10 @@
     text-align: center;
     margin-top: auto;
     margin-bottom: auto;
+    color: #E6E6E6;
 }
 
-.card{
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-    margin-top: 4rem;
-    width: 97%;
-    border-radius: 10px;
-}
+
 
 @media screen and (max-width:750px){
     .action_icons{

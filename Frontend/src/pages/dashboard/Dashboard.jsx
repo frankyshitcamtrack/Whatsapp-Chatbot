@@ -14,7 +14,7 @@ function Dashboard() {
     <div className={classes.container}>
       <div className={classes.container_items}>
         <StatisticCard icon={digitalMarketingIcon} color="#CCEBFA" title="PUSH MEDIA FILE" value="55" />
-        <ChartContainer title="Dernier campagne Push media File">
+        <ChartContainer title="Derniere campagne Push media File" titleClass={classes.header_dashboard}>
           <Suspense fallback={<Preloader />}>
             <PieChart colors={['--blue-100', '--gray-500']} values={[120, 7]} label={['reçu', 'Non reçu']} />
           </Suspense>
@@ -22,7 +22,7 @@ function Dashboard() {
       </div>
       <div className={classes.container_items}>
         <StatisticCard icon={publicityMailIcon} color="#F9E0D7" title="PUSH NEWSLETTER" value="10" />
-        <ChartContainer title="Dernier campagne Push newsletter">
+        <ChartContainer title="Derniere campagne Push newsletter" titleClass={classes.header_dashboard}>
           <Suspense fallback={<Preloader />}>
             <PieChart colors={['--pink-100', '--gray-500']} values={[50, 12]} label={['reçu', 'Non reçu']} />
           </Suspense>
@@ -30,7 +30,7 @@ function Dashboard() {
       </div>
       <div className={classes.container_items}>
         <StatisticCard icon={socialMediaIcon} color="#00000029" title="PUSH MARKETING " value="05" />
-        <ChartContainer title="Derniere campagne Push Marketing">
+        <ChartContainer title="Derniere campagne Push Marketing" titleClass={classes.header_dashboard}>
           <Suspense fallback={<Preloader />}>
             <PieChart colors={['--gray-200', '--gray-500']} values={[86, 20]} label={['reçu', 'Non reçu']} />
           </Suspense>

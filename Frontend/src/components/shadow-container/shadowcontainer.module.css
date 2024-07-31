@@ -12,6 +12,11 @@
     padding: 10% 20% 10% 30%
 }
 
+.titleShadow{ 
+    margin: 0;
+    font-size: 20px;
+}
+ 
 
 @media screen and (max-width:1350px) {
     .preview_container{

@@ -12,9 +12,10 @@
     color: #FFFFFF;
     border-radius: 15px  15px 5px 5px;
     position: relative;
-    top: -3rem;
+    top: -3.4rem;
     padding: 5px 10px;
-    width: 97%;
+    width: 100%;
+    font-size: 20px;
 }
 
 .title p{
