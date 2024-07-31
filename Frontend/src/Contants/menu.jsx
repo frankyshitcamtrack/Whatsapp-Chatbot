@@ -1,9 +1,8 @@
 import { nanoid } from 'nanoid';
 import dashbordIcon from '/assets/home.svg'
-import settingIcon from '/assets/setting.svg'
 import reportIcon from '/assets/report.svg'
 import campaignIcon from '/assets/campagne.svg'
-import dot from '/assets/dot.png'
+
 
 const MENU =[
     {
@@ -24,18 +23,7 @@ const MENU =[
         path:'report',
         icon: reportIcon
     },
-    {
-        id: nanoid(),
-        title: 'Utilisateurs',
-        path:'utilisateurs',
-        icon: dot
-    },
-    {
-        id: nanoid(),
-        title: 'Type de Campagne',
-        path:'type-campagne',
-        icon: dot
-    }, 
+ 
 ];
 
 export default MENU;

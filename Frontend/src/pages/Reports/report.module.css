@@ -62,7 +62,7 @@
     border-right: none;
     border-left: 0.2px solid #E6E6E6;
     padding: 0.5rem 2rem;
-    font-size: 9px;
+    font-size: 12px;
     background-color: #ffff;
     border-bottom-right-radius: 50px;
     border-top-right-radius: 50px;
@@ -79,7 +79,7 @@
 }
 
 .input_label{
-    font-size: 9px;
+    font-size: 12px;
     width: 35%;
     padding: 0.5rem 0.5rem;
     border-top-left-radius: 50px;

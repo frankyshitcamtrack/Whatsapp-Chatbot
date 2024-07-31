@@ -18,10 +18,12 @@ function Router() {
             <Route element={<PrivateRoute />}>
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/campaign' element={<Campaign />} />
-                <Route path='/report' element={<Report/>} /> 
-                <Route path='/utilisateurs' element={<Utilisateur/>} />
-                <Route path='/type-campagne' element={<TypeCampagne/>} />
-            </Route> 
+                <Route path='/report' element={<Report />} />
+                <Route path='settings' element={<Setting />} >
+                    <Route path='utilisateurs' element={<Utilisateur />} />
+                    <Route path='type-campagne' element={<TypeCampagne />} />
+                </Route>
+            </Route>
         </Routes>
     );
 }

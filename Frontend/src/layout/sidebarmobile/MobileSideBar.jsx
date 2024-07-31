@@ -2,8 +2,16 @@ import { NavLink } from 'react-router-dom';
 import classes from './sidebarMobile.module.css'
 import profil from '/assets/login-illustration.png'
 import MENU from '../../Contants/menu';
+import dot from '/assets/dot.png';
+import settingIcon from '/assets/setting.svg'
+import { useContext } from 'react';
+import { Context } from '../../context/Context';
 
 export default function MobileSidebar({ display }) {
+    const {dropdownDisplay,displayDropdown}=useContext(Context);
+    const url = window.location.href;
+    const pathName = url.split('/')[3];
+   
     return (
         <>
             <div className={classes.sidebar_cover_container} onClick={display}></div>
@@ -16,17 +24,32 @@ export default function MobileSidebar({ display }) {
                     <hr />
                 </div>
                 <ul className={classes.menu_list}>
-                    {
-                        MENU.map(item => (
-                            <li key={item.id} className={classes.menu_item}>
-                                <NavLink to={item.path} className={({ isActive, isPending }) =>
-                                    isPending ? "pending" : isActive ? "active" : ""
-                                }><img alt={item.title} src={item.icon} /><p>{item.title}</p></NavLink>
-                            </li>
-                        )
-                        )
-                    }
-                </ul>
+                {
+                    MENU.map(item => (
+                        <NavLink to={item.path} className={({ isActive }) => (isActive ? classes.active : classes.menu_item)}><img alt={item.title} src={item.icon} /><p>{item.title}</p></NavLink>
+                    ))
+                }
+                <li className={`${pathName==='settings' && classes.menu_dropdowwn} ${classes.menu_item}`} onClick={displayDropdown}>
+                  <a><img alt='settings' src={settingIcon}/><p>Settings</p> </a>
+                </li>
+                   {
+                    dropdownDisplay &&
+                    <div className={classes.dropdown_menu_container}>
+                    <span>
+                        <NavLink to='/settings/utilisateurs'  className={({ isActive }) => (isActive ? classes.secondaryactive : '')}>
+                            <img alt='utilisateur' src={dot} /><p>Utilisateur</p>
+                        </NavLink>
+                    </span>
+                    <span>
+                        <NavLink to='/settings/type-campagne'  className={({ isActive }) => (isActive ? classes.secondaryactive :'')}>
+                            <img alt='campagne' src={dot} /><p>Type de Campagne</p>
+                        </NavLink>
+                    </span>
+                </div>
+                   }
+                   
+               
+            </ul>
                 <p className={classes.copyright}>Copyright © CAMTRACK SAS 2024 Version 1.0</p>
             </div>
         </>

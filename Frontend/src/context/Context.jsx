@@ -9,7 +9,13 @@ export default function MainContext({children}){
     const [isLoged,setIsLoged] =useState(false);
     const [pathName,setPathName] =useState('');
     const [title,setiTle] =useState('');
-    const [previewCampaign,setPreviewCampaign]=useState(false)
+    const [previewCampaign,setPreviewCampaign]=useState(false);
+    const[dropdownDisplay,setDropdownDisplay] =useState(false);
+
+
+    function displayDropdown(){
+        setDropdownDisplay(prevDropdownDisplay=>!prevDropdownDisplay)
+    }
 
     function displaySider(){
        setDisplaySidebar(prevDisplay=>!prevDisplay)
@@ -57,7 +63,9 @@ export default function MainContext({children}){
                     updatePathName,
                     title,
                     previewCampaign,
-                    displayPreviewCampaign
+                    displayPreviewCampaign,
+                    dropdownDisplay,
+                    displayDropdown,
                   }
               }>
               {children}

@@ -8,9 +8,10 @@ import profil from '/assets/profil.png'
 
 
 function Header({page,role,name}) {
-   const {displaySider,title,updatePathName,} = useContext(Context);
+   const {displaySider,title,updatePathName} = useContext(Context);
    const url = window.location.href;
    const pathName = url.split('/')[3];
+   
    updatePathName(pathName);
    
     return (
