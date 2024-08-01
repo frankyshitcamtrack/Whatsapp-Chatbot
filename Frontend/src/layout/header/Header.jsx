@@ -8,7 +8,7 @@ import profil from '/assets/profil.png'
 
 
 function Header({page,role,name}) {
-   const {displaySider,title,updatePathName} = useContext(Context);
+   const {displaySider,title,updatePathName,login} = useContext(Context);
    const url = window.location.href;
    const pathName = url.split('/')[3];
    
@@ -28,7 +28,7 @@ function Header({page,role,name}) {
               </div>
               <div className={classes.action_icons}>
                 <img alt='menu' src={menu} className={classes.menu}/>
-                <img alt='lock' src={lock} className={classes.status}/>
+                <img alt='lock' src={lock} className={classes.status} onClick={login}/>
               </div>
            </div>
         </div>

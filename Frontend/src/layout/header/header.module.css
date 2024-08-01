@@ -17,7 +17,9 @@
     pointer-events: none;
 }
 
-
+.status{
+    cursor: pointer;
+}
 
 .user{
     display: flex;
