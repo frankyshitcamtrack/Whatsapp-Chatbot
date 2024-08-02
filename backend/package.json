@@ -20,6 +20,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "handbrake-js": "^7.0.0",
     "morgan": "^1.10.0",
+    "mysql2": "^3.11.0",
     "node-cmd": "^5.0.0",
     "node-id3": "^0.2.6",
     "nodemon": "^3.1.0",

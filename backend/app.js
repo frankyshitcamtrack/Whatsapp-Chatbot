@@ -7,11 +7,14 @@ const path = require('path')
 const express = require("express");
 
 const bodyParser = require("body-parser");
+
 const {v4 : uuidv4} = require('uuid');
 
 const id= uuidv4();
 
 const whatsappRouter = require("./src/routes/whatsapp.route");
+
+const api = require('./src/routes/api')
 
 const app = express();
 
@@ -27,7 +30,7 @@ app.use(express.static(path.join(__dirname,'..','public')));
 
 app.use(express.static('public'))
 
-app.get('/*',(req,res)=>{
+app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'..','public','index.html'))
 })
 
@@ -40,7 +43,7 @@ app.get('/*',(req,res)=>{
 // Accepts POST requests at /webhook endpoint
 app.use("/webhook", whatsappRouter);
 
-
+app.use("/api", api);
 //downloadVideo(url,downloadPath,'https://whattsapi.camtrack.net/');
 
 module.exports = app
