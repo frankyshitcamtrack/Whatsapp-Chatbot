@@ -1,4 +1,9 @@
 const {getCampagne,getCampagneById,insertCampagne}=require('../../models/ymanebot-models/pushCampagne.model');
+const { developement } = require("../../config/whatsappApi");
+const {downloadVideo}=require("../../utils/download");
+const {downloadImage}=require('../../utils/downloadImg')
+const {v4 : uuidv4} =require('uuid')
+
 
 
 
@@ -13,7 +18,7 @@ async function httpGetPushCampagne(req,res){
 }
 
 async function httpGetPushCampagneById(req,res){
-    const id = req.body.id;
+    const id = +req.params.id;
     try {
         return res.status(200).json(await getCampagneById(id));
     } catch (error) {

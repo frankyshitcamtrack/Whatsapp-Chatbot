@@ -3,7 +3,7 @@ const pool = require('../../config/db')
 //Crud operation Business Unit
 function insertBU(name) {
    pool.query(
-      'INSERT INTO Business_unit SET name = ?',
+      'INSERT INTO Business_unit SET bu_name = ?',
       [ name ]
     );
 }
@@ -25,7 +25,7 @@ async function deleteBU(idBU){
 }
 
 async function updateBU(idBU,name){
-    pool.query('UPDATE Business_unit SET name = ? WHERE id = ?', [name, idBU]);
+    pool.query('UPDATE Business_unit SET bu_name = ? WHERE id = ?', [name, idBU]);
 }
 
 

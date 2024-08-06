@@ -23,6 +23,8 @@ async function httpInsertBU(req, res) {
     }
 }
 
+
+
 async function httpGetBu(req, res) {
     try {
         return res.status(200).json(await getBU());
@@ -32,6 +34,8 @@ async function httpGetBu(req, res) {
         })
     }
 }
+
+
 
 async function httpUpdateBu(req, res) {
     const id = req.body.id;
@@ -62,8 +66,9 @@ async function httpUpdateBu(req, res) {
 }
 
 
+
 async function httpGetBuById(req, res) {
-    const id = req.body.id;
+    const id = +req.params.id;
     try {
         return res.status(200).json(await getBuById(id));
     } catch (error) {
@@ -72,6 +77,8 @@ async function httpGetBuById(req, res) {
         })
     }
 }
+
+
 
 async function httpDeleteBu(req, res) {
     const id = req.body.id;

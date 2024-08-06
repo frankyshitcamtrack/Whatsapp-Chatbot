@@ -1,5 +1,6 @@
 import { Context } from "../../context/Context";
-import { useContext,useState } from "react";
+import { useContext,useEffect,useState } from "react";
+import {getTypeCampagne} from "../../services/typeCampagne.service";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 import TextArea from "../../components/TextArea";
@@ -11,7 +12,10 @@ import Success from '../../components/success/Sucess';
 import Preloader from '../../components/preloader/Preloader';
 
 function Campaign() {
-    const { previewCampaign, displayPreviewCampaign } = useContext(Context)
+    const { previewCampaign, displayPreviewCampaign } = useContext(Context);
+    const [typeCampagnes,setTypeCampagnes] = useState([]);
+    const [campaigns,setCampaigns]=useState([])
+    const [campaign,setCampaign] = useState({});
     const [loading,setLoading] = useState(false);
     const [success,setDisplaySuccess]= useState(false);
 
@@ -31,13 +35,39 @@ function Campaign() {
         displayPreviewCampaign();
      }
    
+     async function GetTypeCampaign(){
+        const typecampaign = await getTypeCampagne();
+        setTypeCampagnes(typecampaign);
+     }
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setCampaign((prevCampaign) => ({
+            ...prevCampaign,
+            [name]: value,
+        }));
+    };
+
    
    
+    useEffect(()=>{
+        GetTypeCampaign();
+    },[])
+
     return (
         <>
             <form className={classes.form_container}>
-                <Input type="text" name="nom" placeholder="Saisissez le nom de votre campagne" className={classes.input} />
-                <Select name="type" className={`${classes.input} ${classes.select_input}`} optionStyle={classes.option_style} defaultOption="Sélectionnez le type de campagne" options={['option1', 'option2', 'option3']} />
+                <Input type="text" name="nom" placeholder="Saisissez le nom de votre campagne" className={classes.input}/>
+                <select name="idDepartement" className={`${classes.input} ${classes.select_input}`} onChange={handleChange}>
+                    <option>Sélectionnez le type de campagne</option>
+                    {typeCampagnes.length > 0 ?
+                        typeCampagnes.map((tc) => (
+                            <option key={tc.id} value={tc.id}>
+                                {tc.name}
+                            </option>
+                        )) : ''
+                    }
+                </select>
                 <Select name="cible" className={`${classes.input} ${classes.select_input}`} optionStyle={classes.option_style} defaultOption="Sélectionnez la cible" options={['option1', 'option2', 'option3']} />
                 <TextArea id="content" name="contenu" className={classes.content} placeholder="Saisissez le contenu du message" rows={20} />
                 <div className={classes.btn}>

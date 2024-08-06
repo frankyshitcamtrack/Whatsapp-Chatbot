@@ -35,7 +35,7 @@ async function httpGetTypeCampagne(req, res) {
 
 
 async function httpGetTypeCampagneById(req, res) {
-    const id = req.body.id;
+    const id =+req.params.id;
     try {
         return res.status(200).json(await getTypeCampagneById(id));
     } catch (error) {

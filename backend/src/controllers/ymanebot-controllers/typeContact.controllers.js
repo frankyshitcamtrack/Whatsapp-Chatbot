@@ -35,7 +35,7 @@ async function httpGetTypeContact(req, res) {
 
 
 async function httpGetTypeContactById(req, res) {
-    const id = req.body.id;
+    const id =+req.params.id;
     try {
         return res.status(200).json(await getTypeContactById(id));
     } catch (error) {
@@ -47,7 +47,7 @@ async function httpGetTypeContactById(req, res) {
 }
 
 async function httpGetTypeContactByName(req, res) {
-    const name = req.body.name;
+    const name = req.params.name;
     try {
         return res.status(200).json(await getTypeContactByName(name));
     } catch (error) {

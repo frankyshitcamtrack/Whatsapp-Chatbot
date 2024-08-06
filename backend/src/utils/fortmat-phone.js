@@ -26,9 +26,7 @@ function phoneFormat(number){
 
 
 function formatArrPhones(arr){
- console.log(arr);
  return arr.map(item=>phoneFormat(item))
-
 }
 
 

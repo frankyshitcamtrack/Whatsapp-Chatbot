@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {addTypeCampagne,deleteTypeCampagne,getTypeCampagne,getTypeampagneById,updateTypeCampagne} from '../../services/typeCampagne.service'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import classes from './setting.module.css';
@@ -6,77 +7,106 @@ import Button from '../../components/Button';
 import ShadowContainer from '../../components/shadow-container/ShadoContainer';
 import Input from '../../components/Input';
 import Success from '../../components/success/Sucess';
+import Fail from '../../components/fail/Fail';
 import Preloader from '../../components/preloader/Preloader';
 
 
-
-const DUMMY_DATA = [
-    {
-        id: 1,
-        typeCampagne: 'PUSH MAKETING',
-        nombrePush: 50,
-    },
-    {
-        id: 1,
-        typeCampagne: 'PUSH NEWSLETTER',
-        nombrePush: 40,
-    },
-    {
-        id: 1,
-        typeCampagne: 'PUSH MARKETING',
-        nombrePush: 410,
-    }
-
-]
-
 function TypeCampagne() {
-    const [typeCampagnes, setTypeCampagnes] = useState(DUMMY_DATA);
+    const [typeCampagnes, setTypeCampagnes] = useState([]);
+    const [formData,setFormData]=useState({bu_name:''});
     const [displayForm,setDisplayForm]=useState(false);
     const [loading,setLoading] = useState(false);
-    const [success,setDisplaySuccess]= useState(false)
+    const [success,setDisplaySuccess]= useState(false);
+    const [fail,setDisplayFail]= useState(false);
+    const [errorMessage,setErrorMessag]=useState('');
 
 
     function displayAddForm(){
         setDisplayForm(prevDisplayForm=>!prevDisplayForm);
         setDisplaySuccess(false);
+        setDisplayFail(false);
     }
 
-    function handleChange(e){
-        console.log(e.target.value)
+       
+    const handleChange= (event) => {
+        const { name, value } = event.target;
+        setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+        }));
+    }; 
+     
+  
+    async function handleSubmit(event){
+        setLoading(prevLoading=>!prevLoading);
+        event.preventDefault();
+        addTypeCampagne(formData).then((res)=>{
+           if(res.status===201){
+             setDisplaySuccess(prevSuccess=>!prevSuccess);
+           }else if(res.status===500){
+              setErrorMessag("Une erreur est survenu au niveau du serveur");
+              setDisplayFail(prevFail=>!prevFail);
+           }else{
+             setErrorMessag(res.statusText);
+             setDisplayFail(prevFail=>!prevFail);
+           }
+        }).then(async ()=>{
+            await GetTypeampagne();
+        });
+        setLoading(prevLoading=>!prevLoading); 
+}
+
+
+    async function deleteTypeC(id){
+        const el = {id:id};
+        if (window.confirm('Etes vous sure de vouloir suprimer cette donnée?'))
+        deleteTypeCampagne(el);
+        await GetTypeampagne();
     }
 
-    function handleSubmit(){
-       setLoading(prevLoading=>!prevLoading)
-       setTimeout(()=>{
-        setLoading(prevLoading=>!prevLoading)
-        setDisplaySuccess(prevSuccess=>!prevSuccess)
-       },3000)
+
+    async function GetTypeampagne(){
+        const TypeC= await getTypeCampagne();
+        setTypeCampagnes(TypeC);
     }
 
+
+    useEffect(()=>{
+     GetTypeampagne();
+    },[])
+
+
+
+    const actionBodyTemplate = (rowData) => {
+        return (
+             <Button className={classes.delete_button} handleClick={() => deleteTypeC(rowData.id)} />
+        );
+    };
+   
     return (
         <>
             <Button type="button" className={classes.btn_display} handleClick={displayAddForm}>Ajouter un type de campgne</Button>
             <div className={classes.card}>
                 <DataTable value={typeCampagnes} paginator rows={7} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
                     <Column field="id" header="N°"></Column>
-                    <Column field="typeCampagne" header="Type campagne" ></Column>
-                    <Column field="nombrePush" header="Nombre de push déjà envoyé" ></Column>
+                    <Column field="name" header="Type campagne" ></Column>
+                    <Column field="Nombre_push_cree" header="Nombre de push déjà envoyé" ></Column> 
+                    <Column body={actionBodyTemplate} exportable={false}></Column>
                 </DataTable>
             </div>
-
             {
                displayForm &&
                <ShadowContainer title="Ajouter un nouveau type de campagne" display={displayAddForm} >
                  {loading && <Preloader/>}
+                 {fail && <Fail title={errorMessage}/>}
                  {success && <Success title="Type de Campagne ajouté avec succès."/>}
                  {
-                    (!loading && !success) &&
-                    <form className={classes.add_form}>
-                    <Input type="text" id="submit" name="submit" className={classes.input_field} handleChange={handleChange} placeholder='Entrée le type de campgne' />
-                    <Button type="button" className={classes.btn_submit} handleClick={handleSubmit}>Créer</Button>
+                    (!loading && !success && !fail) &&
+                    <form className={classes.add_form} onSubmit={handleSubmit}>
+                    <Input type="text" id="submit" name="bu_name" className={classes.input_field} handleChange={handleChange} placeholder='Entrée le type de campgne' />
+                    <button type="submit" className={classes.btn_submit} >Créer</button>
                     </form>
                  }
-
                </ShadowContainer>
             }
         </>

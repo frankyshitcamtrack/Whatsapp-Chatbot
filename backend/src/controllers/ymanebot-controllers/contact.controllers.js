@@ -13,7 +13,7 @@ async function httpGetContacts(req,res){
 }
 
 async function httpGetContactById(req,res){
-   const id = req.body.id;
+   const id = +req.params.id;
     try {
         return res.status(200).json(await getContactById(id));
     } catch (error) {

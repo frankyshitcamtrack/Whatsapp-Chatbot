@@ -26,7 +26,7 @@ export default function MobileSidebar({ display }) {
                 <ul className={classes.menu_list}>
                 {
                     MENU.map(item => (
-                        <NavLink to={item.path} className={({ isActive }) => (isActive ? classes.active : classes.menu_item)}><img alt={item.title} src={item.icon} /><p>{item.title}</p></NavLink>
+                        <NavLink key={item.id}  to={item.path} className={({ isActive }) => (isActive ? classes.active : classes.menu_item)}><img alt={item.title} src={item.icon} /><p>{item.title}</p></NavLink>
                     ))
                 }
                 <li className={`${pathName==='settings' && classes.menu_dropdowwn} ${classes.menu_item}`} onClick={displayDropdown}>
