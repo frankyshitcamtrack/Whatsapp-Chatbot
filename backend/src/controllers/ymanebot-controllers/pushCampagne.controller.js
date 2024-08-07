@@ -3,30 +3,70 @@ const {sendTemplateNotification,sendUtilityTemplateImage,sendTemplateVideo}=requ
 const { developement } = require("../../config/whatsappApi");
 const {dateInYyyyMmDdHhMmSs}= require("../../utils/formatDate");
 const {formatArrPhones}=require('../../utils/fortmat-phone')
-
-const phoneID = developement.phone_number_id;
+const axios = require('axios');
 
 
 async function sendSimpleMessage(number,message){
-   const send= await sendTemplateNotification(phoneID,number,message)
-   if(send){
-    console.log(send);
-   }
+    let data = JSON.stringify({ "phone": number, "message": message });
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: '/webhook/marketing_notification',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+    axios.request(config)
+        .then((response) => {
+            console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
-async function sendImageMessage(number,message,link){
-    const send= await sendUtilityTemplateImage(phoneID,number,message,link)
-   if(send){
-    console.log(send);
-   }
+async function sendImageMessage(number, message, link) {
+    let data = JSON.stringify({ "phone": number, "message": message, "link": link });
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: '/webhook/marketing_image',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+    axios.request(config)
+        .then((response) => {
+            console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
 }
 
-async function sendImageVideo(number,message,link){
-    const send= await sendTemplateVideo(phoneID,number,message,link)
-   if(send){
-    console.log(send);
-   }
+async function sendVideoMessage(number,message,link){
+    let data = JSON.stringify({ "phone": number, "message": message, "link": link });
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: '/webhook/marketing_video',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+    axios.request(config)
+        .then((response) => {
+            console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
+
 
 async function httpGetPushCampagne(req,res){
     try {
@@ -81,7 +121,7 @@ async function httpInsertPushCampagne(req,res){
 
        if(file && fileType==='video/mp4'){
         formatPhones.map(phone=>{
-            sendImageMessage(phone,content_text,mediaPath)
+            sendVideoMessage(phone,content_text,mediaPath)
          })
        }
 
