@@ -330,6 +330,7 @@ async function sendTemplateVideo(phone_number_id,phone,message,link) {
    }
   }).then((response) => {
       console.log(JSON.stringify(response.data));
+      return response.data;
     })
     .catch((error) => {
       console.log(error);
@@ -382,6 +383,7 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
    }
   }).then((response) => {
       console.log(JSON.stringify(response.data));
+      return response.data;
     })
     .catch((error) => {
       console.log(error);
@@ -425,6 +427,7 @@ async function sendTemplateNotification(phone_number_id,phone,message) {
    }
   }).then((response) => {
       console.log(JSON.stringify(response.data));
+      return response.data;
     })
     .catch((error) => {
       console.log(error);

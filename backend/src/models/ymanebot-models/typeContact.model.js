@@ -13,20 +13,20 @@ async function getTypeContact() {
  }
 
  async function getTypeContactByName(name) {
-    const result = await pool.query(`SELECT * FROM type_contact WHERE name=${name} AND isDelete=0`);
+    const result = await pool.query('SELECT * FROM type_contact WHERE typeContact_name= ? AND isDelete=0',[name]);
     return result[0];
 }
 
  
  function insertTypeContact(name) {
     pool.query(
-       'INSERT INTO type_contact SET name = ?',
+       'INSERT INTO type_contact SET typeContact_name = ?',
        [ name ]
      );
  }
 
- async function updateTypeContact(id,name){
-    pool.query('UPDATE type_contact SET name = ? WHERE id = ?', [name, id]);
+ async function updateTypeContact(id,typeContact_name){
+    pool.query('UPDATE type_contact SET typeContact_name = ? WHERE id = ?', [typeContact_name, id]);
 }
 
 async function deleteTypeContact(id){

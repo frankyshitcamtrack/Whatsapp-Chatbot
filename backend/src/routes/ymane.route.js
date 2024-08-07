@@ -1,5 +1,4 @@
 const express = require('express');
-
 const ymaneRouter = express.Router();
 
 const { httpInsertBU,httpGetBu,httpUpdateBu,httpGetBuById,httpDeleteBu} = require('../controllers/ymanebot-controllers/bu.controllers');
@@ -9,6 +8,7 @@ const {httpGetUsers,httpInsertUser,httpGetUserById,httpDeleteUser,httpUpdatetUse
 const {httpDeleteTypeContact,httpGetTypeContact,httpGetTypeContactById,httpGetTypeContactByName,httpInsertTypeContact,httpUpdateTypeContact} = require('../controllers/ymanebot-controllers/typeContact.controllers')
 const {httpGetContacts,httpGetContactById,httpInsertContact}=require('../controllers/ymanebot-controllers/contact.controllers');
 const {httpGetPushCampagne,httpGetPushCampagneById,httpInsertPushCampagne}=require('../controllers/ymanebot-controllers/pushCampagne.controller');
+const {httpGetDiscussionById,httpGetDiscussions,httpInsertDiscussion}=require('../controllers/ymanebot-controllers/discussions.controllers')
 
 ymaneRouter.get('/business_unit',httpGetBu);
 ymaneRouter.get('/single-business_unit/:id',httpGetBuById);
@@ -33,11 +33,9 @@ ymaneRouter.post('/update-user',httpUpdatetUser);
 ymaneRouter.post('/delete-user',httpDeleteUser);
 ymaneRouter.get('/single-user/:id',httpGetUserById);
 
-
 ymaneRouter.get('/contacts',httpGetContacts);
 ymaneRouter.get('/single-contact/:id',httpGetContactById);
 ymaneRouter.post('/add-contact',httpInsertContact);
-
 
 ymaneRouter.get('/types-contacts',httpGetTypeContact);
 ymaneRouter.get('/single-type_contact/:id',httpGetTypeContactById);
@@ -46,12 +44,13 @@ ymaneRouter.post('/add-type_contact',httpInsertTypeContact);
 ymaneRouter.post('/delete-type_contact',httpDeleteTypeContact);
 ymaneRouter.post('/update-type_contact',httpUpdateTypeContact);
 
+ymaneRouter.get('/discussions',httpGetDiscussions);
+ymaneRouter.get('/single-discussio/:id',httpGetDiscussionById);
+ymaneRouter.post('/discussion',httpInsertDiscussion);
 
-
-ymaneRouter.get('/push_campagne',httpGetContacts);
-ymaneRouter.get('/single-push_campagne/:id',httpGetContactById);
-ymaneRouter.post('/push_campagne',httpInsertContact);
-
+ymaneRouter.get('/push_campaigns',httpGetPushCampagne);
+ymaneRouter.get('/single-campaign/:id',httpGetPushCampagneById);
+ymaneRouter.post('/push_campaign',httpInsertPushCampagne);
 
 
 module.exports = ymaneRouter;

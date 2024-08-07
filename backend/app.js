@@ -20,11 +20,15 @@ const app = express();
 
 const {downloadVideo}= require('./src/utils/download');
 
+const {SaveContact}=require('./src/utils/saveContacts')
+
 app.use(morgan('combined'));
 
 app.use(cors());
 
 app.use(bodyParser.json());
+
+SaveContact();
 
 app.use(express.static(path.join(__dirname,'..','public')));
 

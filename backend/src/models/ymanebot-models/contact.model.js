@@ -9,7 +9,6 @@ async function getContacts(){
 
 async function getContactById(id){
     const result = await pool.query(`SELECT * FROM Contact WHERE id=${id} AND isDelete=0`)
-    return result[0];
 }
 
 

@@ -23,6 +23,6 @@ function insertDiscussion(id_discussion,message,numero,status,id_push_campaign) 
 
 
 
-module.export ={getDiscussions,getDiscussionById,insertDiscussion}
+module.exports ={getDiscussions,getDiscussionById,insertDiscussion}
 
 
