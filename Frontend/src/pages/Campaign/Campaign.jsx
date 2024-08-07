@@ -27,8 +27,9 @@ function Campaign() {
       nombres_contacts:0,
       recu:0,
       non_recu:0,
+      media:""
     });
-
+    const [imageLabel,setImageLabel]=useState('Ajouter un media');
     const [contactService,setContactService]=useState([]);
     const [typeContacts,setTypeContacts]=useState([]);
     const [typeCampaignName,setTypeCampaignName]=useState('');
@@ -69,15 +70,26 @@ function Campaign() {
         console.log(campaign);
      }
 
+
      function handleMedia(e) {
-        const urlMedia=URL.createObjectURL(e.target.files[0]);
-        setCampaign(previewCampaign=>({...previewCampaign,content_media:urlMedia}))
+        const rawImage=e.target.files[0]
+        const urlMedia=URL.createObjectURL(rawImage);
+        setImageLabel(rawImage.name);
+        
+        const formData = new FormData();
+        formData.append('media-file', rawImage);
+
+        setCampaign(previewCampaign=>({...previewCampaign,content_media:urlMedia,media:rawImage}))
     }
    
+
+
      async function GetTypeCampaign(){
         const typecampaign = await getTypeCampagne();
         setTypeCampagnes(typecampaign);
      }
+
+
 
      async function GetTypeContact() {
         const typeCont = await getTypesContacts();
@@ -85,10 +97,14 @@ function Campaign() {
         setTypeContacts(filterTypeContact);
      }
 
+
+
      async function GetAllContacts(){
         const contacts = await getContacts();
         setContactService(contacts);
      }
+
+
 
     async function handleCampaign (event) {
         event.preventDefault();
@@ -163,8 +179,8 @@ function Campaign() {
                 <TextArea id="content_text" name="content_text" className={classes.content} placeholder="Saisissez le contenu du message" rows={20} handleChange={handleCampaign} />
                 <div className={classes.btn}>
                     <span className={classes.btn_holder}>
-                        <input type="file" id="file_submit" hidden onChange={handleMedia} />
-                        <label className={classes.input_filelabel} htmlFor="file_submit">Ajouter un media</label>
+                        <input type="file" id="file_submit" name="media" hidden onChange={handleMedia} />
+                        <label className={classes.input_filelabel} htmlFor="file_submit">{imageLabel}</label>
                     </span>
                     <button type='submit' className={classes.btn_submit}>Prévisualiser</button>
                 </div>

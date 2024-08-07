@@ -286,7 +286,7 @@ async function sendMessageList(phone_number_id,phone){
 
 
 async function sendTemplateVideo(phone_number_id,phone,message,link) {
-  axios({
+ return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
       "https://graph.facebook.com/v19.0/" +phone_number_id+"/messages",
@@ -328,10 +328,7 @@ async function sendTemplateVideo(phone_number_id,phone,message,link) {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
    }
-  }).then((response) => {
-      console.log(JSON.stringify(response.data));
-      return response.data;
-    })
+  })
     .catch((error) => {
       console.log(error);
     });
@@ -339,7 +336,7 @@ async function sendTemplateVideo(phone_number_id,phone,message,link) {
 
 
 async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
-  axios({
+  return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
       "https://graph.facebook.com/v19.0/" + phone_number_id +"/messages",
@@ -381,10 +378,7 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
    }
-  }).then((response) => {
-      console.log(JSON.stringify(response.data));
-      return response.data;
-    })
+  }) 
     .catch((error) => {
       console.log(error);
     });
@@ -394,7 +388,7 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
 
 
 async function sendTemplateNotification(phone_number_id,phone,message) {
-  axios({
+ return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
       "https://graph.facebook.com/v19.0/" +phone_number_id+"/messages",
@@ -425,10 +419,7 @@ async function sendTemplateNotification(phone_number_id,phone,message) {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
    }
-  }).then((response) => {
-      console.log(JSON.stringify(response.data));
-      return response.data;
-    })
+  }) 
     .catch((error) => {
       console.log(error);
     });

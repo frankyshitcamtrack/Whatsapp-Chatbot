@@ -1,7 +1,8 @@
-const baseUrl="http://localhost:8000/api/ymanebot"
+import axios from 'axios';
+//const baseUrl="http://localhost:8000/api/ymanebot"
 
 //for production
-//const baseUrl="api/ymanebot" 
+const baseUrl="api/ymanebot" 
 
 async function getCampagnes(){
   const res = await fetch(`${baseUrl}/push_campaigns`);
@@ -18,22 +19,31 @@ async function getCampagnebyId(id){
 
 
 async function addCampagne(campaign){
-  try{
-    return await fetch(`${baseUrl}/push_campaign`,{
-        headers:{
-          "Content-Type":"application/json"
-        },
-        method:"post",
-        body:JSON.stringify(campaign)
+  return axios.post(`${baseUrl}/push_campaign`, campaign, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Set content type for FormData
+      },
     })
-  }catch(error){
-    console.log(error);
-    return error
-  }
+    .catch((error) => {
+      console.log("Error in post data" + error.message);
+    });
+/*     try{
+      return await fetch(`${baseUrl}/push_campaign`,{
+        headers: {
+        "Content-Type": "multipart/form-data",  
+      },
+        method:"post",
+        body:campaign
+    }) 
+    }catch(error){
+      console.log(error);
+      return error
+    } */
+  
+   
 }
 
 
- 
 
 export {
     getCampagnes,

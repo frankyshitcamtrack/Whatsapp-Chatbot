@@ -1,5 +1,5 @@
-//const https = require('https');
-const http = require('http');
+const https = require('https');
+//const http = require('http');
 const fs = require('fs');
 
 require('dotenv').config();
@@ -8,15 +8,15 @@ const app = require('./app');
 
 const PORT = process.env.PORT || 8000;
 
-/* const options = {
+const options = {
     key: fs.readFileSync('./ssl/file.key'),
     cert: fs.readFileSync('./ssl/file.cert'),
     ca: fs.readFileSync('./ssl/file.ca'),
-};  */
+};  
 
-//const server = https.createServer(options,app);
+const server = https.createServer(options,app);
 
-const server = http.createServer(app);
+//const server = http.createServer(app);
 
 
 async function startServer(){

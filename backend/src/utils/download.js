@@ -11,6 +11,7 @@ async function downloadVideo(url,outputDownloadPath,fullUrl) {
     const writer = fs.createWriteStream(outputDownloadPath);
     const filePath = `${fullUrl}/${output}`
     const newPath= filePath.replace('/public','')
+    
     axios({
         method: 'get',
         url: url,

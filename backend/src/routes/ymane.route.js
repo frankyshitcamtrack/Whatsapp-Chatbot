@@ -1,5 +1,6 @@
 const express = require('express');
 const ymaneRouter = express.Router();
+const multer = require("multer");
 
 const { httpInsertBU,httpGetBu,httpUpdateBu,httpGetBuById,httpDeleteBu} = require('../controllers/ymanebot-controllers/bu.controllers');
 const {httpInsertTypeCampagne,httpGetTypeCampagne,httpUpdateTypeCampagne,httpGetTypeCampagneById,httpDeleteTypeCampagne}=require('../controllers/ymanebot-controllers/typeCampagne.controller');
@@ -9,6 +10,33 @@ const {httpDeleteTypeContact,httpGetTypeContact,httpGetTypeContactById,httpGetTy
 const {httpGetContacts,httpGetContactById,httpInsertContact}=require('../controllers/ymanebot-controllers/contact.controllers');
 const {httpGetPushCampagne,httpGetPushCampagneById,httpInsertPushCampagne}=require('../controllers/ymanebot-controllers/pushCampagne.controller');
 const {httpGetDiscussionById,httpGetDiscussions,httpInsertDiscussion}=require('../controllers/ymanebot-controllers/discussions.controllers')
+
+
+
+
+/* const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    return cb(null, "../../public/assets/campaign/");
+  },
+
+  filename: function (req, file, cb) {
+    return cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+ */
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+    cb(null, " ../../public/assets/campaign/");
+    },
+    filename: function(req, file, cb) {
+    cb(null, file.originalname);
+    }
+    });
+    
+const upload = multer({ storage: storage });
+ 
 
 ymaneRouter.get('/business_unit',httpGetBu);
 ymaneRouter.get('/single-business_unit/:id',httpGetBuById);
@@ -50,7 +78,7 @@ ymaneRouter.post('/discussion',httpInsertDiscussion);
 
 ymaneRouter.get('/push_campaigns',httpGetPushCampagne);
 ymaneRouter.get('/single-campaign/:id',httpGetPushCampagneById);
-ymaneRouter.post('/push_campaign',httpInsertPushCampagne);
+ymaneRouter.post('/push_campaign', upload.single("media"), httpInsertPushCampagne);
 
 
 module.exports = ymaneRouter;
