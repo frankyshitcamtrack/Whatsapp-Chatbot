@@ -44,7 +44,7 @@ function Campaign() {
     
     
      function handleSubmit(){
-        setLoading(true);
+        setLoading(prevLoading=>!prevLoading); ;
 
         addCampagne(campaign).then((res)=>{
            if(res.status===201){
