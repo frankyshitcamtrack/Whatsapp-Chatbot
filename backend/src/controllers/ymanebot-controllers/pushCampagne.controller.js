@@ -11,7 +11,7 @@ async function sendSimpleMessage(number,message){
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: '/webhook/marketing_notification',
+        url: 'https://whattsapi.camtrack.net/webhook/marketing_notification',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -31,7 +31,7 @@ async function sendImageMessage(number, message, link) {
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: '/webhook/marketing_image',
+        url: 'https://whattsapi.camtrack.net/webhook/marketing_image',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -52,7 +52,7 @@ async function sendVideoMessage(number,message,link){
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: '/webhook/marketing_video',
+        url: 'https://whattsapi.camtrack.net/webhook/marketing_video',
         headers: {
             'Content-Type': 'application/json'
         },
