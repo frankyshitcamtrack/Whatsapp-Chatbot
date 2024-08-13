@@ -32,8 +32,8 @@ function Report() {
         date_creation: item['date_creation'].split("T")[0]
       }
     });
-
-    setCampain(rangeDate);
+    console.log(getCampaign)
+    setCampain(rangeDate.sort((a,b)=>(a.id - b.id)));
 
     if (cible) {
       console.log(cible);
@@ -79,9 +79,11 @@ function Report() {
   }
 
   useEffect(() => {
-    setLoading(prevLoading => !prevLoading);
+    setLoading(true);
     GetCampaign();
-    setLoading(prevLoading => !prevLoading);
+    setTimeout(()=>{
+      setLoading(false)
+  },2000)  
   }, [refech, typeCampagne, cible, startDate, endDate])
 
   useEffect(() => {
@@ -139,9 +141,8 @@ function Report() {
       </FilterContainer>
       <div className={classes.card}>
         {
-          loading ? <Preloader /> :
+           loading? <div className={classes.loader_container}><Preloader/></div>:
             <DataTable value={campaign} paginator rows={7} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
-              <Column field="id" header="N°" style={{ width: '10%' }}></Column>
               <Column field="user_name" header="Emetteur" style={{ width: '20%' }}></Column>
               <Column field="name" header="Type campagne" style={{ width: '20%' }}></Column>
               <Column field="typeContact_name" header="Type de cible" style={{ width: '20%' }}></Column>

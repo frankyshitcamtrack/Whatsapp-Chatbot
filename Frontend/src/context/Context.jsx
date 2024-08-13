@@ -5,13 +5,19 @@ import { useState } from 'react';
 const Context = createContext();
 
 export default function MainContext({children}){
+
+    const getInitialState = () => {
+        const currentUser = localStorage.getItem("currentUser");
+        return currentUser ? JSON.parse(currentUser) : null
+      }
     const [displaySidebar,setDisplaySidebar]=useState(false);
-    const [isLoged,setIsLoged] =useState(false);
+    const [currentUser,setCurrentUser]=useState(getInitialState);
     const [pathName,setPathName] =useState('');
     const [title,setiTle] =useState('');
     const [previewCampaign,setPreviewCampaign]=useState(false);
     const[dropdownDisplay,setDropdownDisplay] =useState(false);
-
+    
+    
 
     function displayDropdown(){
         setDropdownDisplay(prevDropdownDisplay=>!prevDropdownDisplay)
@@ -21,8 +27,12 @@ export default function MainContext({children}){
        setDisplaySidebar(prevDisplay=>!prevDisplay)
     }
   
-    function login(){
-        setIsLoged((prevState)=>!prevState);
+    const loginAuth = (user) => {
+        setCurrentUser(user)
+    }
+    
+    const logout = () => {
+        setCurrentUser(null)
     }
 
     function updatePathName(path){
@@ -43,29 +53,34 @@ export default function MainContext({children}){
                     break;
             case 'setting':setiTle('Configuration')
                     break;
-    
             default:  ''
         }
     }
+ 
+    useEffect(() => {
+      localStorage.setItem("currentUser", JSON.stringify(currentUser))
+    }, [currentUser])
 
     useEffect(()=>{
        getTitle(pathName)
     },[pathName])
- 
+
+    
       return (
           <Context.Provider
               value={
                   {
                     displaySidebar,
                     displaySider,
-                    isLoged,
-                    login,
                     updatePathName,
                     title,
                     previewCampaign,
                     displayPreviewCampaign,
                     dropdownDisplay,
                     displayDropdown,
+                    loginAuth ,
+                    logout,
+                    currentUser
                   }
               }>
               {children}

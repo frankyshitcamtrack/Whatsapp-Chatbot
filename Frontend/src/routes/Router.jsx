@@ -13,9 +13,9 @@ import TypeCampagne from '../pages/Setting/TypeCampagne';
 function Router() {
     return (
         <Routes>
-            <Route path='/' element={<Login />} />
             <Route path='/login' element={<Login />} />
             <Route element={<PrivateRoute />}>
+                <Route path='/' element={<Dashboard/>} />
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/campaign' element={<Campaign />} />
                 <Route path='/report' element={<Report />} />

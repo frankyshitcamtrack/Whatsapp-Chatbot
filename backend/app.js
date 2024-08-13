@@ -28,6 +28,10 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
+/* setInterval(()=>{
+    SaveContact();
+},300000) */
+
 SaveContact();
 
 app.use(express.static(path.join(__dirname,'..','public')));

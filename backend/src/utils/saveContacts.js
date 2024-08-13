@@ -3,8 +3,11 @@ const {insertContact}=require('../models/ymanebot-models/contact.model');
 const {getTypeContactByName}=require('../models/ymanebot-models/typeContact.model');
 
 async function getIdByName(name){
-    const val =await getTypeContactByName(name)
-    return val[0].id;
+    const val =await getTypeContactByName(name);
+    if(val.length>0){
+        return val[0].id;
+    }
+    
 }
 
 async function SaveContact(){ 
@@ -13,10 +16,13 @@ async function SaveContact(){
      if(getContact.length>0){
         const updateContacts = await Promise.all(getContact.map(async (item)=>{
             const typeClientId = await getIdByName(item['Type de client']); 
-            return {
-                ...item,
-                'Type de client': typeClientId
+            if(typeClientId){
+                return {
+                    ...item,
+                    'Type de client': typeClientId
+                }
             }
+         
          })
          )  
 

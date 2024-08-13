@@ -2,7 +2,7 @@ const { deleteTypeCampagne,getTypeCampagne,getTypeCampagneById,insertTypeCampagn
 
 //business Unit controllers
 async function httpInsertTypeCampagne(req, res) {
-    const name = req.body.name;
+    const name = req.body.tc_name;
     try {
         if (!name) {
             return res.status(400).json({

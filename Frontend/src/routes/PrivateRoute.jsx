@@ -4,9 +4,9 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Layout from "../layout/Layout";
 
 function PrivateRoute() {
-    const { isLoged } = useContext(Context);
+    const { currentUser } = useContext(Context);
     const navigate = useNavigate();
-    if (!isLoged) {
+    if (currentUser===null) {
         navigate('/login')
     }
 

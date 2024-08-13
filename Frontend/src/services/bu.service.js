@@ -1,7 +1,7 @@
-//const baseUrl="http://localhost:8000/api/ymanebot"
+const baseUrl="http://localhost:8000/api/ymanebot"
 
 //for production
-const baseUrl="api/ymanebot" 
+//const baseUrl="/api/ymanebot" 
 
 
 async function getBu(){
@@ -12,7 +12,7 @@ async function getBu(){
 
 
 async function getBuById(id){
-    const res = await fetch(`${baseUrl}/business_unit/${id}`);
+    const res = await fetch(`${baseUrl}/single-business_unit/${id}`);
     const data =await res.json();
     return data;
   }

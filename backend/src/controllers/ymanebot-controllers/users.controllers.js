@@ -1,5 +1,5 @@
-const {getUsers,insertUser,deleteUser,getUserById,updateUser}=require('../../models/ymanebot-models/user.model')
-
+const {getUsers,insertUser,deleteUser,getUserById,updateUser,getUserByEmail}=require('../../models/ymanebot-models/user.model')
+const bcrypt = require('bcrypt');
 
 async function httpGetUsers(req,res){
     try {
@@ -23,18 +23,44 @@ async function httpGetUserById(req,res){
     }
 }
 
+async function httpGetUserByEmailPass(req,res){
+    const {email,password}= req.body;
+    try {
+        const user =await getUserByEmail(email);
+        if(user.length>0){
+            bcrypt.compare(password, user[0].password, (error, response) => {
+                if (response) {
+                    res.status(200).json(user[0]);
+                    
+                } else{
+                    res.status(400).json({error: "Wrong username/ password combination!"}); 
+                }
+            });
+        }else{
+            return res.status(400).json({error:"no user found"});
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            error: 'something went wrong with the server'
+        })
+    }
+}
+
 async function httpInsertUser(req,res){
     const {user_name,tel,email,idDepartement,role,password}= req.body;
     try {
-        if (!user_name || !tel || !email || !idDepartement || !role || !password) {
+    /*     if (!user_name || !tel || !email || !idDepartement || !role || !password) {
             return res.status(400).json({
                 error: 'Missing require User property'
             })
-        }
-       const insert= await insertUser(user_name,email,tel,parseInt(idDepartement),role,password);
-       if(insert){
-        return res.status(201).json(insert);
-       }
+        } */
+       insertUser(user_name,email,tel,parseInt(idDepartement),role,password);
+      
+        return res.status(201).json({
+            ok:true
+        });
+       
        
     } catch (error) {
         console.log(error)
@@ -79,4 +105,4 @@ async function httpDeleteUser(req,res){
 
 
 
-module.exports={httpGetUsers,httpInsertUser,httpGetUserById,httpDeleteUser,httpUpdatetUser}
+module.exports={httpGetUsers,httpInsertUser,httpGetUserById,httpDeleteUser,httpUpdatetUser,httpGetUserByEmailPass}

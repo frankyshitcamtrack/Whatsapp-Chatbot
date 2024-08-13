@@ -2,13 +2,20 @@ import axios from 'axios';
 //const baseUrl="http://localhost:8000/api/ymanebot"
 
 //for production
-const baseUrl="api/ymanebot" 
+const baseUrl="/api/ymanebot" 
 
 async function getCampagnes(){
   const res = await fetch(`${baseUrl}/push_campaigns`);
   const data = await res.json();
   return data;
 }
+
+async function getCampagnesWiithExistUsersAndTC(){
+  const res = await fetch(`${baseUrl}/pseudo_campaigns`);
+  const data = await res.json();
+  return data;
+}
+
 
 
 async function getCampagnebyId(id){
@@ -48,7 +55,8 @@ async function addCampagne(campaign){
 export {
     getCampagnes,
     getCampagnebyId,
-    addCampagne
+    addCampagne,
+    getCampagnesWiithExistUsersAndTC
 }
   
 

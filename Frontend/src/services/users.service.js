@@ -1,7 +1,7 @@
-//const baseUrl="http://localhost:8000/api/ymanebot"
+const baseUrl="http://localhost:8000/api/ymanebot"
 
 //for production
-const baseUrl="api/ymanebot" 
+//const baseUrl="/api/ymanebot" 
 
 async function getAllUsers(){
   const res = await fetch(`${baseUrl}/users`);
@@ -64,12 +64,28 @@ async function deleteUser(user){
 }
   
 
+async function login(credentials){
+  try{
+    return await fetch(`${baseUrl}/login`,{
+        headers:{
+          "Content-Type":"application/json"
+        },
+        method:"post",
+        body:JSON.stringify(credentials)
+    })
+  }catch(error){
+    console.log(error);
+    return error
+  }
+}
+
 export {
     getAllUsers,
     getUserbyId,
     addUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    login
 }
   
 

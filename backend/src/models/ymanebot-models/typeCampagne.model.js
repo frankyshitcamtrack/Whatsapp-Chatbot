@@ -23,6 +23,10 @@ async function getTypeCampagne() {
     pool.query('UPDATE types_campagnes SET name = ? WHERE id = ?', [name, id]);
 }
 
+async function incrementNombrePush(id){
+    pool.query('UPDATE types_campagnes SET Nombre_push_cree = Nombre_push_cree + 1 WHERE id = ?', [id]);
+}
+
 async function deleteTypeCampagne(id){
     pool.query(
         `UPDATE types_campagnes SET isDelete = 1 WHERE id=${id}`,
@@ -35,5 +39,6 @@ module.exports = {
     getTypeCampagne,
     getTypeCampagneById,
     deleteTypeCampagne,
-    updateTypeCampagne
+    updateTypeCampagne,
+    incrementNombrePush
 }

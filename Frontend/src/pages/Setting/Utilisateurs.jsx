@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import {addUser,deleteUser,getAllUsers,getUserbyId,updateUser} from '../../services/users.service'
+import {addUser,deleteUser,getAllUsers,getUserbyId,updateUser} from '../../services/users.service';
+import {getBuById} from '../../services/bu.service'
+import {removeDuplicateObjectsUsers} from '../../utils/removeDuplicateObjects';
+import {getCampagnesWiithExistUsersAndTC} from '../../services/campagnes.service';
 import {getBu} from '../../services/bu.service'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -57,42 +60,49 @@ function Utilisateur() {
 
 
     function handleSubmit(event){
-        setLoading(prevLoading=>!prevLoading);
+        setLoading(true);
         event.preventDefault();
         addUser(user).then((res)=>{
-           if(res.status===201){
-             setDisplaySuccess(prevSuccess=>!prevSuccess);
+           if(res.status===201 || res.status===200 || res.status===204){
+            setTimeout(()=>{
+              setLoading(false);
+              setDisplaySuccess(prevSuccess=>!prevSuccess);
+              GetUsers();
+            },2000)  
+             
            }else if(res.status===500){
+            setLoading(false);
               setErrorMessag("Une erreur est survenu au niveau du serveur");
               setDisplayFail(prevFail=>!prevFail);
            }else{
+             setLoading(false);
              setErrorMessag(res.statusText);
              setDisplayFail(prevFail=>!prevFail);
            }
-        }).then(async ()=>{
-            await GetUsers();
-        });
-        setLoading(prevLoading=>!prevLoading); 
+        }) 
      }
 
 
      function handleSubmitUpdate(event){
-        setLoading(prevLoading=>!prevLoading);
+        setLoading(true);
         event.preventDefault();
         updateUser(user).then((res)=>{
-           if(res.status===201){
+           if(res.status===201 || res.status===200 || res.status===204){
+             setLoading(false);
              setDisplaySuccess(prevSuccess=>!prevSuccess);
            }else if(res.status===500){
+              setLoading(false);
               setErrorMessag("Une erreur est survenu au niveau du serveur");
               setDisplayFail(prevFail=>!prevFail);
            }else{
+            setLoading(false);
              setErrorMessag(res.statusText);
              setDisplayFail(prevFail=>!prevFail);
            }
         }).then(async ()=>{
             await GetUsers();
         });
-        setLoading(prevLoading=>!prevLoading); 
+         
      }
 
 
@@ -106,15 +116,41 @@ function Utilisateur() {
 
 
      async function GetUsers(){
-        const users= await getAllUsers();
-        setUsers(users);
+        const users = await getAllUsers()
+
+        const listUsers =[]
+        //getAllCampagnes
+        const campaigns = await getCampagnesWiithExistUsersAndTC();
+        
+        //create arr of users whome created campaigns
+        campaigns.map(item=>listUsers.push({user_id:item.user_id,name:item.user_name,email:item.email,tel:item.tel,bu_name:item.idDepartement}));
+
+        users.map(item=>listUsers.push({user_id:item.user_id,name:item.user_name,email:item.email,tel:item.tel,bu_name:item.idDepartement}));
+
+        //remove duplicate arr
+        const removeDuplicate= removeDuplicateObjectsUsers(listUsers);
+
+        const listUsersWithCountPushs =removeDuplicate.map(item=>{
+            const countPushs = campaigns.filter(el=>el.user_name===item.name).length;
+            return {...item,Nombre_push_cree:countPushs}
+          })
+     
+       const usersWithDepartementName =Promise.all(listUsersWithCountPushs.map(async(item)=>  {
+        const bu = await getBuById(item.bu_name);
+        
+        if(bu.length>0){
+            const buName =bu[0].bu_name;
+            return {...item,bu_name:buName}
+        }
     }
+    ))
+    .then(value=>setUsers(value.sort((a,b)=>(a.user_id - b.user_id))));
+}
 
 
     async function GetUserById(id){
         const us= await getUserbyId(id);
         setUser(us[0]);
-        console.log(user);
         displayEditForm();
     }
 
@@ -125,8 +161,12 @@ function Utilisateur() {
     }
  
      useEffect(()=>{
+        setLoading(true)
         GetUsers();
         GetBU();
+        setTimeout(()=>{
+          setLoading(false)
+        },2000)
      },[])
      
 
@@ -145,7 +185,7 @@ function Utilisateur() {
             <Button type="button" className={classes.btn_display} handleClick={displayAddForm}>Créer un utilisateur</Button>
             <div className={classes.card}>
                 {
-                    loading ? <Preloader /> :
+                   loading? <div className={classes.loader_container}><Preloader/></div> :
                         <DataTable value={users} paginator rows={7} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
                             <Column field="user_id" header="N°"></Column>
                             <Column field="user_name" header="Noms et Prenoms" ></Column>
@@ -167,8 +207,8 @@ function Utilisateur() {
                   (!loading && !success && !fail) &&
                   <form className={classes.add_form} onSubmit={handleSubmit}>
                     <Input type="text" id="submit" name="user_name" className={classes.input_field} handleChange={handleChange} placeholder='Nom et Prenom' />
-                    <select name="idDepartement" className={`${classes.input_field} ${classes.select_input}`} onChange={handleChange}>
-                        <option>Departement</option>
+                    <select name="idDepartement" className={`${classes.input_field} ${classes.select_input}`} onChange={handleChange} required>
+                        <option value=''>Departement</option>
                         {bu.length>0?
                             bu.map((option) => (
                                 <option key={option.id}  value={option.id}>
@@ -179,7 +219,12 @@ function Utilisateur() {
                     </select>
                     <Input type="email" id="submit" name="email" className={classes.input_field}  handleChange={handleChange} placeholder='Adresse mail' />
                     <Input type="number" id="submit" name="tel" className={classes.input_field} handleChange={handleChange} placeholder='Numero de telephone' />
-                    <Select name="role" className={`${classes.input_field} ${classes.select_input}`} options={['admin','super_admin','user']} defaultOption="role" handleChange={handleChange}/>
+                    <select name="role" className={`${classes.input_field} ${classes.select_input}`} onChange={handleChange} required>
+                        <option value=''>Role</option>
+                        <option value='admin'>Admin</option>
+                        <option value='super_admin'>Super Admin</option>
+                        <option value='user'>User</option>   
+                    </select>
                     <Input type="text" id="submit" name="password" className={classes.input_field} handleChange={handleChange} placeholder='Initial password' />
                     <button type="submit" className={classes.btn_submit}>Créer</button>
                   </form>

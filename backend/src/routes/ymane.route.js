@@ -5,10 +5,10 @@ const multer = require("multer");
 const { httpInsertBU,httpGetBu,httpUpdateBu,httpGetBuById,httpDeleteBu} = require('../controllers/ymanebot-controllers/bu.controllers');
 const {httpInsertTypeCampagne,httpGetTypeCampagne,httpUpdateTypeCampagne,httpGetTypeCampagneById,httpDeleteTypeCampagne}=require('../controllers/ymanebot-controllers/typeCampagne.controller');
 const {httpDeleteRole,httpInsertRole,httpUpdateRole,httpGetRoles}=require('../controllers/ymanebot-controllers/roles.controllers');
-const {httpGetUsers,httpInsertUser,httpGetUserById,httpDeleteUser,httpUpdatetUser}=require('../controllers/ymanebot-controllers/users.controllers');
+const {httpGetUsers,httpInsertUser,httpGetUserById,httpDeleteUser,httpUpdatetUser,httpGetUserByEmailPass}=require('../controllers/ymanebot-controllers/users.controllers');
 const {httpDeleteTypeContact,httpGetTypeContact,httpGetTypeContactById,httpGetTypeContactByName,httpInsertTypeContact,httpUpdateTypeContact} = require('../controllers/ymanebot-controllers/typeContact.controllers')
 const {httpGetContacts,httpGetContactById,httpInsertContact}=require('../controllers/ymanebot-controllers/contact.controllers');
-const {httpGetPushCampagne,httpGetPushCampagneById,httpInsertPushCampagne}=require('../controllers/ymanebot-controllers/pushCampagne.controller');
+const {httpGetPushCampagne,httpGetPushCampagneById,httpInsertPushCampagne,httpGetPushCampagneWithExistUsersAndTC,WebHookListerer}=require('../controllers/ymanebot-controllers/pushCampagne.controller');
 const {httpGetDiscussionById,httpGetDiscussions,httpInsertDiscussion}=require('../controllers/ymanebot-controllers/discussions.controllers')
 
 
@@ -56,10 +56,11 @@ ymaneRouter.post('/update-role',httpUpdateRole);
 ymaneRouter.post('/add-role',httpInsertRole);
 
 ymaneRouter.get('/users',httpGetUsers);
+ymaneRouter.get('/single-user/:id',httpGetUserById);
 ymaneRouter.post('/add-user',httpInsertUser);
+ymaneRouter.post('/login',httpGetUserByEmailPass);
 ymaneRouter.post('/update-user',httpUpdatetUser);
 ymaneRouter.post('/delete-user',httpDeleteUser);
-ymaneRouter.get('/single-user/:id',httpGetUserById);
 
 ymaneRouter.get('/contacts',httpGetContacts);
 ymaneRouter.get('/single-contact/:id',httpGetContactById);
@@ -77,8 +78,11 @@ ymaneRouter.get('/single-discussio/:id',httpGetDiscussionById);
 ymaneRouter.post('/discussion',httpInsertDiscussion);
 
 ymaneRouter.get('/push_campaigns',httpGetPushCampagne);
+ymaneRouter.get('/pseudo_campaigns',httpGetPushCampagneWithExistUsersAndTC);
 ymaneRouter.get('/single-campaign/:id',httpGetPushCampagneById);
 ymaneRouter.post('/push_campaign', upload.single("media"), httpInsertPushCampagne);
+
+ymaneRouter.post('https://whattsapi.camtrack.net:443/webhook',WebHookListerer)
 
 
 module.exports = ymaneRouter;

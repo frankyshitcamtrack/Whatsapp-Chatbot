@@ -3,6 +3,8 @@
     margin-top: 4rem;
     width: 97%;
     border-radius: 10px;
+    text-align: center;
+    padding: 1rem;
 }
 
 .add_form{
@@ -69,6 +71,11 @@
     padding: 1rem;
     border: 1px solid #707070;
     width: 100%;
+}
+
+
+.loader_container{
+    padding: 5rem;
 }
 
 .select_input{

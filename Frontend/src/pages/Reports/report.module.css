@@ -2,6 +2,7 @@
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
     margin-top: 4rem;
     border-radius: 10px;
+    text-align: center;
 }
 
 .form_group {
@@ -11,6 +12,10 @@
     margin-top: 1rem;
     gap: 1rem;
     width: 45%;
+}
+
+.loader_container{
+    padding: 5rem;
 }
 
 .action_icons{

@@ -27,5 +27,6 @@
     },
     "homepage": "https://github.com/frankyshitcamtrack/Whatsapp-Chatbot.git#readme",
     "dependencies": {
+        "server": "^1.0.39"
     }
 }

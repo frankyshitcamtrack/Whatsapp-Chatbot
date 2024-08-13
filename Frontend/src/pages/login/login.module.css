@@ -51,7 +51,7 @@
     gap: 2.5rem;
     margin-top: 1.5rem;
 }
-
+ 
 
 .form_div h1{
     color:#1C2545;
@@ -68,6 +68,8 @@
   font-size: 23px;
 }
 
+
+
 .input{
     border: 1px solid #039BE5;
     height: 68px;
@@ -82,12 +84,33 @@
 
 .input::placeholder {
     color: #039BE5;
-    opacity: 0.25; 
+    opacity: 0.50; 
   }
 
   .copyright{
     font-size: 12px;
     margin-top: auto;
+  }
+
+    .input_group{
+        position: relative;
+    }
+
+    .pass_input{
+        width: 100%;
+    }
+    
+  .pass_ico{
+    position: absolute;
+    bottom:  1.2rem;
+    right:  2rem;
+    width: 30px;
+    cursor: pointer;
+  }
+
+  .error{
+    color: red;
+    padding: 1rem;
   }
 
   @media screen and (max-width: 1400px) {
