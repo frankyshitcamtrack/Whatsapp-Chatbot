@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {addTypeCampagne,deleteTypeCampagne,getTypeCampagne,getTypeampagneById,updateTypeCampagne} from '../../services/typeCampagne.service';
-import {removeDuplicateObjects} from '../../utils/removeDuplicateObjects';
+import {removeDuplicateObjects} from '../../utils/removeDuplicate';
 import {getCampagnesWiithExistUsersAndTC} from '../../services/campagnes.service'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -84,7 +84,7 @@ function TypeCampagne() {
         TC.map(item=>typeCampains.push({id:item.id,name:item.name}));
         
         //remove duplicate arr
-        const removeDuplicate= removeDuplicateObjects(typeCampains);
+        const removeDuplicate = removeDuplicateObjects(typeCampains);
 
         const listTyeCampaignWithCountPushs =removeDuplicate.map(item=>{
             const countPushs = campaigns.filter(el=>el.name===item.name).length;
