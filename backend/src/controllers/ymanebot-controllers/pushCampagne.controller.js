@@ -1,43 +1,85 @@
 const {getCampagne,getCampagneById,insertCampagne,getCampagneWithUserAndTypeCampaignExisting}=require('../../models/ymanebot-models/pushCampagne.model');
-const {incrementNombrePush}=require('../../models/ymanebot-models/typeCampagne.model');
-const {sendTemplateNotification,sendUtilityTemplateImage,sendTemplateMatketingVideo,sendTemplateVideo,sendTemplateMarketingImage}=require('../../models/whatsapp.model');
+const {sendTemplateMarketingImage,sendTemplateMatketingVideo,sendTemplateNotification}=require('../../models/ymanebot-models/ymane.model');
+const {insertDiscussion,updateStatusDiscussion, getDiscussionById}=require('../../models/ymanebot-models/discussions.model');
 const { developement } = require("../../config/whatsappApi");
 const {dateInYyyyMmDdHhMmSs}= require("../../utils/formatDate");
 const {formatArrPhones}=require('../../utils/fortmat-phone');
-const {listenWebhooks}=require('../../services/webhooklisterner.service')
-const axios = require('axios');
 
 const phonId= developement.phone_number_id;
 
 
-async function WebHookListerer(req,res){
-    try{
-        console.log(res);
-        console.log(req);
-    }catch (error){
+async function WebHookListerer(req, res) {
+    try {
+        if (req.body.entry[0].changes[0].value.statuses[0].errors) {
+            console.log(req.body.entry[0].changes[0].value.statuses[0].errors[0]);
+            console.log(req.body.entry[0].changes[0].value.statuses[0].errors[0].error_data);
+        } else {
+            console.log('-----------------value.statuses--------------')
+            const statuses = req.body.entry[0].changes[0].value.statuses[0];
+            const id = statuses.id;
+            const state = statuses.status;
+            const path =req.url;
+            const singleDiscussion= await getDiscussionById(`"${id}"`);
+          if(singleDiscussion.length>0 && singleDiscussion[0].id_discussion===id && state!=='accepted' && path==="/bulk_webhook"){
+                console.log(singleDiscussion)
+                updateStatusDiscussion(id,state);
+           } 
+        }
+    } catch (error) {
         console.error('error of: ', error);  // print the error to console
         return res.status(500).send('Post received, but we have an error!');
     }
 }
 
-async function sendSimpleMessage(number,message){
-    const send = await sendTemplateNotification(phonId,number,message);
-    if(send){
-        console.log(send);
-    }
+
+async function sendSimpleMessage(number,message,idPush){
+   await sendTemplateNotification(phonId,number,message)
+    .then((res)=>{
+        const data = res.data;
+        const id_discussion= data.messages[0].id;
+        const numero=data.contacts[0].input;
+        const status=data.messages[0].message_status;
+        const idP=idPush;
+        console.log(data);
+        if(status==='accepted'){
+            insertDiscussion(id_discussion,numero,status,idP)
+         }
+       }
+    )
 }
 
-async function sendImageMessage(number, message, link) {
+
+async function sendImageMessage(number, message, link,idPush) {
   await sendTemplateMarketingImage(phonId,number,message,link)
-   .then(res=>console.log(res))
+   .then((res)=>{
+    const data = res.data;
+    const id_discussion= data.messages[0].id;
+    const numero=data.contacts[0].input;
+    const status=data.messages[0].message_status;
+    const idP=idPush
+    console.log(data);
+    if(status==='accepted'){
+        insertDiscussion(id_discussion,numero,status,idP)
+     }  
+   }
+)
 }
 
 
-async function sendVideoMessage(number,message,link){
-    const send = await sendTemplateMatketingVideo(phonId,number,message,link)
-    if(send){
-     console.log(send);
- }
+async function sendVideoMessage(number,message,link,idPush){
+    await sendTemplateMatketingVideo(phonId,number,message,link)
+    .then((res)=>{
+        const data = res.data;
+        const id_discussion= data.messages[0].id;
+        const numero=data.contacts[0].input;
+        const status=data.messages[0].message_status;
+        const idP=idPush;
+        console.log(data);
+        if(status==='accepted'){
+           insertDiscussion(id_discussion,numero,status,idP)
+        }
+       }
+    )
 }
 
 
@@ -66,8 +108,7 @@ async function httpGetPushCampagneById(req,res){
 
 
 async function httpInsertPushCampagne(req,res){
-
-    const {name,contacts,idTypeCampagnes,content_text,content_media,idType_contact,nombres_contacts, recu,non_recu} = req.body;
+    const {name,contacts,idTypeCampagnes,content_text,content_media,idType_contact,nombres_contacts, recu,non_recu,id_user} = req.body;
     const file = req.file;
     const fileName=file?file.filename:null;
     const fileType=file?file.mimetype:null;
@@ -78,31 +119,34 @@ async function httpInsertPushCampagne(req,res){
     const mediaPath =`${fullUrl}/assets/campaign/${fileName}`;
     const date = new Date();
     const date_creation = dateInYyyyMmDdHhMmSs(date);
-    const user_id = 8;
- 
+    
     try {
-        insertCampagne(name,+idTypeCampagnes,content_text,mediaPath,date_creation,+idType_contact,user_id,nombres_contacts, recu, non_recu);
-        
-       if(file && (fileType==='image/jpeg' || fileType==='image/png' || fileType==='image/jpg')){
-        formatPhones.map(phone=>{
-           sendImageMessage(phone,content_text,mediaPath)
-         })
-       }
+        await insertCampagne(name,+idTypeCampagnes,content_text,mediaPath,date_creation,+idType_contact,+id_user,nombres_contacts, recu, non_recu).then((re)=>{
+            if(re.length>0){
+                const idPushCampaigm = re[0].id;
+                if(file && (fileType==='image/jpeg' || fileType==='image/png' || fileType==='image/jpg')){
+                    formatPhones.map(phone=>{
+                       sendImageMessage(phone,content_text,mediaPath,idPushCampaigm)
+                     })
+                   }
+            
+                   if(file && fileType==='video/mp4'){
+                    formatPhones.map(phone=>{
+                        sendVideoMessage(phone,content_text,mediaPath,idPushCampaigm)
+                     })
+                   }
+            
+                   if(!file){
+                    formatPhones.map(phone=>{
+                        sendSimpleMessage(phone,content_text,idPushCampaigm)
+                     })
+                   }
+                return res.status(201).json({ok:true});
+            } 
+        })
 
-       if(file && fileType==='video/mp4'){
-        formatPhones.map(phone=>{
-            sendVideoMessage(phone,content_text,mediaPath)
-         })
-       }
-
-       if(!file){
-        formatPhones.map(phone=>{
-            sendSimpleMessage(phone,content_text)
-         })
-       }
-       return res.status(201).json({
-        ok:true
-     });
+      
+      
  
     } catch (error) {
         console.log(error)

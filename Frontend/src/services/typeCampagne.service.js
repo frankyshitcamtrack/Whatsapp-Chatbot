@@ -1,7 +1,7 @@
-const baseUrl="http://localhost:8000/api/ymanebot"
+//const baseUrl="http://localhost:8000/api/ymanebot"
 
 //for production
-//const baseUrl="/api/ymanebot" 
+const baseUrl="/api/ymanebot" 
 
 async function getTypeCampagne(){
   const res = await fetch(`${baseUrl}/type_campagne`);

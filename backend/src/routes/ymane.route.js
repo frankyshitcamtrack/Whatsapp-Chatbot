@@ -11,7 +11,7 @@ const {httpGetContacts,httpGetContactById,httpInsertContact}=require('../control
 const {httpGetPushCampagne,httpGetPushCampagneById,httpInsertPushCampagne,httpGetPushCampagneWithExistUsersAndTC,WebHookListerer}=require('../controllers/ymanebot-controllers/pushCampagne.controller');
 const {httpGetDiscussionById,httpGetDiscussions,httpInsertDiscussion}=require('../controllers/ymanebot-controllers/discussions.controllers')
 
-
+const {onVerification}=require('../controllers/ymanebot-controllers/ymane.controllers')
 
 
 /* const storage = multer.diskStorage({
@@ -27,16 +27,19 @@ const {httpGetDiscussionById,httpGetDiscussions,httpInsertDiscussion}=require('.
  */
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+  destination: function (req, file, cb) {
     cb(null, " ../../public/assets/campaign/");
-    },
-    filename: function(req, file, cb) {
+  },
+  filename: function (req, file, cb) {
     cb(null, file.originalname);
-    }
-    });
+  }
+});
     
 const upload = multer({ storage: storage });
  
+ymaneRouter.post('/bulk_webhook',WebHookListerer);
+
+ymaneRouter.get('/bulk_webhook',onVerification);
 
 ymaneRouter.get('/business_unit',httpGetBu);
 ymaneRouter.get('/single-business_unit/:id',httpGetBuById);
@@ -74,7 +77,7 @@ ymaneRouter.post('/delete-type_contact',httpDeleteTypeContact);
 ymaneRouter.post('/update-type_contact',httpUpdateTypeContact);
 
 ymaneRouter.get('/discussions',httpGetDiscussions);
-ymaneRouter.get('/single-discussio/:id',httpGetDiscussionById);
+ymaneRouter.get('/single-discussion/:id',httpGetDiscussionById);
 ymaneRouter.post('/discussion',httpInsertDiscussion);
 
 ymaneRouter.get('/push_campaigns',httpGetPushCampagne);
@@ -82,7 +85,7 @@ ymaneRouter.get('/pseudo_campaigns',httpGetPushCampagneWithExistUsersAndTC);
 ymaneRouter.get('/single-campaign/:id',httpGetPushCampagneById);
 ymaneRouter.post('/push_campaign', upload.single("media"), httpInsertPushCampagne);
 
-ymaneRouter.post('https://whattsapi.camtrack.net:443/webhook',WebHookListerer)
+
 
 
 module.exports = ymaneRouter;

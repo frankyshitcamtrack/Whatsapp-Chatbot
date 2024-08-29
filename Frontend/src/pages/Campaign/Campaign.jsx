@@ -15,18 +15,22 @@ import Fail from "../../components/fail/Fail";
 
 
 function Campaign() {
+    const { previewCampaign, displayPreviewCampaign,currentUser } = useContext(Context);
+    const [motsRestant,setMotsRestant]=useState(1000);
+    const [actualLength,setActualLength]=useState(0);
     const initialCampaign = {
         name: '',
         idTypeCampagnes: '',
         content_text: '',
         content_media: '',
         idType_contact: '',
-        id_user: '',
+        id_user: currentUser.id,
         contacts: [],
         nombres_contacts: 0,
         recu: 0,
         non_recu: 0,
-        media: ""
+        media: "",
+        mediaType:""
     };
     const [typeCampagnes, setTypeCampagnes] = useState([]);
     const [campaign, setCampaign] = useState(initialCampaign);
@@ -35,29 +39,40 @@ function Campaign() {
     const [typeContacts, setTypeContacts] = useState([]);
     const [typeCampaignName, setTypeCampaignName] = useState('');
     const [displayOtherInput, setDisplayOtherInput] = useState(false);
-    const { previewCampaign, displayPreviewCampaign } = useContext(Context);
     const [fail, setDisplayFail] = useState(false);
     const [errorMessage, setErrorMessag] = useState('');
     const [loading, setLoading] = useState(false);
     const [success, setDisplaySuccess] = useState(false);
-
+    const [disable,setDisable] = useState(false)
+    
     async function handleSubmit() {
+      try{
         setLoading(true);
         addCampagne(campaign).then((res) => {
             if (res.status===201) {
                 setLoading(false);
                 setDisplaySuccess(prevSuccess => !prevSuccess);
+                setCampaign(initialCampaign)
             } else if (res.status === 500) {
                 setLoading(false);
                 setErrorMessag("Une erreur est survenu au niveau du serveur");
                 setDisplayFail(true);
+                setCampaign(initialCampaign)
             } else {
                 setLoading(false);
                 setErrorMessag(res.statusText);
                 setDisplayFail(true);
+                setCampaign(initialCampaign)
             }
         })
-        setCampaign({ ...initialCampaign })
+      }catch(error){
+        setLoading(false);
+        setErrorMessag("Une erreur est survenu au niveau du serveur");
+        setDisplayFail(true);
+        setCampaign(initialCampaign)
+      }
+        
+       // setCampaign({ ...initialCampaign })
     }
 
     function handlePreview(event) {
@@ -66,16 +81,16 @@ function Campaign() {
         setDisplayFail(false);
         setLoading(false);
         displayPreviewCampaign();
-        console.log(campaign);
     }
 
     function handleMedia(e) {
-        const rawImage = e.target.files[0]
+        const rawImage = e.target.files[0];
+        const typeMedia =rawImage.type;
         const urlMedia = URL.createObjectURL(rawImage);
         setImageLabel(rawImage.name);
         const formData = new FormData();
         formData.append('media-file', rawImage);
-        setCampaign(previewCampaign => ({ ...previewCampaign, content_media: urlMedia, media: rawImage }))
+        setCampaign(previewCampaign => ({ ...previewCampaign, content_media: urlMedia, media: rawImage,mediaType:typeMedia }));
     }
 
     async function GetTypeCampaign() {
@@ -106,7 +121,6 @@ function Campaign() {
         if (name === "idType_contact" && value === "autre") {
             setDisplayOtherInput(true);
             setCampaign(previewCampaign => ({ ...previewCampaign, idType_contact: 5 }));
-
         }
 
         if (name === "idType_contact" && value !== "autre") {
@@ -129,8 +143,70 @@ function Campaign() {
             }
         }
 
+        if(name==='content_text'){
+            if(value){
+                const contentLength = value.length;
+                setActualLength(contentLength)
+                calculateWordleft(contentLength);
+            }
+        }
+
     };
 
+    function calculateWordleft(contentLength){
+        if(contentLength>actualLength){
+            setMotsRestant(item=>(--item));
+        }else if(contentLength<actualLength){
+            setMotsRestant(item=>(++item));
+        }else if(contentLength===actualLength){
+            setMotsRestant(1000)
+        }
+      
+    }
+
+    //check media type
+    function checkMedia(){
+       if(campaign.media.type==="image/jpeg" || campaign.media.type==="video/3gp" || campaign.media.type==="video/mp4" || campaign.media.type==="image/png") {
+        setDisable(false)
+       } 
+
+       if(campaign.media.type!=="image/jpeg" || campaign.media.type!=="video/3gp" || campaign.media.type!=="video/mp4" || campaign.media.type!=="image/png") {
+        setDisable(true)
+       } 
+
+       if(campaign.media.type==="image/jpeg" &&  campaign.media.size < 5242880){
+        setDisable(false)
+       } 
+
+       if(campaign.media.type==="image/jpeg" &&  campaign.media.size > 5242880){
+        setDisable(true)
+       } 
+       
+       if(campaign.media.type==="image/png" && campaign.media.size < 5242880){
+        setDisable(false)
+       }
+
+       if(campaign.media.type==="image/png" && campaign.media.size > 5242880){
+        setDisable(true)
+       }
+
+       if (campaign.media.type==="video/mp4" &&  campaign.media.size < 16777216){
+        setDisable(false)
+       }
+
+       if (campaign.media.type==="video/mp4" &&  campaign.media.size > 16777216){
+        setDisable(true)
+       }
+       
+       if( campaign.media.type==="video/3gp" && campaign.media.size < 16777216){
+        setDisable(false)
+       }
+
+       if(campaign.media.type==="video/3gp" && campaign.media.size > 16777216){
+        setDisable(true)
+       }
+        
+    }
 
     useEffect(() => {
         GetTypeCampaign();
@@ -138,7 +214,10 @@ function Campaign() {
         GetTypeContact();
     }, [])
 
+ 
+
     return (
+
         <>
             <form className={classes.form_container} onSubmit={handlePreview}>
                 <Input type="text" name="name" placeholder="Saisissez le nom de votre campagne" className={classes.input} handleChange={handleCampaign} />
@@ -167,14 +246,20 @@ function Campaign() {
                     displayOtherInput &&
                     <TextArea id="contact" name="contacts" className={classes.content} placeholder="Saisissez les contacts au bon format séparé d'une virgule" rows={5} handleChange={handleCampaign} />
                 }
-                <TextArea id="content_text" name="content_text" className={classes.content} placeholder="Saisissez le contenu du message" rows={20} handleChange={handleCampaign} />
+                <div className={classes.contentGroup}>
+                <TextArea id="content_text" name="content_text" className={classes.content} placeholder="Saisissez le contenu du message" rows={20} handleChange={handleCampaign} maxValue={1000}/>
+                <p className={classes.numberOfWords}>{motsRestant<=0?0:motsRestant} Mots Restants</p>
+                </div>
+               
                 <div className={classes.btn}>
                     <span className={classes.btn_holder}>
-                        <input type="file" id="file_submit" name="media" hidden onChange={handleMedia} />
+                        <input type="file" id="file_submit" name="media" hidden onChange={(e)=>{handleMedia(e),checkMedia()}} />
                         <label className={classes.input_filelabel} htmlFor="file_submit">{imageLabel}</label>
                     </span>
-                    <button type='submit' className={classes.btn_submit}>Prévisualiser</button>
+    
+                    <button type='submit' className={classes.btn_submit} disabled={disable}>Prévisualiser</button>
                 </div>
+                {disable && <p className={classes.typeMediaError}>Bien vouloir inserer un media valide (image de type jpeg et png et de taille maximale 5MB et video type mp4 et 3gp et de taille maximale 15 MB)</p>}
             </form>
             {
                 previewCampaign &&
@@ -187,7 +272,20 @@ function Campaign() {
                         <>
                             <div className={classes.preview_content}>
                                 <p>{campaign.content_text}</p>
-                                <img alt="media messages" src={campaign.content_media} />
+                                {
+                                    (campaign.mediaType==='image/jpeg'||campaign.mediaType==='image/jpg' || campaign.mediaType==='image/png') &&
+                                    <img alt="media campaign" src={campaign.content_media} />
+                                }
+                                {
+                                    (campaign.mediaType==='video/mp4' || campaign.mediaType==='video/3gp' ) &&
+                                        <video controls autoPlay>
+                                            <source src={campaign.content_media} type="video/mp4"/>
+                                        </video>
+                                }
+
+                                {
+                                   (campaign.mediaType==='') && ''
+                                }
                             </div>
                             <div className={classes.campaign_type}>
                                 <p>Type de campagne: <span>{typeCampaignName}</span></p> <p className={classes.divider}>|</p> <p >A envoyer: <span>{campaign.contacts.length}</span> Contacts</p>

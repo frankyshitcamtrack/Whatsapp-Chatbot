@@ -12,7 +12,8 @@ const pool = mysql.createPool(
         database:db,
         password: pass_db,
         port: 3306,
-    }
+    },
+    {multipleStatements: true}
 );
 
 

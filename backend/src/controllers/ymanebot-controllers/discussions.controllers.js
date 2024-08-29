@@ -14,10 +14,11 @@ async function httpGetDiscussions(req,res){
 
 
 async function httpGetDiscussionById(req,res){
-   const id = +req.params.id;
+   const id =`"${req.params.id}"`;
     try {
         return res.status(200).json(await getDiscussionById(id));
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             error: 'something went wrong with the server'
         })

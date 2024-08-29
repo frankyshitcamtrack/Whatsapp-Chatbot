@@ -1,0 +1,22 @@
+name : whatsapp bulk pipeline
+on : 
+  workflow_dispatch:
+  push :
+    branches:
+        - main # main
+jobs :
+  continuous-intergration :
+      runs-on : ubuntu-latest
+      steps :
+      - name : get the code 
+        uses : actions/checkout@v4
+      - name : Setup node version
+        uses : actions/setup-node@v3
+      - name : install dependencies
+        run  : npm run install 
+      - name : build frontend
+        run  : npm run build --prefix Frontend
+      - name : print success message 
+        run  : echo "Continuous intergration success"
+
+        

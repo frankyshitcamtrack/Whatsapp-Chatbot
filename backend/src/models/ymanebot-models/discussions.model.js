@@ -14,15 +14,21 @@ async function getDiscussionById(id){
 
 
 
-function insertDiscussion(id_discussion,message,numero,status,id_push_campaign) {
-    return pool.query(
-        'REPLACE INTO discussions SET id_discussion= ?, message= ?, numero= ?, status= ?, id_push_campaign= ?',
-        [id_discussion,message,numero,status,id_push_campaign]
+function insertDiscussion(id_discussion,numero,status,id_push_campaign) {
+ 
+ pool.query(
+        `INSERT INTO discussions SET id_discussion= ?, numero= ?, status= ?, id_push_campaign= ?`,
+        [id_discussion,numero,status,id_push_campaign]
     );
 }
 
+function updateStatusDiscussion(id_discussion,status) {
+   const id= `"${id_discussion}"`;
+   const state = `"${status}"`
+   pool.query(`UPDATE discussions SET status=${state} WHERE id_discussion=${id}`)
+}
 
 
-module.exports ={getDiscussions,getDiscussionById,insertDiscussion}
+module.exports ={getDiscussions,getDiscussionById,insertDiscussion,updateStatusDiscussion}
 
 

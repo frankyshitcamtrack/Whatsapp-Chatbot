@@ -31,9 +31,7 @@ async function addCampagne(campaign){
         "Content-Type": "multipart/form-data", // Set content type for FormData
       },
     })
-    .catch((error) => {
-      console.log("Error in post data" + error.message);
-    });
+    
 /*     try{
       return await fetch(`${baseUrl}/push_campaign`,{
         headers: {

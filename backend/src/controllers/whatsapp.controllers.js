@@ -108,6 +108,7 @@ async function getPositionVehicleByDate(user){
 
 //Send whatsapp message
 async function onSendMessages(req, res) {
+  //console.log(res);
   try{
     if (req.body.object && req.body.entry && req.body.entry[0].changes && req.body.entry[0].changes[0].value && req.body.entry[0].changes[0].value.messages && req.body.entry[0].changes[0].value.contacts) {
         let entryID = req.body.entry[0].id;
