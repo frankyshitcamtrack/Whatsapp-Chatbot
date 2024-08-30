@@ -1,0 +1,18 @@
+<<<<<<< HEAD
+function removeDuplicateObjects(arr){
+    const mapObjects = new Map(
+        arr.map(c => [c.id, c])
+      );
+      const uniqObjects =[...mapObjects.values()];
+    
+      return uniqObjects;
+=======
+function removeDuplicateObjects(arr){
+    const mapObjects = new Map(
+        arr.map(c => [c.id, c])
+      );
+      const uniqObjects =[...mapObjects.values()];
+    
+      return uniqObjects;
+>>>>>>> 87a8144a37c77cf2ae9d201b428a7776c78bb738
+    }
