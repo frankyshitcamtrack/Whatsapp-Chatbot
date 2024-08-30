@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {addUser,deleteUser,getAllUsers,getUserbyId,updateUser} from '../../services/users.service';
 import {getBuById} from '../../services/bu.service'
-import {removeDuplicateObjectsUsers} from '../../utils/removeDuplicateObjects';
+import {removeDuplicateObjectsUsers} from '../../utils/removeDuplicate';
 import {getCampagnesWiithExistUsersAndTC} from '../../services/campagnes.service';
 import {getBu} from '../../services/bu.service'
 import { DataTable } from 'primereact/datatable';
