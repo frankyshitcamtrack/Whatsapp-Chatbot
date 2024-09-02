@@ -16,48 +16,63 @@ function Report() {
   const [campaign, setCampain] = useState();
   const [listTypeContacts, setListTypeContact] = useState([]);
   const [listTypeCampagne, setListTypeCampagne] = useState([]);
-  const [cible, setCible] = useState();
-  const [typeCampagne, setTypeCampagne] = useState();
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [cible, setCible] = useState("");
+  const [typeCampagne, setTypeCampagne] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [refech, setRefetch] = useState(false);
   const [loading, setLoading] = useState(false);
 
 
   async function GetCampaign() {
     const getCampaign = await getCampagnes();
-    const rangeDate = getCampaign.map(item => {
-      return {
-        ...item,
-        date_creation: item['date_creation'].split("T")[0]
-      }
-    });
-    console.log(getCampaign)
-    setCampain(rangeDate.sort((a,b)=>(a.id - b.id)));
-
-    if (cible) {
-      console.log(cible);
-      const filterCamgagne = rangeDate.filter((item) => (item['typeContact_name'] === cible));
-      setCampain(filterCamgagne);
-    }
-
-    if (typeCampagne) {
-      const filterCamgagne = rangeDate.filter((item) => (item['name'] === typeCampagne));
-      setCampain(filterCamgagne);
-    }
-
-    if (startDate && endDate) {
-      const formatStartDate = new Date(startDate).getTime();
-      const formatEndDate = new Date(endDate).getTime();
-
-      const filterCamgagne = rangeDate.filter((item) => {
-        const date = new Date(item.date_creation).getTime();
-        return (formatStartDate <= date && date <= formatEndDate);
-      });
-
-      setCampain(filterCamgagne);
-    }
+    const rangeCampaign =rangePropertiesCanpaign(getCampaign);
+    setCampain(rangeCampaign);
   }
+
+
+ async function FilterCampaign(){
+  let campaigns = await getCampagnes();
+  const rangeCampaign =rangePropertiesCanpaign(campaigns);
+  if(cible){
+    const filterCamgagne = rangeCampaign.filter((item) => (item['typeContact_name'] === cible));
+    setCampain(filterCamgagne);
+  }
+
+  if(typeCampagne){
+    const filterCamgagne = rangeCampaign.filter((item) => (item['name'] === typeCampagne));
+    setCampain(filterCamgagne);
+  }
+
+  if (startDate && endDate) {
+    const formatStartDate = new Date(startDate).getTime();
+    const formatEndDate = new Date(endDate).getTime();
+
+    const filterCamgagne = rangeCampaign.filter((item) => {
+      const date = new Date(item.date_creation).getTime();
+      return (formatStartDate <= date && date <= formatEndDate);
+    });
+    setCampain(filterCamgagne);
+  }
+
+  if(typeCampagne && cible){
+    const filterCamgagne = rangeCampaign.filter((item) => (item['name'] === typeCampagne && item['typeContact_name'] === cible ));
+    setCampain(filterCamgagne);
+  }
+
+  if(typeCampagne && cible && startDate && endDate){
+    const formatStartDate = new Date(startDate).getTime();
+    const formatEndDate = new Date(endDate).getTime();
+
+    const filterCamgagne = rangeCampaign.filter((item) => {
+      const date = new Date(item.date_creation).getTime();
+      return (item['name'] === typeCampagne && item['typeContact_name'] === cible && formatStartDate <= date && date <= formatEndDate);
+    });
+    
+    setCampain(filterCamgagne);
+  }
+
+ }
 
   async function GetTypeCampagne() {
     const getTypeCam = await getTypeCampagne();
@@ -69,7 +84,6 @@ function Report() {
     setListTypeContact(getTypeCon)
   }
 
-
   function handleRefetch() {
     setRefetch(prevRefetch => !prevRefetch);
     setCible()
@@ -78,18 +92,32 @@ function Report() {
     setTypeCampagne()
   }
 
-  useEffect(() => {
+  function rangePropertiesCanpaign(data){
+    const rangeDate = data.map(item => {
+      return {
+        ...item,
+        date_creation: item['date_creation'].split("T")[0]
+      }
+    });
+    const rangeCampaign = rangeDate.sort((a,b)=>(a.id - b.id))
+
+    return rangeCampaign;
+  }
+  useEffect(()=>{
     setLoading(true);
+    GetTypeCampagne();
     GetCampaign();
+    GetTypeContact();
     setTimeout(()=>{
       setLoading(false)
-  },2000)  
-  }, [refech, typeCampagne, cible, startDate, endDate])
+   },2000) 
+  },[refech])
+
 
   useEffect(() => {
-    GetTypeCampagne();
-    GetTypeContact()
-  }, [])
+    FilterCampaign()
+  }, [typeCampagne,startDate, endDate,cible])
+
 
   return (
     <>

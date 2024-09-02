@@ -1,8 +1,5 @@
 import axios from 'axios';
-const baseUrl="http://localhost:8000/api/ymanebot"
-
-//for production
-//const baseUrl="/api/ymanebot" 
+import baseUrl from "../config"
 
 async function getCampagnes(){
   const res = await fetch(`${baseUrl}/push_campaigns`);

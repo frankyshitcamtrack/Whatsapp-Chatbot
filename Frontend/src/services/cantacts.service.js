@@ -1,7 +1,4 @@
-const baseUrl="http://localhost:8000/api/ymanebot"
-
-//for production
-//const baseUrl="/api/ymanebot" 
+import baseUrl from "../config" ;
 
 async function getContacts(){
   const res = await fetch(`${baseUrl}/contacts`);
