@@ -1,5 +1,5 @@
-const https = require('https');
-//const http = require('http');
+//const https = require('https');
+const http = require('http');
 const fs = require('fs');
 
 require('dotenv').config();
@@ -7,15 +7,13 @@ require('dotenv').config();
 const app = require('./app');
 
 //locale
-
-/* const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8000;
 const server = http.createServer(app); 
- */
+
 
 
 //production
-
-const PORT = process.env.PORT || 443;
+/* const PORT = process.env.PORT || 443;
 
 const options = {
   key: fs.readFileSync('./ssl/camtracknet.key'),
@@ -24,7 +22,7 @@ const options = {
 };  
  
 const server = https.createServer(options,app); 
- 
+  */
 
 async function startServer(){
     server.listen(PORT,()=>(

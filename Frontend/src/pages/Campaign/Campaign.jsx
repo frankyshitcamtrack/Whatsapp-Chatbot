@@ -1,5 +1,5 @@
 import { Context } from "../../context/Context";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState,useRef } from "react";
 import { addCampagne } from "../../services/campagnes.service";
 import { getTypeCampagne } from "../../services/typeCampagne.service";
 import { getContacts } from "../../services/cantacts.service";
@@ -44,6 +44,7 @@ function Campaign() {
     const [loading, setLoading] = useState(false);
     const [success, setDisplaySuccess] = useState(false);
     const [disable,setDisable] = useState(false);
+
     
     async function handleSubmit() {
       try{
@@ -52,7 +53,8 @@ function Campaign() {
             if (res.status===201) {
                 setLoading(false);
                 setDisplaySuccess(prevSuccess => !prevSuccess);
-                setCampaign(initialCampaign)
+                setCampaign(initialCampaign);
+                setMediaUploaded(false);
             } else if (res.status === 500) {
                 setLoading(false);
                 setErrorMessag("Une erreur est survenu au niveau du serveur");
@@ -76,21 +78,29 @@ function Campaign() {
     }
 
     function handlePreview(event) {
-        event.preventDefault();
-        setDisplaySuccess(false);
-        setDisplayFail(false);
-        setLoading(false);
-        displayPreviewCampaign();
+            event.preventDefault();
+            setDisable(false);
+            setDisplaySuccess(false);
+            setDisplayFail(false);
+            setLoading(false);
+            displayPreviewCampaign();
     }
 
     function handleMedia(e) {
         const rawImage = e.target.files[0];
         const typeMedia =rawImage.type;
+        const type =rawImage.type.split("/")[1];
+        const size=rawImage.size
         const urlMedia = URL.createObjectURL(rawImage);
         setImageLabel(rawImage.name);
         const formData = new FormData();
         formData.append('media-file', rawImage);
         setCampaign(previewCampaign => ({ ...previewCampaign, content_media: urlMedia, media: rawImage,mediaType:typeMedia }));
+        if((type==="jpeg" && size < 5242880) || (type==="png" && size < 5242880) || (type==="mp4" && size < 16777216) || (type==="3gp" && size < 16777216)){
+            setDisable(false);
+        }else{
+         setDisable(true);
+        }
     }
 
     async function GetTypeCampaign() {
@@ -128,7 +138,6 @@ function Campaign() {
             const contact = contactService.filter(item => item.idType_contact === +value);
             const tel = contact.map(item => item.tel);
             setCampaign(previewCampaign => ({ ...previewCampaign, contacts: tel, nombres_contacts: tel.length }));
-
         }
 
         if (name === 'contacts') {
@@ -164,18 +173,7 @@ function Campaign() {
       
     }
 
-    //check media type
-    function checkMedia(){
-        const type = campaign.media.type;
-        const size = campaign.media.size;
-        console.log(type);
-        console.log(size);
-        if((type==="image/jpeg" && size > 5242880) || (type==="image/png" && size > 5242880) || (type==="video/mp4" && size > 16777216) || (type==="video/3gp" && size > 16777216)){
-         setDisable(false);
-        }else{
-         setDisable(true);
-       }
-    }
+ 
 
 
     useEffect(() => {
@@ -185,7 +183,6 @@ function Campaign() {
     }, [])
 
  
-
     return (
 
         <>
@@ -223,13 +220,13 @@ function Campaign() {
                
                 <div className={classes.btn}>
                     <span className={classes.btn_holder}>
-                        <input type="file" id="file_submit" name="media" hidden onChange={(e)=>{handleMedia(e),checkMedia()}} />
+                        <input type="file" id="file_submit" name="media" hidden onChange={(e)=>{handleMedia(e)}} />
                         <label className={classes.input_filelabel} htmlFor="file_submit">{imageLabel}</label>
                     </span>
     
                     <button type='submit' className={classes.btn_submit} disabled={disable}>Prévisualiser</button>
                 </div>
-                {disable===true && <p className={classes.typeMediaError}>Bien vouloir inserer un media valide (image de type jpeg et png et de taille maximale 5MB et video type mp4 et 3gp et de taille maximale 15 MB)</p>}
+                {disable && <p className={classes.typeMediaError}>Bien vouloir inserer un media valide (image de type jpeg et png et de taille maximale 5MB et video type mp4 et 3gp et de taille maximale 15 MB)</p>}
             </form>
             {
                 previewCampaign &&
