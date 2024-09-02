@@ -24,6 +24,7 @@ function Dashboard() {
      getStatusMessageByTypeampaign()
   },[])
  
+
   async function GetTypeCampagneCount(){
     const campagnes = await getCampagnes();
     if(campagnes.length>0){
@@ -62,6 +63,7 @@ function Dashboard() {
 
       if (updateNameTypeCampaign && updateNameTypeCampaign.length > 0) {
         const removeUndefinedUpdateNameTypeCampaign = updateNameTypeCampaign.filter(item=>item!== undefined);
+        
         //group all messages by type campaign
         const groupDiscussionByPushMedia = removeUndefinedUpdateNameTypeCampaign.filter( (item) => {
             const name = item.name_typeCampaign.toString().toLowerCase();;

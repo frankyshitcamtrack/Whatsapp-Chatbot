@@ -171,13 +171,12 @@ function Report() {
         {
            loading? <div className={classes.loader_container}><Preloader/></div>:
             <DataTable value={campaign} paginator rows={7} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
+               <Column field="push_campagne_name" header="Intitulé" style={{ width: '20%' }}></Column>
               <Column field="user_name" header="Emetteur" style={{ width: '20%' }}></Column>
               <Column field="name" header="Type campagne" style={{ width: '20%' }}></Column>
               <Column field="typeContact_name" header="Type de cible" style={{ width: '20%' }}></Column>
               <Column field="date_creation" header="Date de creation" style={{ width: '20%' }}></Column>
               <Column field="nombres_contacts" header="Nombre de personne envoyé" style={{ width: '20%' }}></Column>
-              <Column field="recu" header="Reçu" style={{ width: '15%' }}></Column>
-              <Column field="non_recu" header="Non Reçu" style={{ width: '15%' }}></Column>
             </DataTable>
         }
       </div>
