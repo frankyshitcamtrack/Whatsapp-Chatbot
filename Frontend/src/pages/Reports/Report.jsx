@@ -99,10 +99,12 @@ function Report() {
         date_creation: item['date_creation'].split("T")[0]
       }
     });
-    const rangeCampaign = rangeDate.sort((a,b)=>(a.id - b.id))
+
+    const rangeCampaign = rangeDate.sort((a,b)=>(b.id - a.id))
 
     return rangeCampaign;
   }
+  
   useEffect(()=>{
     setLoading(true);
     GetTypeCampagne();
