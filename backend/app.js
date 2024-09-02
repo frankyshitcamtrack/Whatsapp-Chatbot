@@ -28,9 +28,9 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-/* setInterval(()=>{
+setInterval(()=>{
     SaveContact();
-},300000) */
+},300000) 
 
 SaveContact();
 
@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname,'..','public')));
 
 app.use(express.static('public'))
 
-app.get('/',(req,res)=>{
+app.get('/*',(req,res)=>{
     res.sendFile(path.join(__dirname,'..','public','index.html'))
 })
 

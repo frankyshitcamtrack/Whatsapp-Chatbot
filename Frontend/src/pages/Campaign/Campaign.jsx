@@ -43,7 +43,7 @@ function Campaign() {
     const [errorMessage, setErrorMessag] = useState('');
     const [loading, setLoading] = useState(false);
     const [success, setDisplaySuccess] = useState(false);
-    const [disable,setDisable] = useState(false)
+    const [disable,setDisable] = useState(false);
     
     async function handleSubmit() {
       try{
@@ -166,47 +166,15 @@ function Campaign() {
 
     //check media type
     function checkMedia(){
-       if(campaign.media.type==="image/jpeg" || campaign.media.type==="video/3gp" || campaign.media.type==="video/mp4" || campaign.media.type==="image/png") {
-        setDisable(false)
-       } 
-
-       if(campaign.media.type!=="image/jpeg" || campaign.media.type!=="video/3gp" || campaign.media.type!=="video/mp4" || campaign.media.type!=="image/png") {
-        setDisable(true)
-       } 
-
-       if(campaign.media.type==="image/jpeg" &&  campaign.media.size < 5242880){
-        setDisable(false)
-       } 
-
-       if(campaign.media.type==="image/jpeg" &&  campaign.media.size > 5242880){
-        setDisable(true)
-       } 
-       
-       if(campaign.media.type==="image/png" && campaign.media.size < 5242880){
-        setDisable(false)
+        const type = campaign.media.type;
+        const size = campaign.media.size;
+        if((type==="image/jpeg" && size > 5242880) || (type==="image/png" && size > 5242880) || (type==="video/mp4" && size > 16777216) || (type==="video/3gp" && size > 16777216)){
+         setDisable(false);
+        }else{
+         setDisable(true);
        }
-
-       if(campaign.media.type==="image/png" && campaign.media.size > 5242880){
-        setDisable(true)
-       }
-
-       if (campaign.media.type==="video/mp4" &&  campaign.media.size < 16777216){
-        setDisable(false)
-       }
-
-       if (campaign.media.type==="video/mp4" &&  campaign.media.size > 16777216){
-        setDisable(true)
-       }
-       
-       if( campaign.media.type==="video/3gp" && campaign.media.size < 16777216){
-        setDisable(false)
-       }
-
-       if(campaign.media.type==="video/3gp" && campaign.media.size > 16777216){
-        setDisable(true)
-       }
-        
     }
+
 
     useEffect(() => {
         GetTypeCampaign();
@@ -259,7 +227,7 @@ function Campaign() {
     
                     <button type='submit' className={classes.btn_submit} disabled={disable}>Prévisualiser</button>
                 </div>
-                {disable && <p className={classes.typeMediaError}>Bien vouloir inserer un media valide (image de type jpeg et png et de taille maximale 5MB et video type mp4 et 3gp et de taille maximale 15 MB)</p>}
+                {disable===true && <p className={classes.typeMediaError}>Bien vouloir inserer un media valide (image de type jpeg et png et de taille maximale 5MB et video type mp4 et 3gp et de taille maximale 15 MB)</p>}
             </form>
             {
                 previewCampaign &&
