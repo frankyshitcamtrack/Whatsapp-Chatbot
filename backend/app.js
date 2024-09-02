@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 
 setInterval(()=>{
     SaveContact();
-},300000) 
+},3600000) 
 
 SaveContact();
 
