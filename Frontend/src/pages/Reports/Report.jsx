@@ -171,7 +171,7 @@ function Report() {
         {
            loading? <div className={classes.loader_container}><Preloader/></div>:
             <DataTable value={campaign} paginator rows={7} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
-               <Column field="push_campagne_name" header="Intitulé" style={{ width: '20%' }}></Column>
+              <Column field="push_campagne_name" header="Intitulé" style={{ width: '20%' }}></Column>
               <Column field="user_name" header="Emetteur" style={{ width: '20%' }}></Column>
               <Column field="name" header="Type campagne" style={{ width: '20%' }}></Column>
               <Column field="typeContact_name" header="Type de cible" style={{ width: '20%' }}></Column>
