@@ -61,9 +61,7 @@ function Dashboard() {
       })) ;
 
       if (updateNameTypeCampaign && updateNameTypeCampaign.length > 0) {
-
         const removeUndefinedUpdateNameTypeCampaign = updateNameTypeCampaign.filter(item=>item!== undefined);
-
         //group all messages by type campaign
         const groupDiscussionByPushMedia = removeUndefinedUpdateNameTypeCampaign.filter( (item) => {
             const name = item.name_typeCampaign.toString().toLowerCase();;
@@ -89,9 +87,9 @@ function Dashboard() {
         const countpushMarketingDeletedMessage= groupDiscussionByPushMarketing.filter(item=>(item.status==='deleted')).length;
 
         const countPushMediaReceivedMessage= groupDiscussionByPushMedia.filter(item=>(item.status==='delivered'||item.status==='read'|| item.status==='sent')).length;
-        const countpPushMediaNotReceivedMessage= groupDiscussionByPushMedia.filter(item=>(item.status==='failed')).length;
-        const countpPushMediaPendingMessage= groupDiscussionByPushMedia.filter(item=>(item.status==='accepted')).length;
-        const countpPushMediaDeletedMessage= groupDiscussionByPushMedia.filter(item=>(item.status==='deleted')).length;
+        const countPushMediaNotReceivedMessage= groupDiscussionByPushMedia.filter(item=>(item.status==='failed')).length;
+        const countPushMediaPendingMessage= groupDiscussionByPushMedia.filter(item=>(item.status==='accepted')).length;
+        const countPushMediaDeletedMessage= groupDiscussionByPushMedia.filter(item=>(item.status==='deleted')).length;
 
         const countPushNewsLetterReceivedMessage= groupDiscussionByPushNewsLetter.filter(item=>(item.status==='delivered'||item.status==='read'|| item.status==='sent')).length;
         const countPushNewsLetterNotReceivedMessage= groupDiscussionByPushNewsLetter.filter(item=>(item.status==='failed')).length;
@@ -99,7 +97,7 @@ function Dashboard() {
         const countPushNewsLetterDeletedMessage= groupDiscussionByPushNewsLetter.filter(item=>(item.status==='deleted')).length;
     
         setPushMarketing({recu:countpushMarketingReceivedMessage,nonRecu:countpushMarketingNotReceivedMessage,encour:countpushMarketingPendingMessage,supprimé:countpushMarketingDeletedMessage});
-        setPushMedia({recu:countPushMediaReceivedMessage,nonRecu:countpPushMediaNotReceivedMessage,encour:countpPushMediaPendingMessage,supprimé:countpPushMediaDeletedMessage});
+        setPushMedia({recu:countPushMediaReceivedMessage,nonRecu:countPushMediaNotReceivedMessage,encour:countPushMediaPendingMessage,supprimé:countPushMediaDeletedMessage});
         setPushNewsLetter({recu:countPushNewsLetterReceivedMessage,nonRecu:countPushNewsLetterNotReceivedMessage,encour:countPushNewsLetterPendingMessage,supprimé:countPushNewsLetterDeletedMessage});
       }
     }
@@ -111,7 +109,7 @@ function Dashboard() {
         <StatisticCard icon={digitalMarketingIcon} color="#FFBB28" title="PUSH MEDIA FILE" value={typeCampagne.pushMediaFile} />
         <ChartContainer title="Derniere campagne Push media File" titleClass={classes.header_dashboard}>
           <Suspense fallback={<Preloader/>}>
-             <Chart colors={[ "#FFBB28","#FF0000","#808080","#330c0c"]} values={[{ name: "reçu", value: pushMedia.recu }, { name: "Non reçu", value: pushMedia.nonRecu }, { name: "En cour", value: pushMedia.encour },{ name: "Supprimé", value: pushMedia.supprimé}]} />
+             < Chart colors={[ "#FFBB28","#FF0000","#808080","#330c0c"]} values={[{ name: "reçu", value: pushMedia.recu }, { name: "Non reçu", value: pushMedia.nonRecu }, { name: "En cour", value: pushMedia.encour },{ name: "Supprimé", value: pushMedia.supprimé}]} />
           </Suspense>
            
         </ChartContainer>
@@ -120,7 +118,7 @@ function Dashboard() {
         <StatisticCard icon={publicityMailIcon} color='#00C49F' title="PUSH NEWSLETTER" value={typeCampagne.pushNewsLetter} />
         <ChartContainer title="Derniere campagne Push newsletter" titleClass={classes.header_dashboard}>
           <Suspense fallback={<Preloader/>}>
-             <Chart colors={['#00C49F',"#FF0000","#808080","#330c0c"]} values={[{ name: "reçu", value: pushNewsLetter.recu }, { name: "Non reçu", value: pushNewsLetter.nonRecu }, { name: "En cour", value: pushMedia.encour },{ name: "Supprimé", value: pushMedia.supprimé}]}  />
+             <Chart colors={['#00C49F',"#FF0000","#808080","#330c0c"]} values={[{ name: "reçu", value: pushNewsLetter.recu }, { name: "Non reçu", value: pushNewsLetter.nonRecu }, { name: "En cour", value: pushNewsLetter.encour },{ name: "Supprimé", value: pushNewsLetter.supprimé}]}  />
           </Suspense>
         </ChartContainer>
       </div>
@@ -128,7 +126,7 @@ function Dashboard() {
         <StatisticCard icon={socialMediaIcon} color="#0088FE" title="PUSH MARKETING " value={typeCampagne.pushMarketing} />
         <ChartContainer title="Derniere campagne Push Marketing" titleClass={classes.header_dashboard}>
           <Suspense fallback={<Preloader/>}>
-            <Chart colors={["#0088FE","#FF0000","#808080","#330c0c"]} values={[{ name: "reçu", value: pushMarketing.recu }, { name: "Non reçu", value: pushMarketing.nonRecu }, { name: "En cour", value: pushMedia.encour },{ name: "Supprimé", value: pushMedia.supprimé}]}/>
+            <Chart colors={["#0088FE","#FF0000","#808080","#330c0c"]} values={[{ name: "reçu", value: pushMarketing.recu }, { name: "Non reçu", value: pushMarketing.nonRecu }, { name: "En cour", value: pushMarketing.encour },{ name: "Supprimé", value: pushMarketing.supprimé}]}/>
           </Suspense>
         </ChartContainer>
       </div>

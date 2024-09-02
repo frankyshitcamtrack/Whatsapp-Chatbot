@@ -168,6 +168,8 @@ function Campaign() {
     function checkMedia(){
         const type = campaign.media.type;
         const size = campaign.media.size;
+        console.log(type);
+        console.log(size);
         if((type==="image/jpeg" && size > 5242880) || (type==="image/png" && size > 5242880) || (type==="video/mp4" && size > 16777216) || (type==="video/3gp" && size > 16777216)){
          setDisable(false);
         }else{
