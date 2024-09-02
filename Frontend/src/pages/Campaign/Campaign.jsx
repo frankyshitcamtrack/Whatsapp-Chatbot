@@ -27,8 +27,6 @@ function Campaign() {
         id_user: currentUser.id,
         contacts: [],
         nombres_contacts: 0,
-        recu: 0,
-        non_recu: 0,
         media: "",
         mediaType:""
     };

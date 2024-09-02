@@ -108,7 +108,7 @@ async function httpGetPushCampagneById(req,res){
 
 
 async function httpInsertPushCampagne(req,res){
-    const {name,contacts,idTypeCampagnes,content_text,content_media,idType_contact,nombres_contacts, recu,non_recu,id_user} = req.body;
+    const {name,contacts,idTypeCampagnes,content_text,content_media,idType_contact,nombres_contacts,id_user} = req.body;
     const file = req.file;
     const fileName=file?file.filename:null;
     const fileType=file?file.mimetype:null;
@@ -121,7 +121,7 @@ async function httpInsertPushCampagne(req,res){
     const date_creation = dateInYyyyMmDdHhMmSs(date);
     
     try {
-        await insertCampagne(name,+idTypeCampagnes,content_text,mediaPath,date_creation,+idType_contact,+id_user,nombres_contacts, recu, non_recu).then((re)=>{
+        await insertCampagne(name,+idTypeCampagnes,content_text,mediaPath,date_creation,+idType_contact,+id_user,nombres_contacts).then((re)=>{
             if(re.length>0){
                 const idPushCampaigm = re[0].id;
                 if(file && (fileType==='image/jpeg' || fileType==='image/png' || fileType==='image/jpg')){

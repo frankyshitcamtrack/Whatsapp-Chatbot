@@ -24,11 +24,11 @@ async function getCampagneById(id){
 }
 
 
-async function insertCampagne(name,idType_campagnes,content_text,content_media,date_creation,TypeContact,user_id,nombres_contacts, recu, non_recu) {
+async function insertCampagne(name,idType_campagnes,content_text,content_media,date_creation,TypeContact,user_id,nombres_contacts) {
     try{
         pool.query(
-            'INSERT INTO pushs_campagnes SET push_campagne_name= ?,idType_campagnes= ?, content_text= ?, content_media= ?, date_creation= ?, idType_contact= ?, id_user= ?,nombres_contacts= ?, recu= ?, non_recu= ?',
-            [name,idType_campagnes,content_text,content_media,date_creation,TypeContact,user_id,nombres_contacts, recu, non_recu]
+            'INSERT INTO pushs_campagnes SET push_campagne_name= ?,idType_campagnes= ?, content_text= ?, content_media= ?, date_creation= ?, idType_contact= ?, id_user= ?,nombres_contacts= ?',
+            [name,idType_campagnes,content_text,content_media,date_creation,TypeContact,user_id,nombres_contacts]
         );
         const res = await pool.query(`SELECT id FROM pushs_campagnes WHERE isDelete=0 ORDER BY id desc LIMIT 1`);
         return res[0];
