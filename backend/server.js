@@ -8,8 +8,8 @@ const app = require('./app');
 
 //locale
 /* const PORT = process.env.PORT || 8000;
-const server = http.createServer(app);  
- */
+const server = http.createServer(app);   */
+ 
 
 
 //production
@@ -22,7 +22,7 @@ const options = {
   ca: fs.readFileSync('./ssl/camtracknet.ca-bundle'),
 };  
  
-const server = https.createServer(options,app ); 
+const server = https.createServer(options,app );  
 
 
 async function startServer(){
