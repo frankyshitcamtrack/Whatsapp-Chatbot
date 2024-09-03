@@ -116,7 +116,9 @@ async function httpInsertPushCampagne(req,res){
     const hostname = req.get('host')
     const fullUrl = `${protocol}://${hostname}`;
     const formatPhones = formatArrPhones(contacts);
+
     const mediaPath =`${fullUrl}/assets/campaign/${fileName}`;
+    console.log(mediaPath);
     const date = new Date();
     const date_creation = dateInYyyyMmDdHhMmSs(date);
     
@@ -145,14 +147,9 @@ async function httpInsertPushCampagne(req,res){
             } 
         })
 
-      
-      
- 
     } catch (error) {
         console.log(error)
-        return res.status(500).json({
-            error: 'something went wrong with the server'
-        })
+        return res.status(500);
     }
 }
 

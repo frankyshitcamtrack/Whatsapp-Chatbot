@@ -93,6 +93,7 @@ function Campaign() {
         setImageLabel(rawImage.name);
         const formData = new FormData();
         formData.append('media-file', rawImage);
+        
         setCampaign(previewCampaign => ({ ...previewCampaign, content_media: urlMedia, media: rawImage,mediaType:typeMedia }));
         if((type==="jpeg" && size < 5242880) || (type==="png" && size < 5242880) || (type==="mp4" && size < 16777216) || (type==="3gp" && size < 16777216)){
             setDisable(false);
