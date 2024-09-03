@@ -34,11 +34,11 @@ setInterval(()=>{
 
 SaveContact();
 
-app.use(express.static(path.join(__dirname,'backend','public')));
+app.use(express.static(path.join(__dirname,'..','public')));
 
 
 app.get('/*',(req,res)=>{
-    res.sendFile(path.join(__dirname,'backend','public','index.html'))
+    res.sendFile('./index.html')
 })
 
 
