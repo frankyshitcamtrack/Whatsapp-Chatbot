@@ -190,6 +190,53 @@
     .btn{
          justify-content: center;
     }
+    
+    .btn .btn_submit{
+        padding: 0.7rem 3rem;
+        font-size: 12px;
+        max-width: 100%;
+    }
+
+    .input_filelabel{
+        padding: 0.5rem 2rem;
+        font-size: 12px;
+        max-width: 100%;
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+
+    .numberOfWords{
+        font-size: 10px;
+    }
+
+    .preview_content{
+        overflow-y: scroll;
+        max-height: 400px;
+        padding: 0.5rem 1rem;
+        p{
+            font-size: 12px;
+        }
+    
+    }
+
+    .campaign_type{
+        text-align: center;
+        p{
+            font-size: 13px;
+        }
+    } 
+
+    .preview_btn{
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin: 1rem 1rem;
+        button{
+           font-size: 13px;
+           padding :0.5rem 5rem;
+        }
+    }
+ 
 }
 
  

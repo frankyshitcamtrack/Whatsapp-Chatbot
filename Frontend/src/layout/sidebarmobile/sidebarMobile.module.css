@@ -156,7 +156,45 @@ span {
 
 
 @media screen and (max-width: 750px) {
+
     .sidebar_container {
         width: 50%;
     }
+
+    a{
+        
+        p{
+           font-size: 10px;
+        }
+        
+        img{
+            width: 1rem;
+        }
+     }
+
+     .profil_container img {
+        width: 80px;
+        height: 62px;
+    }
+    
+    .copyright {
+        font-size: 9px;
+        text-align: center;
+    }
+
+    .sidebar_container {
+        width: 65%;
+        padding: 0 0.5rem;
+    }
+
+    .menu_item {
+        text-align: center;
+        padding: 5px 30px;
+        
+    }
+
+    .dropdown_menu_container{
+        bottom: 3.6rem;
+    }
+    
 }

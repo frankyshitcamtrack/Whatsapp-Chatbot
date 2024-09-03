@@ -38,3 +38,13 @@
   margin: 2rem 0;
 }
 
+
+@media screen and (max-width:750px) {
+  .container{
+    padding: 0.5rem 0.5rem;
+  }
+
+  .title{
+    top: -1rem;
+  }
+}

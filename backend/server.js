@@ -1,4 +1,5 @@
 const https = require('https');
+
 //const http = require('http');
 const fs = require('fs');
 
@@ -8,7 +9,7 @@ const app = require('./app');
 
 //locale
 /* const PORT = process.env.PORT || 8000;
-const server = http.createServer(app);    */
+const server = http.createServer(app);   */ 
  
 
 
@@ -23,7 +24,7 @@ const options = {
 };  
  
 const server = https.createServer(options,app ); 
-
+ 
 
 async function startServer(){
     server.listen(PORT,()=>(

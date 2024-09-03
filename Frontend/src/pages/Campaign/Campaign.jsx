@@ -254,7 +254,7 @@ function Campaign() {
                                 }
                             </div>
                             <div className={classes.campaign_type}>
-                                <p>Type de campagne: <span>{typeCampaignName}</span></p> <p className={classes.divider}>|</p> <p >A envoyer: <span>{campaign.contacts.length}</span> Contacts</p>
+                                <p>Type de campagne : <span>{typeCampaignName}</span></p> <p className={classes.divider}>|</p> <p >A envoyer : <span>{campaign.contacts.length}</span> Contacts</p>
                             </div>
                             <div className={classes.preview_btn}>
                                 <Button type="button" className={classes.btn_edit} handleClick={displayPreviewCampaign}>Edit</Button>

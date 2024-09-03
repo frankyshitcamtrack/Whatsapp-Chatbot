@@ -9,13 +9,14 @@ export default function MainContext({children}){
     const getInitialState = () => {
         const currentUser = localStorage.getItem("currentUser");
         return currentUser ? JSON.parse(currentUser) : null
-      }
+    }
     const [displaySidebar,setDisplaySidebar]=useState(false);
     const [currentUser,setCurrentUser]=useState(getInitialState);
     const [pathName,setPathName] =useState('');
     const [title,setiTle] =useState('');
     const [previewCampaign,setPreviewCampaign]=useState(false);
     const[dropdownDisplay,setDropdownDisplay] =useState(false);
+    const [isLogIn,setIsLogIn] = useState(false);
     
     
 
@@ -28,7 +29,8 @@ export default function MainContext({children}){
     }
   
     const loginAuth = (user) => {
-        setCurrentUser(user)
+        setCurrentUser(user);
+        setIsLogIn(true);
     }
     
     const logout = () => {

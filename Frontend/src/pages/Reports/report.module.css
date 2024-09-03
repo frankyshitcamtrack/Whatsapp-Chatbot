@@ -109,6 +109,10 @@
     }
 
     .form_group {
-        width: 70%;
+        width: 90%;
+    }
+
+    .input_filter{
+        padding: 0.2rem 1rem;
     }
 }

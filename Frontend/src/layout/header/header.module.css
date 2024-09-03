@@ -64,4 +64,31 @@
     
  }
 
+
+ @media screen and (max-width: 750px) {
+
+    .container{
+        padding: 0.5rem 1rem;
+    }
+    .user_role ,.user_name{
+        font-size: 10px;
+    }
+
+    .toggle_container{
+        gap: 0.5rem;
+
+        p{
+            font-size: 10px;
+        }
+    }
+
+
+    .action_icons img{
+        width: 12px;
+        height: 15px;
+   }
+   
+    
+ }
+
  

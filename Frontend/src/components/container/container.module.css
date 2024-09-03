@@ -21,3 +21,11 @@
 .title p{
     margin: 0px;
 }
+
+@media screen and (max-width:750px){
+    .title p{ 
+        margin: 0;
+        font-size: 17px;
+        text-align: center;
+    }
+ }
