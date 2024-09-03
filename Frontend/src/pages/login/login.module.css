@@ -74,7 +74,6 @@
     border: 1px solid #039BE5;
     height: 68px;
     padding-left: 2rem;
-
 }
 
 .input:focus{
@@ -140,5 +139,34 @@
     }
     
   }
+
+
+
+  @media screen and (max-width: 750px) {
+    .img{
+        width: 150px;
+        height: 130px;
+    }
+
+    .form_div h1{
+      font-size: 1.5rem;
+    }
+
+    .input{
+        height: 40px;
+        padding-left: 1rem;
+    }
+
+    .pass_ico{
+        bottom: 0.8rem;
+        right:  1.5rem;
+        width: 15px;
+    }
+
+    .login_button{
+        height: 40px;
+        font-size: 15px;
+    }
+   }
 
 

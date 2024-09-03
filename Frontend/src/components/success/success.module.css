@@ -6,8 +6,20 @@
     gap: 3rem;
     p{
         font-size: 20px;
-    }
+    } 
+}
 
-   
+@media screen and (max-width:750px){
+    .container{
+        text-align: center;
+        img{
+          width: 100px;
+          height: 89px
+        };
+        p{
+            font-size: 14px;
+        } 
+
+    }
 }
 
