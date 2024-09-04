@@ -149,8 +149,12 @@ async function onSendMessages(req, res) {
           const user = users[findIndex]; // find the user by his index
           user.body = body;
           switch(true){
-  
-            case (user.body === "1" && user.previewMessage === "" && user.flow===""):{
+            case (user.body === "start" && user.previewMessage === "" && user.flow===""):{
+              user.previewMessage ="start";
+              await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+              break;
+            }
+            case (user.body === "1" && user.previewMessage === "start" && user.flow===""):{
               user.previewMessage = user.body;
               user.flow="1";
               await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
@@ -237,9 +241,11 @@ async function onSendMessages(req, res) {
               user.scheduleMessageSent = false;
               break;
             }
+
+          
   
             default:
-             await sendMessages(user.phoneId, user.phone, textMessage.text);
+              ""
           }
          
         }
