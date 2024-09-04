@@ -125,7 +125,7 @@ async function onSendMessages(req, res) {
         
       
         // check if the user client index is not exist in the table user table and finally add the new user
-        if (findIndex < 0 && body==="start") {
+        if (findIndex < 0 && body.toLowerCase()==="start") {
           const newUser = {
             'id': entryID,
             'name': name,
@@ -149,7 +149,7 @@ async function onSendMessages(req, res) {
           const user = users[findIndex]; // find the user by his index
           user.body = body;
           switch(true){
-            case (user.body === "1" && user.previewMessage === "start" && user.flow===""):{
+            case (user.body === "1" && user.previewMessage=== "start" && user.flow===""):{
               user.previewMessage = user.body;
               user.flow="1";
               await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
