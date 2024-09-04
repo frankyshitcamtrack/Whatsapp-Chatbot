@@ -241,11 +241,7 @@ async function onSendMessages(req, res) {
               user.scheduleMessageSent = false;
               break;
             }
-
-          
-  
-            default:
-              ""
+           
           }
          
         }
