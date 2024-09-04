@@ -125,7 +125,7 @@ async function onSendMessages(req, res) {
         
       
         // check if the user client index is not exist in the table user table and finally add the new user
-        if (findIndex < 0) {
+        if (findIndex < 0 && body==="start") {
           const newUser = {
             'id': entryID,
             'name': name,
@@ -149,11 +149,6 @@ async function onSendMessages(req, res) {
           const user = users[findIndex]; // find the user by his index
           user.body = body;
           switch(true){
-            case (user.body === "start" && user.previewMessage === "" && user.flow===""):{
-              user.previewMessage ="start";
-              await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
-              break;
-            }
             case (user.body === "1" && user.previewMessage === "start" && user.flow===""):{
               user.previewMessage = user.body;
               user.flow="1";
@@ -161,22 +156,22 @@ async function onSendMessages(req, res) {
               break;
             }
   
-            case(user.body==="3" && user.previewMessage === "" && user.flow===""):{
+            case(user.body==="3" && user.previewMessage === "start" && user.flow===""):{
              await sendAudiobyId(user.phoneId,user.phone,"857694462782371");
               break;
             }
   
-            case(user.body==="4" && user.previewMessage === "" && user.flow===""):{
+            case(user.body==="4" && user.previewMessage === "start" && user.flow===""):{
              await sendVidbyId(user.phoneId,user.phone,"716903793964115");
               break;
             }
   
-            case(user.body==="5" && user.previewMessage === "" && user.flow===""):{
+            case(user.body==="5" && user.previewMessage === "start" && user.flow===""):{
               await sendDocbyId(user.phoneId,user.phone,"385059230949332");
               break; 
             }
   
-            case(user.body==="6" && user.previewMessage === "" && user.flow===""):{
+            case(user.body==="6" && user.previewMessage === "start" && user.flow===""):{
               await sendMessageList(user.phoneId,user.phone);
               break; 
             }
@@ -226,7 +221,7 @@ async function onSendMessages(req, res) {
               break;
             }
   
-            case (user.body === "2" && user.previewMessage === "" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):{
+            case (user.body === "2" && user.previewMessage === "start" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):{
               user.previewMessage = user.body;
              await sendMessages(user.phoneId, user.phone, textMessage3.text);
               user.scheduleMessageSent = true;
@@ -241,7 +236,8 @@ async function onSendMessages(req, res) {
               user.scheduleMessageSent = false;
               break;
             }
-           
+  
+            default:
           }
          
         }
