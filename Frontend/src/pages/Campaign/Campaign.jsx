@@ -1,5 +1,6 @@
 import { Context } from "../../context/Context";
 import { useContext, useEffect, useState,useRef } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { addCampagne } from "../../services/campagnes.service";
 import { getTypeCampagne } from "../../services/typeCampagne.service";
 import { getContacts } from "../../services/cantacts.service";
@@ -18,6 +19,7 @@ function Campaign() {
     const { previewCampaign, displayPreviewCampaign,currentUser } = useContext(Context);
     const [motsRestant,setMotsRestant]=useState(1000);
     const [actualLength,setActualLength]=useState(0);
+    const navigate = useNavigate();
     const initialCampaign = {
         name: '',
         idTypeCampagnes: '',
@@ -51,8 +53,10 @@ function Campaign() {
             if (res.status===201) {
                 setLoading(false);
                 setDisplaySuccess(prevSuccess => !prevSuccess);
-                setCampaign(initialCampaign);
                 setMediaUploaded(false);
+                setTimeout(()=>{
+                  navigate('/report');
+                },1000)
             } else if (res.status === 500) {
                 setLoading(false);
                 setErrorMessag("Une erreur est survenu au niveau du serveur");
