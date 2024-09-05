@@ -13,7 +13,7 @@ const textMessage = {
 const genericMessage = {
     type: "text",
     text: {
-        preview_url: false, body: `*Vous souhaitez en savoir plus ?*\nVeuillez contacter l’un des numéros ci-dessous\nHotline 1 : https://wa.me/+237691144331\nHotline 2 : https://wa.me/+237677939002`
+        preview_url: false, body: `*Vous souhaitez en savoir plus ?*\nVeuillez contacter l’un des numéros ci-dessous\n\nhttps://wa.me/+237691144331\n\nhttps://wa.me/+237677939002`
     }
 }
 
