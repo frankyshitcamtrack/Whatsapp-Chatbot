@@ -8,7 +8,7 @@ import { useContext } from 'react';
 import { Context } from '../../context/Context';
 
 export default function MobileSidebar({ display }) {
-    const {dropdownDisplay,displayDropdown}=useContext(Context);
+    const {dropdownDisplay,displayDropdown,currentUser}=useContext(Context);
     const url = window.location.href;
     const pathName = url.split('/')[3];
    
@@ -29,11 +29,14 @@ export default function MobileSidebar({ display }) {
                         <NavLink key={item.id}  to={item.path} className={({ isActive }) => (isActive ? classes.active : classes.menu_item)}><img alt={item.title} src={item.icon} /><p>{item.title}</p></NavLink>
                     ))
                 }
-                <li className={`${pathName==='settings' && classes.menu_dropdowwn} ${classes.menu_item}`} onClick={displayDropdown}>
-                  <a><img alt='settings' src={settingIcon}/><p>Settings</p> </a>
-                </li>
+                  {
+                    currentUser.role==="super-admin" &&
+                    <li className={`${pathName==='settings' && classes.menu_dropdowwn} ${classes.menu_item}`} onClick={displayDropdown}>
+                    <a><img alt='settings' src={settingIcon}/><p>Settings</p> </a>
+                   </li>
+                }
                    {
-                    dropdownDisplay &&
+                   (currentUser.role==="super-admin" && dropdownDisplay) &&
                     <div className={classes.dropdown_menu_container}>
                     <span>
                         <NavLink to='/settings/utilisateurs'  className={({ isActive }) => (isActive ? classes.secondaryactive : '')}>
@@ -41,12 +44,12 @@ export default function MobileSidebar({ display }) {
                         </NavLink>
                     </span>
                     <span>
-                        <NavLink to='/settings/type-campagne'  className={({ isActive }) => (isActive ? classes.secondaryactive :'')}>
+                        <NavLink to='/settings/type-campagne' className={({ isActive }) => (isActive ? classes.secondaryactive :'')}>
                             <img alt='campagne' src={dot} /><p>Type de Campagne</p>
                         </NavLink>
                     </span>
                 </div>
-                   }
+                }
                    
                
             </ul>

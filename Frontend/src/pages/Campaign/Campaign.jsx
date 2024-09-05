@@ -1,6 +1,6 @@
 import { Context } from "../../context/Context";
-import { useContext, useEffect, useState,useRef } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { addCampagne } from "../../services/campagnes.service";
 import { getTypeCampagne } from "../../services/typeCampagne.service";
 import { getContacts } from "../../services/cantacts.service";

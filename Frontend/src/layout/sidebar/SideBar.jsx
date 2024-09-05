@@ -8,10 +8,9 @@ import { Context } from '../../context/Context';
 import { useContext } from 'react';
 
 function SideBar() {
- const {dropdownDisplay,displayDropdown}=useContext(Context);
+ const {dropdownDisplay,displayDropdown,currentUser}=useContext(Context);
  const url = window.location.href;
  const pathName = url.split('/')[3];
-
 
     return (
         <div className={classes.sidebar_container} >
@@ -31,11 +30,15 @@ function SideBar() {
                     )
                     )
                 }
-                <li className={`${pathName==='settings' && classes.menu_dropdowwn} ${classes.menu_item}`} onClick={displayDropdown}>
-                  <a><img alt='settings' src={settingIcon}/><p>Settings</p> </a>
-                </li>
+
+                {
+                    currentUser.role==="super-admin" &&
+                    <li className={`${pathName==='settings' && classes.menu_dropdowwn} ${classes.menu_item}`} onClick={displayDropdown}>
+                    <a><img alt='settings' src={settingIcon}/><p>Settings</p> </a>
+                   </li>
+                }
                    {
-                    dropdownDisplay &&
+                   (currentUser.role==="super-admin" && dropdownDisplay) &&
                     <div className={classes.dropdown_menu_container}>
                     <span>
                         <NavLink to='/settings/utilisateurs'  className={({ isActive }) => (isActive ? classes.secondaryactive : '')}>
