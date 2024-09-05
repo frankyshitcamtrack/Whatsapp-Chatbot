@@ -4,6 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Layout from "../layout/Layout";
 
 function PrivateRoute() {
+    
     const { currentUser } = useContext(Context);
 
     const navigate = useNavigate();

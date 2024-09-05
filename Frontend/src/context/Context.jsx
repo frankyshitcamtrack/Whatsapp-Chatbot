@@ -53,7 +53,9 @@ export default function MainContext({children}){
                     break;
             case 'report': setiTle('Historiques')
                     break;
-            case 'setting':setiTle('Configuration')
+            case 'settings/utilisateurs':setiTle('Utilisateurs')
+                    break;
+            case 'settings/type-campagne':setiTle('Types de Campagne')
                     break;
             default:  ''
         }
@@ -62,6 +64,7 @@ export default function MainContext({children}){
     useEffect(() => {
       localStorage.setItem("currentUser", JSON.stringify(currentUser))
     }, [currentUser])
+    
 
     useEffect(()=>{
        getTitle(pathName)

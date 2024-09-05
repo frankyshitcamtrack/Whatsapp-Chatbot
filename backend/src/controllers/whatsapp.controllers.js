@@ -2,7 +2,7 @@ const path = require('path');
 const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification,sendTemplateImageMultiple,sendTemplateNotificationMultiple,sendTemplateVideoMultiple } = require("../models/whatsapp.model");
 const {phoneFormat,formatArrPhones} = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
-const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate } = require("../data/template-massages");
+const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate,genericMessage } = require("../data/template-massages");
 const { developement } = require("../config/whatsappApi");
 const {downloadVideo}=require("../utils/download");
 const {downloadImage}=require('../utils/downloadImg')
@@ -125,6 +125,10 @@ async function onSendMessages(req, res) {
         
       
         // check if the user client index is not exist in the table user table and finally add the new user
+        if (findIndex < 0 && body.toLowerCase()!=="start") {
+          await sendMessages(phone_number_id, phone, genericMessage.text);
+        }
+
         if (findIndex < 0 && body.toLowerCase()==="start") {
           const newUser = {
             'id': entryID,
@@ -144,7 +148,7 @@ async function onSendMessages(req, res) {
           users.push(newUser);
           await sendMessages(phone_number_id, phone, textMessage.text);
         }
-  
+
         if (findIndex >= 0) { // check if the user client index exist in the table user table
           const user = users[findIndex]; // find the user by his index
           user.body = body;

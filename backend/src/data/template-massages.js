@@ -10,6 +10,13 @@ const textMessage = {
     }
 }
 
+const genericMessage = {
+    type: "text",
+    text: {
+        preview_url: false, body: `*Vous souhaitez en savoir plus ?*\nVeuillez contacter l’un des numéros ci-dessous\nHotline 1 : https://wa.me/+237691144331\nHotline 2 : https://wa.me/+237677939002`
+    }
+}
+
 const textMessageMenu1 = {
     type: "text",
     text: {
@@ -84,4 +91,4 @@ function notification(text){
 }
 
 
-module.exports = {notification ,textMessageMenu1,scheduleMeeting, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation,getLocationByDate,askDateMessage }
+module.exports = {notification ,textMessageMenu1,scheduleMeeting, textMessage, textMessage2, textMessage3, serverMessage,askImmatriculation,validMatricul,Location,getLocation,getLocationByDate,askDateMessage,genericMessage }
