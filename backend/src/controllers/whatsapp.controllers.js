@@ -479,10 +479,13 @@ async function onSendTemplateNotificationMultiple(req,res){
 //wiallon endpoints webhooks
 
 async function onSendWialonNotificationMultiple(req,res){
+   const wialonNotif = req.body;
    const getMessageAndExtractNumbers= getMessagesAndNumbers(wialonNotif)
    const message = getMessageAndExtractNumbers.message;
    const numbers = getMessageAndExtractNumbers.numbers;
    
+   console.log(wialonNotif);
+   console.log(numbers);
    if(numbers.length>0){
    try {
     const phoneID = developement.phone_number_id
