@@ -307,11 +307,9 @@ async function onSendNotification(req, res) {
 
   }
   catch (error) {
-    console.error('error of: ', error);                                                         // print the error to console
+    console.error('error of: ', error);   // print the error to console
     return res.status(500).send('Post received, but we have an error!');
   }
-
-
 }
 
 
@@ -459,7 +457,6 @@ async function onSendTemplateVideoMultiple(req,res){
   }
 }
 
-
 async function onSendTemplateNotificationMultiple(req,res){
   try {
     const phoneID = developement.phone_number_id
@@ -468,6 +465,26 @@ async function onSendTemplateNotificationMultiple(req,res){
     const message = req.body.message;
     if (phoneID && phones && message ) {
      await sendTemplateNotificationMultiple(phoneID,phones,message)
+     res.send(200);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('error of: ', error);                                                    
+    return res.status(500).send('Post received, but we have an error!');
+  }
+}
+
+
+async function onSendWialonNotificationMultiple(req,res){
+  console.log('send wialon notifications')
+  const phonesArr = ['655604155','691144324','690503153','691144328']
+  try {
+    const phoneID = developement.phone_number_id
+    const phones = formatArrPhones(phonesArr);
+    const message = req.body;
+    if (phoneID && message ) {
+      await sendTemplateNotificationMultiple(phoneID,phones,message)
      res.send(200);
     } else {
       res.sendStatus(404);
@@ -526,5 +543,6 @@ module.exports = {
   onSendTemplateNotification,
   onSendTemplateVideoMultiple,
   onSendTemplateNotificationMultiple,
-  onSendTemplateImageMultiple
+  onSendTemplateImageMultiple,
+  onSendWialonNotificationMultiple
 }

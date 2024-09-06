@@ -1,6 +1,6 @@
 const express = require('express');
 
-const {onSendMessages,onVerification,onSendNotification,onSendEvidence,onSendImage,onSendTemplateImage,onSendTemplateVideo,onSendTemplateNotification,onSendTemplateImageMultiple,onSendTemplateNotificationMultiple,onSendTemplateVideoMultiple} = require('../controllers/whatsapp.controllers');
+const {onSendMessages,onVerification,onSendNotification,onSendEvidence,onSendImage,onSendTemplateImage,onSendTemplateVideo,onSendTemplateNotification,onSendTemplateImageMultiple,onSendTemplateNotificationMultiple,onSendTemplateVideoMultiple,onSendWialonNotificationMultiple} = require('../controllers/whatsapp.controllers');
 
 const whatsappRouter = express.Router();
 
@@ -43,6 +43,10 @@ whatsappRouter.post('/marketing_notification',onSendTemplateNotification);
 
 // Accepts POST requests for evidencesImage template or alert
 whatsappRouter.post('/bulk_marketing_notification',onSendTemplateNotificationMultiple);
+
+
+//wialon notifications
+whatsappRouter.post('/wialon_notifications',onSendWialonNotificationMultiple);
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
 // info on verification request payload: https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests 
