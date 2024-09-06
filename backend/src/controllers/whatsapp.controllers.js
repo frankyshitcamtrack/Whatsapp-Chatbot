@@ -482,9 +482,9 @@ async function onSendWialonNotificationMultiple(req,res){
   try {
     const phoneID = developement.phone_number_id
     const phones = formatArrPhones(phonesArr);
-    const message = req.body;
+    const message =  JSON.stringify(req.body);
     if (phoneID && message ) {
-      await sendTemplateNotificationMultiple(phoneID,phones,message)
+      await sendTemplateNotificationMultiple(phoneID,phones,message);
      res.send(200);
     } else {
       res.sendStatus(404);
