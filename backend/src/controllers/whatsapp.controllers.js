@@ -478,7 +478,7 @@ async function onSendTemplateNotificationMultiple(req,res){
 
 async function onSendWialonNotificationMultiple(req,res){
   console.log('send wialon notifications evidences')
-  console.log(req);
+  console.log(res);
   const phonesArr = ['655604155','691144324','690503153','691144328']
   try {
     const phoneID = developement.phone_number_id
