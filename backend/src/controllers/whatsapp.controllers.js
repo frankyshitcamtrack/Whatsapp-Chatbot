@@ -5,7 +5,8 @@ const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate,genericMessage } = require("../data/template-massages");
 const { developement } = require("../config/whatsappApi");
 const {downloadVideo}=require("../utils/download");
-const {downloadImage}=require('../utils/downloadImg')
+const {downloadImage}=require('../utils/downloadImg');
+const {getMessagesAndNumbers} = require('../utils/getMessagesAndNumbers')
 const {v4 : uuidv4} = require('uuid');
 
 
@@ -475,19 +476,20 @@ async function onSendTemplateNotificationMultiple(req,res){
   }
 }
 
+//wiallon endpoints webhooks
 
 async function onSendWialonNotificationMultiple(req,res){
-  console.log('send wialon notifications evidences')
-  console.log(req.body);
-
-  const phonesArr = ['655604155','691144324','690503153','691144328']
-  try {
+   const getMessageAndExtractNumbers= getMessagesAndNumbers(wialonNotif)
+   const message = getMessageAndExtractNumbers.message;
+   const numbers = getMessageAndExtractNumbers.numbers;
+   
+   if(numbers.length>0){
+   try {
     const phoneID = developement.phone_number_id
-    const phones = formatArrPhones(phonesArr);
-    const message =  JSON.stringify(req.body);
+    const phones = formatArrPhones(numbers);
     if (phoneID && message ) {
       await sendTemplateNotificationMultiple(phoneID,phones,message);
-     res.send(200);
+      res.send(200);
     } else {
       res.sendStatus(404);
     }
@@ -495,6 +497,7 @@ async function onSendWialonNotificationMultiple(req,res){
     console.error('error of: ', error);                                                    
     return res.status(500).send('Post received, but we have an error!');
   }
+}  
 }
 
 
