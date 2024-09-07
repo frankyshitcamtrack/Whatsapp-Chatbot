@@ -484,13 +484,13 @@ async function onSendWialonNotificationMultiple(req,res){
    const message = getMessageAndExtractNumbers.message;
    const numbers = getMessageAndExtractNumbers.numbers;
    
-   console.log(wialonNotif);
-   console.log(numbers);
+ 
    if(numbers.length>0){
    try {
     const phoneID = developement.phone_number_id
     const phones = formatArrPhones(numbers);
     if (phoneID && message ) {
+      console.log(phones);
       await sendTemplateNotificationMultiple(phoneID,phones,message);
       res.send(200);
     } else {
