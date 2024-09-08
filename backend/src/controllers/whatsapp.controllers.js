@@ -480,6 +480,7 @@ async function onSendTemplateNotificationMultiple(req,res){
 
 async function onSendWialonNotificationMultiple(req,res){
    const wialonNotif = req.body;
+   console.log(wialonNotif);
    const getMessageAndExtractNumbers= getMessagesAndNumbers(wialonNotif)
    const message = getMessageAndExtractNumbers.message;
    const numbers = getMessageAndExtractNumbers.numbers;

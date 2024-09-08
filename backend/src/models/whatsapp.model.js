@@ -534,14 +534,12 @@ async function sendTemplateMatketingVideo(phone_number_id,phone,message,link) {
 
 async function sendTemplateVideoMultiple(phone_number_id,arr,message,link){
   return arr.map( async item=>{
-     console.log(item);
      await sendTemplateVideo(phone_number_id,item,message,link)
   })
 }
 
 async function sendTemplateImageMultiple(phone_number_id,arr,message,link){
   return arr.map( async item=>{
-     console.log(item);
      await sendUtilityTemplateImage(phone_number_id,item,message,link)
   })
 }
