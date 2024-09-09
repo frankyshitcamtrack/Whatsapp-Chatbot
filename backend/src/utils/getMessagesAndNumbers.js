@@ -2,10 +2,11 @@
 
 function getMessagesAndNumbers(req){
     const arr = Object.keys(req).map((key) => [key, req[key]])[0];
-    const message =arr[0].split(',')[0]
-    const whArr = arr[0].split(',')[1]
+    const message =arr[0].split(',whatsapp')[0]
+    const whArr = arr[0].split(',whatsapp')[1]
     const numbers = whArr.split(':')[1].split(';');
-    
+    console.log(message);
+    console.log(numbers);
     return {message,numbers}
 }
 
