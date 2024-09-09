@@ -484,7 +484,6 @@ async function onSendWialonNotificationMultiple(req,res){
    const getMessageAndExtractNumbers= getMessagesAndNumbers(wialonNotif)
    const message = getMessageAndExtractNumbers.message;
    const numbers = getMessageAndExtractNumbers.numbers;
-
    if(numbers.length>0){
    try {
     const phoneID = developement.phone_number_id
