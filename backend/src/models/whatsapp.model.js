@@ -386,7 +386,7 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
 
 
 
-
+//Send template notification ymane
 async function sendTemplateNotification(phone_number_id,phone,message) {
  return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
@@ -425,7 +425,45 @@ async function sendTemplateNotification(phone_number_id,phone,message) {
     });
 }
 
-
+//Send template notification wialon
+async function sendWialonTemplateNotification(phone_number_id,phone,message) {
+  return axios({
+     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+     url:
+       "https://graph.facebook.com/v19.0/" +phone_number_id+"/messages",
+     data:{
+       messaging_product: "whatsapp", 
+       recipient_type: "individual",      
+       to: phone,  
+       "type": "template",
+       "template": {
+         "name": "wialon_notification",
+         "language": {
+           "code": "fr"
+         },
+         "components": [
+           {
+             "type": "body",
+             "parameters": [
+               {
+                 "type": "text",
+                 "text": message
+               },
+             ]
+           }
+         ]
+       }
+     },
+     headers: {
+       'Authorization': `Bearer ${token}`,
+       'Content-Type': 'application/json'
+    }
+   }) 
+     .catch((error) => {
+       console.log(error);
+     });
+ }
+ 
 
 //Marketing bulk
 async function sendTemplateMarketingImage(phone_number_id,phone,message,link) {
@@ -551,6 +589,17 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
   })
 }
 
+
+//wialon multiple messages sent
+async function sendWialonTemplateNotificationMultiple(phone_number_id,arr,message){
+  return arr.map( async item=>{
+     console.log(item);
+     await sendWialonTemplateNotification(phone_number_id,item,message)
+  })
+}
+
+
+
 module.exports = { 
   sendMessages,
   sendInteraction,
@@ -569,7 +618,8 @@ module.exports = {
   sendTemplateVideoMultiple,
   sendTemplateImageMultiple,
   sendTemplateNotificationMultiple,
-
+  sendWialonTemplateNotification,
   sendTemplateMarketingImage,
-  sendTemplateMatketingVideo
+  sendTemplateMatketingVideo,
+  sendWialonTemplateNotificationMultiple
 }

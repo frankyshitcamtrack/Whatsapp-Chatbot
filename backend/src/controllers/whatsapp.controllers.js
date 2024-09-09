@@ -1,5 +1,5 @@
 const path = require('path');
-const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification,sendTemplateImageMultiple,sendTemplateNotificationMultiple,sendTemplateVideoMultiple } = require("../models/whatsapp.model");
+const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification,sendTemplateImageMultiple,sendTemplateNotificationMultiple,sendTemplateVideoMultiple,sendWialonTemplateNotificationMultiple } = require("../models/whatsapp.model");
 const {phoneFormat,formatArrPhones} = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate,genericMessage } = require("../data/template-massages");
@@ -476,8 +476,8 @@ async function onSendTemplateNotificationMultiple(req,res){
   }
 }
 
-//wiallon endpoints webhooks
 
+//wiallon endpoints webhooks
 async function onSendWialonNotificationMultiple(req,res){
    const wialonNotif = req.body;
    console.log(wialonNotif);
@@ -491,7 +491,7 @@ async function onSendWialonNotificationMultiple(req,res){
     const phones = formatArrPhones(numbers);
     if (phoneID && message ) {
       console.log(phones);
-      await sendTemplateNotificationMultiple(phoneID,phones,message);
+      await sendWialonTemplateNotificationMultiple(phoneID,phones,message);
       res.send(200);
     } else {
       res.sendStatus(404);
@@ -537,6 +537,9 @@ async function onSendTemplateImageMultiple(req,res){
     return res.status(500).send('Post received, but we have an error!');
   }
 }
+
+
+
 
 
 module.exports = { 
