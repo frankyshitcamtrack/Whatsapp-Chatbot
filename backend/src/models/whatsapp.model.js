@@ -1,9 +1,11 @@
 const axios = require("axios");
 const { developement } = require("../config/whatsappApi");
+const {formatMessage}=require("../utils/formatMessage");
 
 const token = developement.whatsapp_token;
 
-async function sendMessages(phone_number_id,phone,message) {
+async function sendMessages(phone_number_id,phone,mes) {
+  const message= formatMessage(mes);
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -24,7 +26,8 @@ async function sendMessages(phone_number_id,phone,message) {
     });
 }
 
-async function sendInteraction(phone_number_id,phone,message){
+async function sendInteraction(phone_number_id,phone,mes){
+  const message= formatMessage(mes);
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -45,7 +48,8 @@ async function sendInteraction(phone_number_id,phone,message){
     });
 }
 
-async function sendLocation(phone_number_id,phone,message){
+async function sendLocation(phone_number_id,phone,mes){
+  const message= formatMessage(mes);
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -285,7 +289,8 @@ async function sendMessageList(phone_number_id,phone){
 }
 
 
-async function sendTemplateVideo(phone_number_id,phone,message,link) {
+async function sendTemplateVideo(phone_number_id,phone,mes,link) {
+  const message= formatMessage(mes);
  return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -335,7 +340,8 @@ async function sendTemplateVideo(phone_number_id,phone,message,link) {
 }
 
 
-async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
+async function sendUtilityTemplateImage(phone_number_id,phone,mes,link) {
+  const message= formatMessage(mes);
   return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -387,7 +393,8 @@ async function sendUtilityTemplateImage(phone_number_id,phone,message,link) {
 
 
 //Send template notification ymane
-async function sendTemplateNotification(phone_number_id,phone,message) {
+async function sendTemplateNotification(phone_number_id,phone,mes) {
+  const message= formatMessage(mes);
  return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -426,7 +433,8 @@ async function sendTemplateNotification(phone_number_id,phone,message) {
 }
 
 //Send template notification wialon
-async function sendWialonTemplateNotification(phone_number_id,phone,message) {
+async function sendWialonTemplateNotification(phone_number_id,phone,mes) {
+  const message= formatMessage(mes);
   return axios({
      method: "POST", // Required, HTTP method, a string, e.g. POST, GET
      url:
@@ -466,7 +474,8 @@ async function sendWialonTemplateNotification(phone_number_id,phone,message) {
  
 
 //Marketing bulk
-async function sendTemplateMarketingImage(phone_number_id,phone,message,link) {
+async function sendTemplateMarketingImage(phone_number_id,phone,mes,link) {
+  const message= formatMessage(mes);
   return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -516,7 +525,8 @@ async function sendTemplateMarketingImage(phone_number_id,phone,message,link) {
 }
 
 //Marketing Video bulk
-async function sendTemplateMatketingVideo(phone_number_id,phone,message,link) {
+async function sendTemplateMatketingVideo(phone_number_id,phone,mes,link) {
+  const message= formatMessage(mes);
   return axios({
      method: "POST", // Required, HTTP method, a string, e.g. POST, GET
      url:
