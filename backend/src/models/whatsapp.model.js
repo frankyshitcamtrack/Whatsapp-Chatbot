@@ -6,6 +6,11 @@ const token = developement.whatsapp_token;
 
 async function sendMessages(phone_number_id,phone,mes) {
   const message= formatMessage(mes);
+  const textMessage = {
+    type: "text",
+    text: {
+        preview_url: false, body:message}
+ }
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -15,7 +20,7 @@ async function sendMessages(phone_number_id,phone,mes) {
     recipient_type: "individual",      
     to: phone,    
     "type": "text",     
-    "text":message
+    "text":textMessage.text
   },
     headers: { "Content-Type": "application/json"},
   }).then((response) => {
@@ -609,10 +614,11 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
 
 //wialon multiple messages sent
 async function sendWialonTemplateNotificationMultiple(phone_number_id,arr,message){
+ 
   return arr.map( async item=>{
     if(item){
-      await sendWialonTemplateNotification(phone_number_id,item,message)
-      //await sendMessages(phone_number_id,item,message);
+      //await sendWialonTemplateNotification(phone_number_id,item,message)
+      await sendMessages(phone_number_id,item,message);
     }
     
   })
