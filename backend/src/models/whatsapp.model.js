@@ -578,26 +578,31 @@ async function sendTemplateMatketingVideo(phone_number_id,phone,mes,link) {
  }
  
 
-
-
-
-
 async function sendTemplateVideoMultiple(phone_number_id,arr,message,link){
   return arr.map( async item=>{
-     await sendTemplateVideo(phone_number_id,item,message,link)
+    if(item){
+      await sendTemplateVideo(phone_number_id,item,message,link)
+    }
+     
   })
 }
 
 async function sendTemplateImageMultiple(phone_number_id,arr,message,link){
   return arr.map( async item=>{
-     await sendUtilityTemplateImage(phone_number_id,item,message,link)
+    if(item){
+      await sendUtilityTemplateImage(phone_number_id,item,message,link)
+    }
+     
   })
 }
 
 async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
   return arr.map( async item=>{
-     console.log(item);
-     await sendTemplateNotification(phone_number_id,item,message)
+    if(item){
+      console.log(item);
+      await sendTemplateNotification(phone_number_id,item,message)
+    }
+   
   })
 }
 
@@ -605,7 +610,10 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
 //wialon multiple messages sent
 async function sendWialonTemplateNotificationMultiple(phone_number_id,arr,message){
   return arr.map( async item=>{
-     await sendWialonTemplateNotification(phone_number_id,item,message)
+    if(item){
+      await sendWialonTemplateNotification(phone_number_id,item,message)
+    }
+    
   })
 }
 
