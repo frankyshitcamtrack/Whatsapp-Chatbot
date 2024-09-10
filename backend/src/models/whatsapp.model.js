@@ -435,6 +435,7 @@ async function sendTemplateNotification(phone_number_id,phone,mes) {
 //Send template notification wialon
 async function sendWialonTemplateNotification(phone_number_id,phone,mes) {
   const message= formatMessage(mes);
+  console.log(phone);
   return axios({
      method: "POST", // Required, HTTP method, a string, e.g. POST, GET
      url:
@@ -603,7 +604,6 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
 //wialon multiple messages sent
 async function sendWialonTemplateNotificationMultiple(phone_number_id,arr,message){
   return arr.map( async item=>{
-     console.log(item);
      await sendWialonTemplateNotification(phone_number_id,item,message)
   })
 }
