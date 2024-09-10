@@ -9,7 +9,7 @@ async function sendMessages(phone_number_id,phone,mes) {
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v19.0/" +phone_number_id+"/messages?access_token="+token,
+      "https://graph.facebook.com/v20.0/" +phone_number_id+"/messages?access_token="+token,
     data:{     
     messaging_product: "whatsapp", 
     recipient_type: "individual",      
@@ -294,7 +294,7 @@ async function sendTemplateVideo(phone_number_id,phone,mes,link) {
  return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v19.0/" +phone_number_id+"/messages",
+      "https://graph.facebook.com/v20.0/" +phone_number_id+"/messages",
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      
@@ -345,7 +345,7 @@ async function sendUtilityTemplateImage(phone_number_id,phone,mes,link) {
   return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v19.0/" + phone_number_id +"/messages",
+      "https://graph.facebook.com/v20.0/" + phone_number_id +"/messages",
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      
@@ -398,7 +398,7 @@ async function sendTemplateNotification(phone_number_id,phone,mes) {
  return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v19.0/" +phone_number_id+"/messages",
+      "https://graph.facebook.com/v20.0/" +phone_number_id+"/messages",
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      
@@ -438,7 +438,7 @@ async function sendWialonTemplateNotification(phone_number_id,phone,mes) {
   return axios({
      method: "POST", // Required, HTTP method, a string, e.g. POST, GET
      url:
-       "https://graph.facebook.com/v19.0/" +phone_number_id+"/messages",
+       "https://graph.facebook.com/v20.0/" +phone_number_id+"/messages",
      data:{
        messaging_product: "whatsapp", 
        recipient_type: "individual",      
@@ -479,7 +479,7 @@ async function sendTemplateMarketingImage(phone_number_id,phone,mes,link) {
   return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v19.0/" + phone_number_id +"/messages",
+      "https://graph.facebook.com/v20.0/" + phone_number_id +"/messages",
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      
@@ -530,7 +530,7 @@ async function sendTemplateMatketingVideo(phone_number_id,phone,mes,link) {
   return axios({
      method: "POST", // Required, HTTP method, a string, e.g. POST, GET
      url:
-       "https://graph.facebook.com/v19.0/" +phone_number_id+"/messages",
+       "https://graph.facebook.com/v20.0/" +phone_number_id+"/messages",
      data:{
        messaging_product: "whatsapp", 
        recipient_type: "individual",      
