@@ -436,6 +436,7 @@ async function sendTemplateNotification(phone_number_id,phone,mes) {
 async function sendWialonTemplateNotification(phone_number_id,phone,mes) {
   const message= formatMessage(mes);
   console.log(phone);
+  console.log(message);
   return axios({
      method: "POST", // Required, HTTP method, a string, e.g. POST, GET
      url:

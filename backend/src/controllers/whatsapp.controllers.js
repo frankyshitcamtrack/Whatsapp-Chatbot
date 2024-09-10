@@ -480,7 +480,6 @@ async function onSendTemplateNotificationMultiple(req,res){
 //wiallon endpoints webhooks
 async function onSendWialonNotificationMultiple(req,res){
    const wialonNotif = req.body;
-   console.log(wialonNotif);
    const getMessageAndExtractNumbers= getMessagesAndNumbers(wialonNotif)
    const message = getMessageAndExtractNumbers.message;
    const numbers = getMessageAndExtractNumbers.numbers;
@@ -489,7 +488,6 @@ async function onSendWialonNotificationMultiple(req,res){
     const phoneID = developement.phone_number_id
     const phones = formatArrPhones(numbers);
     if (phoneID && message ) {
-      console.log(phones);
       await sendWialonTemplateNotificationMultiple(phoneID,phones,message);
       res.send(200);
     } else {
