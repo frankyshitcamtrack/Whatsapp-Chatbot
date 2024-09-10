@@ -294,6 +294,7 @@ async function sendMessageList(phone_number_id,phone){
 }
 
 
+//Send template notification ymane image
 async function sendTemplateVideo(phone_number_id,phone,mes,link) {
   const message= formatMessage(mes);
  return axios({
@@ -306,7 +307,7 @@ async function sendTemplateVideo(phone_number_id,phone,mes,link) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "evidence_video",
+        "name": "ymane_notification_video",
         "language": {
           "code": "fr"
         },
@@ -344,7 +345,7 @@ async function sendTemplateVideo(phone_number_id,phone,mes,link) {
     });
 }
 
-
+//Send template notification ymane image
 async function sendUtilityTemplateImage(phone_number_id,phone,mes,link) {
   const message= formatMessage(mes);
   return axios({
@@ -357,7 +358,7 @@ async function sendUtilityTemplateImage(phone_number_id,phone,mes,link) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "evidence_image",
+        "name": "ymane_notification_image",
         "language": {
           "code": "fr"
         },
@@ -396,7 +397,6 @@ async function sendUtilityTemplateImage(phone_number_id,phone,mes,link) {
 }
 
 
-
 //Send template notification ymane
 async function sendTemplateNotification(phone_number_id,phone,mes) {
   const message= formatMessage(mes);
@@ -410,7 +410,7 @@ async function sendTemplateNotification(phone_number_id,phone,mes) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "evidencemessage",
+        "name": "ymane_notifications_messages",
         "language": {
           "code": "fr"
         },
@@ -452,7 +452,7 @@ async function sendWialonTemplateNotification(phone_number_id,phone,mes) {
        to: phone,  
        "type": "template",
        "template": {
-         "name": "wialon_notification",
+         "name": "wialon_notifications",
          "language": {
            "code": "fr"
          },
@@ -582,7 +582,7 @@ async function sendTemplateMatketingVideo(phone_number_id,phone,mes,link) {
      });
  }
  
-
+//ymane multiple video notifications
 async function sendTemplateVideoMultiple(phone_number_id,arr,message,link){
   return arr.map( async item=>{
     if(item){
@@ -592,6 +592,7 @@ async function sendTemplateVideoMultiple(phone_number_id,arr,message,link){
   })
 }
 
+//ymane multiple image notifications
 async function sendTemplateImageMultiple(phone_number_id,arr,message,link){
   return arr.map( async item=>{
     if(item){
@@ -601,6 +602,7 @@ async function sendTemplateImageMultiple(phone_number_id,arr,message,link){
   })
 }
 
+//ymane multiple messages notifications
 async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
   return arr.map( async item=>{
     if(item){
