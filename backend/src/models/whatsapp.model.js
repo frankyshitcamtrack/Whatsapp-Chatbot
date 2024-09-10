@@ -611,12 +611,12 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
 async function sendWialonTemplateNotificationMultiple(phone_number_id,arr,message){
   return arr.map( async item=>{
     if(item){
-      await sendWialonTemplateNotification(phone_number_id,item,message)
+      //await sendWialonTemplateNotification(phone_number_id,item,message)
+      await sendMessages(phone_number_id,item,message);
     }
     
   })
 }
-
 
 
 module.exports = { 
