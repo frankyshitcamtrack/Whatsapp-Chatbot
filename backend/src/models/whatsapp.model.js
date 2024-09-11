@@ -597,8 +597,8 @@ async function sendTemplateVideoMultiple(phone_number_id,arr,mes,link){
   arr.map( async item=>{
     if(item){
       console.log(item);
-      //await sendTemplateVideo(phone_number_id,item,message,link)
-      await sendMediaVideo(phone_number_id,item,link,message)
+      await sendTemplateVideo(phone_number_id,item,message,link)
+      //await sendMediaVideo(phone_number_id,item,link,message)
       .then(res=>{
         console.log(res.data)
       });
@@ -614,8 +614,8 @@ async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
   arr.map( async item=>{
     if(item){
       console.log(item);
-      //await sendUtilityTemplateImage(phone_number_id,item,message,link)
-      await sendMediaImage(phone_number_id,item,link,message)
+      await sendUtilityTemplateImage(phone_number_id,item,message,link)
+      //await sendMediaImage(phone_number_id,item,link,message)
       .then(res=>{
         console.log(res.data)
       });
@@ -631,8 +631,8 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
   arr.map( async item=>{
     if(item){
       console.log(item);
-      //await sendTemplateNotification(phone_number_id,item,message);
-      await sendMessages(phone_number_id,item,message)
+      await sendTemplateNotification(phone_number_id,item,message)
+      //await sendMessages(phone_number_id,item,message)
       .then(res=>{
         console.log(res.data)
       });
