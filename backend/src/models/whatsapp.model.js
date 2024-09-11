@@ -103,7 +103,7 @@ async function sendMediaVideo(phone_number_id, phone, link) {
   axios({
     method: "POST",
     url:
-      "https://graph.facebook.com/v12.0/" + phone_number_id + "/messages?access_token=" + token,
+      "https://graph.facebook.com/v20.0/" + phone_number_id + "/messages?access_token=" + token,
     data: {
       messaging_product: "whatsapp",
       recipient_type: "individual",
@@ -124,7 +124,7 @@ async function sendMediaImage(phone_number_id, phone, link) {
   axios({
     method: "POST",
     url:
-      "https://graph.facebook.com/v12.0/" + phone_number_id + "/messages?access_token=" + token,
+      "https://graph.facebook.com/v20.0/" + phone_number_id + "/messages?access_token=" + token,
     data: {
       messaging_product: "whatsapp",
       recipient_type: "individual",
