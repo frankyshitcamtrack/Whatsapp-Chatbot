@@ -15,7 +15,7 @@ async function WebHookListerer(req, res) {
             console.log(req.body.entry[0].changes[0].value.statuses[0].errors[0]);
             console.log(req.body.entry[0].changes[0].value.statuses[0].errors[0].error_data);
         } else {
-            console.log('-----------------value.statuses--------------')
+            //console.log('-----------------value.statuses--------------')
             const statuses = req.body.entry[0].changes[0].value.statuses[0];
             const id = statuses.id;
             const state = statuses.status;

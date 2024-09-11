@@ -124,8 +124,8 @@ async function onSendMessages(req, res) {
         const findIndex = users.findIndex(item => item.name === name);
         const phone = phoneFormat(from);
         // Check the Incoming webhook message
-        console.log(JSON.stringify(req.body, null, 2));
-        console.log(users);
+       // console.log(JSON.stringify(req.body, null, 2));
+        //console.log(users);
         
       
         // check if the user client index is not exist in the table user table and finally add the new user
