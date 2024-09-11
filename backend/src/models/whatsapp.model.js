@@ -618,7 +618,7 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
 async function sendWialonTemplateNotificationMultiple(phone_number_id,arr,message){
   const newMessage= formatMessage(message);
   return arr.map( async item=>{
-    console.log(phone);
+    console.log(item);
     console.log(newMessage);
     if(item){
       await sendWialonTemplateNotification(phone_number_id,item,newMessage);
