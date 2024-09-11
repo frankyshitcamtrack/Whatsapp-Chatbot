@@ -22,7 +22,7 @@ async function WebHookListerer(req, res) {
             const path =req.url;
             const singleDiscussion= await getDiscussionById(`"${id}"`);
           if(singleDiscussion.length>0 && singleDiscussion[0].id_discussion===id && state!=='accepted' && path==="/bulk_webhook"){
-                console.log(singleDiscussion)
+                //console.log(singleDiscussion)
                 updateStatusDiscussion(id,state);
            } 
         }
