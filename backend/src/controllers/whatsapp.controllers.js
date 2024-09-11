@@ -479,7 +479,7 @@ async function sendSimpleWialonNotification(number, mes){
   await sendMessages(phoneID,number,mes)
    .then((res)=>{
     const data = res.data;
-    console.log(data);
+    console.log(data)
    }
 )
 }
