@@ -122,7 +122,7 @@ async function httpInsertPushCampagne(req,res){
     const formatPhones = formatArrPhones(contacts);
 
     const mediaPath =`${fullUrl}/assets/campaign/${fileName}`;
-    console.log(mediaPath);
+    console.log(formatPhones);
     const date = new Date();
     const date_creation = dateInYyyyMmDdHhMmSs(date);
     

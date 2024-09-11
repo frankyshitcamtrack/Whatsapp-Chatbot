@@ -4,6 +4,8 @@ const {formatMessage}=require("../utils/formatMessage");
 
 const token = developement.whatsapp_token;
 
+//const token = developement.whatsapp_token_bulk;
+
 async function sendMessages(phone_number_id,phone,mes) {
   const message= formatMessage(mes);
   const textMessage = {
