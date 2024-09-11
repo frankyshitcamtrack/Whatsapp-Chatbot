@@ -1,9 +1,10 @@
 const {getCampagne,getCampagneById,insertCampagne,getCampagneWithUserAndTypeCampaignExisting}=require('../../models/ymanebot-models/pushCampagne.model');
-const {sendTemplateMarketingImage,sendTemplateMatketingVideo,sendTemplateNotification}=require('../../models/ymanebot-models/ymane.model');
+const {sendTemplateMarketingImage,sendTemplateMatketingVideo,sendTemplateNotification,sendTemplateVideoMultipleMarketing,sendTemplateImageMultipleMarketing}=require('../../models/ymanebot-models/ymane.model');
 const {insertDiscussion,updateStatusDiscussion, getDiscussionById}=require('../../models/ymanebot-models/discussions.model');
 const { developement } = require("../../config/whatsappApi");
 const {dateInYyyyMmDdHhMmSs}= require("../../utils/formatDate");
 const {formatArrPhones}=require('../../utils/fortmat-phone');
+const {formatMessage}=require("../../utils/formatMessage");
 
 const phonId= developement.phone_number_id;
 
@@ -33,7 +34,8 @@ async function WebHookListerer(req, res) {
 
 
 async function sendSimpleMessage(number,message,idPush){
-   await sendTemplateNotification(phonId,number,message)
+   const mes= formatMessage(message);
+   await sendTemplateNotification(phonId,number,mes)
     .then((res)=>{
         const data = res.data;
         const id_discussion= data.messages[0].id;
@@ -50,7 +52,8 @@ async function sendSimpleMessage(number,message,idPush){
 
 
 async function sendImageMessage(number, message, link,idPush) {
-  await sendTemplateMarketingImage(phonId,number,message,link)
+  const mes= formatMessage(message); 
+  await sendTemplateMarketingImage(phonId,number,mes,link)
    .then((res)=>{
     const data = res.data;
     const id_discussion= data.messages[0].id;
@@ -67,7 +70,8 @@ async function sendImageMessage(number, message, link,idPush) {
 
 
 async function sendVideoMessage(number,message,link,idPush){
-    await sendTemplateMatketingVideo(phonId,number,message,link)
+    const mes= formatMessage(message);
+    await sendTemplateMatketingVideo(phonId,number,mes,link)
     .then((res)=>{
         const data = res.data;
         const id_discussion= data.messages[0].id;
