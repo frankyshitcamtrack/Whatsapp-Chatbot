@@ -627,11 +627,11 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
 
 //wialon multiple messages sent
 async function sendWialonTemplateNotificationMultiple(phone_number_id,arr,message){
-  const newMessage= formatMessage(message);
+  //const newMessage= formatMessage(message);
   return arr.map( async item=>{
     if(item){
-      await sendWialonTemplateNotification(phone_number_id,item,newMessage);
-      //await sendMessages(phone_number_id,item,message);
+      //await sendWialonTemplateNotification(phone_number_id,item,newMessage);
+      await sendMessages(phone_number_id,item,message);
     }
     
   })
