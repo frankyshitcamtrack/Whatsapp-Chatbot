@@ -487,7 +487,7 @@ async function sendSimpleWialonNotification(number, mes){
 //wiallon endpoints webhooks
 async function onSendWialonNotificationMultiple(req,res){
    const wialonNotif = req.body;
-   const getMessageAndExtractNumbers= getMessagesAndNumbers(wialonNotif)
+   const getMessageAndExtractNumbers = getMessagesAndNumbers(wialonNotif)
    const message = getMessageAndExtractNumbers.message;
    const numbers = getMessageAndExtractNumbers.numbers;
    if(numbers.length>0){
