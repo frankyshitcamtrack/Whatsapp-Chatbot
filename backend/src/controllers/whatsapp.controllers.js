@@ -474,8 +474,7 @@ async function onSendTemplateNotificationMultiple(req,res){
 }
 
 //simple wialon notifications
-async function sendSimpleWialonNotification(number, message){
-  const mes= formatMessage(message); 
+async function sendSimpleWialonNotification(number, mes){
   await sendWialonTemplateNotification(phoneID,number,mes)
    .then((res)=>{
     const data = res.data;
@@ -497,7 +496,7 @@ async function onSendWialonNotificationMultiple(req,res){
     if (message) {
       console.log(numbers);
       console.log(phones);
-      
+
       phones.map(item=>{
         if(item){
           sendSimpleWialonNotification(item,message);
