@@ -439,7 +439,8 @@ async function sendTemplateNotification(phone_number_id,phone,mes) {
 
 //Send template notification wialon
 async function sendWialonTemplateNotification(phone_number_id,phone,message) {
-  console.log(+phone);
+  const newPhone = `+${phone}`
+  console.log(newPhone);
   console.log(message);
   return axios({
      method: "POST", // Required, HTTP method, a string, e.g. POST, GET
@@ -448,7 +449,7 @@ async function sendWialonTemplateNotification(phone_number_id,phone,message) {
      data:{
        messaging_product: "whatsapp", 
        recipient_type: "individual",      
-       to: +phone,  
+       to: newPhone,  
        "type": "template",
        "template": {
          "name": "wialon_notifications",
