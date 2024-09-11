@@ -609,7 +609,8 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
   return arr.map( async item=>{
     if(item){
       console.log(item);
-      await sendTemplateNotification(phone_number_id,item,message)
+      //await sendTemplateNotification(phone_number_id,item,message);
+      await sendMessages(phone_number_id,item,message);
     }
    
   })
