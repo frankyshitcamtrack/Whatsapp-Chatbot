@@ -586,7 +586,8 @@ async function sendTemplateMatketingVideo(phone_number_id,phone,mes,link) {
 async function sendTemplateVideoMultiple(phone_number_id,arr,message,link){
   return arr.map( async item=>{
     if(item){
-      await sendTemplateVideo(phone_number_id,item,message,link)
+      //await sendTemplateVideo(phone_number_id,item,message,link)
+      await sendMediaVideo(phone_number_id,item,link);
     }
      
   })
@@ -596,7 +597,8 @@ async function sendTemplateVideoMultiple(phone_number_id,arr,message,link){
 async function sendTemplateImageMultiple(phone_number_id,arr,message,link){
   return arr.map( async item=>{
     if(item){
-      await sendUtilityTemplateImage(phone_number_id,item,message,link)
+      //await sendUtilityTemplateImage(phone_number_id,item,message,link)
+      await sendMediaImage(phone_number_id,item,link);
     }
      
   })
