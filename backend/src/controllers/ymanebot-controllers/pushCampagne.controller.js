@@ -11,9 +11,10 @@ const phonId= developement.phone_number_id;
 
 async function WebHookListerer(req, res) {
     try {
-        if (req.body.entry[0].changes[0].value.statuses[0].errors) {
-            console.log(req.body.entry[0].changes[0].value.statuses[0].errors[0]);
-            console.log(req.body.entry[0].changes[0].value.statuses[0].errors[0].error_data);
+        const Err=req?.body?.entry[0]?.changes[0]?.value?.statuses[0]?.errors
+        if (Err) {
+            console.log(Err[0]);
+            console.log(Err[0]?.error_data);
         } else {
             //console.log('-----------------value.statuses--------------')
             const statuses = req.body.entry[0].changes[0].value.statuses[0];
