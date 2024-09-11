@@ -1,5 +1,5 @@
 const path = require('path');
-const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification,sendTemplateImageMultiple,sendTemplateNotificationMultiple,sendTemplateVideoMultiple,sendWialonTemplateNotificationMultiple } = require("../models/whatsapp.model");
+const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification,sendTemplateImageMultiple,sendTemplateNotificationMultiple,sendTemplateVideoMultiple,sendWialonTemplateNotification } = require("../models/whatsapp.model");
 const {phoneFormat,formatArrPhones} = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate,genericMessage } = require("../data/template-massages");
@@ -8,6 +8,9 @@ const {downloadVideo}=require("../utils/download");
 const {downloadImage}=require('../utils/downloadImg');
 const {getMessagesAndNumbers} = require('../utils/getMessagesAndNumbers')
 const {v4 : uuidv4} = require('uuid');
+ 
+const phoneID = developement.phone_number_id
+const token = developement.whatsapp_token;
 
 
 let users = []
@@ -382,7 +385,6 @@ async function onSendTemplateImage(req, res) {
 
 async function onSendTemplateNotification(req, res) {
   try {
-    const phoneID = developement.phone_number_id
     const phone = phoneFormat(req.body.phone);
     const message = req.body.message;
     if (phoneID && phone && message ) {
@@ -400,7 +402,6 @@ async function onSendTemplateNotification(req, res) {
 
 async function onSendTemplateVideo(req, res) {
   try {
-    const phoneID = developement.phone_number_id
     const phone = phoneFormat(req.body.phone);
     const message = req.body.message;
     const url = req.body.link;
@@ -425,13 +426,10 @@ async function onSendTemplateVideo(req, res) {
 }
 
 
-
 async function onSendTemplateVideoMultiple(req,res){
   try {
-    const phoneID = developement.phone_number_id
     const phoneArr= JSON.parse(req.body.phones.replace(/'/g, '"'));
     const phones = formatArrPhones(phoneArr);
-
     const message = req.body.message;
 
     const url = req.body.link;
@@ -460,7 +458,6 @@ async function onSendTemplateVideoMultiple(req,res){
 
 async function onSendTemplateNotificationMultiple(req,res){
   try {
-    const phoneID = developement.phone_number_id
     const phoneArr= JSON.parse(req.body.phones.replace(/'/g, '"'));
     const phones = formatArrPhones(phoneArr);
     const message = req.body.message;
@@ -476,6 +473,17 @@ async function onSendTemplateNotificationMultiple(req,res){
   }
 }
 
+//simple wialon notifications
+async function sendSimpleWialonNotification(number, message){
+  const mes= formatMessage(message); 
+  await sendWialonTemplateNotification(phoneID,number,mes)
+   .then((res)=>{
+    const data = res.data;
+    console.log(data);
+   }
+)
+}
+ 
 
 //wiallon endpoints webhooks
 async function onSendWialonNotificationMultiple(req,res){
@@ -485,11 +493,17 @@ async function onSendWialonNotificationMultiple(req,res){
    const numbers = getMessageAndExtractNumbers.numbers;
    if(numbers.length>0){
    try {
-    const phoneID = developement.phone_number_id
     const phones = formatArrPhones(numbers);
-    if (phoneID && message) {
-      await sendWialonTemplateNotificationMultiple(phoneID,phones,message);
-      res.send(200);
+    if (message) {
+      console.log(numbers);
+      console.log(phones);
+      
+      phones.map(item=>{
+        if(item){
+          sendSimpleWialonNotification(item,message);
+        }
+      })
+      return res.status(201).json({ ok: true });
     } else {
       res.sendStatus(404);
     }

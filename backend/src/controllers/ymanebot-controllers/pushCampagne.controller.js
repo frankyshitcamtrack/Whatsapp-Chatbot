@@ -127,28 +127,28 @@ async function httpInsertPushCampagne(req,res){
     const date_creation = dateInYyyyMmDdHhMmSs(date);
     
     try {
-        await insertCampagne(name,+idTypeCampagnes,content_text,mediaPath,date_creation,+idType_contact,+id_user,nombres_contacts).then((re)=>{
-            if(re.length>0){
+        await insertCampagne(name, +idTypeCampagnes, content_text, mediaPath, date_creation, +idType_contact, +id_user, nombres_contacts).then((re) => {
+            if (re.length > 0) {
                 const idPushCampaigm = re[0].id;
-                if(file && (fileType==='image/jpeg' || fileType==='image/png' || fileType==='image/jpg')){
-                    formatPhones.map(phone=>{
-                       sendImageMessage(phone,content_text,mediaPath,idPushCampaigm)
-                     })
-                   }
-            
-                   if(file && fileType==='video/mp4'){
-                    formatPhones.map(phone=>{
-                        sendVideoMessage(phone,content_text,mediaPath,idPushCampaigm)
-                     })
-                   }
-            
-                   if(!file){
-                    formatPhones.map(phone=>{
-                        sendSimpleMessage(phone,content_text,idPushCampaigm)
-                     })
-                   }
-                return res.status(201).json({ok:true});
-            } 
+                if (file && (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg')) {
+                    formatPhones.map(phone => {
+                        sendImageMessage(phone, content_text, mediaPath, idPushCampaigm)
+                    })
+                }
+
+                if (file && fileType === 'video/mp4') {
+                    formatPhones.map(phone => {
+                        sendVideoMessage(phone, content_text, mediaPath, idPushCampaigm)
+                    })
+                }
+
+                if (!file) {
+                    formatPhones.map(phone => {
+                        sendSimpleMessage(phone, content_text, idPushCampaigm)
+                    })
+                }
+                return res.status(201).json({ ok: true });
+            }
         })
 
     } catch (error) {

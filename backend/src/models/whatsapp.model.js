@@ -626,7 +626,7 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
 }
 
 
-//wialon multiple messages sent
+/* //wialon multiple messages sent
 async function sendWialonTemplateNotificationMultiple(phone_number_id,arr,message){
   const newMessage = formatMessage(message);
   arr.map( async item=>{
@@ -634,13 +634,13 @@ async function sendWialonTemplateNotificationMultiple(phone_number_id,arr,messag
       await sendWialonTemplateNotification(phone_number_id,item,newMessage)
       .then(res=>{
         const data =res.data
-        console.log(data)
+        console.log(da)
       });
       //await sendMessages(phone_number_id,item,message);
     }
     
   })
-}
+} */
 
 
 module.exports = { 
@@ -664,5 +664,5 @@ module.exports = {
   sendWialonTemplateNotification,
   sendTemplateMarketingImage,
   sendTemplateMatketingVideo,
-  sendWialonTemplateNotificationMultiple
+  
 }
