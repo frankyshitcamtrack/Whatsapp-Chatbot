@@ -619,9 +619,8 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
 
 //wialon multiple messages sent
 async function sendWialonTemplateNotificationMultiple(phone_number_id,arr,message){
-  const newArr= arr.push('+237695215175');
-  console.log(newArr);
-  return newArr.map( async item=>{
+ 
+  return arr.map( async item=>{
     if(item){
       //await sendWialonTemplateNotification(phone_number_id,item,message)
       await sendMessages(phone_number_id,item,message);
