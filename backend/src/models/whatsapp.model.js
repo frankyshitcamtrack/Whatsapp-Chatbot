@@ -418,7 +418,7 @@ async function sendTemplateNotification(phone_number_id,phone,mes) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "ymane_notifications_messages",
+        "name": "wialon_notifications",
         "language": {
           "code": "fr"
         },
