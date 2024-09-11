@@ -99,7 +99,7 @@ async function sendMediaAudio(phone_number_id,phone,link){
     });
 }
 
-async function sendMediaVideo(phone_number_id, phone, link) {
+async function sendMediaVideo(phone_number_id, phone, link,message) {
   axios({
     method: "POST",
     url:
@@ -109,7 +109,10 @@ async function sendMediaVideo(phone_number_id, phone, link) {
       recipient_type: "individual",
       to: phone,
       "type": "video",
-      "video": {"link": link}
+      "video": {
+        "link": link,
+        "caption":message
+      }
     },
 
   }).then((response) => {
@@ -120,7 +123,7 @@ async function sendMediaVideo(phone_number_id, phone, link) {
     });
 }
 
-async function sendMediaImage(phone_number_id, phone, link) {
+async function sendMediaImage(phone_number_id, phone, link,message) {
   axios({
     method: "POST",
     url:
@@ -130,7 +133,10 @@ async function sendMediaImage(phone_number_id, phone, link) {
       recipient_type: "individual",
       to: phone,
       "type": "image",
-      "image": {"link": link}
+      "image": {
+        "link": link,
+        "caption":message
+      }
     },
   }).then((response) => {
     console.log(JSON.stringify(response.data));
@@ -583,22 +589,24 @@ async function sendTemplateMatketingVideo(phone_number_id,phone,mes,link) {
  }
  
 //ymane multiple video notifications
-async function sendTemplateVideoMultiple(phone_number_id,arr,message,link){
+async function sendTemplateVideoMultiple(phone_number_id,arr,mes,link){
+  const message= formatMessage(mes);
   return arr.map( async item=>{
     if(item){
       //await sendTemplateVideo(phone_number_id,item,message,link)
-      await sendMediaVideo(phone_number_id,item,link);
+      await sendMediaVideo(phone_number_id,item,link,message);
     }
      
   })
 }
 
 //ymane multiple image notifications
-async function sendTemplateImageMultiple(phone_number_id,arr,message,link){
+async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
+  const message= formatMessage(mes);
   return arr.map( async item=>{
     if(item){
       //await sendUtilityTemplateImage(phone_number_id,item,message,link)
-      await sendMediaImage(phone_number_id,item,link);
+      await sendMediaImage(phone_number_id,item,link,message);
     }
      
   })
