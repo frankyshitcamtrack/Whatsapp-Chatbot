@@ -460,7 +460,7 @@ async function sendWialonTemplateNotification(phone_number_id,phone,message) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "evidencemessage",
+        "name": "wialon_notifications",
         "language": {
           "code": "fr"
         },
