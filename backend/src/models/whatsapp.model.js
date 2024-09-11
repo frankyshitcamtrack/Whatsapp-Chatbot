@@ -305,7 +305,7 @@ async function sendMessageList(phone_number_id,phone){
 //Send template notification ymane image
 async function sendTemplateVideo(phone_number_id,phone,mes,link) {
   const message= formatMessage(mes);
- return axios({
+  return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
       "https://graph.facebook.com/v20.0/" +phone_number_id+"/messages",
@@ -315,9 +315,9 @@ async function sendTemplateVideo(phone_number_id,phone,mes,link) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "ymane_notification_video",
+        "name": "bulk_video",
         "language": {
-          "code": "fr"
+          "code": "en"
         },
         "components": [
           {
@@ -366,9 +366,9 @@ async function sendUtilityTemplateImage(phone_number_id,phone,mes,link) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "ymane_notification_image",
+        "name": "marketing_bulk",
         "language": {
-          "code": "fr"
+          "code": "en"
         },
         "components": [
           {
@@ -399,9 +399,9 @@ async function sendUtilityTemplateImage(phone_number_id,phone,mes,link) {
       'Content-Type': 'application/json'
    }
   }) 
-    .catch((error) => {
-      console.log(error);
-    });
+     .catch((error) => {
+       console.log(error);
+     });
 }
 
 
@@ -451,40 +451,40 @@ async function sendWialonTemplateNotification(phone_number_id,phone,message) {
   
   const mes= formatMessage(message);
   return axios({
-     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-     url:
-       "https://graph.facebook.com/v20.0/" +phone_number_id+"/messages",
-     data:{
-       messaging_product: "whatsapp", 
-       recipient_type: "individual",      
-       to:phone,  
-       "type": "template",
-       "template": {
-         "name": "wialon_notifications",
-         "language": {
-           "code": "fr"
-         },
-         "components": [
-           {
-             "type": "body",
-             "parameters": [
-               {
-                 "type": "text",
-                 "text": mes
-               },
-             ]
-           }
-         ]
-       }
-     },
-     headers: {
-       'Authorization': `Bearer ${token}`,
-       'Content-Type': 'application/json'
-    }
-   }) 
-     .catch((error) => {
-       console.log(error);
-     });
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v20.0/"+phone_number_id+"/messages",
+    data:{
+      messaging_product: "whatsapp", 
+      recipient_type: "individual",      
+      to: phone,  
+      "type": "template",
+      "template": {
+        "name": "evidencemessage",
+        "language": {
+          "code": "fr"
+        },
+        "components": [
+          {
+            "type": "body",
+            "parameters": [
+              {
+                "type": "text",
+                "text": mes
+              },
+            ]
+          }
+        ]
+      }
+    },
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+   }
+  }) 
+    .catch((error) => {
+      console.log(error);
+    });
  }
  
 
@@ -543,51 +543,51 @@ async function sendTemplateMarketingImage(phone_number_id,phone,mes,link) {
 async function sendTemplateMatketingVideo(phone_number_id,phone,mes,link) {
   const message= formatMessage(mes);
   return axios({
-     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-     url:
-       "https://graph.facebook.com/v20.0/" +phone_number_id+"/messages",
-     data:{
-       messaging_product: "whatsapp", 
-       recipient_type: "individual",      
-       to: phone,  
-       "type": "template",
-       "template": {
-         "name": "bulk_video",
-         "language": {
-           "code": "en"
-         },
-         "components": [
-           {
-             "type": "header",
-             "parameters": [
-               {
-                 "type": "video",
-                 "video": {
-                   "link":link
-                 }
-               }
-             ]
-           },
-           {
-             "type": "body",
-             "parameters": [
-               {
-                 "type": "text",
-                 "text": message
-               },
-             ]
-           }
-         ]
-       }
-     },
-     headers: {
-       'Authorization': `Bearer ${token}`,
-       'Content-Type': 'application/json'
-    }
-   })
-     .catch((error) => {
-       console.log(error);
-     });
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v20.0/" +phone_number_id+"/messages",
+    data:{
+      messaging_product: "whatsapp", 
+      recipient_type: "individual",      
+      to: phone,  
+      "type": "template",
+      "template": {
+        "name": "bulk_video",
+        "language": {
+          "code": "en"
+        },
+        "components": [
+          {
+            "type": "header",
+            "parameters": [
+              {
+                "type": "video",
+                "video": {
+                  "link":link
+                }
+              }
+            ]
+          },
+          {
+            "type": "body",
+            "parameters": [
+              {
+                "type": "text",
+                "text": message
+              },
+            ]
+          }
+        ]
+      }
+    },
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+   }
+  })
+    .catch((error) => {
+      console.log(error);
+    });
  }
  
 //ymane multiple video notifications
