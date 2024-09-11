@@ -593,10 +593,15 @@ async function sendTemplateMatketingVideo(phone_number_id,phone,mes,link) {
 //ymane multiple video notifications
 async function sendTemplateVideoMultiple(phone_number_id,arr,mes,link){
   const message= formatMessage(mes);
-  return arr.map( async item=>{
+  console.log(`ymane_video ${mes}`);
+  arr.map( async item=>{
     if(item){
+      console.log(item);
       //await sendTemplateVideo(phone_number_id,item,message,link)
-      await sendMediaVideo(phone_number_id,item,link,message);
+      await sendMediaVideo(phone_number_id,item,link,message)
+      .then(res=>{
+        console.log(res.data)
+      });
     }
      
   })
@@ -605,22 +610,32 @@ async function sendTemplateVideoMultiple(phone_number_id,arr,mes,link){
 //ymane multiple image notifications
 async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
   const message= formatMessage(mes);
-  return arr.map( async item=>{
+  console.log(`ymane_image ${mes}`);
+  arr.map( async item=>{
     if(item){
+      console.log(item);
       //await sendUtilityTemplateImage(phone_number_id,item,message,link)
-      await sendMediaImage(phone_number_id,item,link,message);
+      await sendMediaImage(phone_number_id,item,link,message)
+      .then(res=>{
+        console.log(res.data)
+      });
     }
      
   })
 }
 
 //ymane multiple messages notifications
-async function sendTemplateNotificationMultiple(phone_number_id,arr,message){
-  return arr.map( async item=>{
+async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
+  const message= formatMessage(mes);
+  console.log(`ymane_message ${message}`);
+  arr.map( async item=>{
     if(item){
       console.log(item);
       //await sendTemplateNotification(phone_number_id,item,message);
-      await sendMessages(phone_number_id,item,message);
+      await sendMessages(phone_number_id,item,message)
+      .then(res=>{
+        console.log(res.data)
+      });
     }
    
   })
