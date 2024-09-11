@@ -13,8 +13,8 @@ async function WebHookListerer(req, res) {
     try {
         const Err=req?.body?.entry[0]?.changes[0]?.value?.statuses[0]?.errors
         if (Err) {
-            console.log(Err[0]);
-            console.log(Err[0]?.error_data);
+            console.log(Err );
+            console.log(Err);
         } else {
             //console.log('-----------------value.statuses--------------')
             const statuses = req.body.entry[0].changes[0].value.statuses[0];
