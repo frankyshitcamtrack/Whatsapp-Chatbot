@@ -446,7 +446,7 @@ async function sendWialonTemplateNotification(phone_number_id,phone,message) {
      data:{
        messaging_product: "whatsapp", 
        recipient_type: "individual",      
-       to: phone,  
+       to: +phone,  
        "type": "template",
        "template": {
          "name": "wialon_notifications",
