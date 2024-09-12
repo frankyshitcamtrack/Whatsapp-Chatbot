@@ -496,11 +496,7 @@ async function onSendWialonNotificationMultiple(req,res){
     const phones = formatArrPhones(numbers);
     if (message) {
       console.log(numbers);
-      console.log(phones);
-
       phones.map(item=>{
-        console.log(item);
-        console.log(item.toString());
         if(item){
           sendSimpleWialonNotification(item,message);
         }
