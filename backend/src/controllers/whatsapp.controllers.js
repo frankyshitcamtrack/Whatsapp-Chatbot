@@ -499,6 +499,9 @@ async function onSendWialonNotificationMultiple(req,res){
       console.log(phones);
 
       phones.map(item=>{
+        console.log(item);
+        const typeNumber = typeof item;
+        console.log(typeNumber);
         if(item){
           sendSimpleWialonNotification(item,message);
         }
