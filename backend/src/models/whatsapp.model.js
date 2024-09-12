@@ -470,7 +470,6 @@ async function sendWialonTemplateNotification(phone_number_id,phone,message) {
   const mes= formatMessage(message);
   const stringPhone= phone.toString();
   const number = `+${stringPhone}`;
-  console.log(stringPhone);
   return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -634,7 +633,7 @@ async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
   console.log(`ymane_image ${mes}`);
   arr.map( async item=>{
     if(item){
-      console.log(item);
+      //console.log(item);
       await sendUtilityTemplateImage(phone_number_id,item,message,link)
       //await sendMediaImage(phone_number_id,item,link,message)
       .then(res=>{
@@ -651,7 +650,7 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
   console.log(`ymane_message ${message}`);
   arr.map( async item=>{
     if(item){
-      console.log(item);
+      //console.log(item);
       await sendTemplateNotification(phone_number_id,item,message)
       //await sendMessages(phone_number_id,item,message)
       .then(res=>{
