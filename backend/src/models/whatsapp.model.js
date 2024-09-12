@@ -482,7 +482,7 @@ async function sendWialonTemplateNotification(phone_number_id,phone,message) {
       "template": {
         "name": "camtrack_notifications",
         "language": {
-          "code": "en_US"
+          "code": "en"
         },
         "components": [
           {
