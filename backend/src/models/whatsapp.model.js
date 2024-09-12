@@ -334,7 +334,7 @@ async function sendTemplateVideo(phone_number_id,phone,mes,link) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "bulk_video",
+        "name": "evidence_video",
         "language": {
           "code": "en"
         },
@@ -385,9 +385,9 @@ async function sendUtilityTemplateImage(phone_number_id,phone,mes,link) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "marketing_bulk",
+        "name": "evidence_image",
         "language": {
-          "code": "en"
+          "code": "fr"
         },
         "components": [
           {
@@ -437,7 +437,7 @@ async function sendTemplateNotification(phone_number_id,phone,mes) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "wialon_notifications",
+        "name": "evidencemessage",
         "language": {
           "code": "fr"
         },
