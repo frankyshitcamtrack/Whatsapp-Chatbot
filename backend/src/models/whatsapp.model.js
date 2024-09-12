@@ -480,9 +480,9 @@ async function sendWialonTemplateNotification(phone_number_id,phone,message) {
       to: stringPhone,  
       "type": "template",
       "template": {
-        "name": "wialon_notifications",
+        "name": "camtrack_notifications",
         "language": {
-          "code": "fr"
+          "code": "en_US"
         },
         "components": [
           {
