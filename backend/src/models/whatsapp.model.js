@@ -11,7 +11,7 @@ async function verifyContacts(phoneArr) {
    return axios({
       method: "POST", // Required, HTTP method, a string, e.g. POST, GET
       url:
-        "/v1/contacts",
+        "https://whattsapi.camtrack.net/webhook/v1/contacts",
       data:{
           "blocking": "wait",
           "contacts":  phoneArr,
