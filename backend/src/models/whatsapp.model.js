@@ -6,6 +6,25 @@ const {formatMessage}=require("../utils/formatMessage");
 
 const token = developement.whatsapp_token_bulk;
 
+async function verifyContacts(phoneArr) {
+  try{
+   return axios({
+      method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+      url:
+        "https://graph.facebook.com/v20.0/v1/contacts",
+      data:{
+          "blocking": "wait",
+          "contacts":  phoneArr,
+          "force_check": true
+        },
+      headers: { "Content-Type": "application/json"},
+    })
+  }catch(err){
+    console.log(err);
+  }
+}
+
+
 async function sendMessages(phone_number_id,phone,mes) {
   const message= formatMessage(mes);
   const textMessage = {
@@ -681,5 +700,5 @@ module.exports = {
   sendWialonTemplateNotification,
   sendTemplateMarketingImage,
   sendTemplateMatketingVideo,
-  
+  verifyContacts
 }

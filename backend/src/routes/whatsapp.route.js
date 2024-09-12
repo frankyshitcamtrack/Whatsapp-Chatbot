@@ -1,6 +1,6 @@
 const express = require('express');
 
-const {onSendMessages,onVerification,onSendNotification,onSendEvidence,onSendImage,onSendTemplateImage,onSendTemplateVideo,onSendTemplateNotification,onSendTemplateImageMultiple,onSendTemplateNotificationMultiple,onSendTemplateVideoMultiple,onSendWialonNotificationMultiple} = require('../controllers/whatsapp.controllers');
+const {onVerifyContacts,onSendMessages,onVerification,onSendNotification,onSendEvidence,onSendImage,onSendTemplateImage,onSendTemplateVideo,onSendTemplateNotification,onSendTemplateImageMultiple,onSendTemplateNotificationMultiple,onSendTemplateVideoMultiple,onSendWialonNotificationMultiple} = require('../controllers/whatsapp.controllers');
 
 const whatsappRouter = express.Router();
 
@@ -19,7 +19,8 @@ whatsappRouter.post('/utility_video',onSendEvidence);
 // Accepts POST requests for evidences or alert
 whatsappRouter.post('/utility_image',onSendImage);
 
-
+//verify contacts
+whatsappRouter.post('/verify_contacts',onVerifyContacts);
 
 // Accepts POST requests for evidencesVideo template or alert
 whatsappRouter.post('/marketing_video', onSendTemplateVideo);

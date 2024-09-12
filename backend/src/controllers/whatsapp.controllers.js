@@ -1,5 +1,5 @@
 const path = require('path');
-const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification,sendTemplateImageMultiple,sendTemplateNotificationMultiple,sendTemplateVideoMultiple,sendWialonTemplateNotification } = require("../models/whatsapp.model");
+const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification,sendTemplateImageMultiple,sendTemplateNotificationMultiple,sendTemplateVideoMultiple,sendWialonTemplateNotification,verifyContacts } = require("../models/whatsapp.model");
 const {phoneFormat,formatArrPhones} = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate,genericMessage } = require("../data/template-massages");
@@ -109,6 +109,30 @@ async function getPositionVehicleByDate(user){
     await sendMessages(user.phoneId,user.phone, message)
   } 
 }
+
+
+//verify contact
+async function onVerifyContacts(req,res){
+  try {
+    console.log(arrPhones);
+    console.log(phone);
+    const arrPhones =req.body.phones;
+    const phone = phoneFormat(arrPhones);
+    if (phone) {
+      const verification = await verifyContacts(phone);
+      console.log(verification);
+      return res.status(200).json({ result: verification })
+    } else {
+      res.sendStatus(404);
+    }
+
+  }
+  catch (error) {
+    console.error('error of: ', error);   // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
+  }
+}
+
 
 //Send whatsapp message
 async function onSendMessages(req, res) {
@@ -564,5 +588,6 @@ module.exports = {
   onSendTemplateVideoMultiple,
   onSendTemplateNotificationMultiple,
   onSendTemplateImageMultiple,
-  onSendWialonNotificationMultiple
+  onSendWialonNotificationMultiple,
+  onVerifyContacts
 }
