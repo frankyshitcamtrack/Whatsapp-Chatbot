@@ -469,6 +469,7 @@ async function sendTemplateNotification(phone_number_id,phone,mes) {
 async function sendWialonTemplateNotification(phone_number_id,phone,message) {
   const mes= formatMessage(message);
   const stringPhone= phone.toString();
+  const number = `+${stringPhone}`;
   console.log(stringPhone);
   return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
@@ -477,7 +478,7 @@ async function sendWialonTemplateNotification(phone_number_id,phone,message) {
     data:{
       messaging_product: "whatsapp", 
       recipient_type: "individual",      
-      to: stringPhone,  
+      to: number,  
       "type": "template",
       "template": {
         "name": "camtrack_notifications",
