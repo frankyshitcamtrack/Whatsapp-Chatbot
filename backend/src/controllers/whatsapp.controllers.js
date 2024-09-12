@@ -114,10 +114,10 @@ async function getPositionVehicleByDate(user){
 //verify contact
 async function onVerifyContacts(req,res){
   try {
-    console.log(arrPhones);
-    console.log(phone);
     const arrPhones =req.body.phones;
     const phone = phoneFormat(arrPhones);
+    console.log(arrPhones)
+    console.log(phone);
     if (phone) {
       const verification = await verifyContacts(phone);
       console.log(verification);
