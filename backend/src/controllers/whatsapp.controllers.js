@@ -1,5 +1,5 @@
 const path = require('path');
-const { sendMessages, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification,sendTemplateImageMultiple,sendTemplateNotificationMultiple,sendTemplateVideoMultiple,sendWialonTemplateNotification,verifyContacts } = require("../models/whatsapp.model");
+const { sendMessages,sendTemplateConsent, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification,sendTemplateImageMultiple,sendTemplateNotificationMultiple,sendTemplateVideoMultiple,sendWialonTemplateNotification,verifyContacts } = require("../models/whatsapp.model");
 const {phoneFormat,formatArrPhones} = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage,getLocationByDate,genericMessage } = require("../data/template-massages");
@@ -153,8 +153,12 @@ async function onSendMessages(req, res) {
         
       
         // check if the user client index is not exist in the table user table and finally add the new user
-        if (findIndex < 0 && body.toLowerCase()!=="start") {
+        if (findIndex < 0 && body.toLowerCase()!=="start" && body.toLowerCase()!=="consent") {
           await sendMessages(phone_number_id, phone, genericMessage.text);
+        }
+
+        if (findIndex < 0 && body.toLowerCase()==="consent") {
+          await sendTemplateConsent(phone_number_id,phone);
         }
 
         if (findIndex < 0 && body.toLowerCase()==="start") {

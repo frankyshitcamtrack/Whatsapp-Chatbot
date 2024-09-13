@@ -26,12 +26,7 @@ async function verifyContacts(phoneArr) {
 
 
 async function sendMessages(phone_number_id,phone,mes) {
-  const message= formatMessage(mes);
-  const textMessage = {
-    type: "text",
-    text: {
-        preview_url: false, body:message}
- }
+ 
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
@@ -41,7 +36,7 @@ async function sendMessages(phone_number_id,phone,mes) {
     recipient_type: "individual",      
     to: phone,    
     "type": "text",     
-    "text":textMessage.text
+    "text":mes
   },
     headers: { "Content-Type": "application/json"},
   }).then((response) => {
@@ -319,6 +314,47 @@ async function sendMessageList(phone_number_id,phone){
       console.log(error);
     });
 }
+
+
+//Send template notification ymane
+async function sendTemplateConsent(phone_number_id,phone) {
+ return axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url:
+      "https://graph.facebook.com/v20.0/" +phone_number_id+"/messages",
+    data:{
+      messaging_product: "whatsapp", 
+      recipient_type: "individual",      
+      to: phone,  
+      "type": "template",
+      "template": {
+        "name": "consent_terms",
+        "language": {
+          "code": "fr"
+        },
+        "components": [
+          {
+            "type": "body",
+            "parameters": [
+              {
+                "type": "text",
+                "text": phone
+              },
+            ]
+          }
+        ]
+      }
+    },
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+   }
+  }) 
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
 
 
 //Send template notification ymane image
@@ -700,5 +736,6 @@ module.exports = {
   sendWialonTemplateNotification,
   sendTemplateMarketingImage,
   sendTemplateMatketingVideo,
-  verifyContacts
+  verifyContacts,
+  sendTemplateConsent
 }
