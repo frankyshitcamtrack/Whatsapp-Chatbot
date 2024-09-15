@@ -519,19 +519,20 @@ async function onSendWialonNotificationMultiple(req,res){
    const numbers = getMessageAndExtractNumbers.numbers;
    if(numbers.length>0){
    try {
-    const phones = formatArrPhones(numbers);
-    if (message) {
-      phones.map(item=>{
-        if(item){
-          setTimeout(()=>{
-            sendSimpleWialonNotification(item,message);
-          },7200000)
-        }
-      })
-      return res.status(201).json({ ok: true });
-    } else {
-      res.sendStatus(404);
-    }
+    setTimeout(()=>{
+      const phones = formatArrPhones(numbers);
+      if (message) {
+        phones.map(item=>{
+          if(item){
+              sendSimpleWialonNotification(item,message);
+          }
+        })
+        return res.status(201).json({ ok: true });
+      } else {
+        res.sendStatus(404);
+      }
+    },7200000)
+  
   } catch (error) {
     console.error('error of: ', error);                                                    
     return res.status(500).send('Post received, but we have an error!');
