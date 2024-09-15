@@ -471,10 +471,8 @@ async function onSendTemplateVideoMultiple(req,res){
     const video = await downloadVideo(url, downloadPath, fullUrl);
 
     if (phoneID && phones && video) {
-      setTimeout(async () => {
         await sendTemplateVideoMultiple(phoneID, phones, message, video);
         res.send(200)
-      }, 2700000)
     } else {
       res.sendStatus(404);
     }
@@ -490,10 +488,7 @@ async function onSendTemplateNotificationMultiple(req,res){
     const phones = formatArrPhones(phoneArr);
     const message = req.body.message;
     if (phoneID && phones && message ) {
-      setTimeout(async ()=>{
-        await sendTemplateNotificationMultiple(phoneID,phones,message);
-      },2700000)
-    
+     await sendTemplateNotificationMultiple(phoneID,phones,message);
      res.send(200);
     } else {
       res.sendStatus(404);
@@ -565,11 +560,8 @@ async function onSendTemplateImageMultiple(req,res){
     const media = await downloadImage(img,downloadPath,fullUrl);
 
     if (phoneID && phones && media) {
-      console.log(media)
-      setTimeout(async()=>{
         await sendTemplateImageMultiple(phoneID, phones, message, media)
         res.json(200);
-      },2700000)
     } else {
       res.sendStatus(404);
     }
