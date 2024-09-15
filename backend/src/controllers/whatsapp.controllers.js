@@ -474,7 +474,7 @@ async function onSendTemplateVideoMultiple(req,res){
       setTimeout(async () => {
         await sendTemplateVideoMultiple(phoneID, phones, message, video);
         res.send(200)
-      }, 900000)
+      }, 2700000)
     } else {
       res.sendStatus(404);
     }
@@ -492,7 +492,7 @@ async function onSendTemplateNotificationMultiple(req,res){
     if (phoneID && phones && message ) {
       setTimeout(async ()=>{
         await sendTemplateNotificationMultiple(phoneID,phones,message);
-      },900000)
+      },2700000)
     
      res.send(200);
     } else {
@@ -530,7 +530,7 @@ async function onSendWialonNotificationMultiple(req,res){
         if(item){
           setTimeout(()=>{
             sendSimpleWialonNotification(item,message);
-          },900000)
+          },2700000)
         }
       })
       return res.status(201).json({ ok: true });
@@ -569,7 +569,7 @@ async function onSendTemplateImageMultiple(req,res){
       setTimeout(async()=>{
         await sendTemplateImageMultiple(phoneID, phones, message, media)
         res.json(200);
-      },900000)
+      },2700000)
     } else {
       res.sendStatus(404);
     }
