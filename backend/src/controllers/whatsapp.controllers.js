@@ -531,7 +531,7 @@ async function onSendWialonNotificationMultiple(req,res){
       } else {
         res.sendStatus(404);
       }
-    },7200000)
+    },18000000)
   
   } catch (error) {
     console.error('error of: ', error);                                                    
