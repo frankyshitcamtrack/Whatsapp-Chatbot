@@ -474,7 +474,7 @@ async function onSendTemplateVideoMultiple(req,res){
       setTimeout(async () => {
         await sendTemplateVideoMultiple(phoneID, phones, message, video);
         res.send(200)
-      }, 15000)
+      }, 900000)
     } else {
       res.sendStatus(404);
     }
@@ -490,7 +490,10 @@ async function onSendTemplateNotificationMultiple(req,res){
     const phones = formatArrPhones(phoneArr);
     const message = req.body.message;
     if (phoneID && phones && message ) {
-     await sendTemplateNotificationMultiple(phoneID,phones,message)
+      setTimeout(async ()=>{
+        await sendTemplateNotificationMultiple(phoneID,phones,message);
+      },900000)
+    
      res.send(200);
     } else {
       res.sendStatus(404);
@@ -525,7 +528,9 @@ async function onSendWialonNotificationMultiple(req,res){
     if (message) {
       phones.map(item=>{
         if(item){
-          sendSimpleWialonNotification(item,message);
+          setTimeout(()=>{
+            sendSimpleWialonNotification(item,message);
+          },900000)
         }
       })
       return res.status(201).json({ ok: true });
@@ -564,7 +569,7 @@ async function onSendTemplateImageMultiple(req,res){
       setTimeout(async()=>{
         await sendTemplateImageMultiple(phoneID, phones, message, media)
         res.json(200);
-      },10000)
+      },900000)
     } else {
       res.sendStatus(404);
     }
