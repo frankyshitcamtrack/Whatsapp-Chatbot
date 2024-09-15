@@ -525,7 +525,7 @@ async function onSendWialonNotificationMultiple(req,res){
         if(item){
           setTimeout(()=>{
             sendSimpleWialonNotification(item,message);
-          },2700000)
+          },7200000)
         }
       })
       return res.status(201).json({ ok: true });
