@@ -506,11 +506,11 @@ async function sendSimpleWialonNotification(number, mes){
   const message={preview_url: false, body:fm}
   //await sendWialonTemplateNotification(phoneID,number,mes)
  await sendMessages(phoneID,number,message)
-   .then((res)=>{
+  /*  .then((res)=>{
     const data = res.data;
     console.log(data)
-   }
-)
+   } 
+)*/
 }
  
 
