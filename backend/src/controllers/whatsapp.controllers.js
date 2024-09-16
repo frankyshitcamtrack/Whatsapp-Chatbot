@@ -501,8 +501,8 @@ async function onSendTemplateNotificationMultiple(req,res){
 
 //simple wialon notifications
 async function sendSimpleWialonNotification(number, mes){
-  await sendWialonTemplateNotification(phoneID,number,mes)
- // await sendMessages(phoneID,number,mes)
+  //await sendWialonTemplateNotification(phoneID,number,mes)
+ await sendMessages(phoneID,number,mes)
    .then((res)=>{
     const data = res.data;
     console.log(data)
