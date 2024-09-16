@@ -6,7 +6,8 @@ const {notification, textMessageMenu1,scheduleMeeting, textMessage, textMessage3
 const { developement } = require("../config/whatsappApi");
 const {downloadVideo}=require("../utils/download");
 const {downloadImage}=require('../utils/downloadImg');
-const {getMessagesAndNumbers} = require('../utils/getMessagesAndNumbers')
+const {getMessagesAndNumbers} = require('../utils/getMessagesAndNumbers');
+const {formatMessage}=require('../utils/formatMessage')
 const {v4 : uuidv4} = require('uuid');
  
 const phoneID = developement.phone_number_id
