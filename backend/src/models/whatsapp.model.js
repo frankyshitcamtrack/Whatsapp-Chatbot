@@ -26,7 +26,6 @@ async function verifyContacts(phoneArr) {
 
 
 async function sendMessages(phone_number_id,phone,mes) {
- 
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url:
