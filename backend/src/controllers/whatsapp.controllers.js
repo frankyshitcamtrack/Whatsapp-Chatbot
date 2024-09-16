@@ -11,7 +11,7 @@ const {v4 : uuidv4} = require('uuid');
  
 const phoneID = developement.phone_number_id
 const token = developement.whatsapp_token;
-
+const timout =1800000;
 
 let users = []
 
@@ -531,7 +531,7 @@ async function onSendWialonNotificationMultiple(req,res){
       } else {
         res.sendStatus(404);
       }
-    },18000000)
+    },timout)
   
   } catch (error) {
     console.error('error of: ', error);                                                    
