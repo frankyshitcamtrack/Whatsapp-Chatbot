@@ -356,7 +356,7 @@ async function sendTemplateConsent(phone_number_id,phone) {
 
 
 
-//Send template notification ymane image
+//Send template notification ymane video
 async function sendTemplateVideo(phone_number_id,phone,mes,link) {
   const message= formatMessage(mes);
   return axios({
@@ -651,11 +651,8 @@ async function sendTemplateVideoMultiple(phone_number_id,arr,mes,link){
   console.log(`ymane_video ${mes}`);
   arr.map( async item=>{
     if(item){
-      setTimeout(async()=>{
-        console.log(item);
-        await sendTemplateVideo(phone_number_id,item,message,link)
-      },2700000)
       //await sendMediaVideo(phone_number_id,item,link,message)
+      await sendTemplateVideo(phone_number_id,item,message,link)
       .then(res=>{
         console.log(res.data)
       });
@@ -671,12 +668,8 @@ async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
   arr.map( async item=>{
     if(item){
       //console.log(item);
-      setTimeout(async()=>{
-        console.log(item);
-        await sendUtilityTemplateImage(phone_number_id,item,message,link);
-      },2700000)
-      
       //await sendMediaImage(phone_number_id,item,link,message)
+      await sendUtilityTemplateImage(phone_number_id,item,message,link)
       .then(res=>{
         console.log(res.data)
       });
@@ -692,12 +685,8 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
   arr.map( async item=>{
     if(item){
       //console.log(item);
-      setTimeout(async()=>{
-        console.log(item);
-        await sendTemplateNotification(phone_number_id,item,message);
-      },2700000)
-      
-      //await sendMessages(phone_number_id,item,message)
+       //await sendMessages(phone_number_id,item,message)
+      await sendTemplateNotification(phone_number_id,item,message)
       .then(res=>{
         console.log(res.data)
       });
