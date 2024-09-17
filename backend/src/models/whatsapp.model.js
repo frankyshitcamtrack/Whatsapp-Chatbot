@@ -327,7 +327,7 @@ async function sendTemplateConsent(phone_number_id,phone) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "consent_terms",
+        "name": "opt_in_consent",
         "language": {
           "code": "fr"
         },
@@ -540,7 +540,7 @@ async function sendWialonTemplateNotification(phone_number_id,phone,message) {
     .catch((error) => {
       console.log(error);
     });
- }
+}
  
 
 //Marketing bulk
