@@ -35,7 +35,7 @@ async function sendMessages(phone_number_id,phone,mes) {
     recipient_type: "individual",      
     to: phone,    
     "type": "text",     
-    "text":mes
+    "text":{ preview_url: false, body: mes }
   },
     headers: { "Content-Type": "application/json"},
   }).then((response) => {
@@ -667,7 +667,6 @@ async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
       //console.log(item);
       await sendMediaImage(phone_number_id,item,link,message)
       //await sendUtilityTemplateImage(phone_number_id,item,message,link)
-      
     }
      
   })
