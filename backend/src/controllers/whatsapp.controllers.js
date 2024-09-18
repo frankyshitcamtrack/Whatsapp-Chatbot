@@ -155,7 +155,7 @@ async function onSendMessages(req, res) {
       
         // check if the user client index is not exist in the table user table and finally add the new user
         if (findIndex < 0 && body.toLowerCase()!=="start" && body.toLowerCase()!=="consent") {
-          await sendMessages(phone_number_id, phone, genericMessage.text);
+          await sendMessages(phone_number_id, phone, genericMessage.text.body);
         }
 
         if (findIndex < 0 && body.toLowerCase()==="consent") {
@@ -179,7 +179,7 @@ async function onSendMessages(req, res) {
             'dateMessage':false,
           }
           users.push(newUser);
-          await sendMessages(phone_number_id, phone, textMessage.text);
+          await sendMessages(phone_number_id, phone, textMessage.text.body);
         }
 
         if (findIndex >= 0) { // check if the user client index exist in the table user table
@@ -189,7 +189,7 @@ async function onSendMessages(req, res) {
             case (user.body === "1" && user.previewMessage=== "start" && user.flow===""):{
               user.previewMessage = user.body;
               user.flow="1";
-              await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+              await sendMessages(user.phoneId, user.phone,textMessageMenu1.text.body);
               break;
             }
   
@@ -214,26 +214,26 @@ async function onSendMessages(req, res) {
             }
   
             case (user.flow==="1" && user.previewMessage === "1" && user.body==="2"):{
-            await  sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+            await  sendMessages(user.phoneId,user.phone,askImmatriculation.text.body);
               user.previewMessage="2";
               user.matriculeQuestionSent=true;
               break;
             }
   
             case (user.flow==="1" && user.previewMessage === "1" && user.body==="1" &&  user.matriculeQuestionSent===false):{
-             await sendMessages(user.phoneId,user.phone,askImmatriculation.text);
+             await sendMessages(user.phoneId,user.phone,askImmatriculation.text.body);
               user.matriculeQuestionSent=true;
               user.previewMessage="1";
               break;
             }
   
             case(user.flow==="1" && user.previewMessage === "1" && user.body!=="1" &&  user.matriculeQuestionSent===false):{
-             await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+             await sendMessages(user.phoneId, user.phone,textMessageMenu1.text.body);
               break;
             }
   
             case(user.flow==="1" && user.previewMessage === "1" && user.body!=="2" &&  user.matriculeQuestionSent===false ):{
-             await sendMessages(user.phoneId, user.phone,textMessageMenu1.text);
+             await sendMessages(user.phoneId, user.phone,textMessageMenu1.text.body);
               break;
             }
   
@@ -246,7 +246,7 @@ async function onSendMessages(req, res) {
             case (user.flow==="1" && user.previewMessage === "2" && user.matriculeQuestionSent===true && user.dateMessage===false):{
               let vehicleImmat = user.body
               user.vehicleNumber=vehicleImmat.replace(/\s+/g,"");
-             await sendMessages(user.phoneId,user.phone,askDateMessage.text);
+             await sendMessages(user.phoneId,user.phone,askDateMessage.text.body);
               user.dateMessage=true;
               break;
             }
@@ -260,7 +260,7 @@ async function onSendMessages(req, res) {
   
             case (user.body === "2" && user.previewMessage === "start" && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false && user.scheduleMessageSent === false):{
               user.previewMessage = user.body;
-             await sendMessages(user.phoneId, user.phone, textMessage3.text);
+             await sendMessages(user.phoneId, user.phone, textMessage3.text.body);
               user.scheduleMessageSent = true;
               break;
             }
@@ -268,7 +268,7 @@ async function onSendMessages(req, res) {
             case (user.previewMessage === "2" && user.scheduleMessageSent === true && user.flow==="" && user.dateMessage===false && user.matriculeQuestionSent===false):{
               user.body = body
               const visit = scheduleMeeting(user.body, user.name);
-             await sendMessages(user.phoneId, user.phone, visit.text);
+             await sendMessages(user.phoneId, user.phone, visit.text.body);
               user.previewMessage = "";
               user.scheduleMessageSent = false;
               break;
