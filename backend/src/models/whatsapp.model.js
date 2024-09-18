@@ -653,9 +653,6 @@ async function sendTemplateVideoMultiple(phone_number_id,arr,mes,link){
     if(item){
       await sendMediaVideo(phone_number_id,item,link,message)
       //await sendTemplateVideo(phone_number_id,item,message,link)
-      .then(res=>{
-        console.log(res.data)
-      });
     }
      
   })
@@ -670,9 +667,7 @@ async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
       //console.log(item);
       await sendMediaImage(phone_number_id,item,link,message)
       //await sendUtilityTemplateImage(phone_number_id,item,message,link)
-      .then(res=>{
-        console.log(res.data)
-      });
+      
     }
      
   })
@@ -687,9 +682,6 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
       //console.log(item);
       await sendMessages(phone_number_id,item,message)
       //await sendTemplateNotification(phone_number_id,item,message)
-      .then(res=>{
-        console.log(res.data)
-      });
     }
    
   })
