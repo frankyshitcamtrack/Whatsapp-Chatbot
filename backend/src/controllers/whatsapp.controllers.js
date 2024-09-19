@@ -1,4 +1,5 @@
 const path = require('path');
+
 const { sendMessages,sendTemplateConsent, sendMediaAudio,sendMediaDocument,sendMediaImage,sendMediaVideo,sendAudiobyId,sendDocbyId,sendVidbyId,sendMessageList,sendUtilityTemplateImage,sendTemplateVideo,sendTemplateNotification,sendTemplateImageMultiple,sendTemplateNotificationMultiple,sendTemplateVideoMultiple,sendWialonTemplateNotification,verifyContacts } = require("../models/whatsapp.model");
 const {phoneFormat,formatArrPhones} = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
@@ -577,8 +578,10 @@ async function onSendTemplateImageMultiple(req,res){
   }
 }
 
+/* async function onSendConstent(){
 
-
+}
+ */
 
 
 module.exports = { 
