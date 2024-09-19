@@ -473,8 +473,9 @@ async function onSendTemplateVideoMultiple(req,res){
     const video = await downloadVideo(url, downloadPath, fullUrl);
 
     if (phoneID && phones && video) {
-      console.log(video);
-      await sendTemplateVideoMultiple(phoneID, phones, message, video);
+      setTimeout(async()=>{
+       await sendTemplateVideoMultiple(phoneID, phones, message, video);
+      },100000)
       res.send(200)
     } else {
       res.sendStatus(404);
