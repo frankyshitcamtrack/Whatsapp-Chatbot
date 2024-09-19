@@ -371,7 +371,7 @@ async function sendTemplateVideo(phone_number_id,phone,mes,link) {
       "template": {
         "name": "evidence_video",
         "language": {
-          "code": "en"
+          "code": "fr"
         },
         "components": [
           {
