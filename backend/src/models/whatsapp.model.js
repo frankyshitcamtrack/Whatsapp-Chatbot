@@ -653,9 +653,8 @@ async function sendTemplateVideoMultiple(phone_number_id,arr,mes,link){
     if(item){
       await sendMediaVideo(phone_number_id,item,link,message)
       //await sendTemplateVideo(phone_number_id,item,message,link)
-    }
-     
-  })
+    }  
+  })                   
 }
 
 //ymane multiple image notifications
@@ -674,13 +673,14 @@ async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
 
 //ymane multiple messages notifications
 async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
-  const message= formatMessage(mes);
-  console.log(`ymane_message ${message}`);
+  //const message= formatMessage(mes);
+  console.log(`ymane_message ${mes}`);
   arr.map( async item=>{
     if(item){
       //console.log(item);
-      await sendMessages(phone_number_id,item,message)
+      await sendMessages(phone_number_id,item,mes)
       //await sendTemplateNotification(phone_number_id,item,message)
+      
     }
    
   })
