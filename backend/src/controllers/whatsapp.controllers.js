@@ -429,7 +429,7 @@ async function onSendTemplateNotification(req, res) {
   }
 }
 
-
+//send single template
 async function onSendTemplateVideo(req, res) {
   try {
     const phone = phoneFormat(req.body.phone);
@@ -456,6 +456,40 @@ async function onSendTemplateVideo(req, res) {
 }
 
 
+async function onSendTemplateImageMultiple(req,res){
+  try {
+    const phoneID = developement.phone_number_id
+
+    const phoneArr= JSON.parse(req.body.phones.replace(/'/g, '"'));
+    const phones = formatArrPhones(phoneArr);
+
+    const message = req.body.message;
+
+    const img = req.body.link;
+    const protocol = req.protocol;
+    const hostname = req.get('host')
+    const fullUrl = `${protocol}://${hostname}`;
+
+    const downloadImId = uuidv4();
+    const downloadPath = `public/assets/evidence/${downloadImId}.jpg`;
+
+    const media = await downloadImage(img,downloadPath,fullUrl);
+
+    if (phoneID && phones && media) {
+      setTimeout(async()=>{
+        await sendTemplateImageMultiple(phoneID, phones, message, media)
+       },15000) 
+        res.json(200);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error('error of: ', error);                                                  
+    return res.status(500).send('Post received, but we have an error!');
+  }
+}
+
+
 async function onSendTemplateVideoMultiple(req,res){
   try {
     const phoneArr= JSON.parse(req.body.phones.replace(/'/g, '"'));
@@ -475,8 +509,7 @@ async function onSendTemplateVideoMultiple(req,res){
     if (phoneID && phones && video) {
       setTimeout(async()=>{
        await sendTemplateVideoMultiple(phoneID, phones, message, video);
-      
-      },50000) 
+      },15000) 
       res.send(200)
     } else {
       res.sendStatus(404);
@@ -549,37 +582,6 @@ async function onSendWialonNotificationMultiple(req,res){
 }  
 }
 
-
-async function onSendTemplateImageMultiple(req,res){
-  try {
-    const phoneID = developement.phone_number_id
-
-    const phoneArr= JSON.parse(req.body.phones.replace(/'/g, '"'));
-    const phones = formatArrPhones(phoneArr);
-
-    const message = req.body.message;
-
-    const img = req.body.link;
-    const protocol = req.protocol;
-    const hostname = req.get('host')
-    const fullUrl = `${protocol}://${hostname}`;
-
-    const downloadImId = uuidv4();
-    const downloadPath = `public/assets/evidence/${downloadImId}.jpg`;
-
-    const media = await downloadImage(img,downloadPath,fullUrl);
-
-    if (phoneID && phones && media) {
-        await sendTemplateImageMultiple(phoneID, phones, message, media)
-        res.json(200);
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (error) {
-    console.error('error of: ', error);                                                  
-    return res.status(500).send('Post received, but we have an error!');
-  }
-}
 
 /* async function onSendConstent(){
 

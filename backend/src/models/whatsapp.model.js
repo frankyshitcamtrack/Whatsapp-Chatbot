@@ -664,8 +664,8 @@ async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
   arr.map( async item=>{
     if(item){
       //console.log(item);
-      await sendMediaImage(phone_number_id,item,link,message)
-      //await sendUtilityTemplateImage(phone_number_id,item,message,link)
+      //await sendMediaImage(phone_number_id,item,link,message)
+      await sendUtilityTemplateImage(phone_number_id,item,message,link)
     }
      
   })
@@ -678,8 +678,8 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
   arr.map( async item=>{
     if(item){
       //console.log(item);
-      await sendMessages(phone_number_id,item,mes)
-      //await sendTemplateNotification(phone_number_id,item,message)
+      //await sendMessages(phone_number_id,item,mes)
+      await sendTemplateNotification(phone_number_id,item,message)
       
     }
    
