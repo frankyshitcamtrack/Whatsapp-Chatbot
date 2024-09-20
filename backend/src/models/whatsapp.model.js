@@ -651,8 +651,8 @@ async function sendTemplateVideoMultiple(phone_number_id,arr,mes,link){
   console.log(`ymane_video ${mes}`);
   arr.map( async item=>{
     if(item){
-      await sendMediaVideo(phone_number_id,item,link,message)
-      //await sendTemplateVideo(phone_number_id,item,message,link)
+      //await sendMediaVideo(phone_number_id,item,link,message)
+      await sendTemplateVideo(phone_number_id,item,message,link)
     }  
   })                   
 }
