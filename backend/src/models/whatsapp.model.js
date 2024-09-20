@@ -679,7 +679,7 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
     if(item){
       //console.log(item);
       //await sendMessages(phone_number_id,item,mes)
-      await sendTemplateNotification(phone_number_id,item,message)
+      await sendTemplateNotification(phone_number_id,item,mes)
       
     }
    
