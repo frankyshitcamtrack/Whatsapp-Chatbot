@@ -115,7 +115,7 @@ async function sendMediaAudio(phone_number_id,phone,link){
     });
 }
 
-async function sendMediaVideo(phone_number_id, phone, link,message) {
+async function sendMediaVideo(phone_number_id,phone,link,message) {
   axios({
     method: "POST",
     url:
@@ -125,7 +125,7 @@ async function sendMediaVideo(phone_number_id, phone, link,message) {
       recipient_type: "individual",
       to: phone,
       "type": "video",
-      "video": {
+      "video":{
         "link": link,
         "caption":message
       }
