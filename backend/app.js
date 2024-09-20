@@ -1,7 +1,5 @@
 const express = require("express");
 
-const cron = require('node-cron');
-
 const path = require('path');
 
 const cors = require("cors");
@@ -9,6 +7,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 
 const bodyParser = require("body-parser");
+
+const cron = require('node-cron');
 
 const whatsappRouter = require("./src/routes/whatsapp.route");
 
@@ -38,7 +38,7 @@ setInterval(()=>{
 },3600000) 
 
 //schedule consent message template every morning at 5h30
-cron.schedule('30 19 * * *', async () => {
+cron.schedule('00 20 * * *', async () => {
     console.log('send consent message');
     await onSendConsent();
   }, {

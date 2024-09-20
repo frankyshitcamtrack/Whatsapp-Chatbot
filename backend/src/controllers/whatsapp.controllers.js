@@ -592,8 +592,8 @@ async function onSendWialonNotificationMultiple(req, res) {
 //sent consent message template function
 async function onSendConsent() {
   console.log('sending consent...');
-  await sendTemplateConsent(phone_number_id,'237655604155');
-  await sendTemplateConsent(phone_number_id,'237699113142');
+  await sendTemplateConsent(phoneID,'237655604155');
+  await sendTemplateConsent(phoneID,'237699113142');
   const numbers = await ymaneListNumbers();
   if (numbers.length > 0) {
     console.log(numbers);
