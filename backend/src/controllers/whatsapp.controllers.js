@@ -331,11 +331,8 @@ async function onSendNotification(req, res) {
     const message = req.body.message;
 
     if (phoneID && phone && message) {
-      const alert = notification(message);
-      if (alert) {
-        await sendMessages(phoneID, phone, alert.text);
-        res.json(200);
-      }
+      await sendMessages(phoneID, phone, message);
+      res.json(200);
     } else {
       res.sendStatus(404);
     }
