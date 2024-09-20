@@ -349,9 +349,10 @@ async function onSendEvidence(req, res) {
   try {
     const phone = phoneFormat(req.body.phone);
     const media = req.body.link;
+    const message = req.body.message;
     if (phoneID && phone && media) {
       setTimeout(async () => {
-        await sendMediaVideo(phoneID, phone, media);
+        await sendMediaVideo(phoneID, phone, media,message);
       }, 10000)
       res.json(200);
     } else {
