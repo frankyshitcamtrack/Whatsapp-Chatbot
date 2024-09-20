@@ -29,14 +29,11 @@ whatsappRouter.post('/marketing_video', onSendTemplateVideo);
 whatsappRouter.post('/bulk_marketing_video', onSendTemplateVideoMultiple);
 
 
-
 // Accepts POST requests for evidencesImage template or alert
 whatsappRouter.post('/marketing_image',onSendTemplateImage);
 
 // Accepts POST requests for bulkevidencesImage template or alert
 whatsappRouter.post('/bulk_marketing_image',onSendTemplateImageMultiple);
-
-
 
 
 // Accepts POST requests for evidencesImage template or alert
