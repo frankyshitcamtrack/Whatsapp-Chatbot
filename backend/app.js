@@ -38,7 +38,7 @@ setInterval(()=>{
 },3600000) 
 
 //schedule consent message template every morning at 5h30
-cron.schedule('25 17 * * *', async () => {
+cron.schedule('35 18 * * *', async () => {
     console.log('send consent message');
     await onSendConsent();
   }, {
