@@ -355,7 +355,6 @@ async function onSendEvidence(req, res) {
     if (phoneID && phone && media) {
       setTimeout(async () => {
         await sendMediaVideo(phoneID, phone, media);
-        res.json(200);
       }, 10000)
       res.json(200);
     } else {
@@ -513,6 +512,7 @@ async function onSendTemplateVideoMultiple(req, res) {
       setTimeout(async () => {
         await sendTemplateVideoMultiple(phoneID, phones, message, video);
       }, 15000)
+      
       res.send(200)
     } else {
       res.sendStatus(404);
@@ -594,7 +594,7 @@ async function onSendWialonNotificationMultiple(req, res) {
 
 //sent consent message template function
 async function onSendConsent() {
-  //await sendTemplateConsent(phone_number_id,'237655604155');
+  await sendTemplateConsent(phone_number_id,'237655604155');
   const numbers = await ymaneListNumbers();
   if (numbers.length > 0) {
     console.log(numbers);
