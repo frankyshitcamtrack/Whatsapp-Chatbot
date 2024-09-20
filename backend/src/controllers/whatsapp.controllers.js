@@ -596,19 +596,26 @@ async function onSendConsent() {
   await sendTemplateConsent(phoneID,'237655604155');
   await sendTemplateConsent(phoneID,'237699113142');
   const numbers = await ymaneListNumbers();
+  const wialonContacts = await getWialonContacts();
   if (numbers.length > 0) {
-    console.log(numbers);
+    console.log(wialonContacts);
     numbers.map(async (item) => {
       if (item) {
         await sendTemplateConsent(phoneID, item);
       }
-    })
+    }) 
+
+    wialonContacts.map(async (item) => {
+      if (item && item.number) {
+        await sendTemplateConsent(phoneID, item.number);
+      }
+    }) 
   }
 }
 
 
 function scheduleClock(){
-  cron.schedule('00 19 * * *', async () => {
+  cron.schedule('00 8 * * *', async () => {
     scheduleFunction = true
   }, {
     scheduled: true,
@@ -616,7 +623,7 @@ function scheduleClock(){
   });
 
   //clear the intervall
-  cron.schedule('00 20 * * *', async () => {
+  cron.schedule('00 10 * * *', async () => {
     scheduleFunction = false
   }, {
     scheduled: true,

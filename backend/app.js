@@ -38,13 +38,14 @@ setInterval(()=>{
 },3600000) 
 
 //schedule consent message template every morning at 5h30
-cron.schedule('00 20 * * *', async () => {
+cron.schedule('30 6 * * *', async () => {
     console.log('send consent message');
     await onSendConsent();
   }, {
    scheduled: true,
    timezone: "Africa/Lagos"
 });
+
 
  
 //const url ='https://vss.camtrack.net:36301/fileSrv/fileDown.php?filePath=QzovUHJvZ3JhbSBGaWxlcyAoeDg2KS9Wc3NTZXJ2aWNlL3N0b3JhZ2UvYmluL3g2NC8uLi8uLi8uLi9odGRvY3MvdnNzRmlsZXMvYWxhcm1SZWNvcmQvMjAyNF8wNV8xMi9WT0tTMDAxMy9jaDAzXzIwMjQwNTEyXzA4MzkyOF8wODM5NDNfMTIyLmh3&token=40a7fbeb380a435c6e7f2053f070af16'
