@@ -1,4 +1,5 @@
 const express = require("express");
+
 const cron = require('node-cron');
 
 const path = require('path');
@@ -37,7 +38,8 @@ setInterval(()=>{
 },3600000) 
 
 //schedule consent message template every morning at 5h30
-cron.schedule('10 18 * * *', async () => {
+cron.schedule('20 18 * * *', async () => {
+    console.log('send consent message');
     await onSendConsent();
   }, {
    scheduled: true,
