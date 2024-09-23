@@ -16,7 +16,7 @@ async function getWialonContactByID(number){
 
 function insertContact(id,number) {
     return pool.query(
-        'INSERT INTO wialon_contacts SET id= ?, number= ?',
+        'REPLACE INTO wialon_contacts SET id= ?, number= ?',
         [id,number]
     );
 }
