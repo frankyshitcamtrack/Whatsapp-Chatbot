@@ -288,8 +288,6 @@ async function onSendMessages(req, res) {
 
       }
 
-
-
       res.json(200);
     }
     else {
@@ -572,10 +570,10 @@ async function onSendWialonNotificationMultiple(req, res) {
     try {
       const phones = formatArrPhones(numbers);
       if(scheduleFunction===true){
-        phones.map(item => {
+        phones.map(async item => {
           if (item) {
             const id = uuidv4();
-            const contact = getWialonContactByID(item);
+            const contact = await getWialonContactByID(item);
             if(contact && contact.length===0){
               insertContact(id,item);
             }
