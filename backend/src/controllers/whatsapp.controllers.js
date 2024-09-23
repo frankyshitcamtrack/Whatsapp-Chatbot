@@ -569,7 +569,7 @@ async function onSendWialonNotificationMultiple(req, res) {
           if (item) {
             const id = uuidv4();
             const contact = getWialonContactByID(item);
-            if(contact && contact.length<=0){
+            if(contact && contact.length===0){
               insertContact(id,item);
             }
           }
@@ -631,7 +631,7 @@ async function onSendConsent() {
 
 
 function scheduleClock(){
-  cron.schedule('00 17 * * *', async () => {
+  cron.schedule('30 17 * * *', async () => {
     scheduleFunction = true
   }, {
     scheduled: true,
@@ -639,7 +639,7 @@ function scheduleClock(){
   });
 
   //clear the intervall
-  cron.schedule('00 18 * * *', async () => {
+  cron.schedule('30 18 * * *', async () => {
     scheduleFunction = false
   }, {
     scheduled: true,
