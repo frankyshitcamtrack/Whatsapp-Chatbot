@@ -1,7 +1,7 @@
 const path = require('path');
 const cron = require('node-cron');
 const { sendMessages, sendTemplateConsent, sendMediaImage, sendMediaVideo, sendAudiobyId, sendDocbyId, sendVidbyId, sendMessageList, sendUtilityTemplateImage, sendTemplateVideo, sendTemplateNotification, sendTemplateImageMultiple, sendTemplateNotificationMultiple, sendTemplateVideoMultiple, sendWialonTemplateNotification, verifyContacts, ymaneListNumbers } = require("../models/whatsapp.model");
-const { getWialonContacts, insertContact } = require('../models/wialon.model');
+const { getWialonContacts, insertContact,getWialonContactByID } = require('../models/wialon.model');
 const { phoneFormat, formatArrPhones } = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
 const { notification, textMessageMenu1, scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage, getLocationByDate, genericMessage } = require("../data/template-massages");
@@ -568,7 +568,10 @@ async function onSendWialonNotificationMultiple(req, res) {
         phones.map(item => {
           if (item) {
             const id = uuidv4();
-            insertContact(id,item)
+            const contact = getWialonContactByID(item);
+            if(contact && contact.length<=0){
+              insertContact(id,item);
+            }
           }
         })
       }
@@ -589,6 +592,20 @@ async function onSendWialonNotificationMultiple(req, res) {
     }
   }
 }
+
+
+//getwialongContact by id
+/* async function onGetVialonContactByID(req,res){
+  console.log('get contact by id');
+  const test ='2371234545414455';
+  const contact = await getWialonContactByID(test);
+  const contactLength = contact.length
+  console.log(contact);
+  console.log(contactLength);
+  return res.status(200).json(contact);
+}
+ */
+
 
 //sent consent message template function
 async function onSendConsent() {
@@ -646,5 +663,5 @@ module.exports = {
   onSendWialonNotificationMultiple,
   onVerifyContacts,
   onSendConsent,
-  scheduleClock
+  scheduleClock,
 }
