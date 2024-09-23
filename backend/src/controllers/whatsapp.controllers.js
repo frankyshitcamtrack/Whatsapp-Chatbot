@@ -631,7 +631,7 @@ async function onSendConsent() {
 
 
 function scheduleClock(){
-  cron.schedule('35 16 * * *', async () => {
+  cron.schedule('00 17 * * *', async () => {
     scheduleFunction = true
   }, {
     scheduled: true,
