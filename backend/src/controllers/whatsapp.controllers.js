@@ -631,7 +631,7 @@ async function onSendConsent() {
 
 
 function scheduleClock(){
-  cron.schedule('00 8 * * *', async () => {
+  cron.schedule('35 16 * * *', async () => {
     scheduleFunction = true
   }, {
     scheduled: true,
@@ -639,7 +639,7 @@ function scheduleClock(){
   });
 
   //clear the intervall
-  cron.schedule('00 10 * * *', async () => {
+  cron.schedule('00 18 * * *', async () => {
     scheduleFunction = false
   }, {
     scheduled: true,
