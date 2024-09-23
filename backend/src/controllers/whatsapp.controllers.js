@@ -598,19 +598,18 @@ async function onSendConsent() {
   const numbers = await ymaneListNumbers();
   const wialonContacts = await getWialonContacts();
   if (numbers.length > 0) {
-    console.log(wialonContacts);
     numbers.map(async (item) => {
       if (item) {
         await sendTemplateConsent(phoneID, item);
       }
-    }) 
+    })
 
     wialonContacts.map(async (item) => {
       if (item && item.number) {
         await sendTemplateConsent(phoneID, item.number);
       }
-    }) 
-  }
+    })
+  } 
 }
 
 

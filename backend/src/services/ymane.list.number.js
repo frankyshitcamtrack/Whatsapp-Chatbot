@@ -1,6 +1,6 @@
 const axios = require ("axios");
 
-const API_URl ="https://bi.camtrack.net/ymane/noauths/listwhatsapp"
+const API_URl ="https://biprod.camtrack.net/ymane/noauths/listwhatsapp"
 
 function getYmaneListNumbers(){
    return axios.get(`${API_URl}`)
