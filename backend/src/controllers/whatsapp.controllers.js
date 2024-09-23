@@ -4,7 +4,7 @@ const { sendMessages, sendTemplateConsent, sendMediaImage, sendMediaVideo, sendA
 const { getWialonContacts, insertContact,getWialonContactByID } = require('../models/wialon.model');
 const { phoneFormat, formatArrPhones } = require("../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../utils/dateFormat");
-const { notification, textMessageMenu1, scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage, getLocationByDate, genericMessage } = require("../data/template-massages");
+const { notification,genericMessage2, textMessageMenu1, scheduleMeeting, textMessage, textMessage3, askImmatriculation, getLocation, askDateMessage, getLocationByDate, genericMessage } = require("../data/template-massages");
 const { developement } = require("../config/whatsappApi");
 const { downloadVideo } = require("../utils/download");
 const { downloadImage } = require('../utils/downloadImg');
@@ -156,10 +156,17 @@ async function onSendMessages(req, res) {
 
 
       // check if the user client index is not exist in the table user table and finally add the new user
-      if (findIndex < 0 && body.toLowerCase() !== "start" && body.toLowerCase() !== "consent") {
+      if (findIndex < 0 && body.toLowerCase() !== "start" && body.toLowerCase() !== "consent" && body.toLowerCase() !== "ok") {
         await sendMessages(phone_number_id, phone, genericMessage.text.body);
       }
 
+      
+       // check if the user client index is not exist in the table user table and finally add the new user
+      if (findIndex < 0 && body.toLowerCase() === "ok") {
+        await sendMessages(phone_number_id, phone, genericMessage2.text.body);
+      }
+
+     
       if (findIndex < 0 && body.toLowerCase() === "consent") {
         await sendTemplateConsent(phone_number_id, phone);
       }
@@ -610,8 +617,6 @@ async function onSendWialonNotificationMultiple(req, res) {
 //sent consent message template function
 async function onSendConsent() {
   console.log('sending consent...');
-  await sendTemplateConsent(phoneID,'237655604155');
-  await sendTemplateConsent(phoneID,'237699113142');
   const numbers = await ymaneListNumbers();
   const wialonContacts = await getWialonContacts();
   if (numbers.length > 0) {
