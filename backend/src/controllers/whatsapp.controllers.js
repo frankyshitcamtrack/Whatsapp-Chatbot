@@ -334,7 +334,7 @@ async function onSendNotification(req, res) {
     const phoneID = developement.phone_number_id
     const phone = phoneFormat(req.body.phone);
     const message = req.body.message;
-
+    console.log(message);
     if (phoneID && phone && message) {
       await sendMessages(phoneID, phone, message);
       res.json(200);
