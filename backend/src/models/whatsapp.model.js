@@ -673,12 +673,12 @@ async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
 
 //ymane multiple messages notifications
 async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
-  //const message= formatMessage(mes);
-  console.log(`ymane_message ${mes}`);
+  const message= mes.toString();
+  console.log(`ymane_message ${message}`);
   arr.map( async item=>{
     if(item){
       //console.log(item);
-      await sendMessages(phone_number_id,item,mes)
+      await sendMessages(phone_number_id,item,message);
       //await sendTemplateNotification(phone_number_id,item,mes)
       
     }
