@@ -144,8 +144,6 @@ async function sendTemplateMatketingVideo(phone_number_id,phone,message,link) {
 }
  
 
- 
-
 module.exports = { 
   sendTemplateNotification,
   sendTemplateMarketingImage,
