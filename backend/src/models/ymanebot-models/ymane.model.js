@@ -3,7 +3,7 @@ const { developement } = require("../../config/whatsappApi");
 
 const token = developement.whatsapp_token_bulk;
 
-
+ 
 async function sendTemplateNotification(phone_number_id,phone,message) {
  return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
@@ -15,7 +15,7 @@ async function sendTemplateNotification(phone_number_id,phone,message) {
       to: phone,  
       "type": "template",
       "template": {
-        "name": "evidencemessage",
+        "name": "marketing_bulk_text",
         "language": {
           "code": "fr"
         },
