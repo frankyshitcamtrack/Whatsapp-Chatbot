@@ -530,7 +530,7 @@ async function onSendTemplateNotificationMultiple(req, res) {
   try {
     const phoneArr = JSON.parse(req.body.phones.replace(/'/g, '"'));
     const phones = formatArrPhones(phoneArr);
-    const message = req.body.message;
+    const message = req.body.message.toString();
     if (phoneID && phones && message) {
       await sendTemplateNotificationMultiple(phoneID, phones, message);
       res.send(200);
