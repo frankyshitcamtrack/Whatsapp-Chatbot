@@ -329,6 +329,27 @@ async function onVerification(req, res) {
 }
 
 
+
+//sent consent message
+async function onSendConsentSingle(req,res){
+  try{
+    const phoneID = developement.phone_number_id
+    const phone = phoneFormat(req.body.phone);
+    const message = req.body.message;
+    if (phoneID && phone && message) {
+      await sendTemplateConsent(phoneID, phone);
+      res.json(200);
+    } else {
+      res.sendStatus(404);
+    }
+  }
+  catch (error) {
+    console.error('error of: ', error);   // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
+  }
+}
+
+
 async function onSendNotification(req, res) {
   try {
     const phoneID = developement.phone_number_id
@@ -636,6 +657,7 @@ async function onSendConsent() {
 }
 
 
+
 function scheduleClock(){
   cron.schedule('00 4 * * *', async () => {
     scheduleFunction = true
@@ -670,4 +692,5 @@ module.exports = {
   onVerifyContacts,
   onSendConsent,
   scheduleClock,
+  onSendConsentSingle
 }

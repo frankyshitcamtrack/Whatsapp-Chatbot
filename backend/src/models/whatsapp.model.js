@@ -669,7 +669,7 @@ async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
     }
      
   })
-}
+}++4
 
 //ymane multiple messages notifications
 async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
