@@ -332,11 +332,11 @@ async function onVerification(req, res) {
 
 //sent consent message
 async function onSendConsentSingle(req,res){
+  console.log('sending consent message');
   try{
     const phoneID = developement.phone_number_id
     const phone = phoneFormat(req.body.phone);
-    const message = req.body.message;
-    if (phoneID && phone && message) {
+    if (phoneID && phone) {
       await sendTemplateConsent(phoneID, phone);
       res.json(200);
     } else {
