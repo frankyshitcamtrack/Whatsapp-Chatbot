@@ -334,13 +334,10 @@ async function onSendNotification(req, res) {
     const phoneID = developement.phone_number_id
     const phone = phoneFormat(req.body.phone);
     const message = req.body.message;
-
-    const me=message.toString();
-
-    console.log(message);
-
-    console.log(me);
     
+    const me =message.replace(/\r?\\n|\r/g,"\n");
+    
+
     if (phoneID && phone && message) {
       await sendMessages(phoneID, phone, me);
       res.json(200);
