@@ -6,8 +6,8 @@ import baseUrl from "../config"
 
 async function getDiscussions(){
   try{
-    const res = await axios(`${baseUrl}/discussions`);
-    const data = await res.json();
+    const res = await axios.get(`${baseUrl}/discussions`);
+    const data = await res.data;
     console.log(data);
     return data;
   }catch(error){
