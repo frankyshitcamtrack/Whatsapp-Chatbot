@@ -1,9 +1,15 @@
 import baseUrl from "../config"
 
 async function getDiscussions(){
-  const res = await fetch(`${baseUrl}/discussions`);
-  const data = await res.json();
-  return data;
+  try{
+    const res = await fetch(`${baseUrl}/discussions`);
+    const data = await res.json();
+    return data;
+  }catch(error){
+    console.log(error);
+    return error
+  }
+ 
 }
 
 
