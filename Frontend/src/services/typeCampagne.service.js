@@ -1,17 +1,27 @@
 import baseUrl from "../config";
+import axios from "axios";
 
 async function getTypeCampagne(){
-  const res = await fetch(`${baseUrl}/type_campagne`);
-  const data = await res.json();
-  return data;
+  try{
+    const res = await axios.get(`${baseUrl}/type_campagne`);
+    const data = await res.data;
+    return data;
+  }catch(error){
+    console.log(error)
+  } 
+
 }
 
 
-async function getTypeampagneById(id){
-    const res = await fetch(`${baseUrl}/single-type_campagne/${id}`);
-    const data = await res.json();
+async function getTypeampagneById(id) {
+  try {
+    const res = await axios.get(`${baseUrl}/single-type_campagne/${id}`);
+    const data = await res.data;
     return data;
+  } catch (error) {
+    console.log(error)
   }
+}
 
 
 async function addTypeCampagne(typeCampagne){
