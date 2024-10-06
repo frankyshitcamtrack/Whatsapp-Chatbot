@@ -13,7 +13,7 @@
         "test-server": "npm run test --prefix backend",
         "test-client": "npm run test --prefix Frontend",
         "test": "npm run test-server & npm run test-client",
-        "deploy": "npm run build --prefix Frontend && npm run server"
+        "deploy": "npm run build --prefix Frontend"
     },
     "repository": {
         "type": "git",
