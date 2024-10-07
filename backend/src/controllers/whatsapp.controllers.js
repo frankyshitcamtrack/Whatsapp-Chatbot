@@ -54,6 +54,8 @@ async function getPositionVehicule(user) {
       user.scheduleMessageSent = false;
       user.matriculeQuestionSent = false;
       user.dateMessage = false;
+
+      console.log(user);
     }
   }
   else {
