@@ -57,7 +57,7 @@ async function getPositionVehicule(user) {
     }
   }
   else {
-    const message = "une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer";
+    const message = "An error has occurred with our server. Please wait a few minutes and try again.";
     await sendMessages(user.phoneId, user.phone, message);
   }
 }
@@ -106,7 +106,7 @@ async function getPositionVehicleByDate(user) {
     }
   }
   else {
-    const message = "une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer";
+    const message = "An error has occurred with our server. Please wait a few minutes and try again.";
     await sendMessages(user.phoneId, user.phone, message);
   }
 }
