@@ -6,7 +6,7 @@ const {getPositionVehiculByDate} = require('../services/wialon')
 const textMessage = {
     type: "text",
     text: {
-        preview_url: false, body: `*Welcome to Camtrack ✨😃*\n \n Let us know how we can help you today by choosing from the folowing options:\n\n- Press 1 For vehicle🚗 Location\n- Press 2 Request a visit with a member\n- Press 3 To listen a song\n- Press 4 To receive a video\n- Press 5 To receive a simple doc\n- Press 6 To take a survey`
+        preview_url: false, body: `*Welcome to Camtrack ✨😃*\n \n Let us know how we can help you today by choosing from the folowing options:\n\n- Press 1 For vehicle🚗 Location\n- Press 2 Request a visit with a member\n - Press 6 To take a survey`
     }
 }
 
