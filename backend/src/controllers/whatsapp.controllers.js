@@ -25,7 +25,7 @@ async function getPositionVehicule(user) {
     .catch(err => console.log(err));
   console.log(location);
   if (location && location.code < 0) {
-    const message = { preview_url: false, body: `${location.status} \n Please enter a valid matricul number` };
+    const message = `${location.status} \n Please enter a valid matricul number`;
     await sendMessages(user.phoneId, user.phone, message);
     user.previewMessage = "1"
     user.flow = "1"
@@ -43,8 +43,8 @@ async function getPositionVehicule(user) {
       let repportDate = new Date(vehiculLocation.dates);
       let date = dateInYyyyMmDdHhMmSs(repportDate);
       let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
-      let body = `*Vehicle* : ${user.vehicleNumber}\n\n*Last known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
-      let message = { preview_url: false, body: body }
+      let message = `*Vehicle* : ${user.vehicleNumber}\n\n*Last known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
+        
       //sendLocation(phoneId,phone,vehiculLocation)
       await sendMessages(user.phoneId, user.phone, message);
       user.previewMessage = "";
@@ -57,7 +57,7 @@ async function getPositionVehicule(user) {
     }
   }
   else {
-    const message = { preview_url: false, body: "une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer" }
+    const message = "une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer";
     await sendMessages(user.phoneId, user.phone, message);
   }
 }
@@ -69,7 +69,7 @@ async function getPositionVehicleByDate(user) {
     .then(res => res.data)
     .catch(err => console.log(err));
   if (location && location.code < 0) {
-    const message = { preview_url: false, body: `${location.status}` };
+    const message = `${location.status}` ;
     await sendMessages(user.phoneId, user.phone, message);
     user.previewMessage = "";
     user.flow = "";
@@ -92,9 +92,7 @@ async function getPositionVehicleByDate(user) {
       let newDate = new Date(vehiculLocation.dates);
       let date = dateInYyyyMmDdHhMmSs(newDate);
       let link = `https://www.google.com/maps/place/${vehiculLocation.latitude}+${vehiculLocation.longitude}`;
-      let body = `*Vehicle* : ${user.vehicleNumber}\n\n*Last known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
-
-      let message = { preview_url: false, body: body };
+      let message = `*Vehicle* : ${user.vehicleNumber}\n\n*Last known position* :  ${vehiculLocation.address}\n\n*Report time* : ${date}\n\n*Link* : ${link}`;
 
       await sendMessages(user.phoneId, user.phone, message);
 
@@ -108,8 +106,8 @@ async function getPositionVehicleByDate(user) {
     }
   }
   else {
-    const message = { preview_url: false, body: "une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer" }
-    await sendMessages(user.phoneId, user.phone, message)
+    const message = "une Erreur est subvenu avec notre serveur bien vouloir patienter quelque minutes et essayer";
+    await sendMessages(user.phoneId, user.phone, message);
   }
 }
 
