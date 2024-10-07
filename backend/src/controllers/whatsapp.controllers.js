@@ -51,10 +51,10 @@ async function getPositionVehicule(user) {
       user.flow = "";
       user.vehicleNumber = "";
       user.dates = "";
+      user.body='';
       user.scheduleMessageSent = false;
       user.matriculeQuestionSent = false;
       user.dateMessage = false;
-
       console.log(user);
     }
   }
@@ -191,6 +191,10 @@ async function onSendMessages(req, res) {
         await sendMessages(phone_number_id, phone, textMessage.text.body);
       }
 
+      if (findIndex >= 0 && body.toLowerCase() === "start") {
+        await sendMessages(phone_number_id, phone, textMessage.text.body);
+      }
+      
       if (findIndex >= 0) { // check if the user client index exist in the table user table
         const user = users[findIndex]; // find the user by his index
         user.body = body;
