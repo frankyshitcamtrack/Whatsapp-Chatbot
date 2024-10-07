@@ -161,7 +161,6 @@ async function onSendMessages(req, res) {
       }
 
       
-       // check if the user client index is not exist in the table user table and finally add the new user
       if (findIndex < 0 && body.toLowerCase() === "ok") {
         await sendMessages(phone_number_id, phone, genericMessage2.text.body);
       }
@@ -171,6 +170,7 @@ async function onSendMessages(req, res) {
         await sendTemplateConsent(phone_number_id, phone);
       }
 
+      // check if the user client index is not exist in the table user table and finally add the new user
       if (findIndex < 0 && body.toLowerCase() === "start") {
         const newUser = {
           'id': entryID,
@@ -182,7 +182,7 @@ async function onSendMessages(req, res) {
           'date': '',
           'time': '',
           'flow': "",
-          'previewMessage': "",
+          'previewMessage': "start",
           'scheduleMessageSent': false,
           'matriculeQuestionSent': false,
           'dateMessage': false,
