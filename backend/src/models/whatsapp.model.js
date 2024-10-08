@@ -675,6 +675,7 @@ async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
 async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
   const message=mes.replace(/\r?\\n|\r/g,"\n");
   console.log(`${message}`);
+  console.log(`${arr}`);
   arr.map( async item=>{
     if(item){
       //console.log(item);
