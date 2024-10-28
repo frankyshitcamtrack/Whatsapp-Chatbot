@@ -649,6 +649,7 @@ async function sendTemplateMatketingVideo(phone_number_id,phone,mes,link) {
 async function sendTemplateVideoMultiple(phone_number_id,arr,mes,link){
   const message= formatMessage(mes);
   console.log(`ymane_video ${mes}`);
+  console.log(`ymane_video ${arr}`);
   arr.map( async item=>{
     if(item){
       await sendMediaVideo(phone_number_id,item,link,message)
@@ -661,6 +662,7 @@ async function sendTemplateVideoMultiple(phone_number_id,arr,mes,link){
 async function sendTemplateImageMultiple(phone_number_id,arr,mes,link){
   const message= formatMessage(mes);
   console.log(`ymane_image ${mes}`);
+  console.log(`${arr}`);
   arr.map( async item=>{
     if(item){
       //console.log(item);
@@ -681,9 +683,7 @@ async function sendTemplateNotificationMultiple(phone_number_id,arr,mes){
       //console.log(item);
       await sendMessages(phone_number_id,item,message);
       //await sendTemplateNotification(phone_number_id,item,mes)
-      
     }
-   
   })
 }
 
