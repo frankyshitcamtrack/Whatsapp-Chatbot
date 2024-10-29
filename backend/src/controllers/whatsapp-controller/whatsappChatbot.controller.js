@@ -1,5 +1,5 @@
 const { sendMessages } = require("../../models/whatsapp.model");
-const { phoneFormat, formatArrPhones } = require("../../utils/fortmat-phone");
+const { phoneFormat } = require("../../utils/fortmat-phone");
 const dateInYyyyMmDdHhMmSs = require("../../utils/dateFormat");
 
 const {

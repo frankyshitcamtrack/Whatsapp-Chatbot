@@ -5,6 +5,10 @@ const {
 } = require("../controllers/whatsapp-controller/whatsappChatbot.controller");
 
 const {
+  onSendWialonNotificationMultiple,
+} = require("../controllers/whatsapp-controller/wialonNotification.controller");
+
+const {
   onSendConsentSingle,
   onVerifyContacts,
   onVerification,
@@ -17,7 +21,6 @@ const {
   onSendTemplateImageMultiple,
   onSendTemplateNotificationMultiple,
   onSendTemplateVideoMultiple,
-  onSendWialonNotificationMultiple,
 } = require("../controllers/whatsapp.controllers");
 
 const whatsappRouter = express.Router();
