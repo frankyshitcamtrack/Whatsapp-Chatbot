@@ -3,11 +3,13 @@ const { formatMessage } = require("../../utils/formatMessage");
 const { sendMessages } = require("../../models/whatsapp.model");
 const { getMessagesAndNumbers } = require("../../utils/getMessagesAndNumbers");
 const { formatArrPhones } = require("../../utils/fortmat-phone");
+const { developement } = require("../../config/whatsappApi");
 const {
   insertContact,
   getWialonContactByID,
 } = require("../../models/wialon.model");
 
+const phoneID = developement.phone_number_id;
 let scheduleFunction = false;
 
 //simple wialon notifications
