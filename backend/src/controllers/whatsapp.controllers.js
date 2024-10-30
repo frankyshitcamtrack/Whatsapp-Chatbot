@@ -303,7 +303,6 @@ async function onSendConsent() {
   const wialonContacts = await getWialonContacts();
   console.log(numbers);
   console.log(wialonContacts);
-
   if (numbers.length > 0) {
     numbers.map(async (item) => {
       if (item) {

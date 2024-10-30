@@ -366,7 +366,7 @@ async function sendTemplateConsent(phone_number_id, phone) {
       to: phone,
       type: "template",
       template: {
-        name: "opt_in_consent",
+        name: "utility_consent",
         language: {
           code: "fr",
         },
