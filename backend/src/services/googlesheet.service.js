@@ -45,9 +45,9 @@ async function getContacts() {
   }
 }
 
-async function getContactsWhatsapWialon(vehicle, col) {
+async function getContactsWhatsapWialon() {
   const doc = new GoogleSpreadsheet(
-    "1n0jJg4QHk7LG50QeG6QXK0pCvN4JZQeCrMyTuJaSYPA",
+    "1BC6JcUY_XVG54fDhbMvoPYeIJPY8nyNwoS1GLVyJxOM",
     serviceAccountAuth
   );
 
@@ -63,7 +63,7 @@ async function getContactsWhatsapWialon(vehicle, col) {
     const r = rows.filter((item) => item._rawData.includes(vehicle));
 
     console.log(r);
-    const rowNumber = r[0]._rowNumber;
+       const rowNumber = r[0]._rowNumber;
     await sheet.loadCells(`A${rowNumber}:${col}${rowNumber}`);
 
     const cell = sheet.getCellByA1(`${col}${rowNumber}`);
@@ -71,8 +71,9 @@ async function getContactsWhatsapWialon(vehicle, col) {
     console.log("contact array");
 
     console.log(cellVal);
-    return cellVal;
-  } */
+    return cellVal; 
+  }
+    */
 }
 
 module.exports = { getContacts, getContactsWhatsapWialon };

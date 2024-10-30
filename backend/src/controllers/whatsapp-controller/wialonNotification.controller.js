@@ -29,6 +29,7 @@ async function sendSimpleWialonNotification(number, mes) {
 async function onSendWialonNotificationMultiple(req, res) {
   const wialonNotif = req.body;
   console.log(wialonNotif);
+  sendSimpleWialonNotification("699113142", wialonNotif);
   const getMessageAndExtractNumbers = getMessagesAndNumbers(wialonNotif);
   const message = getMessageAndExtractNumbers.message;
   const numbers = getMessageAndExtractNumbers.numbers;
