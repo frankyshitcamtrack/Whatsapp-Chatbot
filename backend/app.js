@@ -50,7 +50,7 @@ setInterval(() => {
 
 //schedule consent message template every morning at 5h30
 cron.schedule(
-  "10 9 * * *",
+  "30 6 * * *",
   async () => {
     console.log("send consent message");
     await onSendConsent();
