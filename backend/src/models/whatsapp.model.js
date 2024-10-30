@@ -356,7 +356,6 @@ async function sendMessageList(phone_number_id, phone) {
 
 //Send template notification ymane
 async function sendTemplateConsent(phone_number_id, phone) {
-  console.log(phone_number_id);
   console.log(phone);
   return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET

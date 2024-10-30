@@ -75,8 +75,6 @@ async function onSendConsentSingle(req, res) {
   try {
     const phoneID = developement.phone_number_id;
     const phone = phoneFormat(req.body.phone);
-    console.log(phoneID);
-    console.log(phone);
     if (phoneID && phone) {
       await sendTemplateConsent(phoneID, phone);
       res.json(200);
@@ -303,6 +301,9 @@ async function onSendConsent() {
   console.log("sending consent...");
   const numbers = await ymaneListNumbers();
   const wialonContacts = await getWialonContacts();
+  console.log(numbers);
+  console.log(wialonContacts);
+
   if (numbers.length > 0) {
     numbers.map(async (item) => {
       if (item) {
