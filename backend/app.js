@@ -21,6 +21,11 @@ const {
   scheduleClock,
 } = require("./src/controllers/whatsapp-controller/wialonNotification.controller");
 
+//test wialon contact
+const {
+  getContactsWhatsapWialon,
+} = require("./src/services/googlesheet.service");
+
 const app = express();
 
 app.use(morgan("combined"));
@@ -37,13 +42,15 @@ app.use(
 
 scheduleClock();
 
+//getContactsWhatsapWialon("CE 720 GY", "C");
+
 setInterval(() => {
   SaveContact();
 }, 3600000);
 
 //schedule consent message template every morning at 5h30
 cron.schedule(
-  "30 6 * * *",
+  "30 8 * * *",
   async () => {
     console.log("send consent message");
     await onSendConsent();

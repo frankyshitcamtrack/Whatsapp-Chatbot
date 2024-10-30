@@ -9,7 +9,7 @@ const spreadsheetId = process.env.SHEED_ID;
 const googleServiceMail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
 const googlePrivateKey = process.env.GOOGLE_PRIVATE_KEY;
 
-const whatsapSpreadsheetId = process.env.WHATSAP_SHEED_ID;
+const whatsapSpreadsheetId = process.env.WIALON_SHEET_ID;
 
 // Initialize auth - see https://theoephraim.github.io/node-google-spreadsheet/#/guides/authentication
 const serviceAccountAuth = new JWT({
@@ -45,8 +45,11 @@ async function getContacts() {
   }
 }
 
-async function getContactsWhatsapWialon(vehicle, co) {
-  const doc = new GoogleSpreadsheet(whatsapSpreadsheetId, serviceAccountAuth);
+async function getContactsWhatsapWialon(vehicle, col) {
+  const doc = new GoogleSpreadsheet(
+    "1n0jJg4QHk7LG50QeG6QXK0pCvN4JZQeCrMyTuJaSYPA",
+    serviceAccountAuth
+  );
 
   await doc.loadInfo(); // loads document properties and worksheets
 
@@ -54,17 +57,22 @@ async function getContactsWhatsapWialon(vehicle, co) {
 
   const rows = await sheet.getRows();
 
-  if (rows) {
+  console.log(rows);
+
+  /*  if (rows) {
     const r = rows.filter((item) => item._rawData.includes(vehicle));
 
+    console.log(r);
     const rowNumber = r[0]._rowNumber;
     await sheet.loadCells(`A${rowNumber}:${col}${rowNumber}`);
 
     const cell = sheet.getCellByA1(`${col}${rowNumber}`);
     const cellVal = cell._rawData.effectiveValue["stringValue"].split(";");
+    console.log("contact array");
 
+    console.log(cellVal);
     return cellVal;
-  }
+  } */
 }
 
 module.exports = { getContacts, getContactsWhatsapWialon };
