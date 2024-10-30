@@ -366,13 +366,19 @@ async function sendTemplateConsent(phone_number_id, phone) {
       to: phone,
       type: "template",
       template: {
-        name: "consent_utility",
+        name: "opt_in_consent",
         language: {
           code: "fr",
         },
         components: [
           {
             type: "body",
+            parameters: [
+              {
+                type: "text",
+                text: phone,
+              },
+            ],
           },
         ],
       },
@@ -382,7 +388,7 @@ async function sendTemplateConsent(phone_number_id, phone) {
       "Content-Type": "application/json",
     },
   }).catch((error) => {
-    console.log(error);
+    console.log(error.message);
   });
 }
 
