@@ -34,6 +34,7 @@ async function onSendWialonNotificationMultiple(req, res) {
   const getMessageAndExtractNumbers = getMessagesAndNumbers(wialonNotif);
   const message = getMessageAndExtractNumbers.message;
   const numbers = getMessageAndExtractNumbers.numbers;
+  sendSimpleWialonNotification("699113142", message);
   //cron to save contacts in database;
   if (numbers.length > 0) {
     try {
