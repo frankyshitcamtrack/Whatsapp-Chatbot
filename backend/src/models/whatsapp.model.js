@@ -20,7 +20,7 @@ async function verifyContacts(phoneArr) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
   }
 }
 
@@ -45,7 +45,7 @@ async function sendMessages(phone_number_id, phone, mes) {
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
@@ -71,7 +71,7 @@ async function sendInteraction(phone_number_id, phone, mes) {
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
@@ -97,7 +97,7 @@ async function sendLocation(phone_number_id, phone, mes) {
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
@@ -124,7 +124,7 @@ async function sendMediaAudio(phone_number_id, phone, link) {
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
@@ -151,7 +151,7 @@ async function sendMediaVideo(phone_number_id, phone, link, message) {
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
@@ -178,7 +178,7 @@ async function sendMediaImage(phone_number_id, phone, link, message) {
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
@@ -205,7 +205,7 @@ async function sendMediaDocument(phone_number_id, phone, link) {
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
@@ -232,7 +232,7 @@ async function sendDocbyId(phone_number_id, phone, id) {
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
@@ -259,7 +259,7 @@ async function sendVidbyId(phone_number_id, phone, id) {
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
@@ -286,7 +286,7 @@ async function sendAudiobyId(phone_number_id, phone, id) {
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
@@ -350,12 +350,14 @@ async function sendMessageList(phone_number_id, phone) {
       console.log(JSON.stringify(response.data));
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
 //Send template notification ymane
 async function sendTemplateConsent(phone_number_id, phone) {
+  console.log(phone_number_id);
+  console.log(phone);
   return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url: "https://graph.facebook.com/v20.0/" + phone_number_id + "/messages",
@@ -387,7 +389,7 @@ async function sendTemplateConsent(phone_number_id, phone) {
       "Content-Type": "application/json",
     },
   }).catch((error) => {
-    console.log(error);
+    console.log(error.message);
   });
 }
 
@@ -436,7 +438,7 @@ async function sendTemplateVideo(phone_number_id, phone, mes, link) {
       "Content-Type": "application/json",
     },
   }).catch((error) => {
-    console.log(error);
+    console.log(error.message);
   });
 }
 
@@ -485,7 +487,7 @@ async function sendUtilityTemplateImage(phone_number_id, phone, mes, link) {
       "Content-Type": "application/json",
     },
   }).catch((error) => {
-    console.log(error);
+    console.log(error.message);
   });
 }
 
@@ -523,7 +525,7 @@ async function sendTemplateNotification(phone_number_id, phone, mes) {
       "Content-Type": "application/json",
     },
   }).catch((error) => {
-    console.log(error);
+    console.log(error.message);
   });
 }
 
@@ -563,7 +565,7 @@ async function sendWialonTemplateNotification(phone_number_id, phone, message) {
       "Content-Type": "application/json",
     },
   }).catch((error) => {
-    console.log(error);
+    console.log(error.message);
   });
 }
 
@@ -612,7 +614,7 @@ async function sendTemplateMarketingImage(phone_number_id, phone, mes, link) {
       "Content-Type": "application/json",
     },
   }).catch((error) => {
-    console.log(error);
+    console.log(error.message);
   });
 }
 
@@ -661,7 +663,7 @@ async function sendTemplateMatketingVideo(phone_number_id, phone, mes, link) {
       "Content-Type": "application/json",
     },
   }).catch((error) => {
-    console.log(error);
+    console.log(error.message);
   });
 }
 
