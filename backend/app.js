@@ -42,7 +42,7 @@ app.use(
 
 scheduleClock();
 
-getContactsWhatsapWialon();
+//getContactsWhatsapWialon();
 
 setInterval(() => {
   SaveContact();
