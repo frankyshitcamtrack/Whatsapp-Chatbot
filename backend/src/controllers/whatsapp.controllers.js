@@ -75,6 +75,8 @@ async function onSendConsentSingle(req, res) {
   try {
     const phoneID = developement.phone_number_id;
     const phone = phoneFormat(req.body.phone);
+    console.log(phoneID);
+    console.log(phone);
     if (phoneID && phone) {
       await sendTemplateConsent(phoneID, phone);
       res.json(200);
