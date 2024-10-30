@@ -373,12 +373,6 @@ async function sendTemplateConsent(phone_number_id, phone) {
         components: [
           {
             type: "body",
-            parameters: [
-              {
-                type: "text",
-                text: phone,
-              },
-            ],
           },
         ],
       },
@@ -388,7 +382,7 @@ async function sendTemplateConsent(phone_number_id, phone) {
       "Content-Type": "application/json",
     },
   }).catch((error) => {
-    console.log(error.message);
+    console.log(error);
   });
 }
 
