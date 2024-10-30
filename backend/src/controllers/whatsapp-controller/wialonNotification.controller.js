@@ -8,6 +8,7 @@ const {
   insertContact,
   getWialonContactByID,
 } = require("../../models/wialon.model");
+const { json } = require("body-parser");
 
 const phoneID = developement.phone_number_id;
 let scheduleFunction = false;
@@ -29,7 +30,7 @@ async function sendSimpleWialonNotification(number, mes) {
 async function onSendWialonNotificationMultiple(req, res) {
   const wialonNotif = req.body;
   console.log(wialonNotif);
-  sendSimpleWialonNotification("699113142", wialonNotif);
+  sendSimpleWialonNotification("699113142", JSON.stringify(wialonNotif));
   const getMessageAndExtractNumbers = getMessagesAndNumbers(wialonNotif);
   const message = getMessageAndExtractNumbers.message;
   const numbers = getMessageAndExtractNumbers.numbers;
