@@ -42,7 +42,7 @@ app.use(
 
 scheduleClock();
 
-//getContactsWhatsapWialon();
+//getContactsWhatsapWialon("CH 499024", "C");
 
 setInterval(() => {
   SaveContact();
