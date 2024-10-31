@@ -34,7 +34,6 @@ async function sendSimpleWialonNotification(number, mes) {
 async function onSendWialonNotificationMultiple(req, res) {
   const wialonNotif = req.body;
   const wialonNotifContent = Object.keys(wialonNotif)[0].replace(/\s/g, " ");
-  sendSimpleWialonNotification("699113142", wialonNotifContent);
   //custom wiallon notifications
   if (
     wialonNotifContent.includes(titleNotification[0]) ||
