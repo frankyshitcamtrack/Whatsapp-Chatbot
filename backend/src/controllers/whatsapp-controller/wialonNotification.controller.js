@@ -5,6 +5,9 @@ const { getMessagesAndNumbers } = require("../../utils/getMessagesAndNumbers");
 const { formatArrPhones } = require("../../utils/fortmat-phone");
 const { developement } = require("../../config/whatsappApi");
 const { titleNotification } = require("../../data/constantes");
+const {
+  getContactsWhatsapWialon,
+} = require("../../services/googlesheet.service");
 
 const {
   insertContact,
@@ -30,10 +33,8 @@ async function sendSimpleWialonNotification(number, mes) {
 //wiallon endpoints webhooks
 async function onSendWialonNotificationMultiple(req, res) {
   const wialonNotif = req.body;
-
   const wialonNotifContent = Object.keys(wialonNotif)[0].replace(/\s/g, " ");
-
-  console.log(wialonNotifContent);
+  sendSimpleWialonNotification("699113142", wialonNotifContent);
   //custom wiallon notifications
   if (
     wialonNotifContent.includes(titleNotification[0]) ||
@@ -41,7 +42,18 @@ async function onSendWialonNotificationMultiple(req, res) {
     wialonNotifContent.includes(titleNotification[2]) ||
     wialonNotifContent.includes(titleNotification[3])
   ) {
-    sendSimpleWialonNotification("699113142", JSON.stringify(wialonNotif));
+    const vehicleImmat = wialonNotifContent
+      .split(",")[0]
+      .split("immatriculé ")[1]
+      .split("-")[0];
+
+    const getNumbersOnSheet = getContactsWhatsapWialon(vehicleImmat, "C");
+
+    if (getNumbersOnSheet && getNumbersOnSheet.length > 0) {
+      getNumbersOnSheet.map((item) => {
+        sendSimpleWialonNotification(item, wialonNotifContent);
+      });
+    }
   } else {
     const getMessageAndExtractNumbers = getMessagesAndNumbers(wialonNotif);
     const message = getMessageAndExtractNumbers.message;

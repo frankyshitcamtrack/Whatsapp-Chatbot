@@ -60,15 +60,15 @@ async function getContactsWhatsapWialon(vehicle, col) {
   if (rows) {
     const r = rows.filter((item) => item._rawData.includes(vehicle));
 
-    const rowNumber = r[0]._rowNumber;
-    await sheet.loadCells(`A${rowNumber}:${col}${rowNumber}`);
+    if (r.length > 0) {
+      const rowNumber = r[0]._rowNumber;
+      await sheet.loadCells(`A${rowNumber}:${col}${rowNumber}`);
 
-    const cell = sheet.getCellByA1(`${col}${rowNumber}`);
-    const cellVal = cell._rawData.effectiveValue["stringValue"].split(";");
-    console.log("contact array");
+      const cell = sheet.getCellByA1(`${col}${rowNumber}`);
+      const cellVal = cell._rawData.effectiveValue["stringValue"].split(";");
 
-    console.log(cellVal);
-    return cellVal;
+      return cellVal;
+    }
   }
 }
 
