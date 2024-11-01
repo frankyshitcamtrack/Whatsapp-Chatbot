@@ -41,8 +41,13 @@ app.use(
 );
 
 scheduleClock();
+/* 
+async function getNumbers() {
+  const numbers = await getContactsWhatsapWialon("LTTR 217 AY", "C");
+  console.log(numbers);
+}
 
-//getContactsWhatsapWialon("CH 499024", "C");
+getNumbers(); */
 
 setInterval(() => {
   SaveContact();

@@ -46,7 +46,7 @@ async function onSendWialonNotificationMultiple(req, res) {
       .split("immatriculé ")[1]
       .split("-")[0];
 
-    const getNumbersOnSheet = getContactsWhatsapWialon(vehicleImmat, "C");
+    const getNumbersOnSheet = await getContactsWhatsapWialon(vehicleImmat, "C");
 
     if (getNumbersOnSheet && getNumbersOnSheet.length > 0) {
       getNumbersOnSheet.map((item) => {
