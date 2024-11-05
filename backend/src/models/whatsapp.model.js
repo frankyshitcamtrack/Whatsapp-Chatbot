@@ -356,7 +356,6 @@ async function sendMessageList(phone_number_id, phone) {
 
 //Send template notification ymane
 async function sendTemplateConsent(phone_number_id, phone) {
-  console.log(phone);
   return axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url: "https://graph.facebook.com/v20.0/" + phone_number_id + "/messages",
@@ -669,8 +668,6 @@ async function sendTemplateMatketingVideo(phone_number_id, phone, mes, link) {
 //ymane multiple video notifications
 async function sendTemplateVideoMultiple(phone_number_id, arr, mes, link) {
   const message = formatMessage(mes);
-  console.log(`ymane_video ${mes}`);
-  console.log(`ymane_video ${arr}`);
   arr.map(async (item) => {
     if (item) {
       await sendMediaVideo(phone_number_id, item, link, message);
@@ -682,8 +679,6 @@ async function sendTemplateVideoMultiple(phone_number_id, arr, mes, link) {
 //ymane multiple image notifications
 async function sendTemplateImageMultiple(phone_number_id, arr, mes, link) {
   const message = formatMessage(mes);
-  console.log(`ymane_image ${mes}`);
-  console.log(`${arr}`);
   arr.map(async (item) => {
     if (item) {
       //console.log(item);
@@ -696,8 +691,6 @@ async function sendTemplateImageMultiple(phone_number_id, arr, mes, link) {
 //ymane multiple messages notifications
 async function sendTemplateNotificationMultiple(phone_number_id, arr, mes) {
   const message = mes.replace(/\r?\\n|\r/g, "\n");
-  console.log(`ymane_image ${message}`);
-  console.log(`${arr}`);
   arr.map(async (item) => {
     if (item) {
       //console.log(item);

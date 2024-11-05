@@ -28,8 +28,6 @@ async function onVerifyContacts(req, res) {
   try {
     const arrPhones = req.body.phones;
     const phone = phoneFormat(arrPhones);
-    console.log(arrPhones);
-    console.log(phone);
     if (phone) {
       const verification = await verifyContacts(phone);
       console.log(verification);
@@ -155,7 +153,6 @@ async function onSendTemplateImage(req, res) {
     const downloadPath = `public/assets/evidence/${downloadImId}.jpg`;
     const media = await downloadImage(img, downloadPath, fullUrl);
     if (phoneID && phone && media) {
-      console.log(media);
       setTimeout(async () => {
         await sendUtilityTemplateImage(phoneID, phone, message, media);
         res.json(200);
