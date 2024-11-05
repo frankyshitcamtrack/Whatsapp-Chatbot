@@ -1,8 +1,8 @@
 const titleNotification = [
-  "Demarrage suspect",
-  "Entrée dans une zone dangereuse",
-  "Déconnexion du boîtier",
-  "Entrée dans un corridor dangereux",
+  "camtrack demarrage suspect",
+  "camtrack entrée zone dangereuse",
+  "deconnexion boitier",
+  "entree corridor dangereux",
 ];
 
 module.exports = { titleNotification };
