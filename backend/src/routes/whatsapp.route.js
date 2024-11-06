@@ -21,7 +21,7 @@ const {
   onSendTemplateImageMultiple,
   onSendTemplateNotificationMultiple,
   onSendTemplateVideoMultiple,
-} = require("../controllers/whatsapp.controllers");
+} = require("../controllers/whatsapp-controller/ymaneBulk.controller");
 
 const whatsappRouter = express.Router();
 
