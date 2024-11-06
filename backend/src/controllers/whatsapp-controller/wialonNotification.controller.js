@@ -49,11 +49,9 @@ async function onSendWialonNotificationMultiple(req, res) {
 
     const getNumbersOnSheet = await getContactsWhatsapWialon(vehicleImmat, "C");
 
-    console.log(vehicleImmat);
-    console.log(getNumbersOnSheet);
-
     if (getNumbersOnSheet && getNumbersOnSheet.length > 0) {
       getNumbersOnSheet.map((item) => {
+        console.log(item);
         sendSimpleWialonNotification(item, wialonNotifContent);
       });
     }
