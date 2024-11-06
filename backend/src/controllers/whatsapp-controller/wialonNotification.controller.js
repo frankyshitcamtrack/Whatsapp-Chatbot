@@ -35,7 +35,11 @@ async function onSendWialonNotificationMultiple(req, res) {
   const wialonNotif = req.body;
   const wialonNotifContent = Object.keys(wialonNotif)[0].replace(/\s/g, " ");
   //custom wiallon notifications
-  console.log(wialonNotifContent);
+  console.log(wialonNotifContent.toLowerCase());
+  console.log(titleNotification[0]);
+  console.log(titleNotification[1]);
+  console.log(titleNotification[2]);
+  console.log(titleNotification[3]);
   if (
     wialonNotifContent.toLowerCase().includes(titleNotification[0]) ||
     wialonNotifContent.toLowerCase().includes(titleNotification[1]) ||
