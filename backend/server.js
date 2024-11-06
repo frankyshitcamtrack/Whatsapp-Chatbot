@@ -8,8 +8,8 @@ require("dotenv").config();
 const app = require("./app");
 
 //locale
-/* const PORT = process.env.PORT || 8000;
-const server = http.createServer(app); */
+//const PORT = process.env.PORT || 8000;
+//const server = http.createServer(app);
 
 //production
 const PORT = process.env.PORT || 443;

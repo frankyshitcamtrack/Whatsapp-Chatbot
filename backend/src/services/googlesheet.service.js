@@ -65,7 +65,8 @@ async function getContactsWhatsapWialon(vehicle, col) {
       await sheet.loadCells(`A${rowNumber}:${col}${rowNumber}`);
 
       const cell = sheet.getCellByA1(`${col}${rowNumber}`);
-      const cellVal = cell._rawData.effectiveValue["stringValue"].split(";");
+
+      const cellVal = cell._rawData.effectiveValue["stringValue"].split(",");
 
       return cellVal;
     }
