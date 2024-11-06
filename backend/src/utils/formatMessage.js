@@ -6,7 +6,7 @@ function formatMessage(message) {
     .replace(/ >/g, ">")
     .replace(/> </g, "><")
     .trim();
-  console.log(format);
+
   return format;
 }
 
