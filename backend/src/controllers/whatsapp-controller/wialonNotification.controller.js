@@ -13,6 +13,7 @@ const {
   insertContact,
   getWialonContactByID,
 } = require("../../models/wialon.model");
+const { v4: uuidv4 } = require("uuid");
 
 const phoneID = developement.phone_number_id;
 let scheduleFunction = false;
