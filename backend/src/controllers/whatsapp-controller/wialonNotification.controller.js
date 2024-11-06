@@ -36,10 +36,6 @@ async function onSendWialonNotificationMultiple(req, res) {
   const wialonNotifContent = Object.keys(wialonNotif)[0].replace(/\s/g, " ");
   //custom wiallon notifications
   console.log(wialonNotifContent.toLowerCase());
-  console.log(titleNotification[0]);
-  console.log(titleNotification[1]);
-  console.log(titleNotification[2]);
-  console.log(titleNotification[3]);
   if (
     wialonNotifContent.toLowerCase().includes(titleNotification[0]) ||
     wialonNotifContent.toLowerCase().includes(titleNotification[1]) ||
@@ -52,6 +48,9 @@ async function onSendWialonNotificationMultiple(req, res) {
       .split("-")[0];
 
     const getNumbersOnSheet = await getContactsWhatsapWialon(vehicleImmat, "C");
+
+    console.log(vehicleImmat);
+    console.log(getNumbersOnSheet);
 
     if (getNumbersOnSheet && getNumbersOnSheet.length > 0) {
       getNumbersOnSheet.map((item) => {
