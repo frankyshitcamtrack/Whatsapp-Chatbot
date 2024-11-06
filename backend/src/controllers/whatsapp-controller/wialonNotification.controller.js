@@ -54,10 +54,10 @@ async function onSendWialonNotificationMultiple(req, res) {
       getNumbersOnSheet.map(async (item) => {
         const id = uuidv4();
         const contact = await getWialonContactByID(item);
+        sendSimpleWialonNotification(item, wialonNotifContent);
         if (contact && contact.length === 0) {
           insertContact(id, item);
         }
-        sendSimpleWialonNotification(item, wialonNotifContent);
       });
     }
   } else {
