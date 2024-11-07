@@ -58,6 +58,7 @@ async function onSendWialonNotificationMultiple(req, res) {
         if (contact && contact.length === 0) {
           insertContact(id, item);
         }
+       
       });
     }
   } else {
