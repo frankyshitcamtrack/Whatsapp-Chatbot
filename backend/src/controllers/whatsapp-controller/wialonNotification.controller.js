@@ -35,6 +35,7 @@ async function sendSimpleWialonNotification(number, mes) {
 async function onSendWialonNotificationMultiple(req, res) {
   const wialonNotif = req.body;
   const wialonNotifContent = Object.keys(wialonNotif)[0].replace(/\s/g, " ");
+  console.log(wialonNotifContent);
   //custom wiallon notifications
 
   if (
@@ -58,7 +59,6 @@ async function onSendWialonNotificationMultiple(req, res) {
         if (contact && contact.length === 0) {
           insertContact(id, item);
         }
-       
       });
     }
   } else {
