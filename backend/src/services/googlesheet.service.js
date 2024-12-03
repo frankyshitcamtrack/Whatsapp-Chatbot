@@ -45,6 +45,8 @@ async function getContacts() {
   }
 }
 
+
+
 async function getContactsWhatsapWialon(vehicle, col) {
   const doc = new GoogleSpreadsheet(
     "1hiUje3D_p8-UV9MagYDRKP-2yz_Wr5vr8yh_SPs-jvk",
