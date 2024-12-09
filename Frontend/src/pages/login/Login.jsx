@@ -11,7 +11,7 @@ import hidePass from '/assets/hide-pass.png';
 import {login} from '../../services/users.service'
 
 
-function Login() {;
+function Login() {
     const [Login,setLogin]=useState('');
     const [passWord,setPassword]=useState('');
     const [passType,setPassType]=useState('password');
