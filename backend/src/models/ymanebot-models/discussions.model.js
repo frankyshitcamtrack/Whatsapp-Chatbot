@@ -49,7 +49,7 @@ async function getDiscussionByTypeCampaignNameAndStatus(
 async function countSentMessageBytypeCampagne(typeCampagneName) {
   const TC = `"${typeCampagneName}"`;
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE ((d.status='sent' OR d.status='read' OR d.status='delivered') AND d.isDelete=0 AND t.isDelete=0 AND t.name=${TC})`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND (d.status='sent' OR d.status='read' OR d.status='delivered'))`
   );
   return result[0];
 }
@@ -57,7 +57,7 @@ async function countSentMessageBytypeCampagne(typeCampagneName) {
 async function countFailedMessageBytypeCampagne(typeCampagneName) {
   const TC = `"${typeCampagneName}"`;
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (d.isDelete=0 AND t.isDelete=0 AND d.status='failed' AND t.name=${TC})`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND d.status='failed')`
   );
   return result[0];
 }
@@ -65,7 +65,7 @@ async function countFailedMessageBytypeCampagne(typeCampagneName) {
 async function countPendingMessageBytypeCampagne(typeCampagneName) {
   const TC = `"${typeCampagneName}"`;
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (d.isDelete=0 AND t.isDelete=0 AND d.status='pending' AND t.name=${TC} )`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE ( t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND d.status='pending')`
   );
   return result[0];
 }
@@ -73,7 +73,7 @@ async function countPendingMessageBytypeCampagne(typeCampagneName) {
 async function countDeletedMessageBytypeCampagne(typeCampagneName) {
   const TC = `"${typeCampagneName}"`;
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (d.isDelete=0 AND t.isDelete=0 AND d.status='deleted' AND t.name=${TC})`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND d.status='deleted')`
   );
   return result[0];
 }

@@ -90,9 +90,11 @@ async function httpCountDiscussionsBystatusAndTypeCampaign(req, res) {
     const deliveredPushMediaMessages = await countSentMessageBytypeCampagne(
       typeCampagnes[1]
     );
+
     const failedPushMediaMessages = await countFailedMessageBytypeCampagne(
       typeCampagnes[1]
     );
+
     const pendingPushMediaMessages = await countPendingMessageBytypeCampagne(
       typeCampagnes[1]
     );
@@ -140,6 +142,10 @@ async function httpCountDiscussionsBystatusAndTypeCampaign(req, res) {
       pendingNewsLetterMessages &&
       deletedNewsLetterMessages
     ) {
+      console.log(/** --------------------------------------------------deliveredPushMediaMessages--------------------------------------------------------------------- */);
+      console.log(deliveredPushMediaMessages);
+      console.log(/** --------------------------------------------------pendingPushMediaMessages--------------------------------------------------------------------- */);
+      console.log(pendingPushMediaMessages);
       const countDeliveredPushMediaMessages = deliveredPushMediaMessages.length;
       const countFailedPushMediaMessages = failedPushMediaMessages.length;
       const countPendingPushMediaMessages = pendingPushMediaMessages.length;
