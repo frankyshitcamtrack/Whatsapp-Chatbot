@@ -20,20 +20,8 @@ async function getDiscussionbyId(id) {
   return data;
 }
 
-async function getDiscussionbyTypeCampaignNameAndStatusDiscussions(
-  typeCampagneName,
-  status
-) {
-  const res = await axios(`${baseUrl}/single-discussion`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'get',
-    body: {
-      typeCampaignName: JSON.stringify(typeCampagneName),
-      status: JSON.stringify(status),
-    },
-  });
+async function getDiscussionbyTypeCampaignNameAndStatusDiscussions() {
+  const res = await axios(`${baseUrl}/dashboard`);
   const data = await res.json();
   return data;
 }
