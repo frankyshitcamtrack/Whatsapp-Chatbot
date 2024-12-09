@@ -96,14 +96,14 @@ async function GetTypeCampagneCount(){
 
 
 async function getStatusMessageByTypeampaign() {
-    //get All stored messages
     const discussions = await getDiscussionbyTypeCampaignNameAndStatusDiscussions();
     if (discussions) {
+        console.log(discussions);
         setPushMedia({recu:discussions['pushMedia'].received,nonRecu:discussions['pushMedia'].failed,encour:discussions['pushMedia'].pending,supprimé:discussions['pushMedia'].deleted});
         setPushMarketing({recu:discussions['pushMarketing'].received,nonRecu:discussions['pushMarketing'].failed,encour:discussions['pushMarketing'].pending,supprimé:discussions['pushMarketing'].deleted});
         setPushNewsLetter({recu:discussions['newsletter'].received,nonRecu:discussions['newsletter'].failed,encour:discussions['newsletter'].pending,supprimé:discussions['newsletter'].deleted});
     }
-  }
+}
 
  
     useEffect(() => {
