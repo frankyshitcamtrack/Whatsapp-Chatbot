@@ -1,8 +1,8 @@
 import { createContext, useEffect } from 'react';
 import { useState } from 'react';
 import {getCampagnes}from '../services/campagnes.service';
-import {getDiscussions,getDiscussionbyTypeCampaignNameAndStatusDiscussions} from '../services/discussions.service';
-import {getTypeampagneById} from '../services/typeCampagne.service'
+import {getDiscussionbyTypeCampaignNameAndStatusDiscussions} from '../services/discussions.service';
+
 
 
 
@@ -45,7 +45,8 @@ export default function MainContext({children}){
     }
     
     const logout = () => {
-        setCurrentUser(null)
+        setCurrentUser(null);
+        setIsLogIn(false)
     }
 
     function updatePathName(path){
