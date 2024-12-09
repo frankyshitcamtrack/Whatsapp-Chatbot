@@ -6,7 +6,6 @@ async function getDiscussions() {
   try {
     const res = await axios.get(`${baseUrl}/discussions`);
     const data = await res.data;
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -22,7 +21,7 @@ async function getDiscussionbyId(id) {
 
 async function getDiscussionbyTypeCampaignNameAndStatusDiscussions() {
   const res = await axios(`${baseUrl}/dashboard`);
-  const data = await res.json();
+  const data = await res.data;
   console.log(data);
   return data;
 }
