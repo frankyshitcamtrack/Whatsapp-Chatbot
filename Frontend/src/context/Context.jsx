@@ -98,7 +98,7 @@ async function GetTypeCampagneCount(){
 async function getStatusMessageByTypeampaign() {
      await getDiscussionbyTypeCampaignNameAndStatusDiscussions()
      .then((res)=>{
-        const discussions = res.data;
+        const discussions = res;
         console.log(discussions);
         setPushMedia({recu:discussions['pushMedia'].received,nonRecu:discussions['pushMedia'].failed,encour:discussions['pushMedia'].pending,supprimé:discussions['pushMedia'].deleted});
         setPushMarketing({recu:discussions['pushMarketing'].received,nonRecu:discussions['pushMarketing'].failed,encour:discussions['pushMarketing'].pending,supprimé:discussions['pushMarketing'].deleted});
