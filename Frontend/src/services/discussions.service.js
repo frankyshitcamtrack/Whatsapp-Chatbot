@@ -23,6 +23,7 @@ async function getDiscussionbyId(id) {
 async function getDiscussionbyTypeCampaignNameAndStatusDiscussions() {
   const res = await axios(`${baseUrl}/dashboard`);
   const data = await res.json();
+  console.log(data);
   return data;
 }
 
