@@ -21,7 +21,8 @@ async function getDiscussionbyId(id) {
 }
 
 async function getDiscussionbyTypeCampaignNameAndStatusDiscussions(
-  typeCampagneName
+  typeCampagneName,
+  status
 ) {
   const res = await axios(`${baseUrl}/single-discussion`, {
     headers: {
@@ -30,6 +31,7 @@ async function getDiscussionbyTypeCampaignNameAndStatusDiscussions(
     method: 'get',
     body: {
       typeCampaignName: JSON.stringify(typeCampagneName),
+      status: JSON.stringify(status),
     },
   });
   const data = await res.json();

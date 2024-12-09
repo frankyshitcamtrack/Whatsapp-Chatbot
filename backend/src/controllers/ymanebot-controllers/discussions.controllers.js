@@ -62,11 +62,13 @@ async function httpInsertDiscussion(req, res) {
 }
 
 async function httpGetDiscussionByTypeCampAndStatus(req, res) {
-  const { typeCampaignName } = req.body;
+  const { status, typeCampaignName } = req.body;
   try {
     return res
       .status(200)
-      .json(await getDiscussionByTypeCampaignNameAndStatus(typeCampaignName));
+      .json(
+        await getDiscussionByTypeCampaignNameAndStatus(typeCampaignName, status)
+      );
   } catch (error) {
     console.log(error);
     return res.status(500).json({
