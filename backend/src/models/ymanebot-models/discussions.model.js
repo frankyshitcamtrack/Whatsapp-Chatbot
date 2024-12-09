@@ -49,7 +49,7 @@ async function getDiscussionByTypeCampaignNameAndStatus(
 async function countSentMessageBytypeCampagne(typeCampagneName) {
   const TC = `"${typeCampagneName}"`;
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND (d.status='sent' OR d.status='read' OR d.status='delivered'))`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND (d.status='sent' OR d.status='read' OR d.status='delivered') AND (d.id_push_campaign= p.id AND p.idType_campagnes=t.id ))`
   );
   return result[0];
 }
@@ -57,7 +57,7 @@ async function countSentMessageBytypeCampagne(typeCampagneName) {
 async function countFailedMessageBytypeCampagne(typeCampagneName) {
   const TC = `"${typeCampagneName}"`;
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND d.status='failed')`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND d.status='failed' AND d.id_push_campaign= p.id AND p.idType_campagnes=t.id )`
   );
   return result[0];
 }
@@ -65,7 +65,7 @@ async function countFailedMessageBytypeCampagne(typeCampagneName) {
 async function countPendingMessageBytypeCampagne(typeCampagneName) {
   const TC = `"${typeCampagneName}"`;
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE ( t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND d.status='accepted')`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE ( t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND d.status='accepted' AND d.id_push_campaign= p.id AND p.idType_campagnes=t.id )`
   );
   return result[0];
 }
@@ -73,7 +73,7 @@ async function countPendingMessageBytypeCampagne(typeCampagneName) {
 async function countDeletedMessageBytypeCampagne(typeCampagneName) {
   const TC = `"${typeCampagneName}"`;
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND d.status='deleted')`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${TC} AND d.isDelete=0 AND t.isDelete=0 AND d.status='deleted' AND d.id_push_campaign= p.id AND p.idType_campagnes=t.id )`
   );
   return result[0];
 }
