@@ -32,7 +32,8 @@ function Login() {
         }, 3000);
       }
       if(res.status===200){
-        const user ={id:result.user_id,user_name:result.user_name,role:result.role,departement:result.idDepartement};
+        const user ={id:result.user_id,user_name:result.user_name,role:result?.role,departement:result.idDepartement};
+        console.log(user);
         loginAuth(user);
         navigate("/dashboard");
       }

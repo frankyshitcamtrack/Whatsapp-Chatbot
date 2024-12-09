@@ -32,13 +32,13 @@ function SideBar() {
                 }
 
                 {
-                    currentUser.role==="super-admin" &&
+                    currentUser?.role==="super-admin" &&
                     <li className={`${pathName==='settings' && classes.menu_dropdowwn} ${classes.menu_item}`} onClick={displayDropdown}>
                     <a><img alt='settings' src={settingIcon}/><p>Settings</p> </a>
                    </li>
                 }
                    {
-                   (currentUser.role==="super-admin" && dropdownDisplay) &&
+                   (currentUser?.role==="super-admin" && dropdownDisplay) &&
                     <div className={classes.dropdown_menu_container}>
                     <span>
                         <NavLink to='/settings/utilisateurs'  className={({ isActive }) => (isActive ? classes.secondaryactive : '')}>
