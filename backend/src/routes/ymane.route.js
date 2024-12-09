@@ -56,6 +56,7 @@ const {
   httpInsertDiscussion,
   httpGetDiscussionByStatus,
   httpGetDiscussionByTypeCampAndStatus,
+  httpCountDiscussionsBystatusAndTypeCampaign,
 } = require('../controllers/ymanebot-controllers/discussions.controllers');
 
 const {
@@ -142,5 +143,7 @@ ymaneRouter.post(
   upload.single('media'),
   httpInsertPushCampagne
 );
+
+ymaneRouter.get('/dashboard', httpCountDiscussionsBystatusAndTypeCampaign);
 
 module.exports = ymaneRouter;

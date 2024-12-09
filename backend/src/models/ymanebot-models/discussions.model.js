@@ -47,6 +47,31 @@ async function getDiscussionByTypeCampaignNameAndStatus(
   return result[0];
 }
 
+async function countSentMessageBytypeCampagne(typeCampagneName) {
+  const result = await pool.query(
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${typeCampagneName} AND d.isDelete=0 AND t.isDelete=0 AND (d.status='sent' OR d.status='read' OR d.status='delivered'))`
+  );
+  return result[0];
+}
+async function countFailedMessageBytypeCampagne(typeCampagneName) {
+  const result = await pool.query(
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${typeCampagneName} AND d.isDelete=0 AND t.isDelete=0 AND d.status='failed')`
+  );
+  return result[0];
+}
+async function countPendingMessageBytypeCampagne(typeCampagneName) {
+  const result = await pool.query(
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${typeCampagneName} AND d.isDelete=0 AND t.isDelete=0 AND d.status='pending')`
+  );
+  return result[0];
+}
+async function countDeletedMessageBytypeCampagne(typeCampagneName) {
+  const result = await pool.query(
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${typeCampagneName} AND d.isDelete=0 AND t.isDelete=0 AND d.status='deleted')`
+  );
+  return result[0];
+}
+
 module.exports = {
   getDiscussions,
   getDiscussionById,
@@ -54,4 +79,8 @@ module.exports = {
   updateStatusDiscussion,
   getDiscussionsByStatus,
   getDiscussionByTypeCampaignNameAndStatus,
+  countSentMessageBytypeCampagne,
+  countFailedMessageBytypeCampagne,
+  countPendingMessageBytypeCampagne,
+  countDeletedMessageBytypeCampagne,
 };
