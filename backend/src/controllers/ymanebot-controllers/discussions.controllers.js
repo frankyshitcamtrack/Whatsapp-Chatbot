@@ -88,42 +88,42 @@ async function httpCountDiscussionsBystatusAndTypeCampaign(req, res) {
   try {
     //get media messages by status
     const deliveredPushMediaMessages = await countSentMessageBytypeCampagne(
-      typeCampagnes[1]
+      typeCampagnes[1].toString()
     );
     const failedPushMediaMessages = await countFailedMessageBytypeCampagne(
-      typeCampagnes[1]
+      typeCampagnes[1].toString()
     );
     const pendingPushMediaMessages = await countPendingMessageBytypeCampagne(
-      typeCampagnes[1]
+      typeCampagnes[1].toString()
     );
     const deletedPushMediaMessages = await countDeletedMessageBytypeCampagne(
-      typeCampagnes[1]
+      typeCampagnes[1].toString()
     );
 
     //get maketing messages by status
     const deliveredPushMarketingMessages = await countSentMessageBytypeCampagne(
-      typeCampagnes[0]
+      typeCampagnes[0].toString()
     );
     const failedPushMarketingMessages = await countFailedMessageBytypeCampagne(
-      typeCampagnes[0]
+      typeCampagnes[0].toString()
     );
     const pendingPushMarketingMessages =
-      await countPendingMessageBytypeCampagne(typeCampagnes[0]);
+      await countPendingMessageBytypeCampagne(typeCampagnes[0].toString());
     const deletedPushMarketingMessages =
-      await countDeletedMessageBytypeCampagne(typeCampagnes[0]);
+      await countDeletedMessageBytypeCampagne(typeCampagnes[0].toString());
 
     //get newsletter messages by status
     const deliveredNewsLetterMessages = await countSentMessageBytypeCampagne(
-      typeCampagnes[2]
+      typeCampagnes[2].toString()
     );
     const failedNewsLetterMessages = await countFailedMessageBytypeCampagne(
-      typeCampagnes[2]
+      typeCampagnes[2].toString()
     );
     const pendingNewsLetterMessages = await countPendingMessageBytypeCampagne(
-      typeCampagnes[2]
+      typeCampagnes[2].toString()
     );
     const deletedNewsLetterMessages = await countDeletedMessageBytypeCampagne(
-      typeCampagnes[2]
+      typeCampagnes[2].toString()
     );
 
     if (
