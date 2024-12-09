@@ -37,12 +37,9 @@ async function getDiscussionsByStatus(status) {
   return result[0];
 }
 
-async function getDiscussionByTypeCampaignNameAndStatus(
-  typeCampagneName,
-  status
-) {
+async function getDiscussionByTypeCampaignNameAndStatus(typeCampagneName) {
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${typeCampagneName} AND d.status=${status} AND d.isDelete=0 AND t.isDelete=0)`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${typeCampagneName} AND d.isDelete=0 AND t.isDelete=0)`
   );
   return result[0];
 }
