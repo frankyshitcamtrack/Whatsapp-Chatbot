@@ -28,7 +28,7 @@ async function httpGetDiscussionById(req, res) {
 }
 
 async function httpGetDiscussionByStatus(req, res) {
-  const status = `"${req.params.status}"`;
+  const { status } = req.body;
   try {
     return res.status(200).json(await getDiscussionsByStatus(status));
   } catch (error) {
