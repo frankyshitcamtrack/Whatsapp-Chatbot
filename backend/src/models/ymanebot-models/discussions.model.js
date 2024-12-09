@@ -30,8 +30,9 @@ function updateStatusDiscussion(id_discussion, status) {
 }
 
 async function getDiscussionsByStatus(status) {
+  const param = status.toString();
   const result = await pool.query(
-    `SELECT * FROM discussions WHERE status=${status} AND isDelete=0`
+    `SELECT * FROM discussions WHERE status=${param} AND isDelete=0`
   );
   return result[0];
 }
