@@ -49,25 +49,25 @@ async function getDiscussionByTypeCampaignNameAndStatus(
 
 async function countSentMessageBytypeCampagne(typeCampagneName) {
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${typeCampagneName} AND d.isDelete=0 AND t.isDelete=0 AND (d.status="sent" OR d.status="read" OR d.status="delivered"))`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE ((d.status='sent' OR d.status='read' OR d.status='delivered') AND d.isDelete=0 AND t.isDelete=0 AND t.name=${typeCampagneName})`
   );
   return result[0];
 }
 async function countFailedMessageBytypeCampagne(typeCampagneName) {
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${typeCampagneName} AND d.isDelete=0 AND t.isDelete=0 AND d.status="failed")`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (d.isDelete=0 AND t.isDelete=0 AND d.status='failed' AND t.name=${typeCampagneName})`
   );
   return result[0];
 }
 async function countPendingMessageBytypeCampagne(typeCampagneName) {
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${typeCampagneName} AND d.isDelete=0 AND t.isDelete=0 AND d.status="pending")`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (d.isDelete=0 AND t.isDelete=0 AND d.status='pending' AND t.name=${typeCampagneName} )`
   );
   return result[0];
 }
 async function countDeletedMessageBytypeCampagne(typeCampagneName) {
   const result = await pool.query(
-    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE (t.name=${typeCampagneName} AND d.isDelete=0 AND t.isDelete=0 AND d.status="deleted")`
+    `SELECT d.status, p.push_campagne_name,t.name FROM discussions as d,pushs_campagnes as p,types_campagnes AS t WHERE ( AND d.isDelete=0 AND t.isDelete=0 AND d.status='deleted' AND t.name=${typeCampagneName})`
   );
   return result[0];
 }
