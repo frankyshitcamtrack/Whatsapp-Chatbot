@@ -3,17 +3,16 @@ import Layout from "../layout/Layout";
 
 function PrivateRoute() {
     
-    const currentUser = localStorage.getItem("currentUser");
+    const currentUser =JSON.parse(localStorage.getItem("currentUser"));
  
     const navigate = useNavigate();
-    
-    if (currentUser===null || !currentUser) {
-        navigate('/login')
-    }
+  
 
-    return (
-        <Layout><Outlet /></Layout>
-    );
+
+  return  (currentUser===null || !currentUser)? navigate('/login'): <Layout><Outlet /></Layout>
+
+
+   
 }
 
 export default PrivateRoute;
