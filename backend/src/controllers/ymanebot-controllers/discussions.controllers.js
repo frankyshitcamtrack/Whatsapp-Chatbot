@@ -3,6 +3,7 @@ const {
   getDiscussions,
   insertDiscussion,
   getDiscussionsByStatus,
+  getDiscussionByTypeCampaignNameAndStatus,
 } = require('../../models/ymanebot-models/discussions.model');
 
 async function httpGetDiscussions(req, res) {
@@ -60,9 +61,26 @@ async function httpInsertDiscussion(req, res) {
   }
 }
 
+async function httpGetDiscussionByTypeCampAndStatus(req, res) {
+  const { status, typeCampaignName } = req.body;
+  try {
+    return res
+      .status(200)
+      .json(
+        await getDiscussionByTypeCampaignNameAndStatus(typeCampaignName, status)
+      );
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: 'something went wrong with the server',
+    });
+  }
+}
+
 module.exports = {
   httpInsertDiscussion,
   httpGetDiscussionById,
   httpGetDiscussions,
   httpGetDiscussionByStatus,
+  httpGetDiscussionByTypeCampAndStatus,
 };
