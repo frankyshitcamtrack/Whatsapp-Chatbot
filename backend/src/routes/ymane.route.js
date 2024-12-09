@@ -126,7 +126,7 @@ ymaneRouter.post('/update-type_contact', httpUpdateTypeContact);
 ymaneRouter.get('/discussions', httpGetDiscussions);
 ymaneRouter.get('/single-discussion/:id', httpGetDiscussionById);
 ymaneRouter.post('/discussion', httpInsertDiscussion);
-ymaneRouter.get('/discussion_by_status/:status', httpGetDiscussionByStatus);
+ymaneRouter.get('/discussion_by_status', httpGetDiscussionByStatus);
 
 ymaneRouter.get('/push_campaigns', httpGetPushCampagne);
 ymaneRouter.get('/pseudo_campaigns', httpGetPushCampagneWithExistUsersAndTC);
