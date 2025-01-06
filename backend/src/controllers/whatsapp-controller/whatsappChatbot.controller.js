@@ -54,6 +54,7 @@ async function getPositionVehicule(user) {
       user.flow = '';
       user.vehicleNumber = '';
       user.dates = '';
+      user.lang = '';
       user.body = '';
       user.scheduleMessageSent = false;
       user.matriculeQuestionSent = false;
@@ -71,6 +72,7 @@ async function getPositionVehicule(user) {
     user.flow = '';
     user.vehicleNumber = '';
     user.dates = '';
+    user.lang = '';
     user.scheduleMessageSent = false;
     user.matriculeQuestionSent = false;
     user.dateMessage = false;
@@ -89,6 +91,7 @@ async function getPositionVehicleByDate(user) {
     user.flow = '';
     user.vehicleNumber = '';
     user.dates = '';
+    user.lang = '';
     user.scheduleMessageSent = false;
     user.matriculeQuestionSent = false;
     user.dateMessage = false;
@@ -115,6 +118,7 @@ async function getPositionVehicleByDate(user) {
       user.flow = '';
       user.vehicleNumber = '';
       user.dates = '';
+      user.lang = '';
       user.scheduleMessageSent = false;
       user.matriculeQuestionSent = false;
       user.dateMessage = false;
@@ -129,6 +133,7 @@ async function getPositionVehicleByDate(user) {
     user.flow = '';
     user.vehicleNumber = '';
     user.dates = '';
+    user.lang = '';
     user.scheduleMessageSent = false;
     user.matriculeQuestionSent = false;
     user.dateMessage = false;
