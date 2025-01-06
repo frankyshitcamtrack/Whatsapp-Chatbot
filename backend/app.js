@@ -1,34 +1,38 @@
-const express = require("express");
+const express = require('express');
 
-const path = require("path");
+const path = require('path');
 
-const cors = require("cors");
+const cors = require('cors');
 
-const morgan = require("morgan");
+const morgan = require('morgan');
 
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 
-const cron = require("node-cron");
+const cron = require('node-cron');
 
-const whatsappRouter = require("./src/routes/whatsapp.route");
+const whatsappRouter = require('./src/routes/whatsapp.route');
 
-const api = require("./src/routes/api");
+const api = require('./src/routes/api');
 
-const { SaveContact } = require("./src/utils/saveContacts");
+const helmet = require('helmet');
 
-const { onSendConsent } = require("./src/controllers/whatsapp.controllers");
+const { SaveContact } = require('./src/utils/saveContacts');
+
+const { onSendConsent } = require('./src/controllers/whatsapp.controllers');
 const {
   scheduleClock,
-} = require("./src/controllers/whatsapp-controller/wialonNotification.controller");
+} = require('./src/controllers/whatsapp-controller/wialonNotification.controller');
 
 //test wialon contact
 const {
   getContactsWhatsapWialon,
-} = require("./src/services/googlesheet.service");
+} = require('./src/services/googlesheet.service');
 
 const app = express();
 
-app.use(morgan("combined"));
+app.use(helmet());
+
+app.use(morgan('combined'));
 
 app.use(cors());
 
@@ -55,14 +59,14 @@ setInterval(() => {
 
 //schedule consent message template every morning at 5h30
 cron.schedule(
-  "30 6 * * *",
+  '30 6 * * *',
   async () => {
-    console.log("send consent message");
+    console.log('send consent message');
     await onSendConsent();
   },
   {
     scheduled: true,
-    timezone: "Africa/Lagos",
+    timezone: 'Africa/Lagos',
   }
 );
 
@@ -71,17 +75,17 @@ cron.schedule(
 //const downloadPath = path.resolve(`./public/assets/video/${id}.mp4`)
 
 // Accepts POST requests at /webhook endpoint
-app.use("/webhook", whatsappRouter);
+app.use('/webhook', whatsappRouter);
 
-app.use("/api", api);
+app.use('/api', api);
 
 //downloadVideo(url,downloadPath,'https://whattsapi.camtrack.net/');
-app.set("etag", "strong");
+app.set('etag', 'strong');
 
-app.use(express.static(path.join(__dirname + "/public")));
+app.use(express.static(path.join(__dirname + '/public')));
 
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/public/index.html"));
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
 module.exports = app;

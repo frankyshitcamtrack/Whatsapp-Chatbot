@@ -7,7 +7,7 @@ const chooseLanguage = {
   type: 'text',
   text: {
     preview_url: false,
-    body: `*Welcome to Camtrack ✨😃*\n \n Please choose a language:\n\n- Press 0 for English\n- Press 00 for French`,
+    body: `*Welcome to Camtrack ✨😃*\n \n Please choose a language:\n *0* for English\n *00* for French`,
   },
 };
 
@@ -17,7 +17,7 @@ const textMessage = (language) => {
       type: 'text',
       text: {
         preview_url: false,
-        body: `*Welcome to Camtrack ✨😃*\n \n Let us know how we can help you today by choosing from the folowing options:\n\n- Press 1 For vehicle🚗 Location\n- Press 2 Request a visit with a member\n - Press 6 To take a survey`,
+        body: `*Welcome to Camtrack ✨😃*\n \n Let us know how we can help you today by choosing from the folowing options:\n\n *1* For vehicle🚗 Location\n *2* Request a visit with a member\n *6* To take a survey`,
       },
     };
   }
@@ -27,7 +27,7 @@ const textMessage = (language) => {
       type: 'text',
       text: {
         preview_url: false,
-        body: `*Bienvenue chez Camtrack ✨😃* \n - Faites-nous savoir comment nous pouvons vous aider aujourd'hui en choisissant parmi les options suivantes:\n- Tapez 1 pour connaitre la position de votre véhicule🚗 \n- Tapez 2 Pour demander une visite avec un de nos membres \n - Tapez 6 Pour répondre à un sondage`,
+        body: `*Bienvenue chez Camtrack ✨😃* \n Faites-nous savoir comment nous pouvons vous aider aujourd'hui en choisissant parmi les options suivantes:\n *1* pour connaitre la position de votre véhicule🚗 \n *2* Pour demander une visite avec un de nos membres \n *6* Pour répondre à un sondage`,
       },
     };
   }
@@ -55,7 +55,7 @@ const textMessageMenu1 = (language) => {
       type: 'text',
       text: {
         preview_url: false,
-        body: '*Vehicle Location🚗*\n \n- Press 1 For last vehicle location\n- Press 2 for vehicle location in a specific date and time',
+        body: '*Vehicle Location🚗*\n \n *1* For last vehicle location\n *2* for vehicle location in a specific date and time',
       },
     };
   }
@@ -65,7 +65,7 @@ const textMessageMenu1 = (language) => {
       type: 'text',
       text: {
         preview_url: false,
-        body: '*Localisation du Vehicule🚗*\n- Saisir 1 pour la dernière localisation du véhicule\n- Saisir 2 pour la localisation du véhicule à une date et une heure précise',
+        body: '*Localisation du Vehicule🚗*\n *1* pour la dernière localisation du véhicule\n *2* pour la localisation du véhicule à une date et une heure précise',
       },
     };
   }
@@ -131,7 +131,7 @@ const askImmatriculation = (language) => {
       type: 'text',
       text: {
         preview_url: false,
-        body: "Veuillez saisir le numéro d 'immatriculation de votre véhicule",
+        body: "Veuillez saisir le numéro d'immatriculation de votre véhicule",
       },
     };
   }
