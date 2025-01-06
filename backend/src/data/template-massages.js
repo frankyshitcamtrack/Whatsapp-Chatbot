@@ -27,7 +27,7 @@ const textMessage = (language) => {
       type: 'text',
       text: {
         preview_url: false,
-        body: `*Bienvenue chez Camtrack ✨😃* \n - Faites-nous savoir comment nous pouvons vous aider aujourd'hui en choisissant parmi les options suivantes:\n- Tapez 1 pour connaitre la position de votre véhicule🚗 \n- Tapez 2 Pour demander une visite avec un de nos membres \n - Press 6 Pour répondre à un sondage`,
+        body: `*Bienvenue chez Camtrack ✨😃* \n - Faites-nous savoir comment nous pouvons vous aider aujourd'hui en choisissant parmi les options suivantes:\n- Tapez 1 pour connaitre la position de votre véhicule🚗 \n- Tapez 2 Pour demander une visite avec un de nos membres \n - Tapez 6 Pour répondre à un sondage`,
       },
     };
   }
