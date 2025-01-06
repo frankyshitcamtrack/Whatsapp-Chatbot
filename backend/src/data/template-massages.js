@@ -7,7 +7,7 @@ const chooseLanguage = {
   type: 'text',
   text: {
     preview_url: false,
-    body: `*Welcome to Camtrack ✨😃*\n \n Please choose a language:\n\n- Press 0 For French\n- Press 00 for English`,
+    body: `*Welcome to Camtrack ✨😃*\n \n Please choose a language:\n\n- Press 0 for English\n- Press 00 for French`,
   },
 };
 
