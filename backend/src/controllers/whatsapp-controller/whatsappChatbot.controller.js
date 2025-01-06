@@ -66,6 +66,14 @@ async function getPositionVehicule(user) {
         ? 'An error has occurred with our server. Please wait a few minutes and try again.'
         : `Une erreur s'est produite avec notre serveur. Veuillez patienter quelques minutes et réessayer.`;
     await sendMessages(user.phoneId, user.phone, message);
+
+    user.previewMessage = '';
+    user.flow = '';
+    user.vehicleNumber = '';
+    user.dates = '';
+    user.scheduleMessageSent = false;
+    user.matriculeQuestionSent = false;
+    user.dateMessage = false;
   }
 }
 
@@ -116,6 +124,14 @@ async function getPositionVehicleByDate(user) {
       ? 'An error has occurred with our server. Please wait a few minutes and try again.'
       : `Une erreur s'est produite avec notre serveur. Veuillez patienter quelques minutes et réessayer.`;
     await sendMessages(user.phoneId, user.phone, message);
+
+    user.previewMessage = '';
+    user.flow = '';
+    user.vehicleNumber = '';
+    user.dates = '';
+    user.scheduleMessageSent = false;
+    user.matriculeQuestionSent = false;
+    user.dateMessage = false;
   }
 }
 
