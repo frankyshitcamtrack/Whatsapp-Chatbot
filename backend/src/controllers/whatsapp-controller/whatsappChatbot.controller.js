@@ -156,10 +156,6 @@ async function onSendMessages(req, res) {
 
       // check if the user client index is not exist in the table user table and finally add the new user
       if (findIndex < 0 && body.toLowerCase() === 'start') {
-        await sendMessages(phone_number_id, phone, chooseLanguage.text.body);
-      }
-
-      if (findIndex >= 0 && body.toLowerCase() === '00') {
         const newUser = {
           id: entryID,
           name: name,
@@ -170,35 +166,33 @@ async function onSendMessages(req, res) {
           date: '',
           time: '',
           flow: '',
-          lang: '00',
+          lang: '',
           previewMessage: 'start',
           scheduleMessageSent: false,
           matriculeQuestionSent: false,
           dateMessage: false,
         };
         users.push(newUser);
+
+        await sendMessages(phone_number_id, phone, chooseLanguage.text.body);
+      }
+
+      if (
+        findIndex >= 0 &&
+        body.toLowerCase() === '00' &&
+        users[findIndex].previewMessage === 'start'
+      ) {
+        users[findIndex].lang = body;
         const menuMessage = textMessage('00');
         await sendMessages(phone_number_id, phone, menuMessage.text.body);
       }
 
-      if (findIndex >= 0 && body.toLowerCase() === '0') {
-        const newUser = {
-          id: entryID,
-          name: name,
-          phone: phone,
-          phoneId: phone_number_id,
-          body: body,
-          vehicleNumber: '',
-          date: '',
-          time: '',
-          flow: '',
-          lang: '0',
-          previewMessage: 'start',
-          scheduleMessageSent: false,
-          matriculeQuestionSent: false,
-          dateMessage: false,
-        };
-        users.push(newUser);
+      if (
+        findIndex >= 0 &&
+        body.toLowerCase() === '0' &&
+        users[findIndex].previewMessage === 'start'
+      ) {
+        users[findIndex].lang = body;
         const menuMessage = textMessage('0');
         await sendMessages(phone_number_id, phone, menuMessage.text.body);
       }
