@@ -14,7 +14,7 @@ const whatsappRouter = require('./src/routes/whatsapp.route');
 
 const api = require('./src/routes/api');
 
-const helmet = require('helmet');
+//const helmet = require('helmet');
 
 const { SaveContact } = require('./src/utils/saveContacts');
 
@@ -30,7 +30,7 @@ const {
 
 const app = express();
 
-app.use(helmet());
+//app.use(helmet());
 
 app.use(morgan('combined'));
 
