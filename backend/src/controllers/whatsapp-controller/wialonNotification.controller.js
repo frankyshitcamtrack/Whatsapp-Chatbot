@@ -42,10 +42,11 @@ async function onSendWialonNotificationMultiple(req, res) {
   //custom wiallon notifications
 
   if (
-    wialonNotifContent.toLowerCase().includes(titleNotification[0]) ||
-    wialonNotifContent.toLowerCase().includes(titleNotification[1]) ||
-    wialonNotifContent.toLowerCase().includes(titleNotification[2]) ||
-    wialonNotifContent.toLowerCase().includes(titleNotification[3])
+    !wialonNotifContent.toLowerCase().includes('whatsapp') &&
+    (wialonNotifContent.toLowerCase().includes(titleNotification[0]) ||
+      wialonNotifContent.toLowerCase().includes(titleNotification[1]) ||
+      wialonNotifContent.toLowerCase().includes(titleNotification[2]) ||
+      wialonNotifContent.toLowerCase().includes(titleNotification[3]))
   ) {
     const vehicleImmat = wialonNotifContent
       .split(',')[0]
