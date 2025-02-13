@@ -69,7 +69,9 @@ async function onSendWialonNotificationMultiple(req, res) {
         }
       });
     }
-  } else {
+  }
+
+  if (wialonNotifContent.toLowerCase().includes('whatsapp')) {
     const getMessageAndExtractNumbers = getMessagesAndNumbers(wialonNotif);
     const message = getMessageAndExtractNumbers.message;
     const numbers = getMessageAndExtractNumbers.numbers;
