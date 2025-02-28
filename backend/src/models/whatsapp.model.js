@@ -1,7 +1,7 @@
-const axios = require("axios");
-const { developement } = require("../config/whatsappApi");
-const { formatMessage } = require("../utils/formatMessage");
-const { getYmaneListNumbers } = require("../services/ymane.list.number");
+const axios = require('axios');
+const { developement } = require('../config/whatsappApi');
+const { formatMessage } = require('../utils/formatMessage');
+const { getYmaneListNumbers } = require('../services/ymane.list.number');
 
 const token = developement.whatsapp_token;
 
@@ -10,14 +10,14 @@ const token = developement.whatsapp_token;
 async function verifyContacts(phoneArr) {
   try {
     return axios({
-      method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-      url: "https://whattsapi.camtrack.net:443/v1/contacts",
+      method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
+      url: 'https://whattsapi.camtrack.net:443/v1/contacts',
       data: {
-        blocking: "wait",
+        blocking: 'wait',
         contacts: phoneArr,
         force_check: true,
       },
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch (err) {
     console.log(err.message);
@@ -26,20 +26,20 @@ async function verifyContacts(phoneArr) {
 
 async function sendMessages(phone_number_id, phone, mes) {
   axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v20.0/" +
+      'https://graph.facebook.com/v20.0/' +
       phone_number_id +
-      "/messages?access_token=" +
+      '/messages?access_token=' +
       token,
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "text",
+      type: 'text',
       text: { preview_url: false, body: mes },
     },
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => {
       console.log(JSON.stringify(response.data));
@@ -52,20 +52,20 @@ async function sendMessages(phone_number_id, phone, mes) {
 async function sendInteraction(phone_number_id, phone, mes) {
   const message = formatMessage(mes);
   axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +
+      'https://graph.facebook.com/v12.0/' +
       phone_number_id +
-      "/messages?access_token=" +
+      '/messages?access_token=' +
       token,
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "interactive",
+      type: 'interactive',
       interactive: message,
     },
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => {
       console.log(JSON.stringify(response.data));
@@ -78,20 +78,20 @@ async function sendInteraction(phone_number_id, phone, mes) {
 async function sendLocation(phone_number_id, phone, mes) {
   const message = formatMessage(mes);
   axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +
+      'https://graph.facebook.com/v12.0/' +
       phone_number_id +
-      "/messages?access_token=" +
+      '/messages?access_token=' +
       token,
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "location",
+      type: 'location',
       location: message,
     },
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => {
       console.log(JSON.stringify(response.data));
@@ -103,22 +103,22 @@ async function sendLocation(phone_number_id, phone, mes) {
 
 async function sendMediaAudio(phone_number_id, phone, link) {
   axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +
+      'https://graph.facebook.com/v12.0/' +
       phone_number_id +
-      "/messages?access_token=" +
+      '/messages?access_token=' +
       token,
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "audio",
+      type: 'audio',
       audio: {
         link: link,
       },
     },
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => {
       console.log(JSON.stringify(response.data));
@@ -130,17 +130,17 @@ async function sendMediaAudio(phone_number_id, phone, link) {
 
 async function sendMediaVideo(phone_number_id, phone, link, message) {
   axios({
-    method: "POST",
+    method: 'POST',
     url:
-      "https://graph.facebook.com/v20.0/" +
+      'https://graph.facebook.com/v20.0/' +
       phone_number_id +
-      "/messages?access_token=" +
+      '/messages?access_token=' +
       token,
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "video",
+      type: 'video',
       video: {
         link: link,
         caption: message,
@@ -157,17 +157,17 @@ async function sendMediaVideo(phone_number_id, phone, link, message) {
 
 async function sendMediaImage(phone_number_id, phone, link, message) {
   axios({
-    method: "POST",
+    method: 'POST',
     url:
-      "https://graph.facebook.com/v20.0/" +
+      'https://graph.facebook.com/v20.0/' +
       phone_number_id +
-      "/messages?access_token=" +
+      '/messages?access_token=' +
       token,
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "image",
+      type: 'image',
       image: {
         link: link,
         caption: message,
@@ -184,22 +184,22 @@ async function sendMediaImage(phone_number_id, phone, link, message) {
 
 async function sendMediaDocument(phone_number_id, phone, link) {
   axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +
+      'https://graph.facebook.com/v12.0/' +
       phone_number_id +
-      "/messages?access_token=" +
+      '/messages?access_token=' +
       token,
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "document",
+      type: 'document',
       document: {
         link: link,
       },
     },
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => {
       console.log(JSON.stringify(response.data));
@@ -211,22 +211,22 @@ async function sendMediaDocument(phone_number_id, phone, link) {
 
 async function sendDocbyId(phone_number_id, phone, id) {
   axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +
+      'https://graph.facebook.com/v12.0/' +
       phone_number_id +
-      "/messages?access_token=" +
+      '/messages?access_token=' +
       token,
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "document",
+      type: 'document',
       document: {
         id: id,
       },
     },
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => {
       console.log(JSON.stringify(response.data));
@@ -238,22 +238,22 @@ async function sendDocbyId(phone_number_id, phone, id) {
 
 async function sendVidbyId(phone_number_id, phone, id) {
   axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +
+      'https://graph.facebook.com/v12.0/' +
       phone_number_id +
-      "/messages?access_token=" +
+      '/messages?access_token=' +
       token,
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "video",
+      type: 'video',
       video: {
         id: id,
       },
     },
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => {
       console.log(JSON.stringify(response.data));
@@ -265,22 +265,22 @@ async function sendVidbyId(phone_number_id, phone, id) {
 
 async function sendAudiobyId(phone_number_id, phone, id) {
   axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +
+      'https://graph.facebook.com/v12.0/' +
       phone_number_id +
-      "/messages?access_token=" +
+      '/messages?access_token=' +
       token,
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "audio",
+      type: 'audio',
       audio: {
         id: id,
       },
     },
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => {
       console.log(JSON.stringify(response.data));
@@ -292,51 +292,51 @@ async function sendAudiobyId(phone_number_id, phone, id) {
 
 async function sendMessageList(phone_number_id, phone) {
   axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
     url:
-      "https://graph.facebook.com/v12.0/" +
+      'https://graph.facebook.com/v12.0/' +
       phone_number_id +
-      "/messages?access_token=" +
+      '/messages?access_token=' +
       token,
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "interactive",
+      type: 'interactive',
       interactive: {
-        type: "list",
+        type: 'list',
         header: {
-          type: "text",
-          text: "test survey",
+          type: 'text',
+          text: 'test survey',
         },
         body: {
-          text: "a simple survey for test purpose",
+          text: 'a simple survey for test purpose',
         },
         action: {
-          button: "Take the survey",
+          button: 'Take the survey',
           sections: [
             {
-              title: "List of item",
+              title: 'List of item',
               rows: [
                 {
-                  id: "1",
-                  title: "item 1",
-                  description: "description item 1",
+                  id: '1',
+                  title: 'item 1',
+                  description: 'description item 1',
                 },
                 {
-                  id: "2",
-                  title: "item 2",
-                  description: "description item 2",
+                  id: '2',
+                  title: 'item 2',
+                  description: 'description item 2',
                 },
                 {
-                  id: "3",
-                  title: "item 3",
-                  description: "description item 3",
+                  id: '3',
+                  title: 'item 3',
+                  description: 'description item 3',
                 },
                 {
-                  id: "4",
-                  title: "item 4",
-                  description: "description item 4",
+                  id: '4',
+                  title: 'item 4',
+                  description: 'description item 4',
                 },
               ],
             },
@@ -344,7 +344,7 @@ async function sendMessageList(phone_number_id, phone) {
         },
       },
     },
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => {
       console.log(JSON.stringify(response.data));
@@ -354,27 +354,27 @@ async function sendMessageList(phone_number_id, phone) {
     });
 }
 
-//Send template notification ymane
+//Send template notification consent french version
 async function sendTemplateConsent(phone_number_id, phone) {
   return axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-    url: "https://graph.facebook.com/v20.0/" + phone_number_id + "/messages",
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
+    url: 'https://graph.facebook.com/v20.0/' + phone_number_id + '/messages',
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "template",
+      type: 'template',
       template: {
-        name: "opt_in_consent",
+        name: 'opt_in_consent',
         language: {
-          code: "fr",
+          code: 'fr',
         },
         components: [
           {
-            type: "body",
+            type: 'body',
             parameters: [
               {
-                type: "text",
+                type: 'text',
                 text: phone,
               },
             ],
@@ -384,7 +384,44 @@ async function sendTemplateConsent(phone_number_id, phone) {
     },
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
+    },
+  }).catch((error) => {
+    console.log(error.message);
+  });
+}
+
+//Send template notification consent english version
+async function sendTemplateConsentEn(phone_number_id, phone) {
+  return axios({
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
+    url: 'https://graph.facebook.com/v20.0/' + phone_number_id + '/messages',
+    data: {
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
+      to: phone,
+      type: 'template',
+      template: {
+        name: 'opt_in_consent_en',
+        language: {
+          code: 'en',
+        },
+        components: [
+          {
+            type: 'body',
+            parameters: [
+              {
+                type: 'text',
+                text: phone,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
     },
   }).catch((error) => {
     console.log(error.message);
@@ -395,24 +432,24 @@ async function sendTemplateConsent(phone_number_id, phone) {
 async function sendTemplateVideo(phone_number_id, phone, mes, link) {
   const message = formatMessage(mes);
   return axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-    url: "https://graph.facebook.com/v20.0/" + phone_number_id + "/messages",
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
+    url: 'https://graph.facebook.com/v20.0/' + phone_number_id + '/messages',
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "template",
+      type: 'template',
       template: {
-        name: "evidence_video",
+        name: 'evidence_video',
         language: {
-          code: "fr",
+          code: 'fr',
         },
         components: [
           {
-            type: "header",
+            type: 'header',
             parameters: [
               {
-                type: "video",
+                type: 'video',
                 video: {
                   link: link,
                 },
@@ -420,10 +457,10 @@ async function sendTemplateVideo(phone_number_id, phone, mes, link) {
             ],
           },
           {
-            type: "body",
+            type: 'body',
             parameters: [
               {
-                type: "text",
+                type: 'text',
                 text: message,
               },
             ],
@@ -433,7 +470,7 @@ async function sendTemplateVideo(phone_number_id, phone, mes, link) {
     },
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).catch((error) => {
     console.log(error.message);
@@ -444,24 +481,24 @@ async function sendTemplateVideo(phone_number_id, phone, mes, link) {
 async function sendUtilityTemplateImage(phone_number_id, phone, mes, link) {
   const message = formatMessage(mes);
   return axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-    url: "https://graph.facebook.com/v20.0/" + phone_number_id + "/messages",
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
+    url: 'https://graph.facebook.com/v20.0/' + phone_number_id + '/messages',
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "template",
+      type: 'template',
       template: {
-        name: "evidence_image",
+        name: 'evidence_image',
         language: {
-          code: "fr",
+          code: 'fr',
         },
         components: [
           {
-            type: "header",
+            type: 'header',
             parameters: [
               {
-                type: "image",
+                type: 'image',
                 image: {
                   link: link,
                 },
@@ -469,10 +506,10 @@ async function sendUtilityTemplateImage(phone_number_id, phone, mes, link) {
             ],
           },
           {
-            type: "body",
+            type: 'body',
             parameters: [
               {
-                type: "text",
+                type: 'text',
                 text: message,
               },
             ],
@@ -482,7 +519,7 @@ async function sendUtilityTemplateImage(phone_number_id, phone, mes, link) {
     },
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).catch((error) => {
     console.log(error.message);
@@ -493,24 +530,24 @@ async function sendUtilityTemplateImage(phone_number_id, phone, mes, link) {
 async function sendTemplateNotification(phone_number_id, phone, mes) {
   const message = formatMessage(mes);
   return axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-    url: "https://graph.facebook.com/v20.0/" + phone_number_id + "/messages",
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
+    url: 'https://graph.facebook.com/v20.0/' + phone_number_id + '/messages',
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "template",
+      type: 'template',
       template: {
-        name: "evidencemessage",
+        name: 'evidencemessage',
         language: {
-          code: "fr",
+          code: 'fr',
         },
         components: [
           {
-            type: "body",
+            type: 'body',
             parameters: [
               {
-                type: "text",
+                type: 'text',
                 text: message,
               },
             ],
@@ -520,7 +557,7 @@ async function sendTemplateNotification(phone_number_id, phone, mes) {
     },
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).catch((error) => {
     console.log(error.message);
@@ -533,24 +570,24 @@ async function sendWialonTemplateNotification(phone_number_id, phone, message) {
   const stringPhone = phone.toString();
   const number = `+${stringPhone}`;
   return axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-    url: "https://graph.facebook.com/v20.0/" + phone_number_id + "/messages",
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
+    url: 'https://graph.facebook.com/v20.0/' + phone_number_id + '/messages',
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: number,
-      type: "template",
+      type: 'template',
       template: {
-        name: "camtrack_notifications",
+        name: 'camtrack_notifications',
         language: {
-          code: "en",
+          code: 'en',
         },
         components: [
           {
-            type: "body",
+            type: 'body',
             parameters: [
               {
-                type: "text",
+                type: 'text',
                 text: mes,
               },
             ],
@@ -560,7 +597,7 @@ async function sendWialonTemplateNotification(phone_number_id, phone, message) {
     },
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).catch((error) => {
     console.log(error.message);
@@ -571,24 +608,24 @@ async function sendWialonTemplateNotification(phone_number_id, phone, message) {
 async function sendTemplateMarketingImage(phone_number_id, phone, mes, link) {
   const message = formatMessage(mes);
   return axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-    url: "https://graph.facebook.com/v20.0/" + phone_number_id + "/messages",
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
+    url: 'https://graph.facebook.com/v20.0/' + phone_number_id + '/messages',
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "template",
+      type: 'template',
       template: {
-        name: "marketing_bulk",
+        name: 'marketing_bulk',
         language: {
-          code: "en",
+          code: 'en',
         },
         components: [
           {
-            type: "header",
+            type: 'header',
             parameters: [
               {
-                type: "image",
+                type: 'image',
                 image: {
                   link: link,
                 },
@@ -596,10 +633,10 @@ async function sendTemplateMarketingImage(phone_number_id, phone, mes, link) {
             ],
           },
           {
-            type: "body",
+            type: 'body',
             parameters: [
               {
-                type: "text",
+                type: 'text',
                 text: message,
               },
             ],
@@ -609,7 +646,7 @@ async function sendTemplateMarketingImage(phone_number_id, phone, mes, link) {
     },
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).catch((error) => {
     console.log(error.message);
@@ -620,24 +657,24 @@ async function sendTemplateMarketingImage(phone_number_id, phone, mes, link) {
 async function sendTemplateMatketingVideo(phone_number_id, phone, mes, link) {
   const message = formatMessage(mes);
   return axios({
-    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-    url: "https://graph.facebook.com/v20.0/" + phone_number_id + "/messages",
+    method: 'POST', // Required, HTTP method, a string, e.g. POST, GET
+    url: 'https://graph.facebook.com/v20.0/' + phone_number_id + '/messages',
     data: {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: phone,
-      type: "template",
+      type: 'template',
       template: {
-        name: "bulk_video",
+        name: 'bulk_video',
         language: {
-          code: "en",
+          code: 'en',
         },
         components: [
           {
-            type: "header",
+            type: 'header',
             parameters: [
               {
-                type: "video",
+                type: 'video',
                 video: {
                   link: link,
                 },
@@ -645,10 +682,10 @@ async function sendTemplateMatketingVideo(phone_number_id, phone, mes, link) {
             ],
           },
           {
-            type: "body",
+            type: 'body',
             parameters: [
               {
-                type: "text",
+                type: 'text',
                 text: message,
               },
             ],
@@ -658,7 +695,7 @@ async function sendTemplateMatketingVideo(phone_number_id, phone, mes, link) {
     },
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).catch((error) => {
     console.log(error.message);
@@ -690,7 +727,7 @@ async function sendTemplateImageMultiple(phone_number_id, arr, mes, link) {
 
 //ymane multiple messages notifications
 async function sendTemplateNotificationMultiple(phone_number_id, arr, mes) {
-  const message = mes.replace(/\r?\\n|\r/g, "\n");
+  const message = mes.replace(/\r?\\n|\r/g, '\n');
   arr.map(async (item) => {
     if (item) {
       //console.log(item);
@@ -745,4 +782,5 @@ module.exports = {
   verifyContacts,
   sendTemplateConsent,
   ymaneListNumbers,
+  sendTemplateConsentEn,
 };
