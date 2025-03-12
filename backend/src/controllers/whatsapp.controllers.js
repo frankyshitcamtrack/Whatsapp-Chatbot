@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path');
 const {
   sendMessages,
   sendTemplateConsent,
@@ -12,14 +12,15 @@ const {
   sendTemplateVideoMultiple,
   verifyContacts,
   ymaneListNumbers,
-} = require("../models/whatsapp.model");
+  sendTemplateConsentEn,
+} = require('../models/whatsapp.model');
 
-const { getWialonContacts } = require("../models/wialon.model");
-const { phoneFormat, formatArrPhones } = require("../utils/fortmat-phone");
-const { developement } = require("../config/whatsappApi");
-const { downloadVideo } = require("../utils/download");
-const { downloadImage } = require("../utils/downloadImg");
-const { v4: uuidv4 } = require("uuid");
+const { getWialonContacts } = require('../models/wialon.model');
+const { phoneFormat, formatArrPhones } = require('../utils/fortmat-phone');
+const { developement } = require('../config/whatsappApi');
+const { downloadVideo } = require('../utils/download');
+const { downloadImage } = require('../utils/downloadImg');
+const { v4: uuidv4 } = require('uuid');
 
 const phoneID = developement.phone_number_id;
 
@@ -36,8 +37,8 @@ async function onVerifyContacts(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error("error of: ", error); // print the error to console
-    return res.status(500).send("Post received, but we have an error!");
+    console.error('error of: ', error); // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
   }
 }
 
@@ -49,16 +50,16 @@ async function onVerification(req, res) {
   const verify_token = process.env.VERIFY_TOKEN;
 
   // Parse params from the webhook verification request
-  let mode = req.query["hub.mode"];
-  let token = req.query["hub.verify_token"];
-  let challenge = req.query["hub.challenge"];
+  let mode = req.query['hub.mode'];
+  let token = req.query['hub.verify_token'];
+  let challenge = req.query['hub.challenge'];
 
   // Check if a token and mode were sent
   if (mode && token) {
     // Check the mode and token sent are correct
-    if (mode === "subscribe" && token === verify_token) {
+    if (mode === 'subscribe' && token === verify_token) {
       // Respond with 200 OK and challenge token from the request
-      console.log("WEBHOOK_VERIFIED");
+      console.log('WEBHOOK_VERIFIED');
       res.status(200).send(challenge);
     } else {
       // Responds with '403 Forbidden' if verify tokens do not match
@@ -69,7 +70,7 @@ async function onVerification(req, res) {
 
 //sent consent message
 async function onSendConsentSingle(req, res) {
-  console.log("sending consent message");
+  console.log('sending consent message');
   try {
     const phoneID = developement.phone_number_id;
     const phone = phoneFormat(req.body.phone);
@@ -80,8 +81,8 @@ async function onSendConsentSingle(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error("error of: ", error); // print the error to console
-    return res.status(500).send("Post received, but we have an error!");
+    console.error('error of: ', error); // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
   }
 }
 
@@ -90,7 +91,7 @@ async function onSendNotification(req, res) {
     const phoneID = developement.phone_number_id;
     const phone = phoneFormat(req.body.phone);
     const message = req.body.message;
-    const me = message.replace(/\r?\\n|\r/g, "\n");
+    const me = message.replace(/\r?\\n|\r/g, '\n');
 
     if (phoneID && phone && message) {
       await sendMessages(phoneID, phone, me);
@@ -99,8 +100,8 @@ async function onSendNotification(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error("error of: ", error); // print the error to console
-    return res.status(500).send("Post received, but we have an error!");
+    console.error('error of: ', error); // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
   }
 }
 
@@ -118,8 +119,8 @@ async function onSendEvidence(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error("error of: ", error); // print the error to console
-    return res.status(500).send("Post received, but we have an error!");
+    console.error('error of: ', error); // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
   }
 }
 
@@ -135,8 +136,8 @@ async function onSendImage(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error("error of: ", error); // print the error to console
-    return res.status(500).send("Post received, but we have an error!");
+    console.error('error of: ', error); // print the error to console
+    return res.status(500).send('Post received, but we have an error!');
   }
 }
 
@@ -147,7 +148,7 @@ async function onSendTemplateImage(req, res) {
     const message = req.body.message;
     const img = req.body.link;
     const protocol = req.protocol;
-    const hostname = req.get("host");
+    const hostname = req.get('host');
     const fullUrl = `${protocol}://${hostname}`;
     const downloadImId = uuidv4();
     const downloadPath = `public/assets/evidence/${downloadImId}.jpg`;
@@ -161,8 +162,8 @@ async function onSendTemplateImage(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error("error of: ", error);
-    return res.status(500).send("Post received, but we have an error!");
+    console.error('error of: ', error);
+    return res.status(500).send('Post received, but we have an error!');
   }
 }
 
@@ -177,8 +178,8 @@ async function onSendTemplateNotification(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error("error of: ", error);
-    return res.status(500).send("Post received, but we have an error!");
+    console.error('error of: ', error);
+    return res.status(500).send('Post received, but we have an error!');
   }
 }
 
@@ -189,7 +190,7 @@ async function onSendTemplateVideo(req, res) {
     const message = req.body.message;
     const url = req.body.link;
     const protocol = req.protocol;
-    const hostname = req.get("host");
+    const hostname = req.get('host');
     const fullUrl = `${protocol}://${hostname}`;
     const downloadVidId = uuidv4();
     const downloadPath = path.resolve(
@@ -205,8 +206,8 @@ async function onSendTemplateVideo(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error("error of: ", error);
-    return res.status(500).send("Post received, but we have an error!");
+    console.error('error of: ', error);
+    return res.status(500).send('Post received, but we have an error!');
   }
 }
 
@@ -221,7 +222,7 @@ async function onSendTemplateImageMultiple(req, res) {
 
     const img = req.body.link;
     const protocol = req.protocol;
-    const hostname = req.get("host");
+    const hostname = req.get('host');
     const fullUrl = `${protocol}://${hostname}`;
 
     const downloadImId = uuidv4();
@@ -238,8 +239,8 @@ async function onSendTemplateImageMultiple(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error("error of: ", error);
-    return res.status(500).send("Post received, but we have an error!");
+    console.error('error of: ', error);
+    return res.status(500).send('Post received, but we have an error!');
   }
 }
 
@@ -251,7 +252,7 @@ async function onSendTemplateVideoMultiple(req, res) {
 
     const url = req.body.link;
     const protocol = req.protocol;
-    const hostname = req.get("host");
+    const hostname = req.get('host');
     const fullUrl = `${protocol}://${hostname}`;
 
     const downloadVidId = uuidv4();
@@ -271,8 +272,8 @@ async function onSendTemplateVideoMultiple(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error("error of: ", error);
-    return res.status(500).send("Post received, but we have an error!");
+    console.error('error of: ', error);
+    return res.status(500).send('Post received, but we have an error!');
   }
 }
 
@@ -288,20 +289,23 @@ async function onSendTemplateNotificationMultiple(req, res) {
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error("error of: ", error);
-    return res.status(500).send("Post received, but we have an error!");
+    console.error('error of: ', error);
+    return res.status(500).send('Post received, but we have an error!');
   }
 }
 
 //sent consent message template function
 async function onSendConsent() {
-  console.log("sending consent...");
+  console.log('sending consent...');
   const numbers = await ymaneListNumbers();
   const wialonContacts = await getWialonContacts();
   if (numbers.length > 0) {
     numbers.map(async (item) => {
-      if (item) {
-        await sendTemplateConsent(phoneID, item);
+      if (item && item.lang === 1) {
+        await sendTemplateConsent(phoneID, item.phone);
+      }
+      if (item && item.lang === 2) {
+        await sendTemplateConsentEn(phoneID, item.phone);
       }
     });
 
