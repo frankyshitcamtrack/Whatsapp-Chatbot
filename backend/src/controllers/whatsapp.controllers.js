@@ -301,10 +301,10 @@ async function onSendConsent() {
   const wialonContacts = await getWialonContacts();
   if (numbers.length > 0) {
     numbers.map(async (item) => {
-      if (item && item.lang === 1) {
+      if (item && item.lang === 2) {
         await sendTemplateConsent(phoneID, item.phone);
       }
-      if (item && item.lang === 2) {
+      if (item && item.lang === 1) {
         await sendTemplateConsentEn(phoneID, item.phone);
       }
     });
